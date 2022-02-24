@@ -9,14 +9,9 @@ Description
 It's a group of tools/classes/SDKs that can be help you to implement scripts into Layrz modules, or
 incorporate them into your own projects.
 
-
-Notes
-~~~~~
-Soon we will deploy the first version of the SDKs and classes to help you to test locally the data to
-implement it in charts, sensors, triggers, and other Layrz Modules.
-
-Also, we will document all the classes and methods in the SDKs in code (To be used with your code editor) and
-in a `Developer site <https://developers.layrz.com>`_.
+Documentation
+~~~~~~~~~~~~~
+It's available in our documentation site `developers.layrz.com <https://developers.layrz.com/Kits/Sdk>`_
 
 Work with us
 ~~~~~~~~~~~~
