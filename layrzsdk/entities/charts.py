@@ -5,7 +5,7 @@ class ChartDataType(Enum):
   """
   Chart Data Type
   """
-  STING = 'string'
+  STRING = 'string'
   DATETIME = 'datetime'
   NUMBER = 'number'
 
