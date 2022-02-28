@@ -221,6 +221,7 @@ class ColumnChart:
       'colors': colors,
       'xaxis': {
         'categories': self.__x_axis.data,
+        'type': self.__x_axis.data_type.value,
         'title': {
           'text': self.__x_axis.label
         }
