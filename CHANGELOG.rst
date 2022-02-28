@@ -2,6 +2,10 @@
 Changelog
 =========
 
+v1.0.6
+~~~~~~
+* Fixed STING to STRING bug in ChartDataType enum
+
 v1.0.5
 ~~~~~~
 * Bug fixes
