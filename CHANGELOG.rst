@@ -2,6 +2,10 @@
 Changelog
 =========
 
+v1.0.7
+~~~~~~
+* Added PieChart, BarChart, and RadialBarChart entities
+
 v1.0.6
 ~~~~~~
 * Fixed STING to STRING bug in ChartDataType enum
