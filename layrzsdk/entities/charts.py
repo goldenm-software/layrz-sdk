@@ -1,12 +1,20 @@
 """ Charts entities """
 from enum import Enum
 
+class ChartDataType(Enum):
+  """
+  Chart Data Type
+  """
+  STING = 'string'
+  DATETIME = 'datetime'
+  NUMBER = 'number'
+
 class ChartDataSerie:
   """
   Chart Serie
   """
 
-  def __init__(self, data, color, label):
+  def __init__(self, data, color, label, data_type=ChartDataType.NUMBER):
     """
     Constructor
 
@@ -16,9 +24,6 @@ class ChartDataSerie:
       color str: Color of the serie.
       label str: Label of the serie.
     """
-    for i, datum in enumerate(data):
-      if not isinstance(datum, (int, float, bool)):
-        raise ChartException(f'Data point {i} must be an instance of int, float or bool')
     self.__data = data
 
     if not isinstance(color, str):
@@ -28,6 +33,10 @@ class ChartDataSerie:
     if not isinstance(label, str):
       raise ChartException('label must be an instance of str')
     self.__label = label
+
+    if not isinstance(data_type, ChartDataType):
+      raise ChartException('data_type must be an instance of ChartDataType')
+    self.__data_type = data_type
 
   @property
   def data(self):
@@ -43,6 +52,11 @@ class ChartDataSerie:
   def label(self):
     """ Label of the serie """
     return self.__label
+
+  @property
+  def data_type(self):
+    """ Data type of the serie """
+    return self.__data_type
 
 class ChartAlignment(Enum):
   """
