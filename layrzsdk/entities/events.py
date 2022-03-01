@@ -1,4 +1,5 @@
 """ Events entitites """
+
 class Trigger:
   """
   Trigger entity definition
