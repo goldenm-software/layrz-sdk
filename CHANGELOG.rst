@@ -2,6 +2,10 @@
 Changelog
 =========
 
+v1.0.8
+~~~~~~
+* Added title getter of all charts entities
+
 v1.0.7
 ~~~~~~
 * Added PieChart, BarChart, and RadialBarChart entities
