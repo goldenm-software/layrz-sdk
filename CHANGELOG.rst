@@ -1,6 +1,8 @@
 =========
 Changelog
 =========
+v1.0.14
+* Added CONTAINS, STARTS_WITH, ENDS_WITH functions to the Layrz Computed Language
 
 v1.0.13
 ~~~~~~~
