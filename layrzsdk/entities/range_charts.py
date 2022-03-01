@@ -45,6 +45,11 @@ class AreaChart:
     return self.__y_axis
 
   @property
+  def title(self):
+    """ Title of the chart """
+    return self.__title
+
+  @property
   def to_apexcharts(self):
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
@@ -124,6 +129,11 @@ class LineChart:
     return self.__y_axis
 
   @property
+  def title(self):
+    """ Title of the chart """
+    return self.__title
+
+  @property
   def to_apexcharts(self):
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
@@ -201,6 +211,11 @@ class ColumnChart:
   def y_axis(self):
     """ Y Axis of the chart """
     return self.__y_axis
+
+  @property
+  def title(self):
+    """ Title of the chart """
+    return self.__title
 
   @property
   def to_apexcharts(self):
@@ -287,6 +302,11 @@ class BarChart:
   def y_axis(self):
     """ Y Axis of the chart """
     return self.__y_axis
+
+  @property
+  def title(self):
+    """ Title of the chart """
+    return self.__title
 
   @property
   def to_apexcharts(self):

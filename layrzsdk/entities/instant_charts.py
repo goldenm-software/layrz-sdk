@@ -34,6 +34,11 @@ class PieChart:
     return self.__series
 
   @property
+  def title(self):
+    """ Title of the chart """
+    return self.__title
+
+  @property
   def to_apexcharts(self):
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
@@ -93,6 +98,11 @@ class RadialBarChart:
   def series(self):
     """ Series of the chart """
     return self.__series
+
+  @property
+  def title(self):
+    """ Title of the chart """
+    return self.__title
 
   @property
   def to_apexcharts(self):
