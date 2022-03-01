@@ -2,16 +2,20 @@
 Changelog
 =========
 
+v1.0.13
+~~~~~~~
+* Fixed missing import into `layrzsdk.entities.__init__.py`
+
 v1.0.12
-~~~~~~
+~~~~~~~
 * Added Geofence, Comment, Waypoint and Checkpoint entities
 
 v1.0.11
-~~~~~~
+~~~~~~~
 * Added User, Comment and Case entities
 
 v1.0.10
-~~~~~~
+~~~~~~~
 * Fixes
 
 v1.0.9

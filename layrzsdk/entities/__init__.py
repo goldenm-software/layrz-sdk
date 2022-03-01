@@ -8,6 +8,7 @@ from .custom_field import CustomField
 from .message import Position, Message
 from .events import Event, Trigger
 from .cases import User, Comment, Case
+from .checkpoints import Geofence, Waypoint, Checkpoint
 
 # Charta entities
 from .range_charts import LineChart, AreaChart, ColumnChart, BarChart
