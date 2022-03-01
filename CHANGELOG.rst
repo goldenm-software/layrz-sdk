@@ -2,6 +2,10 @@
 Changelog
 =========
 
+v1.0.10
+~~~~~~
+* Fixes
+
 v1.0.9
 ~~~~~~
 * Added Event and Trigger entities

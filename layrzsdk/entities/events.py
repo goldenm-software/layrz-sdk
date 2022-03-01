@@ -52,16 +52,16 @@ class Event:
   --------------------
     pk (int): Event ID
     trigger (Trigger): Trigger object that triggered the event
-    asset (Asset): Asset owner of the event
+    asset_id (Asset): ID of the Asset owner of the event
     message (Message): Telemetry information of the event
     activated_at (datetime): Reception/triggered at
   """
   
-  def __init__(self, pk, trigger, asset, message, activated_at):
+  def __init__(self, pk, trigger, asset_id, message, activated_at):
     """ Constructor """
     self.__pk = pk
     self.__trigger = trigger
-    self.__asset = asset
+    self.__asset_id = asset_id
     self.__message = message
     self.__activated_at = activated_at
   
@@ -76,9 +76,9 @@ class Event:
     return self.__trigger
   
   @property
-  def asset(self):
+  def asset_id(self):
     """ Asset owner of the event """
-    return self.__asset
+    return self.__asset_id
   
   @property
   def message(self):
@@ -93,7 +93,7 @@ class Event:
   @property
   def __readable(self):
     """ Readable """
-    return f'Event(pk={self.__pk}, trigger={self.__trigger}, asset={self.__asset}, message={self.__message}, activated_at={self.__activated_at})'
+    return f'Event(pk={self.__pk}, trigger={self.__trigger}, asset_id={self.__asset_id}, message={self.__message}, activated_at={self.__activated_at})'
   
   def __str__(self):
     """ Readable property """
