@@ -76,7 +76,10 @@ class Language:
         'IF': self.IF,
         'REGEX': self.REGEX,
         'IS_NONE': self.IS_NONE,
-        'NOT': self.NOT
+        'NOT': self.NOT,
+        'CONTAINS': self.CONTAINS,
+        'STARTS_WITH': self.STARTS_WITH,
+        'ENDS_WITH': self.ENDS_WITH
       }
 
       if not ignore_signal:
@@ -699,3 +702,33 @@ class Language:
       )
 
     return not args[0]
+
+  def CONTAINS(self, *args):
+    """ CONTAINS function """
+    if len(args) != 2:
+      return INVALID_NUMBER_OF_PARAMS.format(
+        expected=2,
+        received=len(args)
+      )
+
+    return str(args[0]) in str(args[1])
+
+  def STARTS_WITH(self, *args):
+    """ STARTS_WITH function """
+    if len(args) != 2:
+      return INVALID_NUMBER_OF_PARAMS.format(
+        expected=2,
+        received=len(args)
+      )
+
+    return str(args[1]).startswith(str(args[0]))
+
+  def ENDS_WITH(self, *args):
+    """ ENDS_WITH function """
+    if len(args) != 2:
+      return INVALID_NUMBER_OF_PARAMS.format(
+        expected=2,
+        received=len(args)
+      )
+
+    return str(args[1]).endswith(str(args[0]))
