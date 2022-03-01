@@ -2,6 +2,11 @@
 Changelog
 =========
 
+v1.0.9
+~~~~~~
+* Added Event and Trigger entities
+* Renamed file `mesage.py` to `message.py`
+
 v1.0.8
 ~~~~~~
 * Added title getter of all charts entities
