@@ -2,6 +2,10 @@
 Changelog
 =========
 
+v1.0.11
+~~~~~~
+* Added User, Comment and Case entities
+
 v1.0.10
 ~~~~~~
 * Fixes
