@@ -108,6 +108,19 @@ class Asset:
     """ Sensors """
     return self.__sensors
 
+  @property
+  def __readable(self):
+    """ Readable """
+    return f'Asset(pk={self.__pk}, name="{self.__name}", vin="{self.__vin}", plate="{self.__plate}", asset_type={self.__asset_type}, operation_mode={self.__operation_mode}, custom_fields={self.__custom_fields}, children={self.__children}, sensors={self.__sensors})'
+
+  def __str__(self):
+    """ Readable property """
+    return self.__readable
+
+  def __repr__(self):
+    """ Readable property """
+    return self.__readable
+
 class Sensor:
   """
   Sensor entity
