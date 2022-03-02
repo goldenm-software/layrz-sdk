@@ -30,11 +30,6 @@ class ScatterSerieItem:
     """ Y value """
     return self.__y
 
-  @property
-  def color(self):
-    """ Color of the item """
-    return self.__color
-
 class ScatterSerie:
   """
   Chart Data Serie for Timeline charts
@@ -48,8 +43,6 @@ class ScatterSerie:
       data list(ScatterSerieItem): List of data points.
       color str: Color of the serie.
       label str: Label of the serie.
-      serie_type ChartDataSerieType: Type of the serie. Only used for mixed range charts.
-      data_type ChartDataType: Type of the data.
     """
     self.__data = data
 
@@ -131,13 +124,16 @@ class ScatterChart:
     colors = []
 
     for serie in self.__series:
-      data = [(item.x, item.y) for item in serie.data]
+      data = []
+
+      for item in serie.data:
+        data.append([item.x, item.y])
+
       series.append({
         'name': serie.label,
         'data': data,
         'type': serie.serie_type.value,
       })
-      series.append(series)
       colors.append(serie.color)
 
     config = {
