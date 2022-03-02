@@ -2,6 +2,11 @@
 Changelog
 =========
 
+v1.1.0
+~~~~~~~
+* Reorganized files
+* Added new Charts entities
+
 v1.0.13
 ~~~~~~~
 * Fixed missing import into `layrzsdk.entities.__init__.py`
