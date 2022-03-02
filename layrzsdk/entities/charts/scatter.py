@@ -144,7 +144,7 @@ class ScatterChart:
         'align': self.__align.value
       },
       'chart': {
-        'type': 'radialBar'
+        'type': 'scatter'
       }
     }
 

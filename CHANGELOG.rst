@@ -2,6 +2,10 @@
 Changelog
 =========
 
+v1.1.3
+~~~~~~
+* Bug fixes
+
 v1.1.2
 ~~~~~~
 * Bug fixes
