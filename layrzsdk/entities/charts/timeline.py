@@ -145,8 +145,8 @@ class TimelineChart:
         data.append({
           'x': item.name,
           'y': [
-            item.start_at.strftime('%Y-%m-%d %H:%M'),
-            item.end_at.strftime('%Y-%m-%d %H:%M')
+            item.start_at.timestamp() * 1000,
+            item.end_at.timestamp() * 1000
           ],
           'fillColor': item.color
         })
@@ -164,6 +164,9 @@ class TimelineChart:
       },
       'chart': {
         'type': 'rangeBar'
+      },
+      'xaxis': {
+        'type': 'datetime'
       },
       'plotOptions': {
         'bar': {
