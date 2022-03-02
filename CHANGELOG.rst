@@ -3,9 +3,13 @@ Changelog
 =========
 
 v1.1.0
-~~~~~~~
+~~~~~~
 * Reorganized files
 * Added new Charts entities
+
+v1.0.14
+~~~~~~~
+* Added CONTAINS, STARTS_WITH, ENDS_WITH functions to the Layrz Computed Language
 
 v1.0.13
 ~~~~~~~
