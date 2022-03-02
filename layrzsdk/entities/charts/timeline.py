@@ -144,7 +144,10 @@ class TimelineChart:
       for item in serie.data:
         data.append({
           'x': item.name,
-          'y': [item.start_at.timestamp() * 1000, item.end_at.timestamp() * 1000],
+          'y': [
+            item.start_at.strftime('%Y-%m-%d %H:%M'),
+            item.end_at.strftime('%Y-%m-%d %H:%M')
+          ],
           'fillColor': item.color
         })
 
