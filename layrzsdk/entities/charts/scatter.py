@@ -134,7 +134,6 @@ class ScatterChart:
         'data': data,
         'type': serie.serie_type.value,
       })
-      series.append(series)
       colors.append(serie.color)
 
     config = {
