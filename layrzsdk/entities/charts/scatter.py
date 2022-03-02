@@ -43,8 +43,6 @@ class ScatterSerie:
       data list(ScatterSerieItem): List of data points.
       color str: Color of the serie.
       label str: Label of the serie.
-      serie_type ChartDataSerieType: Type of the serie. Only used for mixed range charts.
-      data_type ChartDataType: Type of the data.
     """
     self.__data = data
 
