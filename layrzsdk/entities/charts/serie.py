@@ -34,7 +34,7 @@ class ChartDataSerie:
       raise ChartException('data_type must be an instance of ChartDataType')
     self.__data_type = data_type
 
-    if not isinstance(serie_type, (None, ChartDataSerieType)):
+    if not isinstance(serie_type, ChartDataSerieType):
       raise ChartException('serie_type must be an instance of ChartDataSerieType')
     self.__serie_type = serie_type or ChartDataSerieType.NONE
 
