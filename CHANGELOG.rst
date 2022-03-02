@@ -2,6 +2,10 @@
 Changelog
 =========
 
+v1.1.1
+~~~~~~
+* Bug fixes
+
 v1.1.0
 ~~~~~~
 * Reorganized files

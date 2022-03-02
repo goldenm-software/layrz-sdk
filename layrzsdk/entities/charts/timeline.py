@@ -161,6 +161,11 @@ class TimelineChart:
       },
       'chart': {
         'type': 'rangeBar'
+      },
+      'plotOptions': {
+        'bar': {
+          'horizontal': True,
+        }
       }
     }
 
