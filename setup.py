@@ -6,7 +6,7 @@ def read(filename):
 
 setuptools.setup(
   name="layrz-sdk",
-  version="1.1.4",
+  version="1.2.0",
   author="Layrz",
   author_email="software@layrz.com",
   url='https://gitlab.com/layrz-software/libraries/layrz-sdk',
@@ -22,8 +22,7 @@ setuptools.setup(
   ],
   install_requires=[
     'requests',
-    'pytz',
-    'astroid'
+    'pytz'
   ],
   python_requires='>=3.8'
 )

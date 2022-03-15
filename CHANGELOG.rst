@@ -1,6 +1,11 @@
 =========
 Changelog
 =========
+
+v1.2.0
+~~~~~~
+* Added reports entities
+
 v1.1.4
 ~~~~~~
 * Bug fixes

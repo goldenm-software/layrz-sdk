@@ -15,6 +15,10 @@ from .comment import Comment
 from .checkpoint import Checkpoint
 from .geofence import Geofence
 from .waypoint import Waypoint
+from .text_align import TextAlignment
 
-# Charta entities
+# Charts entities
 from .charts import *
+
+# Reports entities
+from .reports import *
