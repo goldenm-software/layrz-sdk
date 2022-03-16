@@ -9,7 +9,7 @@ from .message import Message
 from .position import Position
 from .event import Event
 from .trigger import Trigger
-from .case import Case
+from .case import Case, CaseStatus
 from .user import User
 from .comment import Comment
 from .checkpoint import Checkpoint

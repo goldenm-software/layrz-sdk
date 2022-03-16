@@ -2,6 +2,10 @@
 Changelog
 =========
 
+v1.2.2
+~~~~~~
+* Updated Report Col entity to set new default values
+
 v1.2.1
 ~~~~~~
 * Added Report Col entity
