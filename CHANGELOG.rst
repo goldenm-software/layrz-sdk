@@ -2,6 +2,10 @@
 Changelog
 =========
 
+v1.2.1
+~~~~~~
+* Added Report Col entity
+
 v1.2.0
 ~~~~~~
 * Added reports entities
