@@ -24,7 +24,7 @@ class Case:
     status (CaseStatus): Case status
   """
 
-  def __init__(self, pk, trigger, asset_id, comments, opened_at, closed_at, status=CaseStatus.CLOSED):
+  def __init__(self, pk, trigger, asset_id, opened_at, closed_at, comments=[], status=CaseStatus.CLOSED):
     """ Constructor """
     self.__pk = pk
     self.__trigger = trigger
