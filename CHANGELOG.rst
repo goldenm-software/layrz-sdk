@@ -2,6 +2,14 @@
 Changelog
 =========
 
+v1.2.2
+~~~~~~
+* Updated ReportCol entity to set new default values
+* New entity ReportDataType
+* Possibility to export directly to the Report class
+* Re-organized entities/ folder
+* Added Broadcasts entities 
+
 v1.2.1
 ~~~~~~
 * Added Report Col entity

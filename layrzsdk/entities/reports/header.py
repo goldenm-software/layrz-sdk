@@ -1,5 +1,5 @@
 """ Report header """
-from ..text_align import TextAlignment
+from ..formatting.text_align import TextAlignment
 
 class ReportHeader:
   """
@@ -7,28 +7,23 @@ class ReportHeader:
 
   Available attributes
   --------------------
-    label (str): Display name
-    size (tuple(float, float)): Size (width, height) of the cell, in points (pt)
+    content (str): Display name
+    width (float): Column width in points (pt)
     color (str): Cell color
     text_color (str): Text color
     align (TextAlignment): Text Alignment
   """
-  def __init__(self, label, size, color, text_color, align=TextAlignment.CENTER):
-    self.__label = label
-    self.__size = size
+  def __init__(self, content, width=10, color='#ffffff', text_color='#000000', align=TextAlignment.CENTER):
+    self.__content = content
+    self.__width = width
     self.__color = color
     self.__text_color = text_color
     self.__align = align
 
   @property
-  def label(self):
+  def content(self):
     """ Display name """
-    return self.__label
-
-  @property
-  def size(self):
-    """ Size (width, height) of the cell, in points (pt) """
-    return self.__size
+    return self.__content
 
   @property
   def color(self):
@@ -45,10 +40,15 @@ class ReportHeader:
     """ Text Alignment """
     return self.__align
 
+  @property
+  def width(self):
+    """ Column width in points (pt) """
+    return self.__width
+
   def __str__(self):
     """ Readable property """
-    return f'ReportHeader(label={self.label}, size={self.size}, color={self.color}, text_color={self.text_color}, align={self.align})'
+    return f'ReportHeader(content={self.content}, width={self.width}, color={self.color}, text_color={self.text_color}, align={self.align})'
 
   def __repr__(self):
     """ Readable property """
-    return f'ReportHeader(label={self.label}, size={self.size}, color={self.color}, text_color={self.text_color}, align={self.align})'
+    return f'ReportHeader(content={self.content}, width={self.width}, color={self.color}, text_color={self.text_color}, align={self.align})'

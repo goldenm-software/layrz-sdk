@@ -10,7 +10,7 @@ class ReportFormat(Enum):
   @property
   def __readable(self):
     """ Readable """
-    return self.value
+    return f'ReportFormat.{self.value}'
 
   def __str__(self):
     """ Readable property """

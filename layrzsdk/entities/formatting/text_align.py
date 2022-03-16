@@ -1,7 +1,7 @@
 """ Text alignment """
 from enum import Enum
 
-class TextAlignment:
+class TextAlignment(Enum):
   """ Text alignment enum definition """
   CENTER = 'center'
   LEFT = 'left'

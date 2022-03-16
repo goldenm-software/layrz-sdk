@@ -6,7 +6,7 @@ def read(filename):
 
 setuptools.setup(
   name="layrz-sdk",
-  version="1.2.1",
+  version="1.2.2",
   author="Layrz",
   author_email="software@layrz.com",
   url='https://gitlab.com/layrz-software/libraries/layrz-sdk',
@@ -22,7 +22,8 @@ setuptools.setup(
   ],
   install_requires=[
     'requests',
-    'pytz'
+    'pytz',
+    'xlsxwriter'
   ],
   python_requires='>=3.8'
 )

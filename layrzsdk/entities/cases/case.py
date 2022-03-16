@@ -1,5 +1,14 @@
 """ Events entitites """
 
+from enum import Enum
+
+
+class CaseStatus(Enum):
+  """ Case status enum """
+  PENDING = 'PENDING'
+  FOLLOWING = 'FOLLOWING'
+  CLOSED = 'CLOSED'
+
 class Case:
   """
   Case entity definition
@@ -12,9 +21,10 @@ class Case:
     comments list(Comment): List of comments submitted when the case was opened.
     opened_at (datetime): Date of case opening
     closed_at (datetime): Date of case closing
+    status (CaseStatus): Case status
   """
 
-  def __init__(self, pk, trigger, asset_id, comments, opened_at, closed_at):
+  def __init__(self, pk, trigger, asset_id, opened_at, closed_at=None, comments=[], status=CaseStatus.CLOSED):
     """ Constructor """
     self.__pk = pk
     self.__trigger = trigger
@@ -22,6 +32,7 @@ class Case:
     self.__comments = comments
     self.__opened_at = opened_at
     self.__closed_at = closed_at
+    self.__status = status
   
   @property
   def pk(self):
@@ -52,6 +63,11 @@ class Case:
   def closed_at(self):
     """ Date of case closing """
     return self.__closed_at
+
+  @property
+  def status(self):
+    """ Status """
+    return self.__status
 
   @property
   def __readable(self):
