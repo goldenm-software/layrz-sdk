@@ -1,5 +1,5 @@
 """ Report header """
-from ..text_align import TextAlignment
+from ..formatting.text_align import TextAlignment
 
 class ReportHeader:
   """
