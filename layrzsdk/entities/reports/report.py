@@ -85,7 +85,7 @@ class Report:
 
       for i, row in enumerate(page.rows):
         for j, cell in enumerate(row.content):
-          style = book.add_format({
+          style = {
             'align': cell.align.value,
             'font_color': cell.text_color,
             'bg_color': cell.color,
@@ -96,7 +96,7 @@ class Report:
             'right': 1,
             'bottom': 1,
             'font_name': 'Microsoft YaHei Light'
-          })
+          }
 
           if cell.data_type == ReportDataType.BOOL:
             value = 'Yes' if cell.value else 'No'
@@ -106,14 +106,14 @@ class Report:
             value = int(cell.content)
           elif cell.data_type == ReportDataType.FLOAT:
             value = float(cell.content)
-            style.add_format({'num_format': '0.00'})
+            style.update({'num_format': '0.00'})
           elif cell.data_type == ReportDataType.CURRENCY:
             value = float(cell.content)
-            style.add_format({'num_format': f'"{cell.currency_symbol}" * #,##0.00;[Red]"{cell.currency_symbol}" * #,##0.00'})
+            style.update({'num_format': f'"{cell.currency_symbol}" * #,##0.00;[Red]"{cell.currency_symbol}" * #,##0.00'})
           else:
-            value = cell.value
+            value = cell.content
 
-          sheet.write(i + 1, j, value, style)
+          sheet.write(i + 1, j, value, book.add_format(style))
 
           if row.compact:
             sheet.set_row(i + 1, None, None, {'level': 1, 'hidden': True})
