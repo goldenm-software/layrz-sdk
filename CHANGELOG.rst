@@ -2,6 +2,10 @@
 Changelog
 =========
 
+v1.2.3
+~~~~~~
+* Added new value in BroadcastStatus
+
 v1.2.2
 ~~~~~~
 * Updated ReportCol entity to set new default values

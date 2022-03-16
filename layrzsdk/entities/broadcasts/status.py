@@ -8,6 +8,7 @@ class BroadcastStatus(Enum):
   BADREQUEST = 'BADREQUEST'
   INTERNALERROR = 'INTERNALERROR'
   UNAUTHORIZED = 'UNAUTHORIZED'
+  UNPROCESSABLE = 'UNPROCESSABLE'
 
   @property
   def __readable(self):
