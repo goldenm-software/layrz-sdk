@@ -1,6 +1,7 @@
 """ Report class """
 import time
 import xlsxwriter
+from .col import ReportDataType
 from .format import ReportFormat
 class Report:
   """
@@ -96,7 +97,23 @@ class Report:
             'bottom': 1,
             'font_name': 'Microsoft YaHei Light'
           })
-          sheet.write(i + 1, j, cell.content, style)
+
+          if cell.data_type == ReportDataType.BOOL:
+            value = 'Yes' if cell.value else 'No'
+          elif cell.data_type == ReportDataType.DATETIME:
+            value = cell.content.strftime(cell.datetime_format)
+          elif cell.data_type == ReportDataType.INT:
+            value = int(cell.content)
+          elif cell.data_type == ReportDataType.FLOAT:
+            value = float(cell.content)
+            style.add_format({'num_format': '0.00'})
+          elif cell.data_type == ReportDataType.CURRENCY:
+            value = float(cell.content)
+            style.add_format({'num_format': f'"{cell.currency_symbol}" * #,##0.00;[Red]"{cell.currency_symbol}" * #,##0.00'})
+          else:
+            value = cell.value
+
+          sheet.write(i + 1, j, value, style)
 
           if row.compact:
             sheet.set_row(i + 1, None, None, {'level': 1, 'hidden': True})
