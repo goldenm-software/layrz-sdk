@@ -65,8 +65,8 @@ class Report:
     book = xlsxwriter.Workbook(full_path)
 
     for page in self.pages:
-      sheet = book.add_worksheet(page.name)
-
+      sheet = book.add_worksheet(page.name[0:31].replace('[', '').replace(']', ''))
+ 
       for i, header in enumerate(page.headers):
         style = book.add_format({
           'align': header.align.value,

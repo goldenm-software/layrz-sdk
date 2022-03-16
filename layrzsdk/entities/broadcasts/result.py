@@ -11,13 +11,15 @@ class BroadcastResult:
     status (BroadcastStatus): Status
     request (BroadcastRequest): Request data sent to the service
     response (BroadcastResponse): Response data came from the service
+    submitted_at (datetime): Date of submission
   """
-  def __init__(self, service_id, asset_id, status, request, response):
+  def __init__(self, service_id, asset_id, status, request, response, submitted_at):
     self.__service_id = service_id
     self.__asset_id = asset_id
     self.__status = status
     self.__request = request
     self.__response = response
+    self.__submitted_at = submitted_at
 
   @property
   def service_id(self):
@@ -45,9 +47,14 @@ class BroadcastResult:
     return self.__response
 
   @property
+  def submitted_at(self):
+    """ Date of submission """
+    return self.__submitted_at
+
+  @property
   def __readable(self):
     """ Readable """
-    return f'BroadcastResult(service_id={self.service_id}, asset_id={self.asset_id}, status={self.status}, request={self.request}, response={self.response})'
+    return f'BroadcastResult(service_id={self.service_id}, asset_id={self.asset_id}, status={self.status}, request={self.request}, response={self.response}, submitted_at={self.submitted_at})'
 
   def __repr__(self):
     """ Readable property """
