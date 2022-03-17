@@ -130,8 +130,18 @@ class TimelineChart:
     """ Title of the chart """
     return self.__title
 
-  @property
-  def to_apexcharts(self):
+  def render(self):
+    """
+    Render chart to a Javascript Library.
+
+    With less than 10.000 points (in X Axis), will return ApexCharts configuration. Else will return Google Charts
+    """
+    return {
+      'library': 'APEXCHARTS',
+      'configuration': self.__render_apexcharts()
+    }
+
+  def __render_apexcharts(self):
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """
@@ -163,7 +173,16 @@ class TimelineChart:
         'align': self.__align.value
       },
       'chart': {
-        'type': 'rangeBar'
+        'type': 'rangeBar',
+        'animations': {
+          'enabled': False
+        },
+        'toolbar': {
+          'show': False
+        },
+        'zoom': {
+          'enabled': False
+        }
       },
       'xaxis': {
         'type': 'datetime'
@@ -172,6 +191,9 @@ class TimelineChart:
         'bar': {
           'horizontal': True,
         }
+      },
+      'dataLabels': {
+        'enabled': True
       }
     }
 
