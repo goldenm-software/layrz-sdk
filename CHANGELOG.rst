@@ -1,6 +1,10 @@
 =========
 Changelog
 =========
+v1.2.5
+~~~~~~
+* Optimizations for Javascript renderer
+
 v1.2.4
 ~~~~~~
 * Added dashed attribute to ChartDataSerie

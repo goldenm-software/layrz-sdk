@@ -55,8 +55,26 @@ class ColumnChart:
     """ Title of the chart """
     return self.__title
 
-  @property
-  def to_apexcharts(self):
+
+  def render(self):
+    """
+    Render chart to a Javascript Library.
+
+    With less than 10.000 points (in X Axis), will return ApexCharts configuration. Else will return Google Charts
+    """
+
+    if len(self.y_axis) >= 1:
+      return {
+        'library': 'APEXCHARTS',
+        'configuration': self.__render_apexcharts(len(self.y_axis[0].data) * len(self.y_axis) > 9_000)
+      }
+
+    return {
+      'library': 'APEXCHARTS',
+      'configuration': self.__render_apexcharts()
+    }
+
+  def __render_apexcharts(self, large_dataset=False):
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """
@@ -116,14 +134,26 @@ class ColumnChart:
         'type': 'solid'
       },
       'stroke': stroke,
-      'chart': {
-        'type': 'bar'
-      },
       'plotOptions': {
         'bar': {
           'horizontal': False,
           'columnWidth': '55%',
           'endingShape': 'rounded'
+        }
+      },
+      'dataLabels': {
+        'enabled': not large_dataset
+      },
+      'chart': {
+        'type': 'bar',
+        'animations': {
+          'enabled': False
+        },
+        'toolbar': {
+          'show': False
+        },
+        'zoom': {
+          'enabled': False
         }
       }
     }

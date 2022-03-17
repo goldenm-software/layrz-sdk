@@ -115,8 +115,18 @@ class ScatterChart:
     """ Title of the chart """
     return self.__title
 
-  @property
-  def to_apexcharts(self):
+  def render(self):
+    """
+    Render chart to a Javascript Library.
+
+    With less than 10.000 points (in X Axis), will return ApexCharts configuration. Else will return Google Charts
+    """
+    return {
+      'library': 'APEXCHARTS',
+      'configuration': self.__render_apexcharts()
+    }
+
+  def __render_apexcharts(self):
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """
@@ -145,7 +155,19 @@ class ScatterChart:
         'align': self.__align.value
       },
       'chart': {
-        'type': 'scatter'
+        'type': 'scatter',
+        'animations': {
+          'enabled': False
+        },
+        'toolbar': {
+          'show': False
+        },
+        'zoom': {
+          'enabled': False
+        }
+      },
+      'dataLabels': {
+        'enabled': True
       }
     }
 
