@@ -100,4 +100,4 @@ class BarChart:
       }
     }
 
-    return json.dumps(config)
+    return config

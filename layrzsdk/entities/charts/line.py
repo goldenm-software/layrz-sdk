@@ -1,9 +1,11 @@
 """ Line chart """
 import json
+
 from .alignment import ChartAlignment
 from .exceptions import ChartException
 from .serie import ChartDataSerie
 from .serie_type import ChartDataSerieType
+from .scatter import ScatterSerie
 
 class LineChart:
   """
@@ -23,7 +25,7 @@ class LineChart:
       align (ChartAlignment): Alignment of the title
     """
     for i, serie in enumerate(y_axis):
-      if not isinstance(serie, ChartDataSerie):
+      if not isinstance(serie, (ChartDataSerie, ScatterSerie)):
         raise ChartException(f'Y Axis serie {i} must be an instance of ChartDataSerie')
     self.__x_axis = x_axis
 
@@ -62,15 +64,36 @@ class LineChart:
 
     series = []
     colors = []
+    stroke = {
+      'width': [],
+      'dashArray': []
+    }
+    markers = []
 
     for serie in self.__y_axis:
       modified_serie = {
         'name': serie.label,
-        'data': serie.data
       }
+      if serie.serie_type == ChartDataSerieType.SCATTER:
+        modified_serie['data'] = [{'x': item.x, 'y': item.y} for item in serie.data]
+        modified_serie['type'] = 'scatter'
+        stroke['width'].append(0)
+        markers.append(10)
+      else:
+        modified_serie['data'] = [{'x': self.__x_axis.data[i], 'y': item} for i, item in enumerate(serie.data)]
 
-      if serie.serie_type is not ChartDataSerieType.NONE:
-        modified_serie['type'] = serie.serie_type.value
+        if serie.serie_type is not ChartDataSerieType.NONE:
+          modified_serie['type'] = serie.serie_type.value
+        else:
+          modified_serie['type'] = 'line'
+
+        if serie.dashed and serie.serie_type == ChartDataSerieType.LINE:
+          stroke['dashArray'].append(5)
+        else:
+          stroke['dashArray'].append(0)
+
+        stroke['width'].append(3)
+        markers.append(0)
 
       series.append(modified_serie)
       colors.append(serie.color)
@@ -79,7 +102,6 @@ class LineChart:
       'series': series,
       'colors': colors,
       'xaxis': {
-        'categories': self.__x_axis.data,
         'type': self.__x_axis.data_type.value,
         'title': {
           'text': self.__x_axis.label
@@ -89,9 +111,16 @@ class LineChart:
         'text': self.__title,
         'align': self.__align.value
       },
+      'markers': {
+        'size': markers
+      },
+      'fill': {
+        'type': 'solid'
+      },
+      'stroke': stroke,
       'chart': {
         'type': 'line'
       }
     }
 
-    return json.dumps(config)
+    return config

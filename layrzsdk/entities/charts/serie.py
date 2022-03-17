@@ -8,17 +8,18 @@ class ChartDataSerie:
   Chart Serie
   """
 
-  def __init__(self, data, color, label, serie_type=ChartDataSerieType.NONE, data_type=ChartDataType.NUMBER):
+  def __init__(self, data, color='#000000', label='', dashed=False, serie_type=ChartDataSerieType.NONE, data_type=ChartDataType.NUMBER):
     """
     Constructor
 
     Args
     ----
-      data list((float, int, bool)): List of data points.
-      color str: Color of the serie.
-      label str: Label of the serie.
-      serie_type ChartDataSerieType: Type of the serie. Only used for mixed range charts.
-      data_type ChartDataType: Type of the data.
+      data (list((float|int|bool))): List of data points.
+      color (str): Color of the serie.
+      label (str): Label of the serie.
+      serie_type (ChartDataSerieType): Type of the serie. Only used for mixed range charts.
+      data_type (ChartDataType): Type of the data.
+      dashed (bool): If the serie should be dashed.
     """
     self.__data = data
 
@@ -37,6 +38,10 @@ class ChartDataSerie:
     if not isinstance(serie_type, ChartDataSerieType):
       raise ChartException('serie_type must be an instance of ChartDataSerieType')
     self.__serie_type = serie_type or ChartDataSerieType.NONE
+
+    if not isinstance(dashed, bool):
+      raise ChartException('dashed must be an instance of bool')
+    self.__dashed = dashed
 
   @property
   def data(self):
@@ -62,3 +67,8 @@ class ChartDataSerie:
   def serie_type(self):
     """ Serie type """
     return self.__serie_type
+
+  @property
+  def dashed(self):
+    """ If the serie should be dashed """
+    return self.__dashed

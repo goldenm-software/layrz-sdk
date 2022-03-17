@@ -70,4 +70,4 @@ class RadialBarChart:
       }
     }
 
-    return json.dumps(config)
+    return config
