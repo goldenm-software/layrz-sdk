@@ -1,6 +1,11 @@
 =========
 Changelog
 =========
+
+v1.2.6
+~~~~~~
+* Removed dataLabels in almost all charts (Except Pie and RadialBar) 
+
 v1.2.5
 ~~~~~~
 * Optimizations for Javascript renderer
