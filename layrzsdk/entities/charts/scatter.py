@@ -3,6 +3,7 @@ import json
 from .exceptions import ChartException
 from .alignment import ChartAlignment
 from .serie_type import ChartDataSerieType
+from .serie import ChartDataSerie
 
 class ScatterSerieItem:
   """
@@ -92,7 +93,7 @@ class ScatterChart:
       align (ChartAlignment): Alignment of the chart.
     """
     for i, serie in enumerate(series):
-      if not isinstance(serie, ScatterSerie):
+      if not isinstance(serie, (ChartDataSerie, ScatterSerie)):
         raise ChartException(f'Y Axis serie {i} must be an instance of ScatterSerie')
     self.__series = series
 
@@ -148,4 +149,4 @@ class ScatterChart:
       }
     }
 
-    return json.dumps(config)
+    return config

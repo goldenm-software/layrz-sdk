@@ -175,4 +175,4 @@ class TimelineChart:
       }
     }
 
-    return json.dumps(config)
+    return config

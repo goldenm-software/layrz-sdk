@@ -1,6 +1,14 @@
 =========
 Changelog
 =========
+v1.2.4
+~~~~~~
+* Added dashed attribute to ChartDataSerie
+* Added the Possibility to mix charts, only available for:
+  - LineChart
+  - AreaChart
+  - ColumnChart
+  - ScatterChart (Only as serie, not as main chart) 
 
 v1.2.3
 ~~~~~~

@@ -100,4 +100,4 @@ class RadarChart:
       }
     }
 
-    return json.dumps(config)
+    return config

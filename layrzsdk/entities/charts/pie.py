@@ -70,4 +70,4 @@ class PieChart:
       }
     }
 
-    return json.dumps(config)
+    return config
