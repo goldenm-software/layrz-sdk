@@ -142,7 +142,7 @@ class ColumnChart:
         }
       },
       'dataLabels': {
-        'enabled': not large_dataset
+        'enabled': False
       },
       'chart': {
         'type': 'bar',

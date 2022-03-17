@@ -135,7 +135,7 @@ class AreaChart:
       },
       'stroke': stroke,
       'dataLabels': {
-        'enabled': not large_dataset
+        'enabled': False
       },
       'chart': {
         'animations': {

@@ -1,15 +1,14 @@
-""" Line chart """
+""" Interval chart """
 import json
-
 from .alignment import ChartAlignment
 from .exceptions import ChartException
 from .serie import ChartDataSerie
 from .serie_type import ChartDataSerieType
 from .scatter import ScatterSerie
 
-class LineChart:
+class IntervalChart:
   """
-  Line chart configuration
+  Interval chart configuration
 
   """
 
@@ -56,29 +55,11 @@ class LineChart:
     """ Title of the chart """
     return self.__title
 
-  def render(self):
-    """
-    Render chart to a Javascript Library.
-
-    With less than 10.000 points (in X Axis), will return ApexCharts configuration. Else will return Google Charts
-    """
-
-    if len(self.y_axis) >= 1:
-      return {
-        'library': 'APEXCHARTS',
-        'configuration': self.__render_apexcharts(len(self.y_axis[0].data) * len(self.y_axis) > 9_000)
-      }
-
-    return {
-      'library': 'APEXCHARTS',
-      'configuration': self.__render_apexcharts()
-    }
-
-  def __render_apexcharts(self, large_dataset=False):
+  @property
+  def to_apexcharts(self):
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """
-
     series = []
     colors = []
     stroke = {
@@ -102,7 +83,7 @@ class LineChart:
         if serie.serie_type is not ChartDataSerieType.NONE:
           modified_serie['type'] = serie.serie_type.value
         else:
-          modified_serie['type'] = 'line'
+          modified_serie['type'] = 'area'
 
         if serie.dashed and serie.serie_type == ChartDataSerieType.LINE:
           stroke['dashArray'].append(5)
@@ -124,9 +105,6 @@ class LineChart:
           'text': self.__x_axis.label
         }
       },
-      'dataLabels': {
-        'enabled': False
-      },
       'title': {
         'text': self.__title,
         'align': self.__align.value
@@ -139,15 +117,7 @@ class LineChart:
       },
       'stroke': stroke,
       'chart': {
-        'animations': {
-          'enabled': False
-        },
-        'toolbar': {
-          'show': False
-        },
-        'zoom': {
-          'enabled': False
-        }
+        'type': 'line'
       }
     }
 
