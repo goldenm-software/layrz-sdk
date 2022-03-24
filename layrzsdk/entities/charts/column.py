@@ -5,6 +5,7 @@ from .exceptions import ChartException
 from .serie import ChartDataSerie
 from .serie_type import ChartDataSerieType
 from .scatter import ScatterSerie
+from layrzsdk.helpers import convert_to_rgba
 
 class ColumnChart:
   """
@@ -59,25 +60,18 @@ class ColumnChart:
   def render(self):
     """
     Render chart to a Javascript Library.
-
-    With less than 10.000 points (in X Axis), will return ApexCharts configuration. Else will return Google Charts
+    Currently only available for ApexCharts.
     """
-
-    if len(self.y_axis) >= 1:
-      return {
-        'library': 'APEXCHARTS',
-        'configuration': self.__render_apexcharts(len(self.y_axis[0].data) * len(self.y_axis) > 9_000)
-      }
-
     return {
       'library': 'APEXCHARTS',
       'configuration': self.__render_apexcharts()
     }
 
-  def __render_apexcharts(self, large_dataset=False):
+  def __render_apexcharts(self):
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """
+
     series = []
     colors = []
     stroke = {
@@ -101,7 +95,7 @@ class ColumnChart:
         if serie.serie_type is not ChartDataSerieType.NONE:
           modified_serie['type'] = serie.serie_type.value
         else:
-          modified_serie['type'] = 'bar'
+          modified_serie['type'] = 'column'
 
         if serie.dashed and serie.serie_type == ChartDataSerieType.LINE:
           stroke['dashArray'].append(5)
@@ -112,7 +106,12 @@ class ColumnChart:
         markers.append(0)
 
       series.append(modified_serie)
-      colors.append(serie.color)
+
+      if serie.serie_type == ChartDataSerieType.AREA:
+        color = convert_to_rgba(serie.color)
+        colors.append(f'rgba({color[0]}, {color[1]}, {color[2]}, 0.5)')
+      else:
+        colors.append(serie.color)
 
     config = {
       'series': series,
@@ -123,9 +122,17 @@ class ColumnChart:
           'text': self.__x_axis.label
         }
       },
+      'dataLabels': {
+        'enabled': False
+      },
       'title': {
         'text': self.__title,
-        'align': self.__align.value
+        'align': self.__align.value,
+        'style': {
+          'fontFamily': 'Fira Sans Condensed',
+          'fontSize': '20px',
+          'fontWeight': 'normal'
+        }
       },
       'markers': {
         'size': markers
@@ -134,18 +141,7 @@ class ColumnChart:
         'type': 'solid'
       },
       'stroke': stroke,
-      'plotOptions': {
-        'bar': {
-          'horizontal': False,
-          'columnWidth': '55%',
-          'endingShape': 'rounded'
-        }
-      },
-      'dataLabels': {
-        'enabled': not large_dataset
-      },
       'chart': {
-        'type': 'bar',
         'animations': {
           'enabled': False
         },
@@ -157,4 +153,5 @@ class ColumnChart:
         }
       }
     }
+
     return config

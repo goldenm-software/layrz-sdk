@@ -133,8 +133,7 @@ class TimelineChart:
   def render(self):
     """
     Render chart to a Javascript Library.
-
-    With less than 10.000 points (in X Axis), will return ApexCharts configuration. Else will return Google Charts
+    Currently only available for ApexCharts.
     """
     return {
       'library': 'APEXCHARTS',

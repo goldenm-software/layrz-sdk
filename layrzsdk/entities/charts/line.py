@@ -6,6 +6,8 @@ from .exceptions import ChartException
 from .serie import ChartDataSerie
 from .serie_type import ChartDataSerieType
 from .scatter import ScatterSerie
+from .data_type import ChartDataType
+from layrzsdk.helpers import convert_to_rgba
 
 class LineChart:
   """
@@ -60,13 +62,13 @@ class LineChart:
     """
     Render chart to a Javascript Library.
 
-    With less than 10.000 points (in X Axis), will return ApexCharts configuration. Else will return Google Charts
+    With less than 9.000 points, will return ApexCharts configuration. Else will return CanvasJS configuration.
     """
 
-    if len(self.y_axis) >= 1:
+    if len(self.y_axis) >= 1 and len(self.y_axis[0].data) * len(self.y_axis) > 9_000 or True:
       return {
-        'library': 'APEXCHARTS',
-        'configuration': self.__render_apexcharts(len(self.y_axis[0].data) * len(self.y_axis) > 9_000)
+        'library': 'CANVASJS',
+        'configuration': self.__render_canvasjs()
       }
 
     return {
@@ -74,7 +76,77 @@ class LineChart:
       'configuration': self.__render_apexcharts()
     }
 
-  def __render_apexcharts(self, large_dataset=False):
+  def __render_canvasjs(self):
+    """
+    Converts the configuration of the chart to Javascript library CanvasJS.
+    """
+    datasets = []
+
+    for serie in self.__y_axis:
+      dataset = {
+        'type': 'line',
+        'name': serie.label,
+        'connectNullData': True,
+        'nullDataLineDashType': 'solid',
+        'showInLegend': True,
+        'color': serie.color,
+        'markerSize': 3,
+      }
+
+      if serie.serie_type != ChartDataSerieType.NONE:
+        dataset['type'] = serie.serie_type.value
+
+      if serie.serie_type == ChartDataSerieType.AREA:
+        dataset['fillOpacity'] = 0.3
+
+      if self.x_axis.data_type == ChartDataType.DATETIME:
+        dataset['xValueType'] = 'dateTime'
+        dataset['xValueFormatString'] = 'YYYY-MM-DD HH:mm:ss TT'
+
+      if serie.serie_type == ChartDataSerieType.LINE and serie.dashed:
+        dataset['lineDashType'] = 'dash'
+
+      points = []
+
+      if serie.serie_type == ChartDataSerieType.SCATTER:
+        for point in serie.data:
+          points.append({
+            'x': point.x,
+            'y': point.y
+          })
+      else:
+        for i, value in enumerate(self.x_axis.data):
+          points.append({
+            'x': value,
+            'y': serie.data[i]
+          })
+
+      dataset['dataPoints'] = points
+      datasets.append(dataset)
+
+    return {
+      'animationEnabled': False,
+      'zoomEnabled': True,
+      'title': {
+        'text': self.title,
+        'fontFamily': 'Fira Sans Condensed',
+        'fontSize': 20,
+        'horizontalAlign': self.__align.value
+      },
+      'data': datasets,
+      'axisX': {
+        'title': self.x_axis.label,
+      },
+      'toolTip': {
+        'animationEnabled': False,
+        'shared': True
+      },
+      'legend': {
+        'cursor': 'pointer'
+      }
+    }
+
+  def __render_apexcharts(self):
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """
@@ -113,7 +185,12 @@ class LineChart:
         markers.append(0)
 
       series.append(modified_serie)
-      colors.append(serie.color)
+
+      if serie.serie_type == ChartDataSerieType.AREA:
+        color = convert_to_rgba(serie.color)
+        colors.append(f'rgba({color[0]}, {color[1]}, {color[2]}, 0.5)')
+      else:
+        colors.append(serie.color)
 
     config = {
       'series': series,
@@ -125,7 +202,7 @@ class LineChart:
         }
       },
       'dataLabels': {
-        'enabled': not large_dataset
+        'enabled': False
       },
       'title': {
         'text': self.__title,

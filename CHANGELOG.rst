@@ -1,6 +1,18 @@
 =========
 Changelog
 =========
+
+v1.3.0
+~~~~~~
+* Added support for CanvasJS Javascript Library
+* Deprecated to_apexcharts property in charts.
+* New method render() in charts with support for multiple Javascript rendering library
+* Added color helpers in layrzsdk.helpers
+
+v1.2.6
+~~~~~~
+* Removed dataLabels in almost all charts (Except Pie and RadialBar) 
+
 v1.2.5
 ~~~~~~
 * Optimizations for Javascript renderer
