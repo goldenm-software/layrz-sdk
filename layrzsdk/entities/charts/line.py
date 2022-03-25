@@ -105,6 +105,7 @@ class LineChart:
 
       if serie.serie_type == ChartDataSerieType.LINE and serie.dashed:
         dataset['lineDashType'] = 'dash'
+        dataset['markerSize'] = 0
 
       points = []
 
