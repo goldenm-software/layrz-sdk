@@ -2,6 +2,10 @@
 Changelog
 =========
 
+v1.3.1
+~~~~~~
+* Removed markerSize (in CanvasJS) for dashed series
+
 v1.3.0
 ~~~~~~
 * Added support for CanvasJS Javascript Library

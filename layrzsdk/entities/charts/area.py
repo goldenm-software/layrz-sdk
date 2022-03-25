@@ -104,6 +104,7 @@ class AreaChart:
 
       if serie.dashed and serie.serie_type == ChartDataSerieType.LINE:
         dataset['lineDashType'] = 'dash'
+        dataset['markerSize'] = 0
 
       points = []
 
