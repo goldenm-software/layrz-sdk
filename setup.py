@@ -6,13 +6,13 @@ def read(filename):
 
 setuptools.setup(
   name="layrz-sdk",
-  version="1.3.2",
+  version="1.3.3",
   author="Layrz",
   author_email="software@layrz.com",
   url='https://gitlab.com/layrz-software/libraries/layrz-sdk',
   license='MIT',
   description="Layrz SDK",
-  long_description=read('README.md'),
+  long_description=read('README.rst'),
   keywords='sdk goldenm lcl layrz compute language',
   packages=setuptools.find_packages(),
   classifiers=[
