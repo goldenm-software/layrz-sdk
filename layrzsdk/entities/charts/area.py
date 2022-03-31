@@ -129,7 +129,14 @@ class AreaChart:
       'zoomEnabled': True,
       'title': {
         'text': self.title,
-        'horizontalAlign': self.__align.value
+        'horizontalAlign': self.__align.value,
+        'fontFamily': 'Fira Sans Condensed',
+        'fontSize': 20,
+      },
+      'axisX': {
+        'title': self.x_axis.label,
+        'titleFontFamily': 'Fira Sans Condensed',
+        'titleFontSize': 20,
       },
       'data': datasets,
       'toolTip': {
@@ -193,7 +200,12 @@ class AreaChart:
       'xaxis': {
         'type': self.__x_axis.data_type.value,
         'title': {
-          'text': self.__x_axis.label
+          'text': self.__x_axis.label,
+          'style': {
+            'fontFamily': 'Fira Sans Condensed',
+            'fontSize': '20px',
+            'fontWeight': 'normal'
+          }
         }
       },
       'dataLabels': {
@@ -201,7 +213,12 @@ class AreaChart:
       },
       'title': {
         'text': self.__title,
-        'align': self.__align.value
+        'align': self.__align.value,
+        'style': {
+          'fontFamily': 'Fira Sans Condensed',
+          'fontSize': '20px',
+          'fontWeight': 'normal'
+        }
       },
       'markers': {
         'size': markers

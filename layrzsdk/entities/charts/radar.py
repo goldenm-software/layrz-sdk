@@ -91,12 +91,22 @@ class RadarChart:
         'categories': self.__x_axis.data,
         'type': self.__x_axis.data_type.value,
         'title': {
-          'text': self.__x_axis.label
+          'text': self.__x_axis.label,
+          'style': {
+            'fontFamily': 'Fira Sans Condensed',
+            'fontSize': '20px',
+            'fontWeight': 'normal'
+          }
         }
       },
       'title': {
         'text': self.__title,
-        'align': self.__align.value
+        'align': self.__align.value,
+        'style': {
+          'fontFamily': 'Fira Sans Condensed',
+          'fontSize': '20px',
+          'fontWeight': 'normal'
+        }
       },
       'chart': {
         'type': 'radar',

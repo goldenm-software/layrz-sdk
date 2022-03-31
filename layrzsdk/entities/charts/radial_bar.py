@@ -72,7 +72,12 @@ class RadialBarChart:
       'labels': labels,
       'title': {
         'text': self.__title,
-        'align': self.__align.value
+        'align': self.__align.value,
+        'style': {
+          'fontFamily': 'Fira Sans Condensed',
+          'fontSize': '20px',
+          'fontWeight': 'normal'
+        }
       },
       'chart': {
         'type': 'radialBar',

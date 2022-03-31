@@ -119,7 +119,12 @@ class ColumnChart:
       'xaxis': {
         'type': self.__x_axis.data_type.value,
         'title': {
-          'text': self.__x_axis.label
+          'text': self.__x_axis.label,
+          'style': {
+            'fontFamily': 'Fira Sans Condensed',
+            'fontSize': '20px',
+            'fontWeight': 'normal'
+          }
         }
       },
       'dataLabels': {
