@@ -732,3 +732,13 @@ class Language:
       )
 
     return str(args[1]).endswith(str(args[0]))
+
+  def PRIMARY_DEVICE(self, *args):
+    """ PRIMARY_DEVICE function """
+    if len(args) > 0:
+      return INVALID_NUMBER_OF_PARAMS.format(
+        expected=0,
+        received=len(args)
+      )
+
+    return self.__asset_constants.get('primaryDevice', None)
