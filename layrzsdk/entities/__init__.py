@@ -25,3 +25,6 @@ from .general import *
 
 # Broadcast entities
 from .broadcasts import *
+
+# REPCOM entities
+from .repcom import *

@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.3.4
+* Added Transaction entity for REPCOM reports
+
 ## v1.3.3
 - Added PRIMARY_DEVICE() function to Layrz Compute Language
 ## v1.3.2
