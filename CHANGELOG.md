@@ -1,10 +1,14 @@
 # Changelog
 
+## v1.3.5
+* Bug fix related to formula perform, added PRIMARY_DEVICE to simulation environment
+
 ## v1.3.4
 * Added Transaction entity for REPCOM reports
 
 ## v1.3.3
 - Added PRIMARY_DEVICE() function to Layrz Compute Language
+
 ## v1.3.2
 - Updated styles of charts return object to ApexCharts or CanvasJS
 - Replaced all .rst files to .md files

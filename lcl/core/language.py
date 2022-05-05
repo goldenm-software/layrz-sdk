@@ -79,7 +79,8 @@ class Language:
         'NOT': self.NOT,
         'CONTAINS': self.CONTAINS,
         'STARTS_WITH': self.STARTS_WITH,
-        'ENDS_WITH': self.ENDS_WITH
+        'ENDS_WITH': self.ENDS_WITH,
+        'PRIMARY_DEVICE': self.PRIMARY_DEVICE
       }
 
       if not ignore_signal:
