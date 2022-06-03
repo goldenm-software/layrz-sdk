@@ -1,13 +1,15 @@
 """ Line chart """
 import json
 
+from layrzsdk.helpers import convert_to_rgba
+
 from .alignment import ChartAlignment
+from .data_type import ChartDataType
 from .exceptions import ChartException
+from .scatter import ScatterSerie
 from .serie import ChartDataSerie
 from .serie_type import ChartDataSerieType
-from .scatter import ScatterSerie
-from .data_type import ChartDataType
-from layrzsdk.helpers import convert_to_rgba
+
 
 class LineChart:
   """
@@ -65,7 +67,7 @@ class LineChart:
     With less than 9.000 points, will return ApexCharts configuration. Else will return CanvasJS configuration.
     """
 
-    if len(self.y_axis) >= 1 and len(self.y_axis[0].data) * len(self.y_axis) > 9_000 or True:
+    if len(self.y_axis) >= 1 and len(self.y_axis[0].data) * len(self.y_axis) > 9_000:
       return {
         'library': 'CANVASJS',
         'configuration': self.__render_canvasjs()

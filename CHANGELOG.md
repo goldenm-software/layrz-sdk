@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.3.6
+* Added new Map Chart
+  - Added required entity MapPoint
+  - Added required enum MapCenterType
+* Added new HTML Chart
+
+
 ## v1.3.5
 * Bug fix related to formula perform, added PRIMARY_DEVICE to simulation environment
 
