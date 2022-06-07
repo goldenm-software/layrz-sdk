@@ -22,9 +22,10 @@ class Case:
     opened_at (datetime): Date of case opening
     closed_at (datetime): Date of case closing
     status (CaseStatus): Case status
+    sequence (int): Case sequence
   """
 
-  def __init__(self, pk, trigger, asset_id, opened_at, closed_at=None, comments=[], status=CaseStatus.CLOSED):
+  def __init__(self, pk, trigger, asset_id, opened_at, sequence=None, closed_at=None, comments=[], status=CaseStatus.CLOSED):
     """ Constructor """
     self.__pk = pk
     self.__trigger = trigger
@@ -33,6 +34,7 @@ class Case:
     self.__opened_at = opened_at
     self.__closed_at = closed_at
     self.__status = status
+    self.__sequence = sequence
   
   @property
   def pk(self):
@@ -68,6 +70,14 @@ class Case:
   def status(self):
     """ Status """
     return self.__status
+
+  @property
+  def sequence(self):
+    """ Sequence """
+    if (self.__sequence):
+      return f'{self.__trigger.code}/{self.__sequence}'
+    else:
+      return f'GENERIC/{self.__pk}'
 
   @property
   def __readable(self):

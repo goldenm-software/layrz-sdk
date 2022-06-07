@@ -1,5 +1,8 @@
 # Changelog
 
+## v.1.3.7
+* Added sequence in cases
+
 ## v1.3.6
 * Added new Map Chart
   - Added required entity MapPoint
