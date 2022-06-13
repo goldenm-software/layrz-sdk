@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.3.8
+* Added SUBSTRING LCL function
+
 ## v.1.3.7
 * Added sequence in cases
 
