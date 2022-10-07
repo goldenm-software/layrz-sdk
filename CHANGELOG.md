@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.3.9
+* Internal changes related to GitLab CI automation
+
 ## v1.3.8
 * Added SUBSTRING LCL function
 
