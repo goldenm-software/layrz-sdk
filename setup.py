@@ -5,9 +5,10 @@ def read(filename):
   import os
   return open(os.path.join(os.path.dirname(__file__), filename)).read()
 
+
 setuptools.setup(
   name="layrz-sdk",
-  version="1.3.10",
+  version="1.4.0",
   author="Layrz",
   author_email="software@layrz.com",
   url='https://gitlab.com/layrz-software/libraries/layrz-sdk',
@@ -21,10 +22,6 @@ setuptools.setup(
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
   ],
-  install_requires=[
-    'requests',
-    'pytz',
-    'xlsxwriter'
-  ],
-  python_requires='>=3.8'
+  install_requires=['requests', 'pytz', 'xlsxwriter'],
+  python_requires='>=3.8',
 )

@@ -1,3 +1,29 @@
 {
-  "restructuredtext.confPath": ""
+  "python.linting.pylintEnabled": true,
+  "python.linting.pylintArgs": [
+    // "--load-plugins",
+    // "pylint_django",
+    // "--django-settings-module",
+    // "alpha.settings",
+    "--rcfile=.pylintrc"
+  ],
+  "python.linting.enabled": true,
+  "python.formatting.provider": "yapf",
+  "python.formatting.yapfArgs": [
+      "--style",
+      "{indent_width: 2, use_tabs: false, continuation_indent_width: 2, coalesce_brackets: false, column_limit: 120}"
+  ],
+  "python.linting.lintOnSave": true,
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true,
+    },
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-python.python",
+    "editor.rulers": [120]
+  },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": true,
+  "python.linting.pycodestyleEnabled": false,
 }

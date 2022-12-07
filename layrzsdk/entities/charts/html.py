@@ -45,18 +45,12 @@ class HTMLChart:
     Render chart to a Javascript Library.
     Currently only available for HTML.
     """
-    return {
-      'library': 'HTML',
-      'configuration': self.__render_html()
-    }
+    return {'library': 'HTML', 'configuration': self.__render_html()}
 
   def __render_html(self):
     """
     Converts the configuration of the chart to HTML render engine.
     """
-    config = {
-      'content': self.__content,
-      'title': self.__title
-    }
+    config = {'content': self.__content, 'title': self.__title}
 
     return config

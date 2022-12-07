@@ -60,23 +60,57 @@ class LineChart:
     """ Title of the chart """
     return self.__title
 
-  def render(self):
+  def render(self, use_new_definition=False):
     """
-    Render chart to a Javascript Library.
+    Render chart to a graphic Library.
+    We have two graphic libraries: GRAPHIC and CANVASJS.
 
-    With less than 9.000 points, will return ApexCharts configuration. Else will return CanvasJS configuration.
+    GRAPHIC is a Flutter chart library. To return this option, use the parameter use_new_definition=True.
+    CANVASJS is a Javascript chart library. This is the default option.
     """
 
-    if len(self.y_axis) >= 1 and len(self.y_axis[0].data) * len(self.y_axis) > 9_000:
+    if use_new_definition:
       return {
-        'library': 'CANVASJS',
-        'configuration': self.__render_canvasjs()
+        'library': 'GRAPHIC',
+        'chart': 'LINE',
+        'configuration': self.__render_graphic(),
       }
-
     return {
-      'library': 'APEXCHARTS',
-      'configuration': self.__render_apexcharts()
+      'library': 'CANVASJS',
+      'chart': 'LINE',
+      'configuration': self.__render_canvasjs(),
     }
+
+  def __render_graphic(self):
+    """
+    Converts the configuration of the chart to a Flutter library Graphic.
+    """
+    series = []
+
+    for serie in self.__y_axis:
+      if serie.serie_type not in [ChartDataSerieType.LINE, ChartDataSerieType.AREA]:
+        continue
+
+      points = []
+
+      for i, value in enumerate(self.x_axis.data):
+        points.append({
+          'x_axis': {
+            'value': value.timestamp() if self.x_axis.data_type == ChartDataType.DATETIME else value,
+            'is_datetime': self.x_axis.data_type == ChartDataType.DATETIME,
+          },
+          'y_axis': serie.data[i],
+        })
+
+      series.append({
+        'group': serie.label,
+        'color': serie.color,
+        'dashed': serie.serie_type == ChartDataSerieType.LINE and serie.dashed,
+        'type': 'AREA' if serie.serie_type == ChartDataSerieType.AREA else 'LINE',
+        'values': points
+      })
+
+    return series
 
   def __render_canvasjs(self):
     """
@@ -113,15 +147,12 @@ class LineChart:
 
       if serie.serie_type == ChartDataSerieType.SCATTER:
         for point in serie.data:
-          points.append({
-            'x': point.x,
-            'y': point.y
-          })
+          points.append({'x': point.x, 'y': point.y})
       else:
         for i, value in enumerate(self.x_axis.data):
           points.append({
-            'x': value,
-            'y': serie.data[i]
+            'x': value.timestamp() if self.x_axis.data_type == ChartDataType.DATETIME else value,
+            'y': serie.data[i],
           })
 
       dataset['dataPoints'] = points
@@ -151,96 +182,10 @@ class LineChart:
       }
     }
 
-  def __render_apexcharts(self):
-    """
-    Converts the configuration of the chart to Javascript library ApexCharts.
-    """
 
-    series = []
-    colors = []
-    stroke = {
-      'width': [],
-      'dashArray': []
-    }
-    markers = []
-
-    for serie in self.__y_axis:
-      modified_serie = {
-        'name': serie.label,
-      }
-      if serie.serie_type == ChartDataSerieType.SCATTER:
-        modified_serie['data'] = [{'x': item.x, 'y': item.y} for item in serie.data]
-        modified_serie['type'] = 'scatter'
-        stroke['width'].append(0)
-        markers.append(10)
-      else:
-        modified_serie['data'] = [{'x': self.__x_axis.data[i], 'y': item} for i, item in enumerate(serie.data)]
-
-        if serie.serie_type is not ChartDataSerieType.NONE:
-          modified_serie['type'] = serie.serie_type.value
-        else:
-          modified_serie['type'] = 'line'
-
-        if serie.dashed and serie.serie_type == ChartDataSerieType.LINE:
-          stroke['dashArray'].append(5)
-        else:
-          stroke['dashArray'].append(0)
-
-        stroke['width'].append(3)
-        markers.append(0)
-
-      series.append(modified_serie)
-
-      if serie.serie_type == ChartDataSerieType.AREA:
-        color = convert_to_rgba(serie.color)
-        colors.append(f'rgba({color[0]}, {color[1]}, {color[2]}, 0.5)')
-      else:
-        colors.append(serie.color)
-
-    config = {
-      'series': series,
-      'colors': colors,
-      'xaxis': {
-        'type': self.__x_axis.data_type.value,
-        'title': {
-          'text': self.__x_axis.label,
-          'style': {
-            'fontFamily': 'Fira Sans Condensed',
-            'fontSize': '20px',
-            'fontWeight': 'normal'
-          }
-        }
-      },
-      'dataLabels': {
-        'enabled': False
-      },
-      'title': {
-        'text': self.__title,
-        'align': self.__align.value,
-        'style': {
-          'fontFamily': 'Fira Sans Condensed',
-          'fontSize': '20px',
-          'fontWeight': 'normal'
-        }
-      },
-      'markers': {
-        'size': markers
-      },
-      'fill': {
-        'type': 'solid'
-      },
-      'stroke': stroke,
-      'chart': {
-        'animations': {
-          'enabled': False
-        },
-        'toolbar': {
-          'show': False
-        },
-        'zoom': {
-          'enabled': False
-        }
-      }
-    }
-
-    return config
+class AreaChart(LineChart):
+  """
+  Line chart
+  
+  Deprecation warning: This class will be removed in the next version. Use LineChart instead.
+  """

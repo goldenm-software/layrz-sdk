@@ -1,13 +1,12 @@
 """ Init file """
 from .alignment import ChartAlignment
-from .area import AreaChart
 from .bar import BarChart
 from .column import ColumnChart
 from .configuration import ChartConfiguration
 from .data_type import ChartDataType
 from .exceptions import ChartException
 from .html import HTMLChart
-from .line import LineChart
+from .line import AreaChart, LineChart
 from .map import MapCenterType, MapChart, MapPoint
 from .pie import PieChart
 from .radar import RadarChart

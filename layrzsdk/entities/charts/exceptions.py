@@ -1,8 +1,11 @@
 """ Chart exceptions """
+
+
 class ChartException(BaseException):
   """
   Chart Exception
   """
+
   def __init__(self, message):
     """ Constructor """
     self.__message = message

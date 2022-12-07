@@ -1,5 +1,7 @@
 """ Chart alignment """
 from enum import Enum
+
+
 class ChartAlignment(Enum):
   """
   Chart Alignment
@@ -7,4 +9,3 @@ class ChartAlignment(Enum):
   CENTER = 'center'
   LEFT = 'left'
   RIGHT = 'right'
-

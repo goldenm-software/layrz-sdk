@@ -1,14 +1,17 @@
 """ Scatter chart """
 import json
-from .exceptions import ChartException
+
 from .alignment import ChartAlignment
-from .serie_type import ChartDataSerieType
+from .exceptions import ChartException
 from .serie import ChartDataSerie
+from .serie_type import ChartDataSerieType
+
 
 class ScatterSerieItem:
   """
   Chart Data Serie Item for Scatter Charts
   """
+
   def __init__(self, x, y):
     """
     Constructor
@@ -31,11 +34,13 @@ class ScatterSerieItem:
     """ Y value """
     return self.__y
 
+
 class ScatterSerie:
   """
   Chart Data Serie for Timeline charts
   """
-  def __init__(self, data, color, label):
+
+  def __init__(self, data, color, label, serie_type=ChartDataSerieType.SCATTER):
     """
     Constructor
 
@@ -55,7 +60,10 @@ class ScatterSerie:
       raise ChartException('label must be an instance of str')
     self.__label = label
 
-    self.__serie_type = ChartDataSerieType.SCATTER
+    if not isinstance(serie_type, ChartDataSerieType):
+      raise ChartException('serie_type must be an instance of ChartDataSerieType')
+
+    self.__serie_type = serie_type
 
   @property
   def data(self):
@@ -77,6 +85,7 @@ class ScatterSerie:
     """ Serie type """
     return self.__serie_type
 
+
 class ScatterChart:
   """
   Scatter chart configuration
@@ -93,7 +102,7 @@ class ScatterChart:
       align (ChartAlignment): Alignment of the chart.
     """
     for i, serie in enumerate(series):
-      if not isinstance(serie, (ChartDataSerie, ScatterSerie)):
+      if not isinstance(serie, ScatterSerie):
         raise ChartException(f'Y Axis serie {i} must be an instance of ScatterSerie')
     self.__series = series
 
@@ -115,16 +124,59 @@ class ScatterChart:
     """ Title of the chart """
     return self.__title
 
-  def render(self):
+  def render(self, use_new_definition=False):
     """
-    Render chart to a Javascript Library.
+    Render chart to a graphic Library.
+    We have two graphic libraries: GRAPHIC and APEXCHARTS.
 
-    With less than 10.000 points (in X Axis), will return ApexCharts configuration. Else will return Google Charts
+    GRAPHIC is a Flutter chart library. To return this option, use the parameter use_new_definition=True.
+    APEXCHARTS is a Javascript chart library. This is the default option.
     """
+    if use_new_definition:
+      return {
+        'library': 'GRAPHIC',
+        'chart': 'SCATTER',
+        'configuration': self.__render_graphic(),
+      }
+
     return {
       'library': 'APEXCHARTS',
-      'configuration': self.__render_apexcharts()
+      'chart': 'SCATTER',
+      'configuration': self.__render_apexcharts(),
     }
+
+  def __render_graphic(self):
+    """
+    Converts the configuration of the chart to Flutter library Graphic.
+    """
+    series = []
+    for serie in self.__series:
+      data = []
+
+      type_serie = 'SCATTER'
+      if serie.serie_type == ChartDataSerieType.SCATTER:
+        type_serie = 'SCATTER'
+      elif serie.serie_type == ChartDataSerieType.LINE:
+        type_serie = 'LINE'
+      elif serie.serie_type == ChartDataSerieType.AREA:
+        type_serie = 'AREA'
+      else:
+        continue
+
+      for item in serie.data:
+        data.append({
+          'x_axis': item.x,
+          'y_axis': item.y,
+        })
+
+      series.append({
+        'group': serie.label,
+        'color': serie.color,
+        'values': data,
+        'type': type_serie,
+      })
+
+    return series
 
   def __render_apexcharts(self):
     """
