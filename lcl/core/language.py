@@ -79,7 +79,8 @@ class Language:
         'NOT': self.NOT,
         'CONTAINS': self.CONTAINS,
         'STARTS_WITH': self.STARTS_WITH,
-        'ENDS_WITH': self.ENDS_WITH
+        'ENDS_WITH': self.ENDS_WITH,
+        'PRIMARY_DEVICE': self.PRIMARY_DEVICE
       }
 
       if not ignore_signal:
@@ -742,3 +743,38 @@ class Language:
       )
 
     return self.__asset_constants.get('primaryDevice', None)
+
+  def SUBSTRING(self, *args):
+    """ Get a substring from string (args[0]) """
+    if len(args) < 2:
+      return INVALID_NUMBER_OF_PARAMS.format(
+        expected=2,
+        received=len(args),
+      )
+      
+    if len(args) > 3:
+      return INVALID_NUMBER_OF_PARAMS.format(
+        expected=3,
+        received=len(args),
+      )
+      
+    if args[0] is None or not isinstance(args[0], str):
+      return DIFFERENT_TYPES.format(
+        arg1='str',
+        arg2=type(args[0])
+      )
+      
+    if args[1] is None or not isinstance(args[1], int):
+      return DIFFERENT_TYPES.format(
+        arg1='int',
+        arg2=type(args[1])
+      )
+    
+    if len(args) == 3:
+      if args[2] is None or not isinstance(args[2], int):
+        return DIFFERENT_TYPES.format(
+          arg1='str',
+          arg2=type(args[2])
+        )
+      return args[0][args[1]:args[2]]
+    return args[0][args[1]:]
