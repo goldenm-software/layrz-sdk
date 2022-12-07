@@ -6,7 +6,7 @@ from enum import Enum
 class CaseStatus(Enum):
   """ Case status enum """
   PENDING = 'PENDING'
-  FOLLOWING = 'FOLLOWING'
+  FOLLOWED = 'FOLLOWED'
   CLOSED = 'CLOSED'
 
 class Case:
