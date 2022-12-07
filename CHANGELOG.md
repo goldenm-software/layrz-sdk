@@ -1,10 +1,30 @@
 # Changelog
 
+## v1.3.9
+* Internal changes related to GitLab CI automation
+
+## v1.3.8
+* Added SUBSTRING LCL function
+
+## v.1.3.7
+* Added sequence in cases
+
+## v1.3.6
+* Added new Map Chart
+  - Added required entity MapPoint
+  - Added required enum MapCenterType
+* Added new HTML Chart
+
+
+## v1.3.5
+* Bug fix related to formula perform, added PRIMARY_DEVICE to simulation environment
+
 ## v1.3.4
 * Added Transaction entity for REPCOM reports
 
 ## v1.3.3
 - Added PRIMARY_DEVICE() function to Layrz Compute Language
+
 ## v1.3.2
 - Updated styles of charts return object to ApexCharts or CanvasJS
 - Replaced all .rst files to .md files

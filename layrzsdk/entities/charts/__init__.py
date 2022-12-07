@@ -5,7 +5,9 @@ from .column import ColumnChart
 from .configuration import ChartConfiguration
 from .data_type import ChartDataType
 from .exceptions import ChartException
+from .html import HTMLChart
 from .line import AreaChart, LineChart
+from .map import MapCenterType, MapChart, MapPoint
 from .pie import PieChart
 from .radar import RadarChart
 from .radial_bar import RadialBarChart

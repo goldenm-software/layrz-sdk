@@ -14,7 +14,7 @@ setuptools.setup(
   url='https://gitlab.com/layrz-software/libraries/layrz-sdk',
   license='MIT',
   description="Layrz SDK",
-  long_description=read('README.rst'),
+  long_description=read('README.md'),
   keywords='sdk goldenm lcl layrz compute language',
   packages=setuptools.find_packages(),
   classifiers=[
