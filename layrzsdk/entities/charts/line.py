@@ -70,8 +70,16 @@ class LineChart:
     """
 
     if use_new_definition:
-      return {'library': 'GRAPHIC', 'configuration': self.__render_graphic()}
-    return {'library': 'CANVASJS', 'configuration': self.__render_canvasjs()}
+      return {
+        'library': 'GRAPHIC',
+        'chart': 'LINE',
+        'configuration': self.__render_graphic(),
+      }
+    return {
+      'library': 'CANVASJS',
+      'chart': 'LINE',
+      'configuration': self.__render_canvasjs(),
+    }
 
   def __render_graphic(self):
     """
@@ -88,7 +96,7 @@ class LineChart:
       for i, value in enumerate(self.x_axis.data):
         points.append({
           'x_axis': {
-            'value': value,
+            'value': value.timestamp() if self.x_axis.data_type == ChartDataType.DATETIME else value,
             'is_datetime': self.x_axis.data_type == ChartDataType.DATETIME,
           },
           'y_axis': serie.data[i],
@@ -142,7 +150,10 @@ class LineChart:
           points.append({'x': point.x, 'y': point.y})
       else:
         for i, value in enumerate(self.x_axis.data):
-          points.append({'x': value, 'y': serie.data[i]})
+          points.append({
+            'x': value.timestamp() if self.x_axis.data_type == ChartDataType.DATETIME else value,
+            'y': serie.data[i],
+          })
 
       dataset['dataPoints'] = points
       datasets.append(dataset)

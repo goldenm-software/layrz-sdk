@@ -1,14 +1,23 @@
 """ Chart Data Serie """
-from .serie_type import ChartDataSerieType
 from .data_type import ChartDataType
 from .exceptions import ChartException
+from .serie_type import ChartDataSerieType
+
 
 class ChartDataSerie:
   """
   Chart Serie
   """
 
-  def __init__(self, data, color='#000000', label='', dashed=False, serie_type=ChartDataSerieType.NONE, data_type=ChartDataType.NUMBER):
+  def __init__(
+    self,
+    data,
+    color='#000000',
+    label='',
+    dashed=False,
+    serie_type=ChartDataSerieType.NONE,
+    data_type=ChartDataType.NUMBER,
+  ):
     """
     Constructor
 

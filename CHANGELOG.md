@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.4.0
+* Added support for Flutter `graphic` library
+  * LineChart
+  * AreaChart (Replaced previous AreaChart to a temporal extend of LineChart)
+  * BarChart
+  * ColumnChart
+  * PieChart
+  * MapChart
+  * ScatterChart
+  * RadialBarChart
+* Future deprecations:
+  * HTMLChart
+  * TimelineChart
+  * RadarChart
+
 ## v1.3.9
 * Internal changes related to GitLab CI automation
 

@@ -1,8 +1,10 @@
 """ Radial Bar chart """
 import json
+
 from .alignment import ChartAlignment
 from .exceptions import ChartException
 from .serie import ChartDataSerie
+
 
 class RadialBarChart:
   """
@@ -42,15 +44,40 @@ class RadialBarChart:
     """ Title of the chart """
     return self.__title
 
-  def render(self):
+  def render(self, use_new_definition=False):
     """
-    Render chart to a Javascript Library.
-    Currently only available for ApexCharts.
+    Render chart to a graphic Library.
+    We have two graphic libraries: GRAPHIC and CANVASJS.
+
+    GRAPHIC is a Flutter chart library. To return this option, use the parameter use_new_definition=True.
+    CANVASJS is a Javascript chart library. This is the default option.
     """
+    if use_new_definition:
+      return {
+        'library': 'GRAPHIC',
+        'chart': 'RADIALBAR',
+        'configuration': self.__render_graphic(),
+      }
     return {
       'library': 'APEXCHARTS',
-      'configuration': self.__render_apexcharts()
+      'chart': 'RADIALBAR',
+      'configuration': self.__render_apexcharts(),
     }
+
+  def __render_graphic(self):
+    """
+    Converts the configuration of the chart to a Flutter library Graphic.
+    """
+    series = []
+
+    for serie in self.__series:
+      series.append({
+        'group': serie.label,
+        'color': serie.color,
+        'value': serie.data[0],
+      })
+
+    return series
 
   def __render_apexcharts(self):
     """

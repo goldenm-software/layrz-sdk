@@ -1,9 +1,11 @@
 """ Bar chart """
 import json
+
 from .alignment import ChartAlignment
 from .exceptions import ChartException
 from .serie import ChartDataSerie
 from .serie_type import ChartDataSerieType
+
 
 class BarChart:
   """
@@ -54,15 +56,45 @@ class BarChart:
     """ Title of the chart """
     return self.__title
 
-  def render(self):
+  def render(self, use_new_definition=False):
     """
-    Render chart to a Javascript Library.
-    Currently only available for ApexCharts.
+    Render chart to a graphic Library.
+    We have two graphic libraries: GRAPHIC and APEXCHARTS.
+
+    GRAPHIC is a Flutter chart library. To return this option, use the parameter use_new_definition=True.
+    APEXCHARTS is a Javascript chart library. This is the default option.
     """
+    if use_new_definition:
+      return {
+        'library': 'GRAPHIC',
+        'chart': 'BAR',
+        'configuration': self.__render_graphic(),
+      }
+
     return {
       'library': 'APEXCHARTS',
-      'configuration': self.__render_apexcharts()
+      'chart': 'BAR',
+      'configuration': self.__render_apexcharts(),
     }
+
+  def __render_graphic(self):
+    """
+    Converts the configuration of the chart to Flutter library graphic.
+    """
+
+    series = []
+
+    for serie in self.__y_axis:
+      for i, value in enumerate(serie.data):
+        x_axis = self.__x_axis.data[i]
+        series.append({
+          'label': serie.label,
+          'color': serie.color,
+          'category': x_axis,
+          'value': value,
+        })
+
+    return series
 
   def __render_apexcharts(self):
     """
@@ -73,10 +105,7 @@ class BarChart:
     colors = []
 
     for serie in self.__y_axis:
-      modified_serie = {
-        'name': serie.label,
-        'data': serie.data
-      }
+      modified_serie = {'name': serie.label, 'data': serie.data}
 
       if serie.serie_type is not ChartDataSerieType.NONE:
         modified_serie['type'] = serie.serie_type.value

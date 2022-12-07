@@ -1,10 +1,11 @@
 {
   "python.linting.pylintEnabled": true,
   "python.linting.pylintArgs": [
-    "--load-plugins",
-    "pylint_django",
-    "--django-settings-module",
-    "alpha.settings"
+    // "--load-plugins",
+    // "pylint_django",
+    // "--django-settings-module",
+    // "alpha.settings",
+    "--rcfile=.pylintrc"
   ],
   "python.linting.enabled": true,
   "python.formatting.provider": "yapf",
@@ -19,6 +20,10 @@
     },
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "ms-python.python",
-    "editor.rulers": [120],
-  }
+    "editor.rulers": [120]
+  },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": true,
+  "python.linting.pycodestyleEnabled": false,
 }

@@ -1,4 +1,6 @@
 """ Charts entities """
+
+
 class ChartConfiguration:
   """
   Chart configuration

@@ -1,14 +1,17 @@
 """ Timeline chart entities """
 import json
 from datetime import datetime
+
 from .alignment import ChartAlignment
 from .exceptions import ChartException
 from .serie_type import ChartDataSerieType
+
 
 class TimelineSerieItem:
   """
   Chart Data Serie Item for Timeline Charts
   """
+
   def __init__(self, name, start_at, end_at, color):
     """
     Constructor
@@ -56,10 +59,12 @@ class TimelineSerieItem:
     """ Color of the item """
     return self.__color
 
+
 class TimelineSerie:
   """
   Chart Data Serie for Timeline charts
   """
+
   def __init__(self, data, label):
     """
     Constructor
@@ -75,8 +80,6 @@ class TimelineSerie:
       raise ChartException('label must be an instance of str')
     self.__label = label
 
-    self.__serie_type = ChartDataSerieType.TIMELINE
-
   @property
   def data(self):
     """ List of data points """
@@ -91,6 +94,7 @@ class TimelineSerie:
   def serie_type(self):
     """ Serie type """
     return self.__serie_type
+
 
 class TimelineChart:
   """
@@ -135,10 +139,7 @@ class TimelineChart:
     Render chart to a Javascript Library.
     Currently only available for ApexCharts.
     """
-    return {
-      'library': 'APEXCHARTS',
-      'configuration': self.__render_apexcharts()
-    }
+    return {'library': 'APEXCHARTS', 'configuration': self.__render_apexcharts()}
 
   def __render_apexcharts(self):
     """
@@ -153,17 +154,11 @@ class TimelineChart:
       for item in serie.data:
         data.append({
           'x': item.name,
-          'y': [
-            item.start_at.timestamp() * 1000,
-            item.end_at.timestamp() * 1000
-          ],
+          'y': [item.start_at.timestamp() * 1000, item.end_at.timestamp() * 1000],
           'fillColor': item.color
         })
 
-      series.append({
-        'name': serie.label,
-        'data': data
-      })
+      series.append({'name': serie.label, 'data': data})
 
     config = {
       'series': series,

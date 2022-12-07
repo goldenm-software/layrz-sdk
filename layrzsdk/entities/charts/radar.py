@@ -1,9 +1,11 @@
 """ Radar chart """
 import json
+
 from .alignment import ChartAlignment
 from .exceptions import ChartException
 from .serie import ChartDataSerie
 from .serie_type import ChartDataSerieType
+
 
 class RadarChart:
   """
@@ -59,10 +61,7 @@ class RadarChart:
     Render chart to a Javascript Library.
     Currently only available for ApexCharts.
     """
-    return {
-      'library': 'APEXCHARTS',
-      'configuration': self.__render_apexcharts()
-    }
+    return {'library': 'APEXCHARTS', 'configuration': self.__render_apexcharts()}
 
   def __render_apexcharts(self):
     """
@@ -73,10 +72,7 @@ class RadarChart:
     colors = []
 
     for serie in self.__y_axis:
-      modified_serie = {
-        'name': serie.label,
-        'data': serie.data
-      }
+      modified_serie = {'name': serie.label, 'data': serie.data}
 
       if serie.serie_type is not ChartDataSerieType.NONE:
         modified_serie['type'] = serie.serie_type.value
