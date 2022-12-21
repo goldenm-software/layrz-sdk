@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.4.1
+* Fixed LineChart xAxis Datetime conversion for CanvasJS, now will multiply the timestamp by 1000 to use milliseconds
+
 ## v1.4.0
 * Added support for Flutter `graphic` library
   * LineChart
