@@ -151,7 +151,7 @@ class LineChart:
       else:
         for i, value in enumerate(self.x_axis.data):
           points.append({
-            'x': value.timestamp() if self.x_axis.data_type == ChartDataType.DATETIME else value,
+            'x': (value.timestamp() * 1000) if self.x_axis.data_type == ChartDataType.DATETIME else value,
             'y': serie.data[i],
           })
 
