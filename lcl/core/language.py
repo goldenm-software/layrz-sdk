@@ -80,7 +80,8 @@ class Language:
         'CONTAINS': self.CONTAINS,
         'STARTS_WITH': self.STARTS_WITH,
         'ENDS_WITH': self.ENDS_WITH,
-        'PRIMARY_DEVICE': self.PRIMARY_DEVICE
+        'PRIMARY_DEVICE': self.PRIMARY_DEVICE,
+        'SUBSTRING': self.SUBSTRING
       }
 
       if not ignore_signal:
@@ -663,6 +664,7 @@ class Language:
   def NOW(self, *args):
     """ NOW Function """
     from datetime import datetime
+
     import pytz
     return datetime.now(tz=pytz.utc).timestamp()
 

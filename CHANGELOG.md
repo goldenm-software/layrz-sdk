@@ -1,5 +1,9 @@
 # Changelog
 
+
+## v1.4.2
+* Fix, added SUBSTRING LCL to global functions
+
 ## v1.4.1
 * Fixed LineChart xAxis Datetime conversion for CanvasJS, now will multiply the timestamp by 1000 to use milliseconds
 
