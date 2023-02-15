@@ -120,13 +120,6 @@ class MapChart:
     """ Map Center mode """
     return self.__center
 
-  def render(self):
-    """
-    Converts the configuration of the chart to HTML render engine.
-    """
-    config = self.__render_html()
-    return config
-
   def render(self, use_new_definition=False):
     """
     Render chart to a graphic Library.
