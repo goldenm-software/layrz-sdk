@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.4.3
+* Added new ChartType: TableChart and NumberChart
+* Starting to replace documentation format from unstructured to a structured format
 
 ## v1.4.2
 * Fix, added SUBSTRING LCL to global functions
