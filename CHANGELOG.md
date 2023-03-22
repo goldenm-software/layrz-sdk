@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.0
+* Deprecated `lcl.core` module
+* Changed `layrzsdk` to `layrz.sdk` package (With unified Layrz namespace)
+
 ## v1.4.3
 * Added new ChartType: TableChart and NumberChart
 * Starting to replace documentation format from unstructured to a structured format
