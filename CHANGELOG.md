@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.4.4
+* Added CaseIgnoredStatus to Case entity
+
 ## v1.4.3
 * Added new ChartType: TableChart and NumberChart
 * Starting to replace documentation format from unstructured to a structured format
