@@ -9,17 +9,6 @@ class CaseStatus(Enum):
   FOLLOWED = 'FOLLOWED'
   CLOSED = 'CLOSED'
 
-
-class CaseIgnoredStatus(Enum):
-  """
-  Case ignore status, will define what kind ignore happened.
-  """
-  NORMAL = 'NORMAL'
-  IGNORED = 'IGNORED'
-  PRESSET = 'PRESSET'
-  AUTO = 'AUTO'
-
-
 class Case:
   """
   Case entity definition
@@ -36,18 +25,7 @@ class Case:
     sequence (int): Case sequence
   """
 
-  def __init__(
-    self,
-    pk,
-    trigger,
-    asset_id,
-    opened_at,
-    sequence=None,
-    closed_at=None,
-    comments=[],
-    status=CaseStatus.CLOSED,
-    ignored_status=CaseIgnoredStatus.NORMAL
-  ):
+  def __init__(self, pk, trigger, asset_id, opened_at, sequence=None, closed_at=None, comments=[], status=CaseStatus.CLOSED):
     """ Constructor """
     self.__pk = pk
     self.__trigger = trigger
@@ -57,7 +35,6 @@ class Case:
     self.__closed_at = closed_at
     self.__status = status
     self.__sequence = sequence
-    self.__ignored_status = ignored_status
   
   @property
   def pk(self):
@@ -101,11 +78,6 @@ class Case:
       return f'{self.__trigger.code}/{self.__sequence}'
     else:
       return f'GENERIC/{self.__pk}'
-
-  @property
-  def ignored_status(self):
-    """ Ignored status """
-    return self.__ignored_status
 
   @property
   def __readable(self):
