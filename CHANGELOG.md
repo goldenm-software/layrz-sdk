@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.4.5
+* Added CaseIgnoredStatus to init file
+
 ## v1.4.4
 * Added CaseIgnoredStatus to Case entity
 
