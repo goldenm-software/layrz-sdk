@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.0.1
+- Fixes on package namespace
+
 ## v2.0.0
 * Deprecated `lcl.core` module
 * Changed `layrzsdk` to `layrz.sdk` package (With unified Layrz namespace)
