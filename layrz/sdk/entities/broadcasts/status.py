@@ -1,6 +1,6 @@
 """ Broadcast result Status """
 from enum import Enum
-from http.client import UNAUTHORIZED
+
 
 class BroadcastStatus(Enum):
   """ Broadcast result status """
@@ -9,6 +9,7 @@ class BroadcastStatus(Enum):
   INTERNALERROR = 'INTERNALERROR'
   UNAUTHORIZED = 'UNAUTHORIZED'
   UNPROCESSABLE = 'UNPROCESSABLE'
+  DISCONNECTED = 'DISCONNECTED'
 
   @property
   def __readable(self):

@@ -14,7 +14,7 @@ def get_requirements():
 
 setuptools.setup(
   name='layrz-sdk',
-  version='2.0.0',
+  version='2.0.1',
   author='Layrz',
   author_email='software@layrz.com',
   url='https://gitlab.com/layrz-software/libraries/layrz-sdk',
