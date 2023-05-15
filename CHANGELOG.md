@@ -4,6 +4,12 @@
 * Deprecated `lcl.core` module
 * Changed `layrzsdk` to `layrz.sdk` package (With unified Layrz namespace)
 
+## v1.4.5
+* Added CaseIgnoredStatus to init file
+
+## v1.4.4
+* Added CaseIgnoredStatus to Case entity
+
 ## v1.4.3
 * Added new ChartType: TableChart and NumberChart
 * Starting to replace documentation format from unstructured to a structured format

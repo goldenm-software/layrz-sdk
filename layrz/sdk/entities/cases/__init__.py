@@ -1,4 +1,4 @@
 """ Init file """
-from .case import Case, CaseStatus
-from .trigger import Trigger
+from .case import Case, CaseIgnoredStatus, CaseStatus
 from .comment import Comment
+from .trigger import Trigger
