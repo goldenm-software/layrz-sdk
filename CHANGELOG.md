@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.0
+* Deprecated `lcl.core` module
+* Changed `layrzsdk` to `layrz.sdk` package (With unified Layrz namespace)
+
 ## v1.4.5
 * Added CaseIgnoredStatus to init file
 

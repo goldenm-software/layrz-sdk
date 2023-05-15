@@ -7,7 +7,7 @@ DIFFERENT_TYPES = 'Invalid data types - arg1: {arg1} - arg2: {arg2}'
 INVALID_ARGUMENTS = 'Invalid arguments - {e}'
 TIMEOUT_REACHED = 'Timeout reached - Maximum execution time: {timeout}s'
 
-class Language:
+class LclCore:
   """
   Layrz Compute Language
   """
