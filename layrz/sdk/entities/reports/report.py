@@ -1,8 +1,12 @@
 """ Report class """
 import time
+
 import xlsxwriter
+
 from .col import ReportDataType
 from .format import ReportFormat
+
+
 class Report:
   """
   Report definition
@@ -13,6 +17,7 @@ class Report:
     pages (list(ReportPage)): List of pages to append into report
     export_format (ReportFormat): Format to export the report
   """
+
   def __init__(self, name, pages, export_format):
     self.__name = name
     self.__pages = pages
@@ -55,8 +60,47 @@ class Report:
     """ Export report to file """
     if self.export_format == ReportFormat.MICROSOFT_EXCEL:
       return self.__export_xlsx(path)
+    elif self.export_format == ReportFormat.JSON:
+      return self.__export_json()
     else:
       raise Exception(f'Unsupported export format: {self.export_format}')
+
+  def export_as_json(self):
+    """ Returns the report as a JSON dict"""
+    return self.__export_json()
+
+  def __export_json(self):
+    """ Returns a JSON dict of the report"""
+    json_pages = []
+    for page in self.pages:
+      headers = []
+      for header in page.headers:
+        headers.append({
+          'content': header.content,
+          'text_color': header.text_color,
+          'color': header.color,
+        })
+      rows = []
+      for row in self.pages:
+        cells = []
+        for cell in row.content:
+          cells.append({
+            'content': cell.content,
+            'text_color': cell.text_color,
+            'color': cell.color,
+            'data_type': cell.data_type.value,
+          })
+        rows.append({'content': cells})
+      json_pages.append({
+        'name': page.name,
+        'headers': headers,
+        'rows': rows,
+      })
+
+    return {
+      'name': self.name,
+      'pages': json_pages,
+    }
 
   def __export_xlsx(self, path):
     """ Export to Microsoft Excel (.xslx) """
@@ -109,7 +153,8 @@ class Report:
             style.update({'num_format': '0.00'})
           elif cell.data_type == ReportDataType.CURRENCY:
             value = float(cell.content)
-            style.update({'num_format': f'"{cell.currency_symbol}" * #,##0.00;[Red]"{cell.currency_symbol}" * #,##0.00'})
+            style.update(
+              {'num_format': f'"{cell.currency_symbol}" * #,##0.00;[Red]"{cell.currency_symbol}" * #,##0.00'})
           else:
             value = cell.content
 

@@ -1,11 +1,13 @@
 """ Report formats """
 from enum import Enum
 
+
 class ReportFormat(Enum):
   """
   Report format definition.
   """
   MICROSOFT_EXCEL = 'MICROSOFT_EXCEL'
+  JSON = 'JSON'
 
   @property
   def __readable(self):
