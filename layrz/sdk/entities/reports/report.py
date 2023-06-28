@@ -81,7 +81,7 @@ class Report:
           'color': header.color,
         })
       rows = []
-      for row in self.pages:
+      for row in page.rows:
         cells = []
         for cell in row.content:
           cells.append({
