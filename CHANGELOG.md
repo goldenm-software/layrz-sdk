@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.0
+- Add bold format option to Col class
+- Add freeze header option to Page class
+
 ## v2.0.1
 - Fixes on package namespace
 

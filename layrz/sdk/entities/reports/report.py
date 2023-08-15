@@ -110,6 +110,8 @@ class Report:
 
     for page in self.pages:
       sheet = book.add_worksheet(page.name[0:31].replace('[', '').replace(']', ''))
+      if page.freeze_header:
+        sheet.freeze_panes(1, 0)
 
       for i, header in enumerate(page.headers):
         style = book.add_format({
@@ -133,6 +135,7 @@ class Report:
             'align': cell.align.value,
             'font_color': cell.text_color,
             'bg_color': cell.color,
+            'bold': cell.bold,
             'valign': 'vcenter',
             'font_size': 10,
             'top': 1,

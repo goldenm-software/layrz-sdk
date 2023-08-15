@@ -1,6 +1,7 @@
 """ Report header """
 from ..formatting.text_align import TextAlignment
 
+
 class ReportHeader:
   """
   Report header definition

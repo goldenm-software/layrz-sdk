@@ -17,7 +17,7 @@ def long_description():
 
 setuptools.setup(
   name='layrz-sdk',
-  version='2.0.3',
+  version='2.1.0',
   author='Layrz',
   author_email='software@layrz.com',
   url='https://gitlab.com/layrz-software/libraries/layrz-sdk',

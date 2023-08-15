@@ -10,10 +10,11 @@ class ReportPage:
     headers (list(ReportHeader)): Headers of the page
     rows (list(ReportRow)): Rows of the page
   """
-  def __init__(self, name, headers, rows):
+  def __init__(self, name, headers, rows, freeze_header=False):
     self.__name = name
     self.__headers = headers
     self.__rows = rows
+    self.__freeze_header = freeze_header
 
   @property
   def name(self):
@@ -29,6 +30,11 @@ class ReportPage:
   def rows(self):
     """ Rows of the page """
     return self.__rows
+
+  @property
+  def freeze_header(self):
+    """ Freeze header """
+    return self.__freeze_header
 
   def __str__(self):
     """ Readable property """
