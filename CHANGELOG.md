@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.1.1
+- Added `compact` in the json return format in reports
+
 ## v2.1.0
 - Add bold format option to Col class
 - Add freeze header option to Page class
