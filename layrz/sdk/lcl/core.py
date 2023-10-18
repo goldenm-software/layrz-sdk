@@ -81,7 +81,8 @@ class LclCore:
         'STARTS_WITH': self.STARTS_WITH,
         'ENDS_WITH': self.ENDS_WITH,
         'PRIMARY_DEVICE': self.PRIMARY_DEVICE,
-        'SUBSTRING': self.SUBSTRING
+        'SUBSTRING': self.SUBSTRING,
+        'DATE_TO_STR': self.DATE_TO_STR,
       }
 
       if not ignore_signal:
@@ -780,3 +781,13 @@ class LclCore:
         )
       return args[0][args[1]:args[2]]
     return args[0][args[1]:]
+
+  def DATE_TO_STR(self, *args):
+    """ Convert UNIX timestamp date (args[0]) to format (args[1]) string """
+    if len(args) != 2:
+      return INVALID_NUMBER_OF_PARAMS.format(
+        expected=2,
+        received=len(args)
+      )
+    from datetime import datetime
+    return datetime.fromtimestamp(int(args[0])).strftime(args[1])

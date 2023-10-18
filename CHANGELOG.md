@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.1.2
+- Add DATE_TO_STR LCL function
+
 ## v2.1.1
 - Added `compact` in the json return format in reports
 
