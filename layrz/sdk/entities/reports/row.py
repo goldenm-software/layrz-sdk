@@ -1,6 +1,7 @@
 """ Report row """
 from ..formatting.text_align import TextAlignment
 
+
 class ReportRow:
   """
   Report row definition
@@ -11,6 +12,7 @@ class ReportRow:
     height (float): Height of the cell, in points (pt)
     compact (bool): Compact mode
   """
+
   def __init__(self, content, height=14, compact=False):
     self.__content = content
     self.__height = height

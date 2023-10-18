@@ -90,7 +90,10 @@ class Report:
             'color': cell.color,
             'data_type': cell.data_type.value,
           })
-        rows.append({'content': cells})
+        rows.append({
+          'content': cells,
+          'compact': row.compact,
+        })
       json_pages.append({
         'name': page.name,
         'headers': headers,
