@@ -6,9 +6,9 @@ stages:
 deploy-library:
   stage: deploy
   script:
-    - pip install twine
-    - python setup.py sdist bdist_wheel
-    - TWINE_PASSWORD=${PYPI_PASSWORD} TWINE_USERNAME=${PYPI_USERNAME} python -m twine upload dist/*
+    - pip install -U twine pip build
+    - python3 -m build
+    - TWINE_PASSWORD=${PYPI_PASSWORD} TWINE_USERNAME=${PYPI_USERNAME} python3 -m twine upload dist/*
 
   only:
     - main

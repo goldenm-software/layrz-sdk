@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.3
+- Changed build mode to pyproject.toml
+- Updated `LcLCore.perform()` function to receive additional globals and locals in their arguments
+
 ## v2.1.2
 - Add UNIX_TO_STR LCL function
 
