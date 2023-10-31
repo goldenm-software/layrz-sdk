@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.5
+- Added declarative typing on all LCL functions
+- Added support for timezone in `UNIX_TO_STR` LCL function
+
 ## 2.1.3
 - Changed build mode to pyproject.toml
 - Updated `LcLCore.perform()` function to receive additional globals and locals in their arguments
