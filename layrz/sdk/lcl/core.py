@@ -531,12 +531,11 @@ class LclCore:
 
     return args[1] if args[0] else args[2]
 
-  def NOW(self, *args):
+  def NOW(self, *args): # pylint: disable=unused-argument
     """ NOW Function """
+    import zoneinfo
     from datetime import datetime
-
-    import pytz
-    return datetime.now(tz=pytz.utc).timestamp()
+    return datetime.utcnow(tz=zoneinfo.ZoneInfo('UTC')).timestamp()
 
   def REGEX(self, *args):
     """ REGEX Function """
@@ -546,7 +545,7 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
-    if type(args[0]) != str:
+    if not isinstance(args[0], str):
       return PATTERN_INVALID.format(received=type(args[0]))
 
     import re
