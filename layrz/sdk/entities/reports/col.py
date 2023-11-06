@@ -1,6 +1,8 @@
 """ Report col """
 from enum import Enum
+
 from ..formatting.text_align import TextAlignment
+
 
 class ReportDataType(Enum):
   """
@@ -40,7 +42,7 @@ class ReportCol:
     datetime_format (str): Date time format
     currency_symbol (str): Currency symbol
   """
-  def __init__(self, content, color='#ffffff', text_color='#000000', align=TextAlignment.LEFT, data_type=ReportDataType.STR, datetime_format='%Y-%m-%d %H:%M:%S', currency_symbol=''):
+  def __init__(self, content, color='#ffffff', text_color='#000000', align=TextAlignment.LEFT, data_type=ReportDataType.STR, datetime_format='%Y-%m-%d %H:%M:%S', currency_symbol='', bold=False):
     self.__content = content
     self.__color = color
     self.__text_color = text_color
@@ -48,6 +50,7 @@ class ReportCol:
     self.__data_type = data_type
     self.__datetime_format = datetime_format
     self.__currency_symbol = currency_symbol
+    self.__bold = bold
 
   @property
   def content(self):
@@ -85,9 +88,14 @@ class ReportCol:
     return self.__currency_symbol
 
   @property
+  def bold(self):
+    """ Bold format """
+    return self.__bold
+
+  @property
   def __readable(self):
     """ Readable property """
-    return f'ReportCol(content={self.content}, color={self.color}, text_color={self.text_color}, align={self.align}, data_type={self.data_type}, datetime_format={self.datetime_format}, currency_symbol={self.currency_symbol})'
+    return f'ReportCol(content={self.content}, color={self.color}, text_color={self.text_color}, align={self.align}, data_type={self.data_type}, datetime_format={self.datetime_format}, currency_symbol={self.currency_symbol}, bold={self.bold})'
 
   def __repr__(self):
     """ Readable property """

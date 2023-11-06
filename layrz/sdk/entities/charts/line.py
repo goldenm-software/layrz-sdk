@@ -1,7 +1,7 @@
 """ Line chart """
 import json
 
-from layrzsdk.helpers import convert_to_rgba
+from layrz.sdk.helpers import convert_to_rgba
 
 from .alignment import ChartAlignment
 from .data_type import ChartDataType

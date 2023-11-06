@@ -1,5 +1,26 @@
 # Changelog
 
+## 2.1.5
+- Added declarative typing on all LCL functions
+- Added support for timezone in `UNIX_TO_STR` LCL function
+
+## 2.1.3
+- Changed build mode to pyproject.toml
+- Updated `LcLCore.perform()` function to receive additional globals and locals in their arguments
+
+## v2.1.2
+- Add UNIX_TO_STR LCL function
+
+## v2.1.1
+- Added `compact` in the json return format in reports
+
+## v2.1.0
+- Add bold format option to Col class
+- Add freeze header option to Page class
+
+## v2.0.1
+- Fixes on package namespace
+
 ## v2.0.0
 * Deprecated `lcl.core` module
 * Changed `layrzsdk` to `layrz.sdk` package (With unified Layrz namespace)
