@@ -1,6 +1,6 @@
 [project]
 name = "layrz-sdk"
-version = "2.1.8"
+version = "2.1.9"
 description = "Layrz SDK for Python"
 authors = [
   {name = "Golden M, Inc.", email = "software@goldenm.com"}
