@@ -5,6 +5,12 @@ on:
     # Deploy only when the commit ends with NEXT
     branches: [ "main" ]
 
+permissions:
+  id-token: write
+  contents: read
+  repository-projects: read
+  packages: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
