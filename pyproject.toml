@@ -42,10 +42,7 @@ Changelog = "https://github.com/goldenm-software/layrz-sdk/blob/main/CHANGELOG.m
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = [
-  "layrz.*",
-  "layrz.__init__"
-]
+include = ["layrz"]
 namespaces = true
 
 [build-system]
