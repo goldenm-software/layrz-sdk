@@ -1,6 +1,6 @@
 [project]
 name = "layrz-sdk"
-version = "2.1.7"
+version = "2.1.8"
 description = "Layrz SDK for Python"
 authors = [
   {name = "Golden M, Inc.", email = "software@goldenm.com"}
@@ -42,7 +42,10 @@ Changelog = "https://github.com/goldenm-software/layrz-sdk/blob/main/CHANGELOG.m
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["layrz.*"]
+include = [
+  "layrz.*",
+  "layrz.__init__"
+]
 namespaces = true
 
 [build-system]
