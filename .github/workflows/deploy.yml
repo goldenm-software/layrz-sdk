@@ -2,7 +2,6 @@ name: "Deploy package"
 
 on:
   push:
-    # Deploy only when the commit ends with NEXT
     branches: [ "main" ]
 
 permissions:
