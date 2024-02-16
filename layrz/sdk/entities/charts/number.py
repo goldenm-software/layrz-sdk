@@ -35,7 +35,7 @@ class NumberChart:
     Converts the configuration of the chart to a Flutter native components.
     """
     return {
-      'value': self._value,
-      'color': self._color,
-      'label': self._label,
+      'value': self.value,
+      'color': self.color,
+      'label': self.label,
     }

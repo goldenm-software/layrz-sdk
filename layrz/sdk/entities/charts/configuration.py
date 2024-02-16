@@ -6,30 +6,20 @@ class ChartConfiguration:
   Chart configuration
   """
 
-  def __init__(self, name, description):
+  def __init__(self, name: str, description: str) -> None:
     """ Constructor """
-    self.__name = name
-    self.__description = description
+    self.name = name
+    self.description = description
 
   @property
-  def name(self):
-    """ Name of the chart """
-    return self.__name
-
-  @property
-  def description(self):
-    """ Description of the chart """
-    return self.__description
-
-  @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable """
-    return f'ChartConfiguration(name="{self.__name}")'
+    return f'ChartConfiguration(name="{self.name}")'
 
-  def __str__(self):
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
 
-  def __repr__(self):
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable

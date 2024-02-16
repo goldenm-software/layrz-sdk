@@ -126,7 +126,7 @@ class MapChart:
     """
     points = []
 
-    for point in self.__points:
+    for point in self.points:
       points.append({
         'label': point.label,
         'color': point.color,
@@ -135,7 +135,7 @@ class MapChart:
 
     center = 'CONTAIN'
 
-    if self.__center == MapCenterType.FIXED:
+    if self.center == MapCenterType.FIXED:
       center = 'FIXED'
 
     config = {
@@ -143,8 +143,8 @@ class MapChart:
       'center': center,
     }
 
-    if self.__center == MapCenterType.FIXED:
-      config['centerLatLng'] = self.__center_latlng
+    if self.center == MapCenterType.FIXED:
+      config['centerLatLng'] = self.center_latlng
 
     return config
 
@@ -154,21 +154,21 @@ class MapChart:
     """
     points = []
 
-    for point in self.__points:
+    for point in self.points:
       points.append({'label': point.label, 'color': point.color, 'latlng': (point.latitude, point.longitude)})
 
     center = 'CONTAIN'
 
-    if self.__center == MapCenterType.FIXED:
+    if self.center == MapCenterType.FIXED:
       center = 'FIXED'
 
     config = {
       'points': points,
-      'title': self.__title,
+      'title': self.title,
       'center': center,
     }
 
-    if self.__center == MapCenterType.FIXED:
-      config['centerLatLng'] = self.__center_latlng
+    if self.center == MapCenterType.FIXED:
+      config['centerLatLng'] = self.center_latlng
 
     return config

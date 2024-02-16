@@ -61,8 +61,8 @@ class TableChart:
       'columns': [{
         'key': column.key,
         'label': column.label
-      } for column in self._columns],
+      } for column in self.columns],
       'rows': [{
         'data': row.data
-      } for row in self._rows],
+      } for row in self.rows],
     }

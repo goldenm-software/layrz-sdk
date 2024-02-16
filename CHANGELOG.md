@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.1
+
+- Bug fixes related to removing __ from all classes
+
 ## 2.2.0
 
 - Removed support to Python 3.12 due to a shared namespace issue.
