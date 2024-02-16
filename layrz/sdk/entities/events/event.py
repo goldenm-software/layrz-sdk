@@ -1,59 +1,48 @@
 """ Event entity """
+from datetime import datetime
+
+from layrz.sdk.entities.cases.trigger import Trigger
+from layrz.sdk.entities.telemetry.message import Message
+
+
 class Event:
   """
   Event entity definition
 
   Available attributes
   --------------------
-    pk (int): Event ID
-    trigger (Trigger): Trigger object that triggered the event
-    asset_id (Asset): ID of the Asset owner of the event
-    message (Message): Telemetry information of the event
-    activated_at (datetime): Reception/triggered at
+    pk : Event ID
+    trigger : Trigger object that triggered the event
+    asset_id : ID of the Asset owner of the event
+    message : Telemetry information of the event
+    activated_at : Reception/triggered at
   """
-  
-  def __init__(self, pk, trigger, asset_id, message, activated_at):
+
+  def __init__(
+    self,
+    pk: int,
+    trigger: Trigger,
+    asset_id: int,
+    message: Message,
+    activated_at: datetime,
+  ) -> None:
     """ Constructor """
-    self.__pk = pk
-    self.__trigger = trigger
-    self.__asset_id = asset_id
-    self.__message = message
-    self.__activated_at = activated_at
-  
+    self.pk = pk
+    self.trigger = trigger
+    self.asset_id = asset_id
+    self.message = message
+    self.activated_at = activated_at
+
   @property
-  def pk(self):
-    """ Event ID """
-    return self.__pk
-  
-  @property
-  def trigger(self):
-    """ Trigger object that triggered the event """
-    return self.__trigger
-  
-  @property
-  def asset_id(self):
-    """ Asset owner of the event """
-    return self.__asset_id
-  
-  @property
-  def message(self):
-    """ Telemetry information of the event """
-    return self.__message
-  
-  @property
-  def activated_at(self):
-    """ Reception/triggered at """
-    return self.__activated_at
-  
-  @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable """
-    return f'Event(pk={self.__pk}, trigger={self.__trigger}, asset_id={self.__asset_id}, message={self.__message}, activated_at={self.__activated_at})'
-  
-  def __str__(self):
+    return f'Event(pk={self.pk}, trigger={self.trigger}, asset_id={self.asset_id}, ' +\
+           f'message={self.message}, activated_at={self.activated_at})'
+
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
-  
-  def __repr__(self):
+    return self._readable
+
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable

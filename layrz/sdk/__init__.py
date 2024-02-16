@@ -1,1 +1,1 @@
-""" Init file """
+""" Layrz SDK Namespace """

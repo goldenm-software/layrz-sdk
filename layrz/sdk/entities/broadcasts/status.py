@@ -12,14 +12,14 @@ class BroadcastStatus(Enum):
   DISCONNECTED = 'DISCONNECTED'
 
   @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable """
     return f'BroadcastStatus.{self.value}'
 
-  def __str__(self):
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
 
-  def __repr__(self):
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable

@@ -1,6 +1,9 @@
 """ Events entitites """
 
+from datetime import datetime
 from enum import Enum
+
+from .trigger import Trigger
 
 
 class CaseStatus(Enum):
@@ -8,6 +11,19 @@ class CaseStatus(Enum):
   PENDING = 'PENDING'
   FOLLOWED = 'FOLLOWED'
   CLOSED = 'CLOSED'
+
+  @property
+  def _readable(self) -> str:
+    """ Readable """
+    return f'BroadcastStatus.{self.value}'
+
+  def __str__(self) -> str:
+    """ Readable property """
+    return self._readable
+
+  def __repr__(self) -> str:
+    """ Readable property """
+    return self._readable
 
 
 class CaseIgnoredStatus(Enum):
@@ -19,103 +35,82 @@ class CaseIgnoredStatus(Enum):
   PRESSET = 'PRESSET'
   AUTO = 'AUTO'
 
+  @property
+  def _readable(self) -> str:
+    """ Readable """
+    return f'BroadcastStatus.{self.value}'
+
+  def __str__(self) -> str:
+    """ Readable property """
+    return self._readable
+
+  def __repr__(self) -> str:
+    """ Readable property """
+    return self._readable
+
+
 class Case:
   """
   Case entity definition
-
-  Available attributes
-  --------------------
-    pk (int): Case ID
-    trigger (Trigger): Trigger object that triggered the case
-    asset_id (int): Asset ID
-    comments list(Comment): List of comments submitted when the case was opened.
-    opened_at (datetime): Date of case opening
-    closed_at (datetime): Date of case closing
-    status (CaseStatus): Case status
-    sequence (int): Case sequence
-    ignored_status (CaseIgnoredStatus): Case ignored status
+  ---
+  Attributes
+    - pk : Case ID
+    - trigger : Trigger object that triggered the case
+    - asset_id : Asset ID
+    - comments list: List of comments submitted when the case was opened.
+    - opened_at : Date of case opening
+    - closed_at : Date of case closing
+    - status : Case status
+    - sequence : Case sequence
+    - ignored_status : Case ignored status
   """
 
   def __init__(
     self,
-    pk,
-    trigger,
-    asset_id,
-    opened_at,
-    sequence=None,
-    closed_at=None,
-    comments=[],
-    status=CaseStatus.CLOSED,
-    ignored_status=CaseIgnoredStatus.NORMAL
-  ):
+    pk: int,
+    trigger: Trigger,
+    asset_id: int,
+    opened_at: datetime,
+    sequence: int = None,
+    closed_at: datetime = None,
+    comments: list = None,
+    status: CaseStatus = CaseStatus.CLOSED,
+    ignored_status: CaseIgnoredStatus = CaseIgnoredStatus.NORMAL,
+  ) -> None:
     """ Constructor """
-    self.__pk = pk
-    self.__trigger = trigger
-    self.__asset_id = asset_id
-    self.__comments = comments
-    self.__opened_at = opened_at
-    self.__closed_at = closed_at
-    self.__status = status
-    self.__sequence = sequence
-    self.__ignored_status = ignored_status
-  
-  @property
-  def pk(self):
-    """ Case ID """
-    return self.__pk
-  
-  @property
-  def trigger(self):
-    """ Trigger object that triggered the case """
-    return self.__trigger
-  
-  @property
-  def asset_id(self):
-    """ Asset ID """
-    return self.__asset_id
-  
-  @property
-  def comments(self):
-    """ List of comments submitted when the case was opened """
-    return self.__comments
-  
-  @property
-  def opened_at(self):
-    """ Date of case opening """
-    return self.__opened_at
-  
-  @property
-  def closed_at(self):
-    """ Date of case closing """
-    return self.__closed_at
+    self.pk = pk
+    self.trigger = trigger
+    self.asset_id = asset_id
+    self.comments = comments if comments else []
+    self.opened_at = opened_at
+    self.closed_at = closed_at
+    self.status = status
+    self._sequence = sequence
+    self.ignored_status = ignored_status
 
-  @property
-  def status(self):
-    """ Status """
-    return self.__status
-
-  @property
-  def sequence(self):
-    """ Sequence """
-    if (self.__sequence):
-      return f'{self.__trigger.code}/{self.__sequence}'
+  def get_sequence(self) -> str:
+    """ Sequence getter """
+    if self._sequence is not None:
+      return f'{self.trigger.code}/{self._sequence}'
     else:
-      return f'GENERIC/{self.__pk}'
+      return f'GENERIC/{self.pk}'
+
+  def set_sequence(self, sequence: int) -> None:
+    """ Sequence setter """
+    self._sequence = sequence
+
+  sequence = property(get_sequence, set_sequence)
 
   @property
-  def ignored_status(self):
-    """ Ignored status """
-    return self.__ignored_status
-
-  @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable """
-    return f'Case(pk={self.__pk}, trigger={self.__trigger}, asset_id={self.__asset_id}, comments={self.__comments}, opened_at={self.__opened_at}, closed_at={self.__closed_at})'
-  
-  def __str__(self):
+    return f'Case(pk={self.pk}, trigger={self.trigger}, asset_id={self.asset_id}, ' +\
+           f'comments={len(self.comments)}, opened_at={self.opened_at}, closed_at={self.closed_at})'
+
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
-  
-  def __repr__(self):
+    return self._readable
+
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable

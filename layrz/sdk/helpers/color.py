@@ -1,7 +1,9 @@
 """
 Color helpers
 """
-def convert_to_rgba(hex_color):
+
+
+def convert_to_rgba(hex_color: str) -> tuple[int, int, int, int]:
   """
   Convert Hex (or Hexa) color to RGB (or RGBA) color
   
@@ -14,15 +16,16 @@ def convert_to_rgba(hex_color):
 	"""
 
   if not hex_color.startswith('#'):
-    raise Exception('Invalid color, must starts with #')
+    raise ValueError('Invalid color, must starts with #')
 
   hex_color = hex_color.replace('#', '')
   if len(hex_color) == 6:
-    return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4)) + (1,)
+    return tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4)) + (1, )
 
-  return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4, 6))
+  return tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4, 6))
 
-def use_black(color):
+
+def use_black(color: str) -> bool:
   """
   Use black
   Will return when the background color works well with black text color.
@@ -38,5 +41,4 @@ def use_black(color):
   """
   rgb = convert_to_rgba(color)
   a = 1 - (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255
-  return (a < 0.5)
-
+  return a < 0.5

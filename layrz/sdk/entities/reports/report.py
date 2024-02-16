@@ -1,75 +1,74 @@
 """ Report class """
+import os
 import time
 
 import xlsxwriter
 
 from .col import ReportDataType
 from .format import ReportFormat
+from .page import ReportPage
 
 
 class Report:
   """
   Report definition
-
-  Available attributes
-  --------------------
-    name (str): Report name. The exported name will have an timestamp to prevent duplicity in our servers.
-    pages (list(ReportPage)): List of pages to append into report
-    export_format (ReportFormat): Format to export the report
+  ---
+  Attributes
+    - name : Report name. The exported name will have an timestamp to prevent duplicity in our servers.
+    - pages : List of pages to append into report
+    - export_format : Format to export the report
   """
 
-  def __init__(self, name, pages, export_format):
-    self.__name = name
-    self.__pages = pages
-    self.__export_format = export_format
+  def __init__(
+    self,
+    name: str,
+    pages: list[ReportPage],
+    export_format: ReportFormat,
+  ) -> None:
+    self.name = name
+    self.pages = pages
+    self.export_format = export_format
 
   @property
-  def name(self):
-    """ Report name. The exported name will have an timestamp to prevent duplicity in our servers. """
-    return self.__name
-
-  @property
-  def pages(self):
-    """ List of pages to append into report """
-    return self.__pages
-
-  @property
-  def export_format(self):
-    """ export_format to export the report """
-    return self.__export_format
-
-  @property
-  def filename(self):
+  def filename(self) -> str:
     """ Report filename """
     return f'{self.name}_{int(time.time() * 1000)}.xlsx'
 
   @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable property """
     return f'Report(name={self.name}, pages={self.pages}, export_format={self.export_format})'
 
-  def __repr__(self):
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
 
-  def __str__(self):
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
 
-  def export(self, path):
+  def export(self, path, export_format: ReportFormat = None) -> str:
     """ Export report to file """
+    if export_format:
+      if export_format == ReportFormat.MICROSOFT_EXCEL:
+        return self._export_xlsx(path)
+      elif export_format == ReportFormat.JSON:
+        return self._export_json()
+      else:
+        raise AttributeError(f'Unsupported export format: {export_format}')
+
     if self.export_format == ReportFormat.MICROSOFT_EXCEL:
-      return self.__export_xlsx(path)
+      return self._export_xlsx(path)
     elif self.export_format == ReportFormat.JSON:
-      return self.__export_json()
+      return self._export_json()
     else:
-      raise Exception(f'Unsupported export format: {self.export_format}')
+      raise AttributeError(f'Unsupported export format: {self.export_format}')
 
-  def export_as_json(self):
+  def export_as_json(self) -> dict:
     """ Returns the report as a JSON dict"""
-    return self.__export_json()
+    return self._export_json()
 
-  def __export_json(self):
+  def _export_json(self) -> dict:
     """ Returns a JSON dict of the report"""
     json_pages = []
     for page in self.pages:
@@ -105,10 +104,10 @@ class Report:
       'pages': json_pages,
     }
 
-  def __export_xlsx(self, path):
+  def _export_xlsx(self, path) -> str:
     """ Export to Microsoft Excel (.xslx) """
 
-    full_path = f'{path}/{self.filename}'
+    full_path = os.path.join(path, self.filename)
     book = xlsxwriter.Workbook(full_path)
 
     for page in self.pages:

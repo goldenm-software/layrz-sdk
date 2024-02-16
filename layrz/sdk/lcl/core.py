@@ -12,7 +12,7 @@ INVALID_ARGUMENTS = 'Invalid arguments - {e}'
 class LclCore:
   """ Layrz Compute Language SDK """
 
-  def __init__( # pylint: disable=dangerous-default-value
+  def __init__(  # pylint: disable=dangerous-default-value
     self,
     script: str = '',
     sensors: dict = {},
@@ -39,7 +39,7 @@ class LclCore:
     self._custom_fields = custom_fields
     self._script = script
 
-  def perform( # pylint: disable=dangerous-default-value, invalid-name
+  def perform(  # pylint: disable=dangerous-default-value, invalid-name
     self,
     additional_globals: dict = {},
     additional_locals: dict = {},
@@ -116,10 +116,10 @@ class LclCore:
       global_functions.update(additional_globals)
 
       import json
-      result = json.dumps(eval(self._script, global_functions, local_variables)) # pylint: disable=eval-used
+      result = json.dumps(eval(self._script, global_functions, local_variables))  # pylint: disable=eval-used
 
       return result
-    except Exception as err: # pylint: disable=broad-except
+    except Exception as err:  # pylint: disable=broad-except
       import json
       return json.dumps(INVALID_ARGUMENTS.format(e=err))
 
@@ -223,7 +223,7 @@ class LclCore:
         continue
       try:
         result += float(num)
-      except Exception: # pylint: disable=broad-except
+      except Exception:  # pylint: disable=broad-except
         pass
 
     return result
@@ -242,7 +242,7 @@ class LclCore:
           is_first = False
         else:
           result -= float(num)
-      except Exception: # pylint: disable=broad-except
+      except Exception:  # pylint: disable=broad-except
         pass
 
     return result
@@ -261,7 +261,7 @@ class LclCore:
           result = float(num)
         else:
           result *= float(num)
-      except Exception: # pylint: disable=broad-except
+      except Exception:  # pylint: disable=broad-except
         pass
 
     return result
@@ -280,7 +280,7 @@ class LclCore:
           result = float(num)
         else:
           result /= float(num)
-      except Exception: # pylint: disable=broad-except
+      except Exception:  # pylint: disable=broad-except
         pass
 
     return result
@@ -533,7 +533,7 @@ class LclCore:
 
     return args[1] if args[0] else args[2]
 
-  def NOW(self, *args: list[Any]) -> float: # pylint: disable=unused-argument
+  def NOW(self, *args: list[Any]) -> float:  # pylint: disable=unused-argument
     """ NOW Function """
     import zoneinfo
     from datetime import datetime
@@ -637,7 +637,7 @@ class LclCore:
       except zoneinfo.ZoneInfoNotFoundError:
         tz = zoneinfo.ZoneInfo('UTC')
 
-    return datetime.fromtimestamp(int(args[0]))\
-                   .replace(tzinfo=zoneinfo.ZoneInfo('UTC'))\
-                   .astimezone(tz)\
-                   .strftime(args[1])
+    return datetime\
+          .fromtimestamp(int(args[0]), tz=zoneinfo.ZoneInfo('UTC'))\
+          .astimezone(tz)\
+          .strftime(args[1])

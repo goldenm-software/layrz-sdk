@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.0
+
+- Removed support to Python 3.12 due to a shared namespace issue.
+- Reorganized classes to better support.
+- Added typings to all classes and functions.
+
 ## 2.1.5
 - Added declarative typing on all LCL functions
 - Added support for timezone in `UNIX_TO_STR` LCL function

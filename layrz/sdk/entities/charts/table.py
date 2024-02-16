@@ -4,44 +4,27 @@
 class TableHeader:
   """ Table header chart configuration """
 
-  def __init__(self, label, key):
+  def __init__(self, label: str, key: str) -> None:
     """ Constructor
-
-    Arguments
     ---
-    label (str): Label of the header
-    key (str): Key of the header
+    Arguments
+      - label : Label of the header
+      - key : Key of the header
     """
-    self._label = label
-    self._key = key
-
-  @property
-  def label(self):
-    """ Get the label """
-    return self._label
-
-  @property
-  def key(self):
-    """ Get the key """
-    return self._key
+    self.label = label
+    self.key = key
 
 
 class TableRow:
   """ Table row chart configuration """
 
-  def __init__(self, data):
+  def __init__(self, data: dict) -> None:
     """ Constructor
-
-    Arguments
     ---
-    data (dict): Data of the row
+    Arguments
+      - data : Data of the row
     """
-    self._data = data
-
-  @property
-  def data(self):
-    """ Get the data """
-    return self._data
+    self.data = data
 
 
 class TableChart:
@@ -49,29 +32,18 @@ class TableChart:
   Table chart configuration
   """
 
-  def __init__(self, columns, rows):
+  def __init__(self, columns: list[TableHeader], rows: list[TableRow]) -> None:
     """
     Constructor
-
-    Arguments
     ---
-    columns (list[TableHeader]): List of columns
-    rows (list[TableRow]): List of rows
+    Arguments
+      - columns : List of columns
+      - rows : List of rows
     """
-    self._columns = columns
-    self._rows = rows
+    self.columns = columns
+    self.rows = rows
 
-  @property
-  def columns(self):
-    """ Get the columns """
-    return self._columns
-
-  @property
-  def rows(self):
-    """ Get the rows """
-    return self._rows
-
-  def render(self):
+  def render(self) -> dict:
     """
     Render chart to a graphic Library.
     """
@@ -81,7 +53,7 @@ class TableChart:
       'configuration': self._render_flutter(),
     }
 
-  def _render_flutter(self):
+  def _render_flutter(self) -> dict:
     """
     Converts the configuration of the chart to a Flutter native components.
     """

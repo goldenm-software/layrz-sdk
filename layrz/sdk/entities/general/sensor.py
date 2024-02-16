@@ -1,46 +1,31 @@
 """ Sensor entity """
 
+
 class Sensor:
   """
   Sensor entity
-
-  Available attributes
-  --------------------
-    pk (int): Sensor ID
-    name (str): Name of the sensor
-    slug (str): Slug of the sensor
+  ---
+  Attributes
+    pk : Sensor ID
+    name : Name of the sensor
+    slug : Slug of the sensor
   """
 
-  def __init__(self, pk, name, slug):
+  def __init__(self, pk: int, name: str, slug: str) -> None:
     """ Constructor """
-    self.__pk = pk
-    self.__name = name
-    self.__slug = slug
+    self.pk = pk
+    self.name = name
+    self.slug = slug
 
   @property
-  def pk(self):
-    """ Sensor ID """
-    return self.__pk
-
-  @property
-  def name(self):
-    """ Name of the sensor """
-    return self.__name
-
-  @property
-  def slug(self):
-    """ Slug of the sensor """
-    return self.__slug
-
-  @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable """
-    return f'Sensor(pk={self.__pk}, name="{self.__name}", slug="{self.__slug}")'
+    return f'Sensor(pk={self.pk}, name={self.name}, slug={self.slug})'
 
-  def __str__(self):
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
 
-  def __repr__(self):
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable

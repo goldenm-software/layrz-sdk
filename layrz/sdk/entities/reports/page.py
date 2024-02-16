@@ -1,45 +1,39 @@
 """ Report page """
+from .header import ReportHeader
+from .row import ReportRow
+
 
 class ReportPage:
   """
   Report page definition
-
-  Available attributes
-  --------------------
-    name (str): Name of the page. Length should be less than 60 characters
-    headers (list(ReportHeader)): Headers of the page
-    rows (list(ReportRow)): Rows of the page
+  ---
+  Attributes
+    - name : Name of the page. Length should be less than 60 characters
+    - headers : Headers of the page
+    - rows : Rows of the page
   """
-  def __init__(self, name, headers, rows, freeze_header=False):
-    self.__name = name
-    self.__headers = headers
-    self.__rows = rows
-    self.__freeze_header = freeze_header
+
+  def __init__(
+    self,
+    name: str,
+    headers: list[ReportHeader],
+    rows: list[ReportRow],
+    freeze_header: bool = False,
+  ) -> None:
+    self.name = name
+    self.headers = headers
+    self.rows = rows
+    self.freeze_header = freeze_header
 
   @property
-  def name(self):
-    """ Name of the page. Length should be less than 60 characters """
-    return self.__name
-
-  @property
-  def headers(self):
-    """ Headers of the page """
-    return self.__headers
-
-  @property
-  def rows(self):
-    """ Rows of the page """
-    return self.__rows
-
-  @property
-  def freeze_header(self):
-    """ Freeze header """
-    return self.__freeze_header
-
-  def __str__(self):
+  def _readable(self) -> str:
     """ Readable property """
     return f'ReportPage(name={self.name}, headers={self.headers}, rows={self.rows})'
 
-  def __repr__(self):
+  def __str__(self) -> str:
     """ Readable property """
-    return f'ReportPage(name={self.name}, headers={self.headers}, rows={self.rows})'
+    return self._readable
+
+  def __repr__(self) -> str:
+    """ Readable property """
+    return self._readable

@@ -6,36 +6,21 @@ class NumberChart:
   Number chart configuration
   """
 
-  def __init__(self, value, color, label):
+  def __init__(self, value: int | float, color: str, label: str) -> None:
     """
     Constructor
 
     Arguments
     ---
-    value (num): Value of the number
-    color (str): Color of the number
-    label (str): Label of the number
+    value : Value of the number
+    color : Color of the number
+    label : Label of the number
     """
-    self._value = value
-    self._color = color
-    self._label = label
+    self.value = value
+    self.color = color
+    self.label = label
 
-  @property
-  def value(self):
-    """ Get the value """
-    return self._value
-
-  @property
-  def color(self):
-    """ Get the color """
-    return self._color
-
-  @property
-  def label(self):
-    """ Get the label """
-    return self._label
-
-  def render(self):
+  def render(self) -> dict:
     """
     Render chart to a graphic Library.
     """
@@ -45,7 +30,7 @@ class NumberChart:
       'configuration': self._render_flutter(),
     }
 
-  def _render_flutter(self):
+  def _render_flutter(self) -> dict:
     """
     Converts the configuration of the chart to a Flutter native components.
     """

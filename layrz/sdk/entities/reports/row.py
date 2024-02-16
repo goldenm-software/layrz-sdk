@@ -1,5 +1,6 @@
 """ Report row """
-from ..formatting.text_align import TextAlignment
+
+from .col import ReportCol
 
 
 class ReportRow:
@@ -13,30 +14,26 @@ class ReportRow:
     compact (bool): Compact mode
   """
 
-  def __init__(self, content, height=14, compact=False):
-    self.__content = content
-    self.__height = height
-    self.__compact = compact
+  def __init__(
+    self,
+    content: list[ReportCol],
+    height: float = 14,
+    compact: bool = False,
+  ) -> None:
+    """ Constructor """
+    self.content = content
+    self.height = height
+    self.compact = compact
 
   @property
-  def content(self):
-    """ Cols """
-    return self.__content
-
-  @property
-  def height(self):
-    """ Height of the cell, in points (pt) """
-    return self.__height
-
-  @property
-  def compact(self):
-    """ Compact mode """
-    return self.__compact
-
-  def __str__(self):
+  def _readable(self) -> str:
     """ Readable property """
     return f'ReportRow(content={self.content}, height={self.height}, compact={self.compact})'
 
-  def __repr__(self):
+  def __str__(self) -> str:
     """ Readable property """
-    return f'ReportRow(content={self.content}, height={self.height}, compact={self.compact})'
+    return self._readable
+
+  def __repr__(self) -> str:
+    """ Readable property """
+    return self._readable

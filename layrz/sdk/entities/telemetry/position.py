@@ -1,66 +1,49 @@
 """ Position entity """
+
+
 class Position:
   """
   Geographic position definition
-
-  Available attributes
-  --------------------
-    latitude (float): Latitude (in decimal degrees)
-    longitude (float): Longitude (in decimal degrees)
-    altitude (float): Altitude (in meters)
-    hdop (float): Horizontal dilution of precision
-    speed (float): Speed (in Kilometers per hour)
-    direction (float): Direction or heading (in degrees)
+  ---
+  Attributes
+    - latitude : Latitude (in decimal degrees)
+    - longitude : Longitude (in decimal degrees)
+    - altitude : Altitude (in meters)
+    - hdop : Horizontal dilution of precision
+    - speed : Speed (in Kilometers per hour)
+    - direction : Direction or heading (in degrees)
+    - satellites : Number of satellites
   """
 
-  def __init__(self, latitude, longitude, altitude, hdop, speed, direction):
+  def __init__(
+    self,
+    latitude: float = None,
+    longitude: float = None,
+    altitude: float = None,
+    hdop: float = None,
+    speed: float = None,
+    direction: float = None,
+    satellites: int = None,
+  ) -> None:
     """ Constructor """
-    self.__latitude = latitude
-    self.__longitude = longitude
-    self.__altitude = altitude
-    self.__hdop = hdop
-    self.__speed = speed
-    self.__direction = direction
+    self.latitude = latitude
+    self.longitude = longitude
+    self.altitude = altitude
+    self.hdop = hdop
+    self.speed = speed
+    self.direction = direction
+    self.satellites = satellites
 
   @property
-  def latitude(self):
-    """ Latitude """
-    return self.__latitude
-
-  @property
-  def longitude(self):
-    """ Longitude """
-    return self.__longitude
-
-  @property
-  def altitude(self):
-    """ Altitude """
-    return self.__altitude
-
-  @property
-  def hdop(self):
-    """ Horizontal dilution of precision """
-    return self.__hdop
-
-  @property
-  def speed(self):
-    """ Speed """
-    return self.__speed
-
-  @property
-  def direction(self):
-    """ Direction or heading """
-    return self.__direction
-
-  @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable """
-    return f'Position(latitude={self.__latitude}, longitude={self.__longitude}, altitude={self.__altitude}, speed={self.__speed}, direction={self.__direction}, hdop={self.__hdop})'
+    return f'Position(latitude={self.latitude}, longitude={self.longitude}, altitude={self.altitude}, ' +\
+           f'speed={self.speed}, direction={self.direction}, hdop={self.hdop}, satellites={self.satellites})'
 
-  def __str__(self):
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
 
-  def __repr__(self):
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable

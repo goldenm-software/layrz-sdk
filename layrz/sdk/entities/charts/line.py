@@ -1,12 +1,8 @@
 """ Line chart """
-import json
-
-from layrz.sdk.helpers import convert_to_rgba
 
 from .alignment import ChartAlignment
 from .data_type import ChartDataType
 from .exceptions import ChartException
-from .scatter import ScatterSerie
 from .serie import ChartDataSerie
 from .serie_type import ChartDataSerieType
 
@@ -17,50 +13,42 @@ class LineChart:
 
   """
 
-  def __init__(self, x_axis, y_axis, title='Chart', align=ChartAlignment.CENTER):
+  def __init__(
+    self,
+    x_axis: ChartDataSerie,
+    y_axis: list[ChartDataSerie],
+    title: str = 'Chart',
+    align: ChartAlignment = ChartAlignment.CENTER,
+  ) -> None:
     """
     Constructor
-
-    Args
     ----
-      x_axis ChartDataSerie: Defines the X Axis of the chart, uses the ChartDataSerie class. Please read the documentation to more information.
-      y_axis list(ChartDataSerie): Defines the Y Axis of the chart, uses the ChartDataSerie class. Please read the documentation to more information.
-      title (str): Title of the chart
-      align (ChartAlignment): Alignment of the title
+    Arguments
+      - x_axis : Defines the X Axis of the chart, uses the ChartDataSerie class.
+                 Please read the documentation to more information.
+      - y_axis : Defines the Y Axis of the chart, uses the ChartDataSerie class.
+                 Please read the documentation to more information.
+      - title : Title of the chart
+      - align : Alignment of the title
     """
     for i, serie in enumerate(y_axis):
-      if not isinstance(serie, (ChartDataSerie, ScatterSerie)):
+      if not isinstance(serie, ChartDataSerie):
         raise ChartException(f'Y Axis serie {i} must be an instance of ChartDataSerie')
-    self.__x_axis = x_axis
+    self.y_axis = y_axis
 
     if not isinstance(x_axis, ChartDataSerie):
       raise ChartException('X Axis must be an instance of ChartDataSerie')
-    self.__y_axis = y_axis
+    self.x_axis = x_axis
 
     if not isinstance(title, str):
       raise ChartException('title must be an instance of str')
-    self.__title = title
+    self.title = title
 
     if not isinstance(align, ChartAlignment):
       raise ChartException('align must be an instance of ChartAlignment')
-    self.__align = align
+    self.align = align
 
-  @property
-  def x_axis(self):
-    """ X Axis of the chart """
-    return self.__x_axis
-
-  @property
-  def y_axis(self):
-    """ Y Axis of the chart """
-    return self.__y_axis
-
-  @property
-  def title(self):
-    """ Title of the chart """
-    return self.__title
-
-  def render(self, use_new_definition=False):
+  def render(self, use_new_definition: bool = False) -> dict | list[dict]:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: GRAPHIC and CANVASJS.
@@ -73,21 +61,21 @@ class LineChart:
       return {
         'library': 'GRAPHIC',
         'chart': 'LINE',
-        'configuration': self.__render_graphic(),
+        'configuration': self._render_graphic(),
       }
     return {
       'library': 'CANVASJS',
       'chart': 'LINE',
-      'configuration': self.__render_canvasjs(),
+      'configuration': self._render_canvasjs(),
     }
 
-  def __render_graphic(self):
+  def _render_graphic(self) -> list[dict]:
     """
     Converts the configuration of the chart to a Flutter library Graphic.
     """
     series = []
 
-    for serie in self.__y_axis:
+    for serie in self.y_axis:
       if serie.serie_type not in [ChartDataSerieType.LINE, ChartDataSerieType.AREA]:
         continue
 
@@ -112,13 +100,13 @@ class LineChart:
 
     return series
 
-  def __render_canvasjs(self):
+  def _render_canvasjs(self) -> dict:
     """
     Converts the configuration of the chart to Javascript library CanvasJS.
     """
     datasets = []
 
-    for serie in self.__y_axis:
+    for serie in self.y_axis:
       dataset = {
         'type': 'line',
         'name': serie.label,
@@ -165,7 +153,7 @@ class LineChart:
         'text': self.title,
         'fontFamily': 'Fira Sans Condensed',
         'fontSize': 20,
-        'horizontalAlign': self.__align.value
+        'horizontalAlign': self.align.value
       },
       'data': datasets,
       'axisX': {

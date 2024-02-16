@@ -1,11 +1,11 @@
 [project]
 name = "layrz-sdk"
-version = "2.1.10"
+version = "2.2.0"
 description = "Layrz SDK for Python"
 authors = [
   {name = "Golden M, Inc.", email = "software@goldenm.com"}
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.12"
 
 maintainers = [
   {name = "Kenny Mochizuki", email = "kenny@goldenm.com"},
@@ -28,11 +28,9 @@ classifiers = [
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
   "requests",
-  "pytz",
   "xlsxwriter",
 ]
 

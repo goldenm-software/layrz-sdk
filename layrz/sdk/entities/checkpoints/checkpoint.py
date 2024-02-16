@@ -1,60 +1,46 @@
 """ Checkpoints entitites """
+from datetime import datetime
+
+from .waypoint import Waypoint
+
 
 class Checkpoint:
   """
   Checkpoint entity definition
-
-  Available attributes
-  --------------------
-    pk (int): Checkpoint activation ID
-    asset_id (int): Asset ID
-    waypoints (list(Waypoint)): List of waypoints of the checkpoint
-    start_at (datetime): Start date
-    end_at (datetime): End date
+  ---
+  Attributes
+    - pk : Checkpoint activation ID
+    - asset_id : Asset ID
+    - waypoints : List of waypoints of the checkpoint
+    - start_at : Start date
+    - end_at : End date
   """
 
-  def __init__(self, pk, asset_id, waypoints, start_at, end_at):
+  def __init__(
+    self,
+    pk: int,
+    asset_id: int,
+    waypoints: list[Waypoint],
+    start_at: datetime,
+    end_at: datetime,
+  ) -> None:
     """ Constructor """
-    self.__pk = pk
-    self.__asset_id = asset_id
-    self.__waypoints = waypoints
-    self.__start_at = start_at
-    self.__end_at = end_at
+    self.pk = pk
+    self.asset_id = asset_id
+    self.waypoints = waypoints
+    self.start_at = start_at
+    self.end_at = end_at
 
   @property
-  def pk(self):
-    """ Checkpoint activation ID """
-    return self.__pk
-
-  @property
-  def asset_id(self):
-    """ Asset ID """
-    return self.__asset_id
-
-  @property
-  def waypoints(self):
-    """ List of waypoints of the checkpoint """
-    return self.__waypoints
-
-  @property
-  def start_at(self):
-    """ Start date """
-    return self.__start_at
-
-  @property
-  def end_at(self):
-    """ End date """
-    return self.__end_at
-
-  @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable """
-    return f'Checkpoint(pk={self.__pk}, asset_id={self.__asset_id}, waypoints={self.__waypoints}, start_at={self.__start_at}, end_at={self.__end_at})'
+    return f'Checkpoint(pk={self.pk}, asset_id={self.asset_id}, waypoints={self.waypoints}, ' +\
+           f'start_at={self.start_at}, end_at={self.end_at})'
 
-  def __str__(self):
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
 
-  def __repr__(self):
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable

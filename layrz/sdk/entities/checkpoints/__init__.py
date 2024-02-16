@@ -1,4 +1,4 @@
-""" Init file """
+""" Checkpoints entities """
 from .checkpoint import Checkpoint
-from .waypoint import Waypoint
 from .geofence import Geofence
+from .waypoint import Waypoint

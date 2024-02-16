@@ -1,4 +1,4 @@
-""" Init file """
+""" Charts entities """
 from .alignment import ChartAlignment
 from .bar import BarChart
 from .column import ColumnChart

@@ -1,45 +1,31 @@
 """ Trigger entity """
+
+
 class Trigger:
   """
   Trigger entity definition
-  
-  Available attributes
-  --------------------
-    pk (int): Trigger ID
-    name (str): Trigger name
-    code (str): Trigger code
+  ---
+  Attributes
+    - pk : Trigger ID
+    - name : Trigger name
+    - code : Trigger code
   """
-  
-  def __init__(self, pk, name, code):
+
+  def __init__(self, pk: int, name: str, code: str) -> None:
     """ Constructor """
-    self.__pk = pk
-    self.__name = name
-    self.__code = code
-  
+    self.pk = pk
+    self.name = name
+    self.code = code
+
   @property
-  def pk(self):
-    """ Trigger ID """
-    return self.__pk
-  
-  @property
-  def name(self):
-    """ Trigger name """
-    return self.__name
-  
-  @property
-  def code(self):
-    """ Trigger code """
-    return self.__code
-  
-  @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable """
-    return f'Trigger(pk={self.__pk}, name="{self.__name}", code="{self.__code}")'
-  
-  def __str__(self):
+    return f'Trigger(pk={self.pk}, name="{self.name}", code="{self.code}")'
+
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
-  
-  def __repr__(self):
+    return self._readable
+
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable

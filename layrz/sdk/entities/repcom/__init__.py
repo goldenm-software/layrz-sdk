@@ -1,2 +1,2 @@
-""" Init file """
+""" Repcom entities """
 from .transaction import Transaction

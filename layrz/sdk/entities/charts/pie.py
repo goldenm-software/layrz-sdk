@@ -1,6 +1,4 @@
 """ Pie chart """
-import json
-
 from .alignment import ChartAlignment
 from .exceptions import ChartException
 from .serie import ChartDataSerie
@@ -11,40 +9,35 @@ class PieChart:
   Pie chart configuration
   """
 
-  def __init__(self, series, title='Chart', align=ChartAlignment.CENTER):
+  def __init__(
+    self,
+    series: list[ChartDataSerie],
+    title: str = 'Chart',
+    align: ChartAlignment = ChartAlignment.CENTER,
+  ) -> None:
     """
     Constructor
-
-    Args
     ----
-      series list(ChartDataSerie): Defines the series of the chart, uses the ChartDataSerie class. Please read the documentation to more information.
-      title (str): Title of the chart.
-      align (ChartAlignment): Alignment of the chart.
+    Arguments
+      series : Defines the series of the chart, uses the ChartDataSerie class.
+               Please read the documentation to more information.
+      title : Title of the chart.
+      align : Alignment of the chart.
     """
     for i, serie in enumerate(series):
       if not isinstance(serie, ChartDataSerie):
         raise ChartException(f'Y Axis serie {i} must be an instance of ChartDataSerie')
-    self.__series = series
+    self.series = series
 
     if not isinstance(title, str):
       raise ChartException('title must be an instance of str')
-    self.__title = title
+    self.title = title
 
     if not isinstance(align, ChartAlignment):
       raise ChartException('align must be an instance of ChartAlignment')
-    self.__align = align
+    self.align = align
 
-  @property
-  def series(self):
-    """ Series of the chart """
-    return self.__series
-
-  @property
-  def title(self):
-    """ Title of the chart """
-    return self.__title
-
-  def render(self, use_new_definition=False):
+  def render(self, use_new_definition: bool = False) -> dict | list[dict]:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: GRAPHIC and CANVASJS.
@@ -56,21 +49,21 @@ class PieChart:
       return {
         'library': 'GRAPHIC',
         'chart': 'PIE',
-        'configuration': self.__render_graphic(),
+        'configuration': self._render_graphic(),
       }
     return {
       'library': 'APEXCHARTS',
       'chart': 'PIE',
-      'configuration': self.__render_apexcharts(),
+      'configuration': self._render_apexcharts(),
     }
 
-  def __render_graphic(self):
+  def _render_graphic(self) -> list[dict]:
     """
     Converts the configuration of the chart to a Flutter library Graphic.
     """
     series = []
 
-    for serie in self.__series:
+    for serie in self.series:
       series.append({
         'group': serie.label,
         'color': serie.color,
@@ -79,7 +72,7 @@ class PieChart:
 
     return series
 
-  def __render_apexcharts(self):
+  def _render_apexcharts(self) -> dict:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """
@@ -88,7 +81,7 @@ class PieChart:
     colors = []
     labels = []
 
-    for serie in self.__series:
+    for serie in self.series:
       series.append(serie.data[0])
       colors.append(serie.color)
       labels.append(serie.label)
@@ -98,8 +91,8 @@ class PieChart:
       'colors': colors,
       'labels': labels,
       'title': {
-        'text': self.__title,
-        'align': self.__align.value,
+        'text': self.title,
+        'align': self.align.value,
         'style': {
           'fontFamily': 'Fira Sans Condensed',
           'fontSize': '20px',

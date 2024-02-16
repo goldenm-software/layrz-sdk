@@ -1,39 +1,29 @@
 """ Custom Field entitiy """
 
+
 class CustomField:
   """
   Custom field definition
-
-  Available attributes
-  --------------------
-    name (str): Name of the custom field
-    value (str): Value of the custom field
+  ---
+  Attributes
+    - name : Name of the custom field
+    - value : Value of the custom field
   """
 
-  def __init__(self, name, value):
+  def __init__(self, name: str, value: str) -> None:
     """ Constructor """
-    self.__name = name
-    self.__value = value
+    self.name = name
+    self.value = value
 
   @property
-  def name(self):
-    """ Name of the custom field """
-    return self.__name
-
-  @property
-  def value(self):
-    """ Value of the custom field """
-    return self.__value
-
-  @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable """
-    return f'CustomField(name="{self.name}", value="{self.value}")'
+    return f'CustomField(name={self.name}, value={self.value})'
 
-  def __str__(self):
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
 
-  def __repr__(self):
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable

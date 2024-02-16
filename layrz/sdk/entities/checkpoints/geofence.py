@@ -1,45 +1,31 @@
 """ Geofence entity """
+
+
 class Geofence:
   """
   Geofence entity definition
-
-  Available attributes
-  --------------------
-    pk (int): Geofence ID
-    name (str): Geofence name
-    color (str): Geofence color in Hex format
+  ---
+  Attributes
+    - pk : Geofence ID
+    - name : Geofence name
+    - color : Geofence color in Hex format
   """
 
-  def __init__(self, pk, name, color):
+  def __init__(self, pk: int, name: str, color: str) -> None:
     """ Constructor """
-    self.__pk = pk
-    self.__name = name
-    self.__color = color
+    self.pk = pk
+    self.name = name
+    self.color = color
 
   @property
-  def pk(self):
-    """ Geofence ID """
-    return self.__pk
-
-  @property
-  def name(self):
-    """ Geofence name """
-    return self.__name
-
-  @property
-  def color(self):
-    """ Geofence color in Hex format """
-    return self.__color
-
-  @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable """
-    return f'Geofence(pk={self.__pk}, name="{self.__name}", color="{self.__color}")'
+    return f'Geofence(pk={self.pk}, name={self.name}, color={self.color})'
 
-  def __str__(self):
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
 
-  def __repr__(self):
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable

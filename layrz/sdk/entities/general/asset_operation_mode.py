@@ -1,6 +1,7 @@
 """ Asset Operation Mode """
 from enum import Enum
 
+
 class AssetOperationMode(Enum):
   """
   Asset Operation mode definition
@@ -13,14 +14,14 @@ class AssetOperationMode(Enum):
   FAILOVER = 'FAILOVER'
 
   @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable """
     return self.value
 
-  def __str__(self):
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
 
-  def __repr__(self):
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable

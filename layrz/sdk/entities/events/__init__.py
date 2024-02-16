@@ -1,2 +1,2 @@
-""" Init file """
+""" Events entities """
 from .event import Event

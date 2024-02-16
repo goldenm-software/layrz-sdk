@@ -1,94 +1,63 @@
 """ Asset Entity """
+from .asset_operation_mode import AssetOperationMode
+from .custom_field import CustomField
+from .device import Device
+from .sensor import Sensor
+
+
 class Asset:
   """
   Asset entity definition
-
-  Available attributes
-  --------------------
-    pk (int): Asset ID
-    name (str): Name of the asset
-    devices (list(Device)=[]): List of devices
-    vin (str): Vehicle identification number
-    plate (str): Vehicle plate number
-    asset_type (int): Asset type ID
-    operation_mode (AssetOperationMode): Operation mode of the asset
-    custom_fields (list(CustomField)=[]): List of custom fields
-    children (list(Asset)=[]): List of children assets
-    sensors (list(Sensor)=[]): List of sensors
+  ---
+  Attributes
+    - pk : Asset ID
+    - name : Name of the asset
+    - vin : Vehicle identification number
+    - plate : Vehicle plate number
+    - asset_type : Asset type ID
+    - devices : List of devices
+    - operation_mode : Operation mode of the asset
+    - custom_fields : List of custom fields
+    - children : List of children assets
+    - sensors : List of sensors
   """
 
-  def __init__(self, pk, name, vin, plate, asset_type, operation_mode, sensors=[], custom_fields=[], devices=[], children=[]):
+  def __init__(
+    self,
+    pk: int,
+    name: str,
+    vin: str,
+    plate: str,
+    asset_type: int,
+    operation_mode: AssetOperationMode,
+    sensors: list[Sensor] = None,
+    custom_fields: list[CustomField] = None,
+    devices: list[Device] = None,
+    children: list = None,
+  ):
     """ Constructor """
-    self.__pk = pk
-    self.__name = name
-    self.__devices = devices
-    self.__vin = vin
-    self.__plate = plate
-    self.__asset_type = asset_type
-    self.__operation_mode = operation_mode
-    self.__custom_fields = custom_fields
-    self.__children = children
-    self.__sensors = sensors
+    self.pk = pk
+    self.name = name
+    self.vin = vin
+    self.plate = plate
+    self.asset_type = asset_type
+    self.operation_mode = operation_mode
+    self.sensors = sensors if sensors else []
+    self.custom_fields = custom_fields if custom_fields else []
+    self.devices = devices if devices else []
+    self.children = children if children else []
 
   @property
-  def pk(self):
-    """ Asset ID """
-    return self.__pk
-
-  @property
-  def name(self):
-    """ Name of the asset """
-    return self.__name
-
-  @property
-  def devices(self):
-    """ List of devices """
-    return self.__devices
-
-  @property
-  def vin(self):
-    """ Vehicle identification number """
-    return self.__vin
-
-  @property
-  def plate(self):
-    """ Vehicle plate number """
-    return self.__plate
-
-  @property
-  def asset_type(self):
-    """ Asset type ID """
-    return self.__asset_type
-
-  @property
-  def operation_mode(self):
-    """ Operation mode of the asset """
-    return self.__operation_mode
-
-  @property
-  def custom_fields(self):
-    """ Custom fields """
-    return self.__custom_fields
-
-  @property
-  def children(self):
-    """ Children assets """
-    return self.__children
-
-  @property
-  def sensors(self):
-    """ Sensors """
-    return self.__sensors
-
-  @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable """
-    return f'Asset(pk={self.__pk}, name="{self.__name}", vin="{self.__vin}", plate="{self.__plate}", asset_type={self.__asset_type}, operation_mode={self.__operation_mode}, custom_fields={self.__custom_fields}, children={self.__children}, sensors={self.__sensors})'
+    return f'Asset(pk={self.pk}, name={self.name}, vin={self.vin}, plate={self.plate}, ' +\
+           f'asset_type={self.asset_type}, operation_mode={self.operation_mode}, ' +\
+           f'custom_fields={self.custom_fields}, children={self.children}, sensors={self.sensors})'
 
-  def __str__(self):
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
 
-  def __repr__(self):
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable

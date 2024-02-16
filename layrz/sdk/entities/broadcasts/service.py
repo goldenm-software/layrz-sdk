@@ -1,37 +1,28 @@
 """ Service entity """
 
+
 class OutboundService:
   """
   Outbound service definition
-
-  Available attributes
-  --------------------
-    pk (int): Service ID
-    name (str): Service Name
+  ---
+  Attributes
+    - pk : Service ID
+    - name : Service Name
   """
-  def __init__(self, pk, name):
-    self.__pk = pk
-    self.__name = name
+
+  def __init__(self, pk: int, name: str) -> None:
+    self.pk = pk
+    self.name = name
 
   @property
-  def pk(self):
-    """ Service ID """
-    return self.__pk
-  
-  @property
-  def name(self):
-    """ Service Name """
-    return self.__name
-
-  @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable """
     return f'OutboundService(pk={self.pk}, name={self.name})'
 
-  def __repr__(self):
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
 
-  def __str__(self):
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable

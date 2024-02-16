@@ -1,38 +1,29 @@
 """ User entity """
+
+
 class User:
   """
   User entity definition
-  
-  Available attributes
-  --------------------
-    pk (int): User ID
-    name (str): User name
+  ---
+  Attributes
+    pk : User ID
+    name : User name
   """
-  
-  def __init__(self, pk, name):
+
+  def __init__(self, pk: int, name: str) -> None:
     """ Constructor """
-    self.__pk = pk
-    self.__name = name
-  
-  @property
-  def pk(self):
-    """ User ID """
-    return self.__pk
-  
-  @property
-  def name(self):
-    """ User name """
-    return self.__name
+    self.pk = pk
+    self.name = name
 
   @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable """
-    return f'User(pk={self.__pk}, name="{self.__name}")'
-  
-  def __str__(self):
+    return f'User(pk={self.pk}, name={self.name})'
+
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
-  
-  def __repr__(self):
+    return self._readable
+
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable

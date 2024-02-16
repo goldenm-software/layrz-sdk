@@ -1,7 +1,6 @@
 """ Map chart """
 from enum import Enum
 
-from .alignment import ChartAlignment
 from .exceptions import ChartException
 
 
@@ -12,56 +11,54 @@ class MapCenterType(Enum):
   FIXED = 'FIXED'
   CONTAIN = 'CONTAIN'
 
+  @property
+  def _readable(self) -> str:
+    """ Readable """
+    return f'BroadcastStatus.{self.value}'
+
+  def __str__(self) -> str:
+    """ Readable property """
+    return self._readable
+
+  def __repr__(self) -> str:
+    """ Readable property """
+    return self._readable
+
 
 class MapPoint:
   """ Map point configuration """
 
-  def __init__(self, latitude, longitude, label, color):
+  def __init__(
+    self,
+    latitude: float,
+    longitude: float,
+    label: str,
+    color: str,
+  ) -> None:
     """
     Constructor
-    
-    Args
-    ----
-      latitude (float): Latitude of the point
-      longitude (float): Longitude of the point
-      label (str): Label of the point
-      color (str): Color of the point
+    ---
+    Arguments
+      latitude : Latitude of the point
+      longitude : Longitude of the point
+      label : Label of the point
+      color : Color of the point
     """
     if not isinstance(latitude, float):
       raise ChartException('latitude must be an instance of float')
-    self.__latitude = latitude
+    self.latitude = latitude
 
     if not isinstance(longitude, float):
       raise ChartException('longitude must be an instance of float')
-    self.__longitude = longitude
+    self.longitude = longitude
 
     if not isinstance(label, str):
       raise ChartException('label must be an instance of str')
-    self.__label = label
+    self.label = label
 
     if not isinstance(color, str):
       raise ChartException('color must be an instance of str')
-    self.__color = color
-
-  @property
-  def latitude(self):
-    """ Latitude of the point """
-    return self.__latitude
-
-  @property
-  def longitude(self):
-    """ Longitude of the point """
-    return self.__longitude
-
-  @property
-  def label(self):
-    """ Label of the point """
-    return self.__label
-
-  @property
-  def color(self):
-    """ Color of the point """
-    return self.__color
+    self.color = color
 
 
 class MapChart:
@@ -69,58 +66,40 @@ class MapChart:
   Map chart configuration
   """
 
-  def __init__(self,
-               points,
-               title='Chart',
-               align=ChartAlignment.CENTER,
-               center=MapCenterType.CONTAIN,
-               center_latlng=None):
+  def __init__(
+    self,
+    points: list[MapPoint],
+    title: str = 'Chart',
+    center: MapCenterType = MapCenterType.CONTAIN,
+    center_latlng: list[float] | tuple[float] = None,
+  ):
     """
     Constructor
     
     Args
     ----
-      points list(MapPoint): Points of the chart
-      title (str): Title of the chart
-      align (ChartAlignment): Alignment of the title
+      points : Points of the chart
+      title : Title of the chart
+      align : Alignment of the title
     """
     for i, point in enumerate(points):
       if not isinstance(point, MapPoint):
         raise ChartException(f'Point {i} must be an instance of MapPoint')
-    self.__points = points
+    self.points = points
 
     if not isinstance(title, str):
       raise ChartException('title must be an instance of str')
-    self.__title = title
-
-    if not isinstance(align, ChartAlignment):
-      raise ChartException('align must be an instance of ChartAlignment')
-    self.__align = align
+    self.title = title
 
     if not isinstance(center, MapCenterType):
       raise ChartException('center must be an instance of MapCenterType')
-    self.__center = center
+    self.center = center
 
-    if self.__center == MapCenterType.FIXED and not isinstance(center_latlng, (list, tuple)):
+    if self.center == MapCenterType.FIXED and not isinstance(center_latlng, (list, tuple)):
       raise ChartException('center_latlng must be an instance of list or tuple')
-    self.__center_latlng = center_latlng
+    self.center_latlng = center_latlng
 
-  @property
-  def points(self):
-    """ Points of the chart """
-    return self.__points
-
-  @property
-  def title(self):
-    """ Title of the chart """
-    return self.__title
-
-  @property
-  def center(self):
-    """ Map Center mode """
-    return self.__center
-
-  def render(self, use_new_definition=False):
+  def render(self, use_new_definition: bool = False) -> dict:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: FLUTTER_MAP and LEAFLET.
@@ -132,16 +111,16 @@ class MapChart:
       return {
         'library': 'FLUTTER_MAP',
         'chart': 'MAP',
-        'configuration': self.__render_flutter_map(),
+        'configuration': self._render_flutter_map(),
       }
 
     return {
       'library': 'LEAFLET',
       'chart': 'MAP',
-      'configuration': self.__render_leaflet(),
+      'configuration': self._render_leaflet(),
     }
 
-  def __render_flutter_map(self):
+  def _render_flutter_map(self) -> dict:
     """
     Converts the configuration to the chart to Flutter Map engine.
     """
@@ -169,7 +148,7 @@ class MapChart:
 
     return config
 
-  def __render_leaflet(self):
+  def _render_leaflet(self) -> dict:
     """
     Converts the configuration of the chart to Leaflet map engine.
     """

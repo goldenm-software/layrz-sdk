@@ -1,5 +1,6 @@
 """ Report col """
 from enum import Enum
+from typing import Any
 
 from ..formatting.text_align import TextAlignment
 
@@ -16,91 +17,64 @@ class ReportDataType(Enum):
   CURRENCY = 'currency'
 
   @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable """
     return f'ReportDataType.{self.value}'
 
-  def __str__(self):
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
 
-  def __repr__(self):
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
+
 
 class ReportCol:
   """
   Report col definition
-
-  Available attributes
-  --------------------
-    content (str): Display content
-    color (str): Cell color
-    text_color (str): Text color
-    align (TextAlignment): Text Alignment
-    data_type (ReportDataType): Data type
-    datetime_format (str): Date time format
-    currency_symbol (str): Currency symbol
+  ---
+  Attributes
+    - content : Display content
+    - color : Cell color
+    - text_color : Text color
+    - align : Text Alignment
+    - data_type : Data type
+    - datetime_format : Date time format
+    - currency_symbol : Currency symbol
   """
-  def __init__(self, content, color='#ffffff', text_color='#000000', align=TextAlignment.LEFT, data_type=ReportDataType.STR, datetime_format='%Y-%m-%d %H:%M:%S', currency_symbol='', bold=False):
-    self.__content = content
-    self.__color = color
-    self.__text_color = text_color
-    self.__align = align
-    self.__data_type = data_type
-    self.__datetime_format = datetime_format
-    self.__currency_symbol = currency_symbol
-    self.__bold = bold
+
+  def __init__(
+    self,
+    content: Any,
+    color: str = '#ffffff',
+    text_color: str = '#000000',
+    align: TextAlignment = TextAlignment.LEFT,
+    data_type: ReportDataType = ReportDataType.STR,
+    datetime_format: str = '%Y-%m-%d %H:%M:%S',
+    currency_symbol: str = '',
+    bold: bool = False,
+  ) -> None:
+    self.content = content
+    self.color = color
+    self.text_color = text_color
+    self.align = align
+    self.data_type = data_type
+    self.datetime_format = datetime_format
+    self.currency_symbol = currency_symbol
+    self.bold = bold
 
   @property
-  def content(self):
-    """ Display content """
-    return self.__content
-
-  @property
-  def color(self):
-    """ Cell color """
-    return self.__color
-
-  @property
-  def text_color(self):
-    """ Text color """
-    return self.__text_color
-
-  @property
-  def align(self):
-    """ Text Alignment """
-    return self.__align
-
-  @property
-  def data_type(self):
-    """ Data type """
-    return self.__data_type
-
-  @property
-  def datetime_format(self):
-    """ Date time format """
-    return self.__datetime_format
-  
-  @property
-  def currency_symbol(self):
-    """ Currency symbol """
-    return self.__currency_symbol
-
-  @property
-  def bold(self):
-    """ Bold format """
-    return self.__bold
-
-  @property
-  def __readable(self):
+  def _readable(self) -> str:
     """ Readable property """
-    return f'ReportCol(content={self.content}, color={self.color}, text_color={self.text_color}, align={self.align}, data_type={self.data_type}, datetime_format={self.datetime_format}, currency_symbol={self.currency_symbol}, bold={self.bold})'
+    return f'ReportCol(content={self.content}, color={self.color}, text_color={self.text_color}, '+\
+           f'align={self.align}, data_type={self.data_type}, datetime_format={self.datetime_format}, ' +\
+           f'currency_symbol={self.currency_symbol}, bold={self.bold})'
 
-  def __repr__(self):
+  def __repr__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
 
-  def __str__(self):
+  def __str__(self) -> str:
     """ Readable property """
-    return self.__readable
+    return self._readable
