@@ -11,7 +11,7 @@ class AssetOperationMode(Enum):
   MULTIPLE = 'MULTIPLE'
   ASSETMULTIPLE = 'ASSETMULTIPLE'
   DISCONNECTED = 'DISCONNECTED'
-  FAILOVER = 'FAILOVER'
+  STATIC = 'STATIC'
 
   @property
   def _readable(self) -> str:

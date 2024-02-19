@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.2
+
+- Updated `AssetOperationMode` to support `STATIC` and removal of `FAILOVER` mode
+
 ## 2.2.1
 
 - Bug fixes related to removing __ from all classes
