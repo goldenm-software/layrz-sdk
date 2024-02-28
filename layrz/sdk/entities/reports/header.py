@@ -1,4 +1,6 @@
 """ Report header """
+import warnings
+
 from ..formatting.text_align import TextAlignment
 
 
@@ -9,30 +11,41 @@ class ReportHeader:
   Attributes
     - content : Display name
     - width : Column width in points (pt)
+              Deprecated, now uses the `autofit()` method of `xlsxwriter`
     - color : Cell color
     - text_color : Text color
+                   Deprecated, The text color now will use the luminance of the background color to determine the
+                   text color
     - align : Text Alignment
+    - bold : Should the text be bold
   """
 
   def __init__(
     self,
     content: str,
-    width: int = 10,
+    width: int = None,
     color: str = '#ffffff',
-    text_color: str = '#000000',
+    text_color: str = None,
     align: TextAlignment = TextAlignment.CENTER,
+    bold: bool = False,
   ) -> None:
     self.content = content
-    self.width = width
+
+    if width is not None:
+      warnings.warn('width is deprecated, use width instead', DeprecationWarning)
+
     self.color = color
-    self.text_color = text_color
+
+    if text_color is not None:
+      warnings.warn('text_color is deprecated, use color instead', DeprecationWarning)
+
     self.align = align
+    self.bold = bold
 
   @property
   def _readable(self) -> str:
     """ Readable property """
-    return f'ReportHeader(content={self.content}, width={self.width}, color={self.color}, ' +\
-           f'text_color={self.text_color}, align={self.align})'
+    return f'ReportHeader(content={self.content})'
 
   def __str__(self) -> str:
     """ Readable property """

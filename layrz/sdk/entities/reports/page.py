@@ -37,3 +37,25 @@ class ReportPage:
   def __repr__(self) -> str:
     """ Readable property """
     return self._readable
+
+
+class CustomReportPage:
+  """
+  Custom report page
+  Basically it's a wrapper of the `xlswriter` worksheet that uses a function to construct the page
+  ---
+  Attributes:
+    - name : Name of the page. Length should be less than 60 characters
+  Methods:
+  - builder(Worksheet) -> None : Function to build the page
+                                 The builder receives a `Worksheet` object as an argument and shouldn't 
+                                 return anything.
+  """
+
+  def __init__(self, name: str, builder: callable) -> None:
+    """ Constructor """
+    self.name = name
+
+    if not callable(builder):
+      raise ValueError('builder should be a callable')
+    self.builder = builder

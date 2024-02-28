@@ -17,18 +17,21 @@ class ReportRow:
   def __init__(
     self,
     content: list[ReportCol],
-    height: float = 14,
+    height: float = None,
     compact: bool = False,
   ) -> None:
     """ Constructor """
     self.content = content
-    self.height = height
+
+    if height is not None:
+      raise DeprecationWarning('height is deprecated, use height instead')
+
     self.compact = compact
 
   @property
   def _readable(self) -> str:
     """ Readable property """
-    return f'ReportRow(content={self.content}, height={self.height}, compact={self.compact})'
+    return f'ReportRow(content={self.content})'
 
   def __str__(self) -> str:
     """ Readable property """

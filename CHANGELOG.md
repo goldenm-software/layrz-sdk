@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.2.3
+
+- Property `text_color` deprectated in `ReportCol`, replaced by a luminance-based color using the background color
+- Property `text_color` deprectated in `ReportHeader`, replaced by a luminance-based color using the background color
+- Property `width` deprectated in `ReportHeader`, replaced by the function `autofit()` to automatically fit the header width
+- New entity `CustomReportPage` that receives a custom builder function to build the page
+- Property `export_format` deprecated in `Report`, replaced to an argument of the function `export()`
+
 ## 2.2.2
 
 - Updated `AssetOperationMode` to support `STATIC` and removal of `FAILOVER` mode

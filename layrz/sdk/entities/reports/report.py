@@ -1,12 +1,15 @@
 """ Report class """
 import os
 import time
+import warnings
 
 import xlsxwriter
 
+from layrz.sdk.helpers.color import use_black
+
 from .col import ReportDataType
 from .format import ReportFormat
-from .page import ReportPage
+from .page import CustomReportPage, ReportPage
 
 
 class Report:
@@ -22,11 +25,16 @@ class Report:
   def __init__(
     self,
     name: str,
-    pages: list[ReportPage],
-    export_format: ReportFormat,
+    pages: list[ReportPage | CustomReportPage],
+    export_format: ReportFormat = None,
   ) -> None:
     self.name = name
     self.pages = pages
+
+    if export_format is not None:
+      warnings.warn('export_format is deprecated, submit the export format in the `export()` method instead',
+                    DeprecationWarning)
+
     self.export_format = export_format
 
   @property
@@ -37,7 +45,7 @@ class Report:
   @property
   def _readable(self) -> str:
     """ Readable property """
-    return f'Report(name={self.name}, pages={self.pages}, export_format={self.export_format})'
+    return f'Report(name={self.name}, pages={len(self.pages)})'
 
   def __repr__(self) -> str:
     """ Readable property """
@@ -76,7 +84,7 @@ class Report:
       for header in page.headers:
         headers.append({
           'content': header.content,
-          'text_color': header.text_color,
+          'text_color': '#000000' if use_black(header.color) else '#ffffff',
           'color': header.color,
         })
       rows = []
@@ -85,7 +93,7 @@ class Report:
         for cell in row.content:
           cells.append({
             'content': cell.content,
-            'text_color': cell.text_color,
+            'text_color': '#000000' if use_black(cell.color) else '#ffffff',
             'color': cell.color,
             'data_type': cell.data_type.value,
           })
@@ -111,40 +119,51 @@ class Report:
     book = xlsxwriter.Workbook(full_path)
 
     for page in self.pages:
-      sheet = book.add_worksheet(page.name[0:31].replace('[', '').replace(']', ''))
+      sheet_name = page.name[0:31]
+
+      # Allow only numbers, letters, spaces and _ or - characters
+      # Other characters will be removed
+      sheet_name = ''.join(e for e in sheet_name if e.isalnum() or e in [' ', '_', '-'])
+      sheet = book.add_worksheet(sheet_name)
+
+      if isinstance(page, CustomReportPage):
+        page.builder(sheet)
+        sheet.autofit()
+        continue
+
       if page.freeze_header:
         sheet.freeze_panes(1, 0)
 
       for i, header in enumerate(page.headers):
         style = book.add_format({
           'align': header.align.value,
-          'font_color': header.text_color,
+          'font_color': '#000000' if use_black(header.color) else '#ffffff',
           'bg_color': header.color,
+          'bold': header.bold,
           'valign': 'vcenter',
-          'font_size': 14,
+          'font_size': 11,
           'top': 1,
           'left': 1,
           'right': 1,
           'bottom': 1,
-          'font_name': 'Microsoft YaHei Light'
+          'font_name': 'Aptos Narrow',
         })
         sheet.write(0, i, header.content, style)
-        sheet.set_column(i, i, header.width)
 
       for i, row in enumerate(page.rows):
         for j, cell in enumerate(row.content):
           style = {
             'align': cell.align.value,
-            'font_color': cell.text_color,
+            'font_color': '#000000' if use_black(cell.color) else '#ffffff',
             'bg_color': cell.color,
             'bold': cell.bold,
             'valign': 'vcenter',
-            'font_size': 10,
+            'font_size': 11,
             'top': 1,
             'left': 1,
             'right': 1,
             'bottom': 1,
-            'font_name': 'Microsoft YaHei Light'
+            'font_name': 'Aptos Narrow',
           }
 
           if cell.data_type == ReportDataType.BOOL:
@@ -169,6 +188,8 @@ class Report:
             sheet.set_row(i + 1, None, None, {'level': 1, 'hidden': True})
           else:
             sheet.set_row(i + 1, None, None, {'collapsed': True})
+
+      sheet.autofit()
     book.close()
 
     return full_path

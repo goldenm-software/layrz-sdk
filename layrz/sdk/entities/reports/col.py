@@ -1,4 +1,5 @@
 """ Report col """
+import warnings
 from enum import Enum
 from typing import Any
 
@@ -38,6 +39,8 @@ class ReportCol:
     - content : Display content
     - color : Cell color
     - text_color : Text color
+                   Deprecated, The text color now will use the luminance of the background color to determine the
+                   text color
     - align : Text Alignment
     - data_type : Data type
     - datetime_format : Date time format
@@ -48,7 +51,7 @@ class ReportCol:
     self,
     content: Any,
     color: str = '#ffffff',
-    text_color: str = '#000000',
+    text_color: str = None,
     align: TextAlignment = TextAlignment.LEFT,
     data_type: ReportDataType = ReportDataType.STR,
     datetime_format: str = '%Y-%m-%d %H:%M:%S',
@@ -57,7 +60,10 @@ class ReportCol:
   ) -> None:
     self.content = content
     self.color = color
-    self.text_color = text_color
+
+    if text_color is not None:
+      warnings.warn('text_color is deprecated, use color instead', DeprecationWarning)
+
     self.align = align
     self.data_type = data_type
     self.datetime_format = datetime_format
@@ -67,9 +73,7 @@ class ReportCol:
   @property
   def _readable(self) -> str:
     """ Readable property """
-    return f'ReportCol(content={self.content}, color={self.color}, text_color={self.text_color}, '+\
-           f'align={self.align}, data_type={self.data_type}, datetime_format={self.datetime_format}, ' +\
-           f'currency_symbol={self.currency_symbol}, bold={self.bold})'
+    return f'ReportCol(content={self.content})'
 
   def __repr__(self) -> str:
     """ Readable property """
