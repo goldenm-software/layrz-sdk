@@ -193,3 +193,30 @@ class Report:
     book.close()
 
     return full_path
+
+
+class ReportConfiguration:
+  """ 
+  Report Configuration class
+  ---
+  Attributes
+    - title : Report title
+    - pages_count : Number of pages in the report
+  """
+
+  def __init__(self, title: str, pages_count: int) -> None:
+    self.title = title
+    self.pages_count = pages_count
+
+  @property
+  def _readable(self) -> str:
+    """ Readable property """
+    return f'ReportConfiguration(title={self.title}, pages_count={self.pages_count})'
+
+  def __repr__(self) -> str:
+    """ Readable property """
+    return self._readable
+
+  def __str__(self) -> str:
+    """ Readable property """
+    return self._readable

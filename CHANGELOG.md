@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.4
+
+- Defined new class `ReportConfiguration` to handle the configuration of the report in Python scripts
+
 ## 2.2.3
 
 - Property `text_color` deprectated in `ReportCol`, replaced by a luminance-based color using the background color

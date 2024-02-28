@@ -20,7 +20,7 @@ from .general import (Asset, AssetOperationMode, CustomField, Device, Sensor, Us
 # REPCOM entities
 from .repcom import Transaction
 # Reports entities
-from .reports import (CustomReportPage, Report, ReportCol, ReportDataType, ReportFormat, ReportHeader, ReportPage,
-                      ReportRow)
+from .reports import (CustomReportPage, Report, ReportCol, ReportConfiguration, ReportDataType, ReportFormat,
+                      ReportHeader, ReportPage, ReportRow)
 # Telemetry entities
 from .telemetry import Message, Position
