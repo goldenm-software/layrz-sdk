@@ -5,7 +5,7 @@ import warnings
 
 import xlsxwriter
 
-from layrz.sdk.helpers.color import use_black
+from layrz_sdk.helpers.color import use_black
 
 from .col import ReportDataType
 from .format import ReportFormat

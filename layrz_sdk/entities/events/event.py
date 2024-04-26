@@ -1,8 +1,8 @@
 """ Event entity """
 from datetime import datetime
 
-from layrz.sdk.entities.cases.trigger import Trigger
-from layrz.sdk.entities.telemetry.message import Message
+from layrz_sdk.entities.cases.trigger import Trigger
+from layrz_sdk.entities.telemetry.message import Message
 
 
 class Event:

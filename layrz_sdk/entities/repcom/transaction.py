@@ -1,7 +1,7 @@
 """ Transaction entity """
 from datetime import datetime, timedelta
 
-from layrz.sdk.entities.general.asset import Asset
+from layrz_sdk.entities.general.asset import Asset
 
 
 class Transaction:

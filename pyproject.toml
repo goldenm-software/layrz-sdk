@@ -1,11 +1,11 @@
 [project]
 name = "layrz-sdk"
-version = "2.2.4"
+version = "3.0.0"
 description = "Layrz SDK for Python"
 authors = [
   {name = "Golden M, Inc.", email = "software@goldenm.com"}
 ]
-requires-python = ">=3.10,<3.12"
+requires-python = ">=3.10"
 
 maintainers = [
   {name = "Kenny Mochizuki", email = "kenny@goldenm.com"},
@@ -28,6 +28,7 @@ classifiers = [
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
   "requests",
@@ -37,14 +38,6 @@ dependencies = [
 [project.urls]
 Repository = "https://github.com/goldenm-software/layrz-sdk"
 Changelog = "https://github.com/goldenm-software/layrz-sdk/blob/main/CHANGELOG.md"
-
-[tool.setuptools.packages.find]
-where = ["."]
-include = [
-  "layrz",
-  "layrz.*",
-]
-namespaces = true
 
 [build-system]
 requires = ["setuptools", "setuptools-scm"]

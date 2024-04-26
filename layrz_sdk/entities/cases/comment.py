@@ -1,7 +1,7 @@
 """ Comment entity """
 from datetime import datetime
 
-from layrz.sdk.entities.general.user import User
+from layrz_sdk.entities.general.user import User
 
 
 class Comment:

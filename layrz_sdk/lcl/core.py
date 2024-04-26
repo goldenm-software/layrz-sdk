@@ -537,7 +537,7 @@ class LclCore:
     """ NOW Function """
     import zoneinfo
     from datetime import datetime
-    return datetime.utcnow(tz=zoneinfo.ZoneInfo('UTC')).timestamp()
+    return datetime.now(tz=zoneinfo.ZoneInfo('UTC')).timestamp()
 
   def REGEX(self, *args: list[Any]) -> str | None | bool:
     """ REGEX Function """
