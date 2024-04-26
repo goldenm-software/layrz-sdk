@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.0
+
+- Removed shared namespace to improve compatibility with other packages
+
 ## 2.2.4
 
 - Defined new class `ReportConfiguration` to handle the configuration of the report in Python scripts
