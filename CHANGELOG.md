@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.1
+
+- Added None validation on every LCL function, when any of the arguments is None, the function will return None
+- Added unit tests for all LCL functions
+
 ## 3.0.0
 
 - Removed shared namespace to improve compatibility with other packages
