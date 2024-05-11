@@ -1,5 +1,35 @@
 # Changelog
 
+## 3.0.0
+
+- Removed shared namespace to improve compatibility with other packages
+
+## 2.2.4
+
+- Defined new class `ReportConfiguration` to handle the configuration of the report in Python scripts
+
+## 2.2.3
+
+- Property `text_color` deprectated in `ReportCol`, replaced by a luminance-based color using the background color
+- Property `text_color` deprectated in `ReportHeader`, replaced by a luminance-based color using the background color
+- Property `width` deprectated in `ReportHeader`, replaced by the function `autofit()` to automatically fit the header width
+- New entity `CustomReportPage` that receives a custom builder function to build the page
+- Property `export_format` deprecated in `Report`, replaced to an argument of the function `export()`
+
+## 2.2.2
+
+- Updated `AssetOperationMode` to support `STATIC` and removal of `FAILOVER` mode
+
+## 2.2.1
+
+- Bug fixes related to removing __ from all classes
+
+## 2.2.0
+
+- Removed support to Python 3.12 due to a shared namespace issue.
+- Reorganized classes to better support.
+- Added typings to all classes and functions.
+
 ## 2.1.5
 - Added declarative typing on all LCL functions
 - Added support for timezone in `UNIX_TO_STR` LCL function
