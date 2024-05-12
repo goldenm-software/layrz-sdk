@@ -6,7 +6,7 @@ on:
     types: [ opened, synchronize, reopened ]
 
 jobs:
-  build:
+  uniitest:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/goldenm-software/python-builder:3.11
