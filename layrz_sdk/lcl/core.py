@@ -112,6 +112,7 @@ class LclCore:
         'PRIMARY_DEVICE': self.PRIMARY_DEVICE,
         'SUBSTRING': self.SUBSTRING,
         'UNIX_TO_STR': self.UNIX_TO_STR,
+        'VERSION': self.VERSION,
       }
       global_functions.update(additional_globals)
 
@@ -616,7 +617,7 @@ class LclCore:
     if len(args) != 3:
       return INVALID_NUMBER_OF_PARAMS.format(expected=3, received=len(args))
 
-    if args[0] is None or args[1] is None or args[2] is None:
+    if args[0] is None:
       return None
 
     return args[1] if args[0] else args[2]
@@ -761,3 +762,13 @@ class LclCore:
           .fromtimestamp(int(args[0]), tz=zoneinfo.ZoneInfo('UTC'))\
           .astimezone(tz)\
           .strftime(args[1])
+
+  def VERSION(self, *args: list[Any]) -> str:
+    """ VERSION function """
+    if len(args) > 0:
+      return INVALID_NUMBER_OF_PARAMS.format(expected=0, received=len(args))
+
+    import importlib.metadata
+    version = importlib.metadata.version('layrz_sdk')
+
+    return f'LCL {version} - Layrz SDK Runtime'
