@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.2
+
+- Fixed issue with `IF()` LCL function, now only validates the nullability of the first argument.
+- Added new `VERSION()` LCL Function to get the current version of the package
+
 ## 3.0.1
 
 - Added None validation on every LCL function, when any of the arguments is None, the function will return None
