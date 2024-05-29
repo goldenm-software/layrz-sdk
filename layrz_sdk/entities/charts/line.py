@@ -3,6 +3,7 @@
 from .alignment import ChartAlignment
 from .data_type import ChartDataType
 from .exceptions import ChartException
+from .render_technology import ChartRenderTechnology
 from .serie import ChartDataSerie
 from .serie_type import ChartDataSerieType
 
@@ -48,7 +49,7 @@ class LineChart:
       raise ChartException('align must be an instance of ChartAlignment')
     self.align = align
 
-  def render(self, use_new_definition: bool = False) -> dict | list[dict]:
+  def render(self, technology: ChartRenderTechnology) -> dict | list[dict]:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: GRAPHIC and CANVASJS.
@@ -57,17 +58,66 @@ class LineChart:
     CANVASJS is a Javascript chart library. This is the default option.
     """
 
-    if use_new_definition:
+    if technology == ChartRenderTechnology.GRAPHIC:
       return {
         'library': 'GRAPHIC',
         'chart': 'LINE',
         'configuration': self._render_graphic(),
       }
+
+    if technology == ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS:
+      return {
+        'library': 'syncfusion_flutter_charts',
+        'chart': 'LINE',
+        'configuration': self._render_syncfusion_flutter_charts(),
+      }
+
     return {
       'library': 'CANVASJS',
       'chart': 'LINE',
       'configuration': self._render_canvasjs(),
     }
+
+  def _render_syncfusion_flutter_charts(self) -> list[dict]:
+    """ 
+    Converts the configuration of the chart to a Flutter library syncfusion_flutter_charts.
+    """
+    series = []
+
+    for serie in self.y_axis:
+      if serie.serie_type not in [ChartDataSerieType.LINE, ChartDataSerieType.AREA]:
+        continue
+
+      points = []
+
+      for i, value in enumerate(self.x_axis.data):
+        x_value = value.timestamp() if self.x_axis.data_type == ChartDataType.DATETIME else value
+        if not isinstance(x_value, (int, float)):
+          continue
+
+        y_value = serie.data[i]
+        if isinstance(y_value, bool):
+          if y_value:
+            y_value = 1
+          else:
+            y_value = 0
+
+        if not isinstance(y_value, (int, float)):
+          continue
+
+        points.append({
+          'xAxis': x_value,
+          'yAxis': y_value,
+        })
+
+      series.append({
+        'color': serie.color,
+        'values': points,
+        'label': serie.label,
+        'type': 'AREA' if serie.serie_type == ChartDataSerieType.AREA else 'LINE',
+      })
+
+    return series
 
   def _render_graphic(self) -> list[dict]:
     """

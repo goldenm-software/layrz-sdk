@@ -12,6 +12,7 @@ from .number import NumberChart
 from .pie import PieChart
 from .radar import RadarChart
 from .radial_bar import RadialBarChart
+from .render_technology import ChartRenderTechnology
 from .scatter import ScatterChart, ScatterSerie, ScatterSerieItem
 from .serie import ChartDataSerie
 from .serie_type import ChartDataSerieType
