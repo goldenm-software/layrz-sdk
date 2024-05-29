@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.3
+
+- Implemented new chart rendering library `syncfusion_flutter_charts` for Flutter.
+- Changed rendering method for `LineChart`, now you should provide the `technology` to select the rendering library.
+
 ## 3.0.2
 
 - Fixed issue with `IF()` LCL function, now only validates the nullability of the first argument.
