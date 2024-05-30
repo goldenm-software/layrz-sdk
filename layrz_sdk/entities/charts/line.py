@@ -1,6 +1,7 @@
 """ Line chart """
 
 from .alignment import ChartAlignment
+from .configuration import AxisConfig
 from .data_type import ChartDataType
 from .exceptions import ChartException
 from .render_technology import ChartRenderTechnology
@@ -20,6 +21,8 @@ class LineChart:
     y_axis: list[ChartDataSerie],
     title: str = 'Chart',
     align: ChartAlignment = ChartAlignment.CENTER,
+    x_axis_config: AxisConfig = None,
+    y_axis_config: AxisConfig = None,
   ) -> None:
     """
     Constructor
@@ -31,6 +34,8 @@ class LineChart:
                  Please read the documentation to more information.
       - title : Title of the chart
       - align : Alignment of the title
+      - x_axis_config : Configuration of the X Axis
+      - y_axis_config : Configuration of the Y Axis
     """
     for i, serie in enumerate(y_axis):
       if not isinstance(serie, ChartDataSerie):
@@ -48,6 +53,20 @@ class LineChart:
     if not isinstance(align, ChartAlignment):
       raise ChartException('align must be an instance of ChartAlignment')
     self.align = align
+
+    if x_axis_config is None:
+      x_axis_config = AxisConfig()
+
+    if not isinstance(x_axis_config, AxisConfig):
+      raise ChartException('x_axis_config must be an instance of AxisConfig')
+    self.x_axis_config = x_axis_config
+
+    if y_axis_config is None:
+      y_axis_config = AxisConfig()
+
+    if not isinstance(y_axis_config, AxisConfig):
+      raise ChartException('y_axis_config must be an instance of AxisConfig')
+    self.y_axis_config = y_axis_config
 
   def render(self, technology: ChartRenderTechnology) -> dict | list[dict]:
     """
@@ -72,13 +91,20 @@ class LineChart:
         'configuration': self._render_syncfusion_flutter_charts(),
       }
 
+    if technology == ChartRenderTechnology.CANVASJS:
+      return {
+        'library': 'CANVASJS',
+        'chart': 'LINE',
+        'configuration': self._render_canvasjs(),
+      }
+
     return {
-      'library': 'CANVASJS',
-      'chart': 'LINE',
-      'configuration': self._render_canvasjs(),
+      'library': 'FLUTTER',
+      'chart': 'TEXT',
+      'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_syncfusion_flutter_charts(self) -> list[dict]:
+  def _render_syncfusion_flutter_charts(self) -> dict:
     """ 
     Converts the configuration of the chart to a Flutter library syncfusion_flutter_charts.
     """
@@ -86,6 +112,7 @@ class LineChart:
 
     for serie in self.y_axis:
       if serie.serie_type not in [ChartDataSerieType.LINE, ChartDataSerieType.AREA]:
+        print('Serie type not supported:', serie.serie_type)
         continue
 
       points = []
@@ -103,6 +130,7 @@ class LineChart:
             y_value = 0
 
         if not isinstance(y_value, (int, float)):
+          print('Value isn\'t a number:', y_value)
           continue
 
         points.append({
@@ -117,7 +145,23 @@ class LineChart:
         'type': 'AREA' if serie.serie_type == ChartDataSerieType.AREA else 'LINE',
       })
 
-    return series
+    return {
+      'series': series,
+      'xAxis': {
+        'label': self.x_axis_config.label,
+        'measureUnit': self.x_axis_config.measure_unit,
+        'dataType': self.x_axis_config.data_type.value,
+        'minValue': self.x_axis_config.min_value,
+        'maxValue': self.x_axis_config.max_value,
+      },
+      'yAxis': {
+        'label': self.y_axis_config.label,
+        'measureUnit': self.y_axis_config.measure_unit,
+        'dataType': self.y_axis_config.data_type.value,
+        'minValue': self.y_axis_config.min_value,
+        'maxValue': self.y_axis_config.max_value,
+      },
+    }
 
   def _render_graphic(self) -> list[dict]:
     """

@@ -14,7 +14,7 @@ class ChartDataSerie:
     data: list[float | int | bool],
     color: str = '#000000',
     label: str = '',
-    serie_type: ChartDataSerieType = ChartDataSerieType.NONE,
+    serie_type: ChartDataSerieType = ChartDataSerieType.LINE,
     data_type: ChartDataType = ChartDataType.NUMBER,
     dashed: bool = False,
   ):

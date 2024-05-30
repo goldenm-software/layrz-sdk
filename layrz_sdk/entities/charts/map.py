@@ -2,6 +2,7 @@
 from enum import Enum
 
 from .exceptions import ChartException
+from .render_technology import ChartRenderTechnology
 
 
 class MapCenterType(Enum):
@@ -99,7 +100,7 @@ class MapChart:
       raise ChartException('center_latlng must be an instance of list or tuple')
     self.center_latlng = center_latlng
 
-  def render(self, use_new_definition: bool = False) -> dict:
+  def render(self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER_MAP) -> dict:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: FLUTTER_MAP and LEAFLET.
@@ -107,7 +108,7 @@ class MapChart:
     FLUTTER_MAP is a Flutter chart library. To return this option, use the parameter use_new_definition=True.
     LEAFLET is a Javascript chart library. This is the default option.
     """
-    if use_new_definition:
+    if technology == ChartRenderTechnology.FLUTTER_MAP:
       return {
         'library': 'FLUTTER_MAP',
         'chart': 'MAP',
@@ -115,9 +116,9 @@ class MapChart:
       }
 
     return {
-      'library': 'LEAFLET',
-      'chart': 'MAP',
-      'configuration': self._render_leaflet(),
+      'library': 'FLUTTER',
+      'chart': 'TEXT',
+      'configuration': [f'Unsupported {technology}'],
     }
 
   def _render_flutter_map(self) -> dict:

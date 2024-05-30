@@ -1,4 +1,5 @@
 """ Number chart """
+from .render_technology import ChartRenderTechnology
 
 
 class NumberChart:
@@ -20,14 +21,21 @@ class NumberChart:
     self.color = color
     self.label = label
 
-  def render(self) -> dict:
+  def render(self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER) -> dict:
     """
     Render chart to a graphic Library.
     """
+    if technology == ChartRenderTechnology.FLUTTER:
+      return {
+        'library': 'FLUTTER',
+        'chart': 'NUMBER',
+        'configuration': self._render_flutter(),
+      }
+
     return {
       'library': 'FLUTTER',
-      'chart': 'NUMBER',
-      'configuration': self._render_flutter(),
+      'chart': 'TEXT',
+      'configuration': [f'Unsupported {technology}'],
     }
 
   def _render_flutter(self) -> dict:

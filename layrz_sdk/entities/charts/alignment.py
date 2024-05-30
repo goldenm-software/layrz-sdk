@@ -13,7 +13,7 @@ class ChartAlignment(Enum):
   @property
   def _readable(self) -> str:
     """ Readable """
-    return f'BroadcastStatus.{self.value}'
+    return f'ChartAlignment.{self.value}'
 
   def __str__(self) -> str:
     """ Readable property """
