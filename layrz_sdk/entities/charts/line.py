@@ -67,7 +67,7 @@ class LineChart:
 
     if technology == ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS:
       return {
-        'library': 'syncfusion_flutter_charts',
+        'library': 'SYNCFUSION_FLUTTER_CHARTS',
         'chart': 'LINE',
         'configuration': self._render_syncfusion_flutter_charts(),
       }
