@@ -9,6 +9,9 @@ class ChartRenderTechnology(Enum):
   CANVAS_JS = 'CANVAS_JS'
   GRAPHIC = 'GRAPHIC'
   SYNCFUSION_FLUTTER_CHARTS = 'SYNCFUSION_FLUTTER_CHARTS'
+  FLUTTER_MAP = 'FLUTTER_MAP'
+  APEX_CHARTS = 'APEX_CHARTS'
+  FLUTTER = 'FLUTTER'
 
   @property
   def _readable(self) -> str:

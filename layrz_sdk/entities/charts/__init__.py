@@ -1,8 +1,9 @@
 """ Charts entities """
 from .alignment import ChartAlignment
 from .bar import BarChart
+from .color import ChartColor, get_color_list
 from .column import ColumnChart
-from .configuration import ChartConfiguration
+from .configuration import ChartConfiguration, AxisConfig
 from .data_type import ChartDataType
 from .exceptions import ChartException
 from .html import HTMLChart

@@ -4,11 +4,11 @@ from .broadcasts import (BroadcastRequest, BroadcastResponse, BroadcastResult, B
 # Cases entitites
 from .cases import Case, CaseIgnoredStatus, CaseStatus, Comment, Trigger
 # Charts entities
-from .charts import (AreaChart, BarChart, ChartAlignment, ChartConfiguration, ChartDataSerie, ChartDataSerieType,
-                     ChartDataType, ChartException, ChartRenderTechnology, ColumnChart, HTMLChart, LineChart,
-                     MapCenterType, MapChart, MapPoint, NumberChart, PieChart, RadarChart, RadialBarChart, ScatterChart,
-                     ScatterSerie, ScatterSerieItem, TableChart, TableHeader, TableRow, TimelineChart, TimelineSerie,
-                     TimelineSerieItem)
+from .charts import (AreaChart, AxisConfig, BarChart, ChartAlignment, ChartColor, ChartConfiguration, ChartDataSerie,
+                     ChartDataSerieType, ChartDataType, ChartException, ChartRenderTechnology, ColumnChart, HTMLChart,
+                     LineChart, MapCenterType, MapChart, MapPoint, NumberChart, PieChart, RadarChart, RadialBarChart,
+                     ScatterChart, ScatterSerie, ScatterSerieItem, TableChart, TableHeader, TableRow, TimelineChart,
+                     TimelineSerie, TimelineSerieItem, get_color_list)
 # Checkpoints entities
 from .checkpoints import Checkpoint, Geofence, Waypoint
 # Events entities

@@ -1,6 +1,7 @@
 """ Pie chart """
 from .alignment import ChartAlignment
 from .exceptions import ChartException
+from .render_technology import ChartRenderTechnology
 from .serie import ChartDataSerie
 
 
@@ -37,7 +38,10 @@ class PieChart:
       raise ChartException('align must be an instance of ChartAlignment')
     self.align = align
 
-  def render(self, use_new_definition: bool = False) -> dict | list[dict]:
+  def render(
+    self,
+    technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
+  ) -> dict | list[dict]:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: GRAPHIC and CANVASJS.
@@ -45,17 +49,47 @@ class PieChart:
     GRAPHIC is a Flutter chart library. To return this option, use the parameter use_new_definition=True.
     CANVASJS is a Javascript chart library. This is the default option.
     """
-    if use_new_definition:
+    if technology == ChartRenderTechnology.GRAPHIC:
       return {
         'library': 'GRAPHIC',
         'chart': 'PIE',
         'configuration': self._render_graphic(),
       }
+
+    if technology == ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS:
+      return {
+        'library': 'SYNCFUSION_FLUTTER_CHARTS',
+        'chart': 'PIE',
+        'configuration': self._render_syncfusion_flutter_charts(),
+      }
+
+    if technology == ChartRenderTechnology.APEX_CHARTS:
+      return {
+        'library': 'APEXCHARTS',
+        'chart': 'PIE',
+        'configuration': self._render_apexcharts(),
+      }
+
     return {
-      'library': 'APEXCHARTS',
-      'chart': 'PIE',
-      'configuration': self._render_apexcharts(),
+      'library': 'FLUTTER',
+      'chart': 'TEXT',
+      'configuration': [f'Unsupported {technology}'],
     }
+
+  def _render_syncfusion_flutter_charts(self) -> dict:
+    """
+    Converts the configuration of the chart to Syncfusion Flutter Charts.
+    """
+    series = []
+
+    for serie in self.series:
+      series.append({
+        'label': serie.label,
+        'color': serie.color,
+        'value': serie.data[0],
+      })
+
+    return {'series': series}
 
   def _render_graphic(self) -> list[dict]:
     """

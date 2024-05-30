@@ -1,6 +1,8 @@
 """ Bar chart """
 from .alignment import ChartAlignment
+from .configuration import AxisConfig
 from .exceptions import ChartException
+from .render_technology import ChartRenderTechnology
 from .serie import ChartDataSerie
 from .serie_type import ChartDataSerieType
 
@@ -16,6 +18,8 @@ class BarChart:
     y_axis: list[ChartDataSerie],
     title: str = 'Chart',
     align: ChartAlignment = ChartAlignment.CENTER,
+    x_axis_config: AxisConfig = None,
+    y_axis_config: AxisConfig = None,
   ) -> None:
     """
     Constructor
@@ -27,6 +31,8 @@ class BarChart:
                  Please read the documentation to more information.
       - title : Title of the chart
       - align : Alignment of the title
+      - x_axis_config : Configuration of the X Axis
+      - y_axis_config : Configuration of the Y Axis
     """
     for i, serie in enumerate(y_axis):
       if not isinstance(serie, ChartDataSerie):
@@ -45,7 +51,24 @@ class BarChart:
       raise ChartException('align must be an instance of ChartAlignment')
     self.align = align
 
-  def render(self, use_new_definition: bool = False) -> dict | list[dict]:
+    if x_axis_config is None:
+      x_axis_config = AxisConfig()
+
+    if not isinstance(x_axis_config, AxisConfig):
+      raise ChartException('x_axis_config must be an instance of AxisConfig')
+    self.x_axis_config = x_axis_config
+
+    if y_axis_config is None:
+      y_axis_config = AxisConfig()
+
+    if not isinstance(y_axis_config, AxisConfig):
+      raise ChartException('y_axis_config must be an instance of AxisConfig')
+    self.y_axis_config = y_axis_config
+
+  def render(
+    self,
+    technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
+  ) -> dict:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: GRAPHIC and APEXCHARTS.
@@ -53,17 +76,67 @@ class BarChart:
     GRAPHIC is a Flutter chart library. To return this option, use the parameter use_new_definition=True.
     APEXCHARTS is a Javascript chart library. This is the default option.
     """
-    if use_new_definition:
+    if technology == ChartRenderTechnology.GRAPHIC:
       return {
         'library': 'GRAPHIC',
         'chart': 'BAR',
         'configuration': self._render_graphic(),
       }
 
+    if technology == ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS:
+      return {
+        'library': 'SYNCFUSION_FLUTTER_CHARTS',
+        'chart': 'BAR',
+        'configuration': self._render_syncfusion_flutter_charts(),
+      }
+
+    if technology == ChartRenderTechnology.APEX_CHARTS:
+      return {
+        'library': 'APEXCHARTS',
+        'chart': 'BAR',
+        'configuration': self._render_apexcharts(),
+      }
+
     return {
-      'library': 'APEXCHARTS',
-      'chart': 'BAR',
-      'configuration': self._render_apexcharts(),
+      'library': 'FLUTTER',
+      'chart': 'TEXT',
+      'configuration': [f'Unsupported rendering technology {technology.name}'],
+    }
+
+  def _render_syncfusion_flutter_charts(self) -> list[dict]:
+    """
+    Converts the configuration of the chart to Syncfusion Flutter Charts.
+    """
+    series = []
+
+    for serie in self.y_axis:
+      values = []
+      for i, value in enumerate(serie.data):
+        x_axis = self.x_axis.data[i]
+        values.append({'xAxis': x_axis, 'yAxis': value})
+
+      series.append({
+        'label': serie.label,
+        'color': serie.color,
+        'values': values,
+      })
+
+    return {
+      'series': series,
+      'xAxis': {
+        'label': self.x_axis_config.label,
+        'measureUnit': self.x_axis_config.measure_unit,
+        'dataType': self.x_axis_config.data_type.value,
+        'minValue': self.x_axis_config.min_value,
+        'maxValue': self.x_axis_config.max_value,
+      },
+      'yAxis': {
+        'label': self.y_axis_config.label,
+        'measureUnit': self.y_axis_config.measure_unit,
+        'dataType': self.y_axis_config.data_type.value,
+        'minValue': self.y_axis_config.min_value,
+        'maxValue': self.y_axis_config.max_value,
+      },
     }
 
   def _render_graphic(self) -> list[dict]:

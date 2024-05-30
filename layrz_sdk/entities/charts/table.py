@@ -1,4 +1,5 @@
 """ Number chart """
+from .render_technology import ChartRenderTechnology
 
 
 class TableHeader:
@@ -43,14 +44,21 @@ class TableChart:
     self.columns = columns
     self.rows = rows
 
-  def render(self) -> dict:
+  def render(self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER) -> dict:
     """
     Render chart to a graphic Library.
     """
+    if technology == ChartRenderTechnology.FLUTTER:
+      return {
+        'library': 'FLUTTER',
+        'chart': 'TABLE',
+        'configuration': self._render_flutter(),
+      }
+
     return {
       'library': 'FLUTTER',
-      'chart': 'TABLE',
-      'configuration': self._render_flutter(),
+      'chart': 'TEXT',
+      'configuration': [f'Unsupported {technology}'],
     }
 
   def _render_flutter(self) -> dict:
