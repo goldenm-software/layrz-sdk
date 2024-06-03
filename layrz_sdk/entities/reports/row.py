@@ -22,11 +22,11 @@ class ReportRow:
   ) -> None:
     """ Constructor """
     self.content = content
+    self.compact = compact
 
     if height is not None:
+      # TODO: fix this, did it meant to be 'use compact instead'?
       raise DeprecationWarning('height is deprecated, use height instead')
-
-    self.compact = compact
 
   @property
   def _readable(self) -> str:
