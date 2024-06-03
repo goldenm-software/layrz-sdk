@@ -12,6 +12,7 @@ class AssetOperationMode(Enum):
   ASSETMULTIPLE = 'ASSETMULTIPLE'
   DISCONNECTED = 'DISCONNECTED'
   STATIC = 'STATIC'
+  ZONE = 'ZONE'
 
   @property
   def _readable(self) -> str:
