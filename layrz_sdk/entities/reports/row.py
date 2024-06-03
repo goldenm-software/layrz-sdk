@@ -25,8 +25,7 @@ class ReportRow:
     self.compact = compact
 
     if height is not None:
-      # TODO: fix this, did it meant to be 'use compact instead'?
-      raise DeprecationWarning('height is deprecated, use height instead')
+      raise DeprecationWarning('height is deprecated.')
 
   @property
   def _readable(self) -> str:
