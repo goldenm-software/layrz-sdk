@@ -45,7 +45,11 @@ class Asset:
     self.sensors = sensors if sensors else []
     self.custom_fields = custom_fields if custom_fields else []
     self.devices = devices if devices else []
-    self.children = children if children else []
+
+    if children and self.operation_mode == AssetOperationMode.ASSETMULTIPLE:
+      self.children = children
+    else:
+      self.children = []
 
   @property
   def _readable(self) -> str:
