@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.7
+
+- Added the value of `AssetOperationMode.ZONE`
+- Added a check for `Asset.operation_mode == ASSETMULTIPLE` while savind the list of child's
+- Clarified the deprecation of `ReportRow.height`
+
 ## 3.0.6
 
 - Changed print in `LineChart` to a `log.warning` and `log.fatal` in case of error
