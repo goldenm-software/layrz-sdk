@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.6
+
+- Changed print in `LineChart` to a `log.warning` and `log.fatal` in case of error
+
 ## 3.0.3
 
 - Implemented new chart rendering library `syncfusion_flutter_charts` for Flutter.

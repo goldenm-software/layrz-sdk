@@ -1,4 +1,5 @@
 """ Line chart """
+import logging
 
 from .alignment import ChartAlignment
 from .configuration import AxisConfig
@@ -8,6 +9,7 @@ from .render_technology import ChartRenderTechnology
 from .serie import ChartDataSerie
 from .serie_type import ChartDataSerieType
 
+log = logging.getLogger(__name__)
 
 class LineChart:
   """
@@ -112,7 +114,7 @@ class LineChart:
 
     for serie in self.y_axis:
       if serie.serie_type not in [ChartDataSerieType.LINE, ChartDataSerieType.AREA]:
-        print('Serie type not supported:', serie.serie_type)
+        log.warning('Serie type not supported: %s', serie.serie_type)
         continue
 
       points = []
@@ -130,7 +132,7 @@ class LineChart:
             y_value = 0
 
         if not isinstance(y_value, (int, float)):
-          print('Value isn\'t a number:', y_value)
+          log.debug('Value isn\'t a number: %s', y_value)
           continue
 
         points.append({
