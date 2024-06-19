@@ -1,4 +1,6 @@
 """ Chart Data Serie """
+from typing import List, Self
+
 from .data_type import ChartDataType
 from .exceptions import ChartException
 from .serie_type import ChartDataSerieType
@@ -10,14 +12,14 @@ class ChartDataSerie:
   """
 
   def __init__(
-    self,
-    data: list[float | int | bool],
+    self: Self,
+    data: List[float | int | bool],
     color: str = '#000000',
     label: str = '',
     serie_type: ChartDataSerieType = ChartDataSerieType.LINE,
     data_type: ChartDataType = ChartDataType.NUMBER,
     dashed: bool = False,
-  ):
+  ) -> None:
     """
     Constructor
 

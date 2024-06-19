@@ -1,5 +1,6 @@
 """ Asset Operation Mode """
 from enum import Enum
+from typing import Self
 
 
 class AssetOperationMode(Enum):
@@ -15,14 +16,14 @@ class AssetOperationMode(Enum):
   ZONE = 'ZONE'
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str:
     """ Readable """
     return self.value
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str:
     """ Readable property """
     return self._readable

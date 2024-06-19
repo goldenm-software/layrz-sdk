@@ -1,4 +1,6 @@
 """ Number chart """
+from typing import Dict, Self
+
 from .render_technology import ChartRenderTechnology
 
 
@@ -7,7 +9,7 @@ class NumberChart:
   Number chart configuration
   """
 
-  def __init__(self, value: int | float, color: str, label: str) -> None:
+  def __init__(self: Self, value: float, color: str, label: str) -> None:
     """
     Constructor
 
@@ -21,7 +23,7 @@ class NumberChart:
     self.color = color
     self.label = label
 
-  def render(self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER) -> dict:
+  def render(self: Self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER) -> Dict:
     """
     Render chart to a graphic Library.
     """
@@ -38,7 +40,7 @@ class NumberChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_flutter(self) -> dict:
+  def _render_flutter(self: Self) -> Dict:
     """
     Converts the configuration of the chart to a Flutter native components.
     """

@@ -2,6 +2,7 @@
 import os
 import time
 import warnings
+from typing import Dict, List, Self
 
 import xlsxwriter
 
@@ -23,9 +24,9 @@ class Report:
   """
 
   def __init__(
-    self,
+    self: Self,
     name: str,
-    pages: list[ReportPage | CustomReportPage],
+    pages: List[ReportPage | CustomReportPage],
     export_format: ReportFormat = None,
   ) -> None:
     self.name = name
@@ -33,29 +34,29 @@ class Report:
 
     if export_format is not None:
       warnings.warn('export_format is deprecated, submit the export format in the `export()` method instead',
-                    DeprecationWarning)
+                    DeprecationWarning, stacklevel=2)
 
     self.export_format = export_format
 
   @property
-  def filename(self) -> str:
+  def filename(self: Self) -> str:
     """ Report filename """
     return f'{self.name}_{int(time.time() * 1000)}.xlsx'
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str:
     """ Readable property """
     return f'Report(name={self.name}, pages={len(self.pages)})'
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str:
     """ Readable property """
     return self._readable
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str:
     """ Readable property """
     return self._readable
 
-  def export(self, path, export_format: ReportFormat = None) -> str:
+  def export(self: Self, path: str, export_format: ReportFormat = None) -> str:
     """ Export report to file """
     if export_format:
       if export_format == ReportFormat.MICROSOFT_EXCEL:
@@ -72,11 +73,11 @@ class Report:
     else:
       raise AttributeError(f'Unsupported export format: {self.export_format}')
 
-  def export_as_json(self) -> dict:
+  def export_as_json(self: Self) -> Dict:
     """ Returns the report as a JSON dict"""
     return self._export_json()
 
-  def _export_json(self) -> dict:
+  def _export_json(self: Self) -> Dict:
     """ Returns a JSON dict of the report"""
     json_pages = []
     for page in self.pages:
@@ -112,7 +113,7 @@ class Report:
       'pages': json_pages,
     }
 
-  def _export_xlsx(self, path) -> str:
+  def _export_xlsx(self: Self, path: str) -> str:
     """ Export to Microsoft Excel (.xslx) """
 
     full_path = os.path.join(path, self.filename)
@@ -196,7 +197,7 @@ class Report:
 
 
 class ReportConfiguration:
-  """ 
+  """
   Report Configuration class
   ---
   Attributes
@@ -204,19 +205,19 @@ class ReportConfiguration:
     - pages_count : Number of pages in the report
   """
 
-  def __init__(self, title: str, pages_count: int) -> None:
+  def __init__(self: Self, title: str, pages_count: int) -> None:
     self.title = title
     self.pages_count = pages_count
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str:
     """ Readable property """
     return f'ReportConfiguration(title={self.title}, pages_count={self.pages_count})'
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str:
     """ Readable property """
     return self._readable
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str:
     """ Readable property """
     return self._readable

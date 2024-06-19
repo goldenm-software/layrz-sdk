@@ -1,7 +1,7 @@
 """ Report col """
 import warnings
 from enum import Enum
-from typing import Any
+from typing import Self, Union
 
 from ..formatting.text_align import TextAlignment
 
@@ -18,15 +18,15 @@ class ReportDataType(Enum):
   CURRENCY = 'currency'
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str:
     """ Readable """
     return f'ReportDataType.{self.value}'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str:
     """ Readable property """
     return self._readable
 
@@ -48,8 +48,8 @@ class ReportCol:
   """
 
   def __init__(
-    self,
-    content: Any,
+    self: Self,
+    content: Union[str, float],
     color: str = '#ffffff',
     text_color: str = None,
     align: TextAlignment = TextAlignment.LEFT,
@@ -62,7 +62,7 @@ class ReportCol:
     self.color = color
 
     if text_color is not None:
-      warnings.warn('text_color is deprecated, use color instead', DeprecationWarning)
+      warnings.warn('text_color is deprecated, use color instead', DeprecationWarning, stacklevel=2)
 
     self.align = align
     self.data_type = data_type
@@ -71,14 +71,14 @@ class ReportCol:
     self.bold = bold
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str:
     """ Readable property """
     return f'ReportCol(content={self.content})'
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str:
     """ Readable property """
     return self._readable
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str:
     """ Readable property """
     return self._readable

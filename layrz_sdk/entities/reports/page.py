@@ -1,4 +1,6 @@
 """ Report page """
+from typing import List, Self
+
 from .header import ReportHeader
 from .row import ReportRow
 
@@ -14,10 +16,10 @@ class ReportPage:
   """
 
   def __init__(
-    self,
+    self: Self,
     name: str,
-    headers: list[ReportHeader],
-    rows: list[ReportRow],
+    headers: List[ReportHeader],
+    rows: List[ReportRow],
     freeze_header: bool = False,
   ) -> None:
     self.name = name
@@ -26,15 +28,15 @@ class ReportPage:
     self.freeze_header = freeze_header
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str:
     """ Readable property """
     return f'ReportPage(name={self.name}, headers={self.headers}, rows={self.rows})'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str:
     """ Readable property """
     return self._readable
 
@@ -48,11 +50,11 @@ class CustomReportPage:
     - name : Name of the page. Length should be less than 60 characters
   Methods:
   - builder(Worksheet) -> None : Function to build the page
-                                 The builder receives a `Worksheet` object as an argument and shouldn't 
+                                 The builder receives a `Worksheet` object as an argument and shouldn't
                                  return anything.
   """
 
-  def __init__(self, name: str, builder: callable) -> None:
+  def __init__(self: Self, name: str, builder: callable) -> None:
     """ Constructor """
     self.name = name
 

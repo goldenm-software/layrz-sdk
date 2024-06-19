@@ -31,7 +31,7 @@ for root, dirs, files in os.walk('.'):
 if args.module:
   watch_files = [f for f in watch_files if args.module in f]
 
-print(f'Linting {len(watch_files)} files')
+#print(f'Linting {len(watch_files)} files')
 
 Run([
   '--rcfile=pyproject.toml',

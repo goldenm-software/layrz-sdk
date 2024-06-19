@@ -1,5 +1,6 @@
 """ Waypoint entity """
 from datetime import datetime
+from typing import Self
 
 from .geofence import Geofence
 
@@ -18,7 +19,7 @@ class Waypoint:
   """
 
   def __init__(
-    self,
+    self: Self,
     pk: int,
     geofence: Geofence,
     start_at: datetime,
@@ -35,15 +36,15 @@ class Waypoint:
     self.sequence_ideal = sequence_ideal
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str:
     """ Readable """
     return f'Waypoint(pk={self.pk}, geofence={self.geofence}, start_at={self.start_at}, ' +\
            f'end_at={self.end_at}, sequence_real={self.sequence_real}, sequence_ideal={self.sequence_ideal})'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str:
     """ Readable property """
     return self._readable

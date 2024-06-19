@@ -1,5 +1,6 @@
 """ Line chart """
 import logging
+from typing import Dict, List, Self
 
 from .alignment import ChartAlignment
 from .configuration import AxisConfig
@@ -11,6 +12,7 @@ from .serie_type import ChartDataSerieType
 
 log = logging.getLogger(__name__)
 
+
 class LineChart:
   """
   Line chart configuration
@@ -18,9 +20,9 @@ class LineChart:
   """
 
   def __init__(
-    self,
+    self: Self,
     x_axis: ChartDataSerie,
-    y_axis: list[ChartDataSerie],
+    y_axis: List[ChartDataSerie],
     title: str = 'Chart',
     align: ChartAlignment = ChartAlignment.CENTER,
     x_axis_config: AxisConfig = None,
@@ -70,7 +72,7 @@ class LineChart:
       raise ChartException('y_axis_config must be an instance of AxisConfig')
     self.y_axis_config = y_axis_config
 
-  def render(self, technology: ChartRenderTechnology) -> dict | list[dict]:
+  def render(self: Self, technology: ChartRenderTechnology) -> Dict | List[Dict]:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: GRAPHIC and CANVASJS.
@@ -106,8 +108,8 @@ class LineChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_syncfusion_flutter_charts(self) -> dict:
-    """ 
+  def _render_syncfusion_flutter_charts(self: Self) -> Dict:
+    """
     Converts the configuration of the chart to a Flutter library syncfusion_flutter_charts.
     """
     series = []
@@ -165,7 +167,7 @@ class LineChart:
       },
     }
 
-  def _render_graphic(self) -> list[dict]:
+  def _render_graphic(self: Self) -> List[Dict]:
     """
     Converts the configuration of the chart to a Flutter library Graphic.
     """
@@ -196,7 +198,7 @@ class LineChart:
 
     return series
 
-  def _render_canvasjs(self) -> dict:
+  def _render_canvasjs(self: Self) -> Dict:
     """
     Converts the configuration of the chart to Javascript library CanvasJS.
     """
@@ -270,6 +272,5 @@ class LineChart:
 class AreaChart(LineChart):
   """
   Line chart
-  
   Deprecation warning: This class will be removed in the next version. Use LineChart instead.
   """

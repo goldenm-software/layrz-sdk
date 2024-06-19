@@ -1,5 +1,6 @@
 """ Report header """
 import warnings
+from typing import Self
 
 from ..formatting.text_align import TextAlignment
 
@@ -21,7 +22,7 @@ class ReportHeader:
   """
 
   def __init__(
-    self,
+    self: Self,
     content: str,
     width: int = None,
     color: str = '#ffffff',
@@ -32,25 +33,25 @@ class ReportHeader:
     self.content = content
 
     if width is not None:
-      warnings.warn('width is deprecated, use width instead', DeprecationWarning)
+      warnings.warn('width is deprecated, use width instead', DeprecationWarning, stacklevel=2)
 
     self.color = color
 
     if text_color is not None:
-      warnings.warn('text_color is deprecated, use color instead', DeprecationWarning)
+      warnings.warn('text_color is deprecated, use color instead', DeprecationWarning, stacklevel=2)
 
     self.align = align
     self.bold = bold
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str:
     """ Readable property """
     return f'ReportHeader(content={self.content})'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str:
     """ Readable property """
     return self._readable

@@ -1,4 +1,6 @@
 """ Asset Entity """
+from typing import List, Self
+
 from .asset_operation_mode import AssetOperationMode
 from .custom_field import CustomField
 from .device import Device
@@ -23,18 +25,18 @@ class Asset:
   """
 
   def __init__(
-    self,
+    self: Self,
     pk: int,
     name: str,
     vin: str,
     plate: str,
     asset_type: int,
     operation_mode: AssetOperationMode,
-    sensors: list[Sensor] = None,
-    custom_fields: list[CustomField] = None,
-    devices: list[Device] = None,
-    children: list = None,
-  ):
+    sensors: List[Sensor] = None,
+    custom_fields: List[CustomField] = None,
+    devices: List[Device] = None,
+    children: List = None,
+  ) -> None:
     """ Constructor """
     self.pk = pk
     self.name = name
@@ -52,16 +54,16 @@ class Asset:
       self.children = []
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str:
     """ Readable """
     return f'Asset(pk={self.pk}, name={self.name}, vin={self.vin}, plate={self.plate}, ' +\
            f'asset_type={self.asset_type}, operation_mode={self.operation_mode}, ' +\
            f'custom_fields={self.custom_fields}, children={self.children}, sensors={self.sensors})'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str:
     """ Readable property """
     return self._readable

@@ -1,5 +1,6 @@
 """ Event entity """
 from datetime import datetime
+from typing import Self
 
 from layrz_sdk.entities.cases.trigger import Trigger
 from layrz_sdk.entities.telemetry.message import Message
@@ -19,7 +20,7 @@ class Event:
   """
 
   def __init__(
-    self,
+    self: Self,
     pk: int,
     trigger: Trigger,
     asset_id: int,
@@ -34,15 +35,15 @@ class Event:
     self.activated_at = activated_at
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str:
     """ Readable """
     return f'Event(pk={self.pk}, trigger={self.trigger}, asset_id={self.asset_id}, ' +\
            f'message={self.message}, activated_at={self.activated_at})'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str:
     """ Readable property """
     return self._readable

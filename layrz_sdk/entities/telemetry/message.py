@@ -1,5 +1,6 @@
 """ Message entity """
-from datetime import datetime
+from datetime import datetime, timezone
+from typing import Dict, Self
 
 from .position import Position
 
@@ -18,12 +19,12 @@ class Message:
   """
 
   def __init__(
-    self,
+    self: Self,
     pk: int,
     asset_id: int,
     position: Position = None,
-    payload: dict = None,
-    sensors: dict = None,
+    payload: Dict = None,
+    sensors: Dict = None,
     received_at: datetime = None,
   ) -> None:
     """ Constructor """
@@ -32,4 +33,4 @@ class Message:
     self.position = position or Position()
     self.payload = payload or {}
     self.sensors = sensors or {}
-    self.received_at = received_at or datetime.now()
+    self.received_at = received_at or datetime.now(timezone.utc)
