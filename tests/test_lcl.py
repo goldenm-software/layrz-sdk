@@ -1,6 +1,7 @@
 """
 Test LCL functions
 """
+
 import json
 import unittest
 import zoneinfo
@@ -11,7 +12,7 @@ from layrz_sdk.lcl.core import LclCore
 
 
 class TestLclFunctions(unittest.TestCase):
-  """ Test LCL functions """
+  """Test LCL functions"""
 
   def _process_and_convert(self: Self, lcl: LclCore) -> Union[str, int, float]:
     result = lcl.perform()
