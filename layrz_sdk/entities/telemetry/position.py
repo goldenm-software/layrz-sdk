@@ -36,15 +36,15 @@ class Position:
     self.satellites = satellites
 
   @property
-  def _readable(self: Self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'Position(latitude={self.latitude}, longitude={self.longitude}, altitude={self.altitude}, ' +\
            f'speed={self.speed}, direction={self.direction}, hdop={self.hdop}, satellites={self.satellites})'
 
-  def __str__(self: Self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self: Self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable

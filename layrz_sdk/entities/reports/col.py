@@ -1,7 +1,7 @@
 """ Report col """
 import warnings
 from enum import Enum
-from typing import Self, Union
+from typing import Any, Self
 
 from ..formatting.text_align import TextAlignment
 
@@ -18,15 +18,15 @@ class ReportDataType(Enum):
   CURRENCY = 'currency'
 
   @property
-  def _readable(self: Self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'ReportDataType.{self.value}'
 
-  def __str__(self: Self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self: Self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
@@ -49,7 +49,7 @@ class ReportCol:
 
   def __init__(
     self: Self,
-    content: Union[str, float],
+    content: Any,
     color: str = '#ffffff',
     text_color: str = None,
     align: TextAlignment = TextAlignment.LEFT,
@@ -71,14 +71,14 @@ class ReportCol:
     self.bold = bold
 
   @property
-  def _readable(self: Self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable property """
     return f'ReportCol(content={self.content})'
 
-  def __repr__(self: Self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __str__(self: Self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable

@@ -1,5 +1,5 @@
 """ HTML chart """
-from typing import Dict, Self
+from typing import Any, Self
 
 from .exceptions import ChartException
 
@@ -27,14 +27,14 @@ class HTMLChart:
       raise ChartException('title must be an instance of str')
     self.title = title
 
-  def render(self: Self) -> Dict[str, Dict[str, str]]:
+  def render(self: Self) -> Any:
     """
     Render chart to a Javascript Library.
     Currently only available for HTML.
     """
     return {'library': 'HTML', 'configuration': self._render_html()}
 
-  def _render_html(self: Self) -> Dict[str, str]:
+  def _render_html(self: Self) -> Any:
     """
     Converts the configuration of the chart to HTML render engine.
     """

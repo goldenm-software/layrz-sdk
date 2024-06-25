@@ -1,5 +1,5 @@
 """ Radial Bar chart """
-from typing import Dict, List, Self
+from typing import Any, List, Self
 
 from .alignment import ChartAlignment
 from .exceptions import ChartException
@@ -43,7 +43,7 @@ class RadialBarChart:
   def render(
     self: Self,
     technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
-  ) -> Dict | List[Dict]:
+  ) -> Any:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: GRAPHIC and CANVASJS.
@@ -78,7 +78,7 @@ class RadialBarChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_syncfusion_flutter_charts(self: Self) -> Dict:
+  def _render_syncfusion_flutter_charts(self: Self) -> Any:
     """
     Converts the configuration of the chart to Syncfusion Flutter Charts.
     """
@@ -93,7 +93,7 @@ class RadialBarChart:
 
     return {'series': series}
 
-  def _render_graphic(self: Self) -> List[Dict]:
+  def _render_graphic(self: Self) -> Any:
     """
     Converts the configuration of the chart to a Flutter library Graphic.
     """
@@ -108,7 +108,7 @@ class RadialBarChart:
 
     return series
 
-  def _render_apexcharts(self: Self) -> Dict:
+  def _render_apexcharts(self: Self) -> Any:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """

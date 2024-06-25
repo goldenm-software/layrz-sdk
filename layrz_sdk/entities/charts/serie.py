@@ -1,5 +1,5 @@
 """ Chart Data Serie """
-from typing import List, Self
+from typing import Any, Self
 
 from .data_type import ChartDataType
 from .exceptions import ChartException
@@ -13,7 +13,7 @@ class ChartDataSerie:
 
   def __init__(
     self: Self,
-    data: List[float | int | bool],
+    data: Any,
     color: str = '#000000',
     label: str = '',
     serie_type: ChartDataSerieType = ChartDataSerieType.LINE,

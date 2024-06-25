@@ -11,14 +11,14 @@ class TextAlignment(Enum):
   JUSTIFY = 'justify'
 
   @property
-  def _readable(self: Self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'TextAlignment.{self.value}'
 
-  def __str__(self: Self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self: Self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable

@@ -1,6 +1,6 @@
 """ Chart alignment """
 from enum import Enum
-from typing import List, Self
+from typing import Any, Self
 
 
 class ChartColor(Enum):
@@ -18,19 +18,19 @@ class ChartColor(Enum):
   LIME = '#CDDC39'
 
   @property
-  def _readable(self: Self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'ChartColor.{self.value}'
 
-  def __str__(self: Self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self: Self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
 
-def get_color_list() -> List[str]:
+def get_color_list() -> Any:
   """ Get all colors """
   return [color.value for color in ChartColor]

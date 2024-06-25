@@ -1,4 +1,1 @@
-pylint==3.0.3
-isort
-yapf
 ruff

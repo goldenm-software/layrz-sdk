@@ -1,5 +1,5 @@
 """ Radar chart """
-from typing import Dict, List, Self
+from typing import Any, List, Self
 
 from .alignment import ChartAlignment
 from .exceptions import ChartException
@@ -48,14 +48,14 @@ class RadarChart:
       raise ChartException('align must be an instance of ChartAlignment')
     self.align = align
 
-  def render(self: Self) -> Dict:
+  def render(self: Self) -> Any:
     """
     Render chart to a Javascript Library.
     Currently only available for ApexCharts.
     """
     return {'library': 'APEXCHARTS', 'configuration': self._render_apexcharts()}
 
-  def _render_apexcharts(self: Self) -> Dict:
+  def _render_apexcharts(self: Self) -> Any:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """

@@ -28,7 +28,7 @@ class BroadcastResult:
     request: BroadcastRequest,
     response: BroadcastResponse,
     submitted_at: datetime,
-  ) -> None:
+  ) -> str | None | bool:
     self.service_id = service_id
     self.asset_id = asset_id
     self.status = status
@@ -37,15 +37,15 @@ class BroadcastResult:
     self.submitted_at = submitted_at
 
   @property
-  def _readable(self: Self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'BroadcastResult(service_id={self.service_id}, asset_id={self.asset_id}, status={self.status}, ' +\
            f'request={self.request}, response={self.response}, submitted_at={self.submitted_at})'
 
-  def __repr__(self: Self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __str__(self: Self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable

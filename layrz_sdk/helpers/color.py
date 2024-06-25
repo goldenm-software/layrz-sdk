@@ -25,7 +25,7 @@ def convert_to_rgba(hex_color: str) -> Tuple[int, int, int, int]:
   return Tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4, 6))
 
 
-def use_black(color: str) -> bool:
+def use_black(color: str) -> str | None | bool:
   """
   Use black
   Will return when the background color works well with black text color.

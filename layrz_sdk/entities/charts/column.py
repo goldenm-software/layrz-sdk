@@ -1,5 +1,5 @@
 """ Column chart """
-from typing import Dict, List, Self
+from typing import Any, List, Self
 
 from layrz_sdk.helpers import convert_to_rgba
 
@@ -73,7 +73,7 @@ class ColumnChart:
   def render(
     self: Self,
     technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
-  ) -> dict:
+  ) -> Any:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: GRAPHIC and APEXCHARTS.
@@ -108,7 +108,7 @@ class ColumnChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_syncfusion_flutter_charts(self: Self) -> dict:
+  def _render_syncfusion_flutter_charts(self: Self) -> Any:
     """
     Converts the configuration of the chart to Syncfusion Flutter Charts.
     """
@@ -144,7 +144,7 @@ class ColumnChart:
       },
     }
 
-  def _render_graphic(self: Self) -> List[Dict]:
+  def _render_graphic(self: Self) -> Any:
     """
     Converts the configuration of the chart to Flutter library graphic.
     """
@@ -163,7 +163,7 @@ class ColumnChart:
 
     return series
 
-  def _render_apexcharts(self: Self) -> Dict:
+  def _render_apexcharts(self: Self) -> Any:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """

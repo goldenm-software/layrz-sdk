@@ -36,15 +36,15 @@ class Waypoint:
     self.sequence_ideal = sequence_ideal
 
   @property
-  def _readable(self: Self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'Waypoint(pk={self.pk}, geofence={self.geofence}, start_at={self.start_at}, ' +\
            f'end_at={self.end_at}, sequence_real={self.sequence_real}, sequence_ideal={self.sequence_ideal})'
 
-  def __str__(self: Self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self: Self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable

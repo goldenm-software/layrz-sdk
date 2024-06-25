@@ -30,15 +30,15 @@ class Device:
     self.is_primary = is_primary
 
   @property
-  def _readable(self: Self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'Device(pk={self.pk}, ident={self.ident}, name={self.name}, protocol={self.protocol}, ' +\
            f'is_primary={self.is_primary})'
 
-  def __str__(self: Self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self: Self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable

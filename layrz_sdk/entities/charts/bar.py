@@ -1,5 +1,5 @@
 """ Bar chart """
-from typing import Dict, List, Self
+from typing import Any, List, Self
 
 from .alignment import ChartAlignment
 from .configuration import AxisConfig
@@ -70,7 +70,7 @@ class BarChart:
   def render(
     self: Self,
     technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
-  ) -> dict:
+  ) -> Any:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: GRAPHIC and APEXCHARTS.
@@ -105,7 +105,7 @@ class BarChart:
       'configuration': [f'Unsupported rendering technology {technology.name}'],
     }
 
-  def _render_syncfusion_flutter_charts(self: Self) -> List[Dict]:
+  def _render_syncfusion_flutter_charts(self: Self) -> Any:
     """
     Converts the configuration of the chart to Syncfusion Flutter Charts.
     """
@@ -141,7 +141,7 @@ class BarChart:
       },
     }
 
-  def _render_graphic(self: Self) -> List[Dict]:
+  def _render_graphic(self: Self) -> Any:
     """
     Converts the configuration of the chart to Flutter library graphic.
     """
@@ -160,7 +160,7 @@ class BarChart:
 
     return series
 
-  def _render_apexcharts(self: Self) -> Dict:
+  def _render_apexcharts(self: Self) -> Any:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """

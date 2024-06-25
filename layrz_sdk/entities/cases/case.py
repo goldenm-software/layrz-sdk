@@ -14,15 +14,15 @@ class CaseStatus(Enum):
   CLOSED = 'CLOSED'
 
   @property
-  def _readable(self: Self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'BroadcastStatus.{self.value}'
 
-  def __str__(self: Self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self: Self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
@@ -37,15 +37,15 @@ class CaseIgnoredStatus(Enum):
   AUTO = 'AUTO'
 
   @property
-  def _readable(self: Self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'BroadcastStatus.{self.value}'
 
-  def __str__(self: Self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self: Self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
@@ -89,7 +89,7 @@ class Case:
     self._sequence = sequence
     self.ignored_status = ignored_status
 
-  def get_sequence(self: Self) -> str:
+  def get_sequence(self: Self) -> str | None | bool:
     """ Sequence getter """
     if self._sequence is not None:
       return f'{self.trigger.code}/{self._sequence}'
@@ -103,15 +103,15 @@ class Case:
   sequence = property(get_sequence, set_sequence)
 
   @property
-  def _readable(self: Self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'Case(pk={self.pk}, trigger={self.trigger}, asset_id={self.asset_id}, ' +\
            f'comments={len(self.comments)}, opened_at={self.opened_at}, closed_at={self.closed_at})'
 
-  def __str__(self: Self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self: Self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable

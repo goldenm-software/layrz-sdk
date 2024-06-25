@@ -1,5 +1,5 @@
 """ Scatter chart """
-from typing import Dict, List, Self
+from typing import Any, List, Self
 
 from .alignment import ChartAlignment
 from .configuration import AxisConfig
@@ -116,7 +116,7 @@ class ScatterChart:
   def render(
     self: Self,
     technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
-  ) -> Dict:
+  ) -> Any:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: GRAPHIC and APEXCHARTS.
@@ -151,7 +151,7 @@ class ScatterChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_syncfusion_flutter_charts(self: Self) -> Dict:
+  def _render_syncfusion_flutter_charts(self: Self) -> Any:
     """
     Converts the configuration of the chart to Flutter library Graphic.
     """
@@ -205,7 +205,7 @@ class ScatterChart:
       },
     }
 
-  def _render_graphic(self: Self) -> List[Dict]:
+  def _render_graphic(self: Self) -> Any:
     """
     Converts the configuration of the chart to Flutter library Graphic.
     """
@@ -238,7 +238,7 @@ class ScatterChart:
 
     return series
 
-  def _render_apexcharts(self: Self) -> Dict:
+  def _render_apexcharts(self: Self) -> Any:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """

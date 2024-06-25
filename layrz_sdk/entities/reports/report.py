@@ -2,7 +2,7 @@
 import os
 import time
 import warnings
-from typing import Dict, List, Self
+from typing import Any, List, Self
 
 import xlsxwriter
 
@@ -39,24 +39,24 @@ class Report:
     self.export_format = export_format
 
   @property
-  def filename(self: Self) -> str:
+  def filename(self: Self) -> str | None | bool:
     """ Report filename """
     return f'{self.name}_{int(time.time() * 1000)}.xlsx'
 
   @property
-  def _readable(self: Self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable property """
     return f'Report(name={self.name}, pages={len(self.pages)})'
 
-  def __repr__(self: Self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __str__(self: Self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def export(self: Self, path: str, export_format: ReportFormat = None) -> str:
+  def export(self: Self, path: str, export_format: ReportFormat = None) -> str | None | bool:
     """ Export report to file """
     if export_format:
       if export_format == ReportFormat.MICROSOFT_EXCEL:
@@ -73,11 +73,11 @@ class Report:
     else:
       raise AttributeError(f'Unsupported export format: {self.export_format}')
 
-  def export_as_json(self: Self) -> Dict:
+  def export_as_json(self: Self) -> Any:
     """ Returns the report as a JSON dict"""
     return self._export_json()
 
-  def _export_json(self: Self) -> Dict:
+  def _export_json(self: Self) -> Any:
     """ Returns a JSON dict of the report"""
     json_pages = []
     for page in self.pages:
@@ -113,7 +113,7 @@ class Report:
       'pages': json_pages,
     }
 
-  def _export_xlsx(self: Self, path: str) -> str:
+  def _export_xlsx(self: Self, path: str) -> str | None | bool:
     """ Export to Microsoft Excel (.xslx) """
 
     full_path = os.path.join(path, self.filename)
@@ -210,14 +210,14 @@ class ReportConfiguration:
     self.pages_count = pages_count
 
   @property
-  def _readable(self: Self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable property """
     return f'ReportConfiguration(title={self.title}, pages_count={self.pages_count})'
 
-  def __repr__(self: Self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __str__(self: Self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable

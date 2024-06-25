@@ -1,6 +1,6 @@
 """ Message entity """
 from datetime import datetime, timezone
-from typing import Dict, Self
+from typing import Any, Self
 
 from .position import Position
 
@@ -23,8 +23,8 @@ class Message:
     pk: int,
     asset_id: int,
     position: Position = None,
-    payload: Dict = None,
-    sensors: Dict = None,
+    payload: Any = None,
+    sensors: Any = None,
     received_at: datetime = None,
   ) -> None:
     """ Constructor """

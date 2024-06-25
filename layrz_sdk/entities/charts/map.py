@@ -1,6 +1,6 @@
 """ Map chart """
 from enum import Enum
-from typing import Dict, List, Self, Tuple
+from typing import Any, List, Self, Tuple
 
 from .exceptions import ChartException
 from .render_technology import ChartRenderTechnology
@@ -14,15 +14,15 @@ class MapCenterType(Enum):
   CONTAIN = 'CONTAIN'
 
   @property
-  def _readable(self: Self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'BroadcastStatus.{self.value}'
 
-  def __str__(self: Self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self: Self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
@@ -100,7 +100,7 @@ class MapChart:
       raise ChartException('center_latlng must be an instance of list or tuple')
     self.center_latlng = center_latlng
 
-  def render(self: Self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER_MAP) -> Dict:
+  def render(self: Self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER_MAP) -> Any:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: FLUTTER_MAP and LEAFLET.
@@ -121,7 +121,7 @@ class MapChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_flutter_map(self: Self) -> Dict:
+  def _render_flutter_map(self: Self) -> Any:
     """
     Converts the configuration to the chart to Flutter Map engine.
     """
@@ -149,7 +149,7 @@ class MapChart:
 
     return config
 
-  def _render_leaflet(self: Self) -> Dict:
+  def _render_leaflet(self: Self) -> Any:
     """
     Converts the configuration of the chart to Leaflet map engine.
     """

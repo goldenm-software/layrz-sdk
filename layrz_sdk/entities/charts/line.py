@@ -1,6 +1,6 @@
 """ Line chart """
 import logging
-from typing import Dict, List, Self
+from typing import Any, List, Self
 
 from .alignment import ChartAlignment
 from .configuration import AxisConfig
@@ -72,7 +72,7 @@ class LineChart:
       raise ChartException('y_axis_config must be an instance of AxisConfig')
     self.y_axis_config = y_axis_config
 
-  def render(self: Self, technology: ChartRenderTechnology) -> Dict | List[Dict]:
+  def render(self: Self, technology: ChartRenderTechnology) -> Any:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: GRAPHIC and CANVASJS.
@@ -108,7 +108,7 @@ class LineChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_syncfusion_flutter_charts(self: Self) -> Dict:
+  def _render_syncfusion_flutter_charts(self: Self) -> Any:
     """
     Converts the configuration of the chart to a Flutter library syncfusion_flutter_charts.
     """
@@ -167,7 +167,7 @@ class LineChart:
       },
     }
 
-  def _render_graphic(self: Self) -> List[Dict]:
+  def _render_graphic(self: Self) -> Any:
     """
     Converts the configuration of the chart to a Flutter library Graphic.
     """
@@ -198,7 +198,7 @@ class LineChart:
 
     return series
 
-  def _render_canvasjs(self: Self) -> Dict:
+  def _render_canvasjs(self: Self) -> Any:
     """
     Converts the configuration of the chart to Javascript library CanvasJS.
     """

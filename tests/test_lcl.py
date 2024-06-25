@@ -6,7 +6,7 @@ import json
 import unittest
 import zoneinfo
 from datetime import datetime
-from typing import Any, Self, Union
+from typing import Any, Self
 
 from layrz_sdk.lcl.core import LclCore
 
@@ -14,7 +14,7 @@ from layrz_sdk.lcl.core import LclCore
 class TestLclFunctions(unittest.TestCase):
   """Test LCL functions"""
 
-  def _process_and_convert(self: Self, lcl: LclCore) -> Union[str, int, float]:
+  def _process_and_convert(self: Self, lcl: LclCore) -> Any:
     result = lcl.perform()
     try:
       result = json.loads(result)
