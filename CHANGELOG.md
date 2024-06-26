@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.9
+
+- Added different return data of Report when password is set
+
 ## 3.0.8
 
 - New linter and formatter using ruff

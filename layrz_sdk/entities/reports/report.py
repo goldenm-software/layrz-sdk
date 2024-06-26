@@ -88,6 +88,8 @@ class Report:
       if export_format == ReportFormat.MICROSOFT_EXCEL:
         return self._export_xlsx(path=path, password=password, msoffice_crypt_path=msoffice_crypt_path)
       elif export_format == ReportFormat.JSON:
+        if password:
+          return {'name': self.name, 'is_protected': True, 'pages': []}
         return self._export_json()
       else:
         raise AttributeError(f'Unsupported export format: {export_format}')
@@ -95,6 +97,8 @@ class Report:
     if self.export_format == ReportFormat.MICROSOFT_EXCEL:
       return self._export_xlsx(path=path, password=password, msoffice_crypt_path=msoffice_crypt_path)
     elif self.export_format == ReportFormat.JSON:
+      if password:
+        return {'name': self.name, 'is_protected': True, 'pages': []}
       return self._export_json()
     else:
       raise AttributeError(f'Unsupported export format: {self.export_format}')
