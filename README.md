@@ -6,6 +6,11 @@ Managed by Golden M, Inc.
 It's a group of tools/classes/SDKs that can be help you to implement scripts into Layrz modules, or
 incorporate them into your own projects.
 
+## Requirements
+This library uses at least Python 3.10 or higher to work.
+
+If you want to encrypt MS Excel files, you need to have the [`msoffice`](https://github.com/herumi/msoffice) utility installed in your system.
+
 ## Documentation
 It's available in our documentation site [developers.layrz.com](https://developers.layrz.com/Kits/Sdk)
 

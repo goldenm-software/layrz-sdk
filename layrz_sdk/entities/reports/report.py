@@ -1,5 +1,6 @@
 """Report class"""
 
+import logging
 import os
 import time
 import warnings
@@ -12,6 +13,8 @@ from layrz_sdk.helpers.color import use_black
 from .col import ReportDataType
 from .format import ReportFormat
 from .page import CustomReportPage, ReportPage
+
+log = logging.getLogger(__name__)
 
 
 class Report:
@@ -65,6 +68,7 @@ class Report:
     path: str,
     export_format: ReportFormat = None,
     password: str = None,
+    msoffice_crypt_path: str = '/opt/msoffice/bin/msoffice-crypt.exe',
   ) -> str | Dict[str, Any]:
     """
     Export report to file
@@ -73,6 +77,8 @@ class Report:
       - path : Path to save the report
       - export_format : Format to export the report
       - password : Password to protect the file (Only works with Microsoft Excel format)
+      - msoffice_crypt_path : Path to the msoffice-crypt.exe executable, used to encrypt the file
+                              if is None, the file will not be encrypted
 
     Returns
       - str : Full path of the exported file
@@ -80,14 +86,14 @@ class Report:
     """
     if export_format:
       if export_format == ReportFormat.MICROSOFT_EXCEL:
-        return self._export_xlsx(path=path, password=password)
+        return self._export_xlsx(path=path, password=password, msoffice_crypt_path=msoffice_crypt_path)
       elif export_format == ReportFormat.JSON:
         return self._export_json()
       else:
         raise AttributeError(f'Unsupported export format: {export_format}')
 
     if self.export_format == ReportFormat.MICROSOFT_EXCEL:
-      return self._export_xlsx(path=path, password=password)
+      return self._export_xlsx(path=path, password=password, msoffice_crypt_path=msoffice_crypt_path)
     elif self.export_format == ReportFormat.JSON:
       return self._export_json()
     else:
@@ -145,6 +151,7 @@ class Report:
     self: Self,
     path: str,
     password: str = None,
+    msoffice_crypt_path: str = None,
   ) -> str:
     """Export to Microsoft Excel (.xslx)"""
 
@@ -231,11 +238,19 @@ class Report:
             sheet.set_row(i + 1, None, None, {'collapsed': True})
 
       sheet.autofit()
-
-      if password:
-        sheet.protect(password)
-
     book.close()
+
+    if password and msoffice_crypt_path:
+      new_path = os.path.join(path, f'encrypted_{self.filename}')
+      log.debug(f'Executing `{msoffice_crypt_path} -e -p "{password}" "{full_path}" "{new_path}"`')
+      os.system(f'{msoffice_crypt_path} -e -p "{password}" "{full_path}" "{new_path}"')
+      os.remove(full_path)
+
+      with open(new_path, 'rb') as f:
+        with open(full_path, 'wb') as f2:
+          f2.write(f.read())
+
+      os.remove(new_path)
 
     return full_path
 
