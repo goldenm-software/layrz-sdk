@@ -1,14 +1,15 @@
-""" Number chart """
+"""Number chart"""
+
 from typing import Any, List, Self
 
 from .render_technology import ChartRenderTechnology
 
 
 class TableHeader:
-  """ Table header chart configuration """
+  """Table header chart configuration"""
 
   def __init__(self: Self, label: str, key: str) -> None:
-    """ Constructor
+    """Constructor
     ---
     Arguments
       - label : Label of the header
@@ -19,10 +20,10 @@ class TableHeader:
 
 
 class TableRow:
-  """ Table row chart configuration """
+  """Table row chart configuration"""
 
   def __init__(self: Self, data: Any) -> None:
-    """ Constructor
+    """Constructor
     ---
     Arguments
       - data : Data of the row
@@ -68,11 +69,6 @@ class TableChart:
     Converts the configuration of the chart to a Flutter native components.
     """
     return {
-      'columns': [{
-        'key': column.key,
-        'label': column.label
-      } for column in self.columns],
-      'rows': [{
-        'data': row.data
-      } for row in self.rows],
+      'columns': [{'key': column.key, 'label': column.label} for column in self.columns],
+      'rows': [{'data': row.data} for row in self.rows],
     }
