@@ -1,4 +1,5 @@
 """ Trigger entity """
+from typing import Self
 
 
 class Trigger:
@@ -11,21 +12,21 @@ class Trigger:
     - code : Trigger code
   """
 
-  def __init__(self, pk: int, name: str, code: str) -> None:
+  def __init__(self: Self, pk: int, name: str, code: str) -> None:
     """ Constructor """
     self.pk = pk
     self.name = name
     self.code = code
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'Trigger(pk={self.pk}, name="{self.name}", code="{self.code}")'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable

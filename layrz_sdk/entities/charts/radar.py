@@ -1,4 +1,6 @@
 """ Radar chart """
+from typing import Any, List, Self
+
 from .alignment import ChartAlignment
 from .exceptions import ChartException
 from .serie import ChartDataSerie
@@ -12,9 +14,9 @@ class RadarChart:
   """
 
   def __init__(
-    self,
+    self: Self,
     x_axis: ChartDataSerie,
-    y_axis: list[ChartDataSerie],
+    y_axis: List[ChartDataSerie],
     title: str = 'Chart',
     align: ChartAlignment = ChartAlignment.CENTER,
   ) -> None:
@@ -46,14 +48,14 @@ class RadarChart:
       raise ChartException('align must be an instance of ChartAlignment')
     self.align = align
 
-  def render(self) -> dict:
+  def render(self: Self) -> Any:
     """
     Render chart to a Javascript Library.
     Currently only available for ApexCharts.
     """
     return {'library': 'APEXCHARTS', 'configuration': self._render_apexcharts()}
 
-  def _render_apexcharts(self) -> dict:
+  def _render_apexcharts(self: Self) -> Any:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """

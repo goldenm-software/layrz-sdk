@@ -2,27 +2,28 @@
 Color helpers
 """
 
+from typing import Tuple
 
-def convert_to_rgba(hex_color: str) -> tuple[int, int, int, int]:
+
+def convert_to_rgba(hex_color: str) -> Tuple[int, int, int, int]:
   """
   Convert Hex (or Hexa) color to RGB (or RGBA) color
-  
   Arguments
   ---------
     hex_color (str): Hex (or Hexa) color
   Returns
   -------
     tuple(r,g,b,a): Combination of colors. When the argument (hex_color) is Hex, the alpha channel is set to 1.
-	"""
+  """
 
   if not hex_color.startswith('#'):
     raise ValueError('Invalid color, must starts with #')
 
   hex_color = hex_color.replace('#', '')
   if len(hex_color) == 6:
-    return tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4)) + (1, )
+    return tuple(int(hex_color[i : i + 2], 16) for i in (0, 2, 4)) + (1,)
 
-  return tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4, 6))
+  return tuple(int(hex_color[i : i + 2], 16) for i in (0, 2, 4, 6))
 
 
 def use_black(color: str) -> bool:

@@ -1,4 +1,6 @@
 """ Column chart """
+from typing import Any, List, Self
+
 from layrz_sdk.helpers import convert_to_rgba
 
 from .alignment import ChartAlignment
@@ -16,9 +18,9 @@ class ColumnChart:
   """
 
   def __init__(
-    self,
+    self: Self,
     x_axis: ChartDataSerie,
-    y_axis: list[ChartDataSerie],
+    y_axis: List[ChartDataSerie],
     title: str = 'Chart',
     align: ChartAlignment = ChartAlignment.CENTER,
     x_axis_config: AxisConfig = None,
@@ -69,9 +71,9 @@ class ColumnChart:
     self.y_axis_config = y_axis_config
 
   def render(
-    self,
+    self: Self,
     technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
-  ) -> dict:
+  ) -> Any:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: GRAPHIC and APEXCHARTS.
@@ -106,7 +108,7 @@ class ColumnChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_syncfusion_flutter_charts(self) -> dict:
+  def _render_syncfusion_flutter_charts(self: Self) -> Any:
     """
     Converts the configuration of the chart to Syncfusion Flutter Charts.
     """
@@ -142,7 +144,7 @@ class ColumnChart:
       },
     }
 
-  def _render_graphic(self) -> list[dict]:
+  def _render_graphic(self: Self) -> Any:
     """
     Converts the configuration of the chart to Flutter library graphic.
     """
@@ -161,7 +163,7 @@ class ColumnChart:
 
     return series
 
-  def _render_apexcharts(self) -> dict:
+  def _render_apexcharts(self: Self) -> Any:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """

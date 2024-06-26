@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from enum import Enum
+from typing import Self
 
 from .trigger import Trigger
 
@@ -13,15 +14,15 @@ class CaseStatus(Enum):
   CLOSED = 'CLOSED'
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'BroadcastStatus.{self.value}'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
@@ -36,15 +37,15 @@ class CaseIgnoredStatus(Enum):
   AUTO = 'AUTO'
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'BroadcastStatus.{self.value}'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
@@ -66,7 +67,7 @@ class Case:
   """
 
   def __init__(
-    self,
+    self: Self,
     pk: int,
     trigger: Trigger,
     asset_id: int,
@@ -88,29 +89,29 @@ class Case:
     self._sequence = sequence
     self.ignored_status = ignored_status
 
-  def get_sequence(self) -> str:
+  def get_sequence(self: Self) -> str | None | bool:
     """ Sequence getter """
     if self._sequence is not None:
       return f'{self.trigger.code}/{self._sequence}'
     else:
       return f'GENERIC/{self.pk}'
 
-  def set_sequence(self, sequence: int) -> None:
+  def set_sequence(self: Self, sequence: int) -> None:
     """ Sequence setter """
     self._sequence = sequence
 
   sequence = property(get_sequence, set_sequence)
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'Case(pk={self.pk}, trigger={self.trigger}, asset_id={self.asset_id}, ' +\
            f'comments={len(self.comments)}, opened_at={self.opened_at}, closed_at={self.closed_at})'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable

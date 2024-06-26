@@ -1,5 +1,6 @@
 """ Transaction entity """
 from datetime import datetime, timedelta
+from typing import Self
 
 from layrz_sdk.entities.general.asset import Asset
 
@@ -24,7 +25,7 @@ class Transaction:
   """
 
   def __init__(
-    self,
+    self: Self,
     pk: int,
     asset: Asset,
     amount: float,
@@ -37,7 +38,7 @@ class Transaction:
     geofence_name: str,
     received_at: datetime,
     is_wildcard: bool,
-  ):
+  ) -> None:
     """ Constructor """
     self.pk = pk
     self.asset = asset

@@ -1,5 +1,6 @@
 """ Map chart """
 from enum import Enum
+from typing import Any, List, Self, Tuple
 
 from .exceptions import ChartException
 from .render_technology import ChartRenderTechnology
@@ -13,15 +14,15 @@ class MapCenterType(Enum):
   CONTAIN = 'CONTAIN'
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'BroadcastStatus.{self.value}'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
@@ -30,7 +31,7 @@ class MapPoint:
   """ Map point configuration """
 
   def __init__(
-    self,
+    self: Self,
     latitude: float,
     longitude: float,
     label: str,
@@ -68,15 +69,14 @@ class MapChart:
   """
 
   def __init__(
-    self,
-    points: list[MapPoint],
+    self: Self,
+    points: List[MapPoint],
     title: str = 'Chart',
     center: MapCenterType = MapCenterType.CONTAIN,
-    center_latlng: list[float] | tuple[float] = None,
-  ):
+    center_latlng: List[float] | Tuple[float] = None,
+  ) -> None:
     """
     Constructor
-    
     Args
     ----
       points : Points of the chart
@@ -96,11 +96,11 @@ class MapChart:
       raise ChartException('center must be an instance of MapCenterType')
     self.center = center
 
-    if self.center == MapCenterType.FIXED and not isinstance(center_latlng, (list, tuple)):
+    if self.center == MapCenterType.FIXED and not isinstance(center_latlng, (List, Tuple)):
       raise ChartException('center_latlng must be an instance of list or tuple')
     self.center_latlng = center_latlng
 
-  def render(self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER_MAP) -> dict:
+  def render(self: Self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER_MAP) -> Any:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: FLUTTER_MAP and LEAFLET.
@@ -121,7 +121,7 @@ class MapChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_flutter_map(self) -> dict:
+  def _render_flutter_map(self: Self) -> Any:
     """
     Converts the configuration to the chart to Flutter Map engine.
     """
@@ -149,7 +149,7 @@ class MapChart:
 
     return config
 
-  def _render_leaflet(self) -> dict:
+  def _render_leaflet(self: Self) -> Any:
     """
     Converts the configuration of the chart to Leaflet map engine.
     """

@@ -1,12 +1,15 @@
-""" Number chart """
+"""Number chart"""
+
+from typing import Any, List, Self
+
 from .render_technology import ChartRenderTechnology
 
 
 class TableHeader:
-  """ Table header chart configuration """
+  """Table header chart configuration"""
 
-  def __init__(self, label: str, key: str) -> None:
-    """ Constructor
+  def __init__(self: Self, label: str, key: str) -> None:
+    """Constructor
     ---
     Arguments
       - label : Label of the header
@@ -17,10 +20,10 @@ class TableHeader:
 
 
 class TableRow:
-  """ Table row chart configuration """
+  """Table row chart configuration"""
 
-  def __init__(self, data: dict) -> None:
-    """ Constructor
+  def __init__(self: Self, data: Any) -> None:
+    """Constructor
     ---
     Arguments
       - data : Data of the row
@@ -33,7 +36,7 @@ class TableChart:
   Table chart configuration
   """
 
-  def __init__(self, columns: list[TableHeader], rows: list[TableRow]) -> None:
+  def __init__(self: Self, columns: List[TableHeader], rows: List[TableRow]) -> None:
     """
     Constructor
     ---
@@ -44,7 +47,7 @@ class TableChart:
     self.columns = columns
     self.rows = rows
 
-  def render(self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER) -> dict:
+  def render(self: Self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER) -> Any:
     """
     Render chart to a graphic Library.
     """
@@ -61,16 +64,11 @@ class TableChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_flutter(self) -> dict:
+  def _render_flutter(self: Self) -> Any:
     """
     Converts the configuration of the chart to a Flutter native components.
     """
     return {
-      'columns': [{
-        'key': column.key,
-        'label': column.label
-      } for column in self.columns],
-      'rows': [{
-        'data': row.data
-      } for row in self.rows],
+      'columns': [{'key': column.key, 'label': column.label} for column in self.columns],
+      'rows': [{'data': row.data} for row in self.rows],
     }

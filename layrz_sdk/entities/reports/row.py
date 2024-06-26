@@ -1,5 +1,7 @@
 """ Report row """
 
+from typing import List, Self
+
 from .col import ReportCol
 
 
@@ -15,8 +17,8 @@ class ReportRow:
   """
 
   def __init__(
-    self,
-    content: list[ReportCol],
+    self: Self,
+    content: List[ReportCol],
     height: float = None,
     compact: bool = False,
   ) -> None:
@@ -28,14 +30,14 @@ class ReportRow:
       raise DeprecationWarning('height is deprecated.')
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable property """
     return f'ReportRow(content={self.content})'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable

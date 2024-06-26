@@ -1,4 +1,5 @@
 """ User entity """
+from typing import Self
 
 
 class User:
@@ -10,20 +11,20 @@ class User:
     name : User name
   """
 
-  def __init__(self, pk: int, name: str) -> None:
+  def __init__(self: Self, pk: int, name: str) -> None:
     """ Constructor """
     self.pk = pk
     self.name = name
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'User(pk={self.pk}, name={self.name})'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
