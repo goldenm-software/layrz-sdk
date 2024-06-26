@@ -1,8 +1,9 @@
-""" Report class """
+"""Report class"""
+
 import os
 import time
 import warnings
-from typing import Any, List, Self
+from typing import Any, Dict, List, Self
 
 import xlsxwriter
 
@@ -33,88 +34,119 @@ class Report:
     self.pages = pages
 
     if export_format is not None:
-      warnings.warn('export_format is deprecated, submit the export format in the `export()` method instead',
-                    DeprecationWarning, stacklevel=2)
+      warnings.warn(
+        'export_format is deprecated, submit the export format in the `export()` method instead',
+        DeprecationWarning,
+        stacklevel=2,
+      )
 
     self.export_format = export_format
 
   @property
   def filename(self: Self) -> str | None | bool:
-    """ Report filename """
+    """Report filename"""
     return f'{self.name}_{int(time.time() * 1000)}.xlsx'
 
   @property
   def _readable(self: Self) -> str | None | bool:
-    """ Readable property """
+    """Readable property"""
     return f'Report(name={self.name}, pages={len(self.pages)})'
 
   def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+    """Readable property"""
     return self._readable
 
   def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+    """Readable property"""
     return self._readable
 
-  def export(self: Self, path: str, export_format: ReportFormat = None) -> str | None | bool:
-    """ Export report to file """
+  def export(
+    self: Self,
+    path: str,
+    export_format: ReportFormat = None,
+    password: str = None,
+  ) -> str | Dict[str, Any]:
+    """
+    Export report to file
+
+    Arguments
+      - path : Path to save the report
+      - export_format : Format to export the report
+      - password : Password to protect the file (Only works with Microsoft Excel format)
+
+    Returns
+      - str : Full path of the exported file
+      - dict : JSON representation of the report
+    """
     if export_format:
       if export_format == ReportFormat.MICROSOFT_EXCEL:
-        return self._export_xlsx(path)
+        return self._export_xlsx(path=path, password=password)
       elif export_format == ReportFormat.JSON:
         return self._export_json()
       else:
         raise AttributeError(f'Unsupported export format: {export_format}')
 
     if self.export_format == ReportFormat.MICROSOFT_EXCEL:
-      return self._export_xlsx(path)
+      return self._export_xlsx(path=path, password=password)
     elif self.export_format == ReportFormat.JSON:
       return self._export_json()
     else:
       raise AttributeError(f'Unsupported export format: {self.export_format}')
 
-  def export_as_json(self: Self) -> Any:
-    """ Returns the report as a JSON dict"""
+  def export_as_json(self: Self) -> Dict[str, Any]:
+    """Returns the report as a JSON dict"""
     return self._export_json()
 
-  def _export_json(self: Self) -> Any:
-    """ Returns a JSON dict of the report"""
+  def _export_json(self: Self) -> Dict[str, Any]:
+    """Returns a JSON dict of the report"""
     json_pages = []
     for page in self.pages:
       headers = []
       for header in page.headers:
-        headers.append({
-          'content': header.content,
-          'text_color': '#000000' if use_black(header.color) else '#ffffff',
-          'color': header.color,
-        })
+        headers.append(
+          {
+            'content': header.content,
+            'text_color': '#000000' if use_black(header.color) else '#ffffff',
+            'color': header.color,
+          }
+        )
       rows = []
       for row in page.rows:
         cells = []
         for cell in row.content:
-          cells.append({
-            'content': cell.content,
-            'text_color': '#000000' if use_black(cell.color) else '#ffffff',
-            'color': cell.color,
-            'data_type': cell.data_type.value,
-          })
-        rows.append({
-          'content': cells,
-          'compact': row.compact,
-        })
-      json_pages.append({
-        'name': page.name,
-        'headers': headers,
-        'rows': rows,
-      })
+          cells.append(
+            {
+              'content': cell.content,
+              'text_color': '#000000' if use_black(cell.color) else '#ffffff',
+              'color': cell.color,
+              'data_type': cell.data_type.value,
+            }
+          )
+        rows.append(
+          {
+            'content': cells,
+            'compact': row.compact,
+          }
+        )
+      json_pages.append(
+        {
+          'name': page.name,
+          'headers': headers,
+          'rows': rows,
+        }
+      )
 
     return {
       'name': self.name,
       'pages': json_pages,
     }
 
-  def _export_xlsx(self: Self, path: str) -> str | None | bool:
-    """ Export to Microsoft Excel (.xslx) """
+  def _export_xlsx(
+    self: Self,
+    path: str,
+    password: str = None,
+  ) -> str:
+    """Export to Microsoft Excel (.xslx)"""
 
     full_path = os.path.join(path, self.filename)
     book = xlsxwriter.Workbook(full_path)
@@ -136,19 +168,21 @@ class Report:
         sheet.freeze_panes(1, 0)
 
       for i, header in enumerate(page.headers):
-        style = book.add_format({
-          'align': header.align.value,
-          'font_color': '#000000' if use_black(header.color) else '#ffffff',
-          'bg_color': header.color,
-          'bold': header.bold,
-          'valign': 'vcenter',
-          'font_size': 11,
-          'top': 1,
-          'left': 1,
-          'right': 1,
-          'bottom': 1,
-          'font_name': 'Aptos Narrow',
-        })
+        style = book.add_format(
+          {
+            'align': header.align.value,
+            'font_color': '#000000' if use_black(header.color) else '#ffffff',
+            'bg_color': header.color,
+            'bold': header.bold,
+            'valign': 'vcenter',
+            'font_size': 11,
+            'top': 1,
+            'left': 1,
+            'right': 1,
+            'bottom': 1,
+            'font_name': 'Aptos Narrow',
+          }
+        )
         sheet.write(0, i, header.content, style)
 
       for i, row in enumerate(page.rows):
@@ -179,7 +213,8 @@ class Report:
           elif cell.data_type == ReportDataType.CURRENCY:
             value = float(cell.content)
             style.update(
-              {'num_format': f'"{cell.currency_symbol}" * #,##0.00;[Red]"{cell.currency_symbol}" * #,##0.00'})
+              {'num_format': f'"{cell.currency_symbol}" * #,##0.00;[Red]"{cell.currency_symbol}" * #,##0.00'}
+            )
           else:
             value = cell.content
 
@@ -191,6 +226,10 @@ class Report:
             sheet.set_row(i + 1, None, None, {'collapsed': True})
 
       sheet.autofit()
+
+      if password:
+        sheet.protect(password=password)
+
     book.close()
 
     return full_path
@@ -211,13 +250,13 @@ class ReportConfiguration:
 
   @property
   def _readable(self: Self) -> str | None | bool:
-    """ Readable property """
+    """Readable property"""
     return f'ReportConfiguration(title={self.title}, pages_count={self.pages_count})'
 
   def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+    """Readable property"""
     return self._readable
 
   def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+    """Readable property"""
     return self._readable

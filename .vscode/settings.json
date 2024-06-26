@@ -9,10 +9,6 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
-  "[**/migrations/*.py]": {
-    "editor.tabSize": 4,
-    "editor.formatOnSave": false,
-  },
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "editor.detectIndentation": true
