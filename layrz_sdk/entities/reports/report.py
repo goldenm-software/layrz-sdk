@@ -151,8 +151,13 @@ class Report:
     full_path = os.path.join(path, self.filename)
     book = xlsxwriter.Workbook(full_path)
 
+    pages_name = []
+
     for page in self.pages:
-      sheet_name = page.name[0:31]
+      sheet_name = page.name[0:20]
+
+      if sheet_name in pages_name:
+        sheet_name = f'{sheet_name} ({pages_name.count(sheet_name) + 1})'
 
       # Allow only numbers, letters, spaces and _ or - characters
       # Other characters will be removed
@@ -228,7 +233,7 @@ class Report:
       sheet.autofit()
 
       if password:
-        sheet.protect(password=password)
+        sheet.protect(password)
 
     book.close()
 

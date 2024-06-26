@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.8
+
+- New linter and formatter using ruff
+- Added typings on all classes and functions available
+- New Report export format PDF (Not implemented yet)
+
 ## 3.0.7
 
 - Added the value of `AssetOperationMode.ZONE`

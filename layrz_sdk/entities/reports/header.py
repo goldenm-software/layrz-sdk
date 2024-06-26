@@ -1,4 +1,5 @@
-""" Report header """
+"""Report header"""
+
 import warnings
 from typing import Self
 
@@ -45,13 +46,13 @@ class ReportHeader:
 
   @property
   def _readable(self: Self) -> str | None | bool:
-    """ Readable property """
+    """Readable property"""
     return f'ReportHeader(content={self.content})'
 
   def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+    """Readable property"""
     return self._readable
 
   def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+    """Readable property"""
     return self._readable

@@ -1,6 +1,7 @@
 """
 Color helpers
 """
+
 from typing import Tuple
 
 
@@ -13,19 +14,19 @@ def convert_to_rgba(hex_color: str) -> Tuple[int, int, int, int]:
   Returns
   -------
     tuple(r,g,b,a): Combination of colors. When the argument (hex_color) is Hex, the alpha channel is set to 1.
-	"""
+  """
 
   if not hex_color.startswith('#'):
     raise ValueError('Invalid color, must starts with #')
 
   hex_color = hex_color.replace('#', '')
   if len(hex_color) == 6:
-    return Tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4)) + (1, )
+    return tuple(int(hex_color[i : i + 2], 16) for i in (0, 2, 4)) + (1,)
 
-  return Tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4, 6))
+  return tuple(int(hex_color[i : i + 2], 16) for i in (0, 2, 4, 6))
 
 
-def use_black(color: str) -> str | None | bool:
+def use_black(color: str) -> bool:
   """
   Use black
   Will return when the background color works well with black text color.
