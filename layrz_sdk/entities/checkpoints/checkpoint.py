@@ -1,5 +1,6 @@
 """ Checkpoints entitites """
 from datetime import datetime
+from typing import List, Self
 
 from .waypoint import Waypoint
 
@@ -17,10 +18,10 @@ class Checkpoint:
   """
 
   def __init__(
-    self,
+    self: Self,
     pk: int,
     asset_id: int,
-    waypoints: list[Waypoint],
+    waypoints: List[Waypoint],
     start_at: datetime,
     end_at: datetime,
   ) -> None:
@@ -32,15 +33,15 @@ class Checkpoint:
     self.end_at = end_at
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'Checkpoint(pk={self.pk}, asset_id={self.asset_id}, waypoints={self.waypoints}, ' +\
            f'start_at={self.start_at}, end_at={self.end_at})'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable

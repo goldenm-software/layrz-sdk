@@ -1,19 +1,20 @@
 """
 Test LCL functions
 """
+
 import json
 import unittest
 import zoneinfo
 from datetime import datetime
-from typing import Any
+from typing import Any, Self
 
 from layrz_sdk.lcl.core import LclCore
 
 
 class TestLclFunctions(unittest.TestCase):
-  """ Test LCL functions """
+  """Test LCL functions"""
 
-  def _process_and_convert(self, lcl: LclCore) -> Any:
+  def _process_and_convert(self: Self, lcl: LclCore) -> Any:
     result = lcl.perform()
     try:
       result = json.loads(result)
@@ -22,7 +23,7 @@ class TestLclFunctions(unittest.TestCase):
 
     return result
 
-  def test_GET_PARAM(self) -> None:
+  def test_GET_PARAM(self: Self) -> None:
     formula = 'GET_PARAM("test.param", None)'
     lcl = LclCore(script=formula, payload={'test.param': 10})
     result = self._process_and_convert(lcl)
@@ -32,7 +33,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_GET_SENSOR(self) -> None:
+  def test_GET_SENSOR(self: Self) -> None:
     formula = 'GET_SENSOR("test.sensor", None)'
     lcl = LclCore(script=formula, sensors={'test.sensor': 10})
     result = self._process_and_convert(lcl)
@@ -42,7 +43,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_CONSTANT(self) -> None:
+  def test_CONSTANT(self: Self) -> None:
     formula = 'CONSTANT(True)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -60,7 +61,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, 10.0)
 
-  def test_GET_CUSTOM_FIELD(self) -> None:
+  def test_GET_CUSTOM_FIELD(self: Self) -> None:
     formula = 'GET_CUSTOM_FIELD("test.custom_field")'
     lcl = LclCore(script=formula, custom_fields={'test.custom_field': 10})
     result = self._process_and_convert(lcl)
@@ -70,7 +71,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, '')
 
-  def test_COMPARE(self) -> None:
+  def test_COMPARE(self: Self) -> None:
     formula = 'COMPARE(CONSTANT(10), CONSTANT(10))'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -91,7 +92,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, False)
 
-  def test_OR_OPERATOR(self) -> None:
+  def test_OR_OPERATOR(self: Self) -> None:
     formula = 'OR_OPERATOR(CONSTANT(True), CONSTANT(False))'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -112,7 +113,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_AND_OPERATOR(self) -> None:
+  def test_AND_OPERATOR(self: Self) -> None:
     formula = 'AND_OPERATOR(CONSTANT(True), CONSTANT(False))'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -133,7 +134,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_SUM(self) -> None:
+  def test_SUM(self: Self) -> None:
     formula = 'SUM(CONSTANT(10), CONSTANT(20))'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -144,7 +145,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_SUBSTRACT(self) -> None:
+  def test_SUBSTRACT(self: Self) -> None:
     formula = 'SUBSTRACT(CONSTANT(10), CONSTANT(20))'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -160,7 +161,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_MULTIPLY(self) -> None:
+  def test_MULTIPLY(self: Self) -> None:
     formula = 'MULTIPLY(CONSTANT(10), CONSTANT(20))'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -176,7 +177,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_DIVIDE(self) -> None:
+  def test_DIVIDE(self: Self) -> None:
     formula = 'DIVIDE(CONSTANT(10), CONSTANT(20))'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -192,7 +193,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_TO_BOOL(self) -> None:
+  def test_TO_BOOL(self: Self) -> None:
     formula = 'TO_BOOL(1)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -218,7 +219,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, True)  # Why? Simple, any filled str is True
 
-  def test_TO_STR(self) -> None:
+  def test_TO_STR(self: Self) -> None:
     formula = 'TO_STR(1)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -239,7 +240,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_TO_INT(self) -> None:
+  def test_TO_INT(self: Self) -> None:
     formula = 'TO_INT(1.5)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -260,7 +261,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_CEIL(self) -> None:
+  def test_CEIL(self: Self) -> None:
     formula = 'CEIL(1.2)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -286,7 +287,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_FLOOR(self) -> None:
+  def test_FLOOR(self: Self) -> None:
     formula = 'FLOOR(1.2)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -312,7 +313,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_ROUND(self) -> None:
+  def test_ROUND(self: Self) -> None:
     formula = 'ROUND(1.2)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -338,7 +339,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_SQRT(self) -> None:
+  def test_SQRT(self: Self) -> None:
     formula = 'SQRT(4)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -364,7 +365,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_CONCAT(self) -> None:
+  def test_CONCAT(self: Self) -> None:
     formula = 'CONCAT("Hello", " ", "World")'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -385,13 +386,13 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, 'HelloTrueWorld')
 
-  def test_NOW(self) -> None:
+  def test_NOW(self: Self) -> None:
     formula = 'NOW()'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
     self.assertIsInstance(result, (int, float))
 
-  def test_RANDOM(self) -> None:
+  def test_RANDOM(self: Self) -> None:
     formula = 'RANDOM(0, 1)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -399,7 +400,7 @@ class TestLclFunctions(unittest.TestCase):
     self.assertGreaterEqual(result, 0.0)
     self.assertLessEqual(result, 1.0)
 
-  def test_RANDOM_INT(self) -> None:
+  def test_RANDOM_INT(self: Self) -> None:
     formula = 'RANDOM_INT(1, 3)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -407,7 +408,7 @@ class TestLclFunctions(unittest.TestCase):
     self.assertGreaterEqual(result, 1)
     self.assertLessEqual(result, 3)
 
-  def test_GREATER_THAN_OR_EQUALS_TO(self) -> None:
+  def test_GREATER_THAN_OR_EQUALS_TO(self: Self) -> None:
     formula = 'GREATER_THAN_OR_EQUALS_TO(10, 10)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -433,7 +434,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_GREATER_THAN(self) -> None:
+  def test_GREATER_THAN(self: Self) -> None:
     formula = 'GREATER_THAN(10, 10)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -459,7 +460,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_LESS_THAN_OR_EQUALS_TO(self) -> None:
+  def test_LESS_THAN_OR_EQUALS_TO(self: Self) -> None:
     formula = 'LESS_THAN_OR_EQUALS_TO(10, 10)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -485,7 +486,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_LESS_THAN(self) -> None:
+  def test_LESS_THAN(self: Self) -> None:
     formula = 'LESS_THAN(10, 10)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -511,7 +512,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_DIFFERENT(self) -> None:
+  def test_DIFFERENT(self: Self) -> None:
     formula = 'DIFFERENT(10, 10)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -542,7 +543,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, 'Invalid data types - arg1: str - arg2: int')
 
-  def test_HEX_TO_STR(self) -> None:
+  def test_HEX_TO_STR(self: Self) -> None:
     formula = 'HEX_TO_STR("48656c6c6f")'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -558,13 +559,13 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, 'Invalid hex string')
 
-  def test_STR_TO_HEX(self) -> None:
+  def test_STR_TO_HEX(self: Self) -> None:
     formula = 'STR_TO_HEX("Hello")'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
     self.assertEqual(result, '48656c6c6f')
 
-  def test_HEX_TO_INT(self) -> None:
+  def test_HEX_TO_INT(self: Self) -> None:
     formula = 'HEX_TO_INT("0xff")'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -580,7 +581,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, 'Invalid hex string')
 
-  def test_INT_TO_HEX(self) -> None:
+  def test_INT_TO_HEX(self: Self) -> None:
     formula = 'INT_TO_HEX(15)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -596,7 +597,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, 'Invalid int value')
 
-  def test_TO_FLOAT(self) -> None:
+  def test_TO_FLOAT(self: Self) -> None:
     formula = 'TO_FLOAT(0)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -617,7 +618,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, 'Invalid arguments - must be real number, not str')
 
-  def test_GET_DISTANCE_TRAVELED(self) -> None:
+  def test_GET_DISTANCE_TRAVELED(self: Self) -> None:
     formula = 'GET_DISTANCE_TRAVELED()'
     lcl = LclCore(script=formula, asset_constants={'distanceTraveled': 10})
     result = self._process_and_convert(lcl)
@@ -627,7 +628,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, 0.0)
 
-  def test_GET_PREVIOUS_SENSOR(self) -> None:
+  def test_GET_PREVIOUS_SENSOR(self: Self) -> None:
     formula = 'GET_PREVIOUS_SENSOR("test.sensor")'
     lcl = LclCore(script=formula, previous_sensors={'test.sensor': 10})
     result = self._process_and_convert(lcl)
@@ -637,7 +638,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_IS_PARAMETER_PRESENT(self) -> None:
+  def test_IS_PARAMETER_PRESENT(self: Self) -> None:
     formula = 'IS_PARAMETER_PRESENT("test.param")'
     lcl = LclCore(script=formula, payload={'test.param': 10})
     result = self._process_and_convert(lcl)
@@ -647,7 +648,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, False)
 
-  def test_IS_SENSOR_PRESENT(self) -> None:
+  def test_IS_SENSOR_PRESENT(self: Self) -> None:
     formula = 'IS_SENSOR_PRESENT("test.sensor")'
     lcl = LclCore(script=formula, sensors={'test.sensor': 10})
     result = self._process_and_convert(lcl)
@@ -657,7 +658,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, False)
 
-  def test_INSIDE_RANGE(self) -> None:
+  def test_INSIDE_RANGE(self: Self) -> None:
     formula = 'INSIDE_RANGE(10, 20, 30)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -688,7 +689,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_OUTSIDE_RANGE(self) -> None:
+  def test_OUTSIDE_RANGE(self: Self) -> None:
     formula = 'OUTSIDE_RANGE(10, 20, 30)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -719,7 +720,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_GET_TIME_DIFFERENCE(self) -> None:
+  def test_GET_TIME_DIFFERENCE(self: Self) -> None:
     formula = 'GET_TIME_DIFFERENCE()'
     lcl = LclCore(script=formula, asset_constants={'timeElapsed': 10})
     result = self._process_and_convert(lcl)
@@ -729,7 +730,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, 0)
 
-  def test_IF(self) -> None:
+  def test_IF(self: Self) -> None:
     formula = 'IF(True, 10, 20)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -755,7 +756,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_REGEX(self) -> None:
+  def test_REGEX(self: Self) -> None:
     formula = 'REGEX("1. Hello world", "^[0-9]+\\.\\s")'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -781,7 +782,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_IS_NONE(self) -> None:
+  def test_IS_NONE(self: Self) -> None:
     formula = 'IS_NONE(None)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -792,7 +793,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, False)
 
-  def test_NOT(self) -> None:
+  def test_NOT(self: Self) -> None:
     formula = 'NOT(True)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -813,7 +814,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, False)
 
-  def test_CONTAINS(self) -> None:
+  def test_CONTAINS(self: Self) -> None:
     formula = 'CONTAINS("Hello", "Hello World")'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -834,7 +835,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_STARTS_WITH(self) -> None:
+  def test_STARTS_WITH(self: Self) -> None:
     formula = 'STARTS_WITH("Hello", "Hello World")'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -855,7 +856,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_ENDS_WITH(self) -> None:
+  def test_ENDS_WITH(self: Self) -> None:
     formula = 'ENDS_WITH("World", "Hello World")'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -876,7 +877,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_PRIMARY_DEVICE(self) -> None:
+  def test_PRIMARY_DEVICE(self: Self) -> None:
     formula = 'PRIMARY_DEVICE()'
     lcl = LclCore(script=formula, asset_constants={'primaryDevice': 'test'})
     result = self._process_and_convert(lcl)
@@ -887,7 +888,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, None)
 
-  def test_SUBSTRING(self) -> None:
+  def test_SUBSTRING(self: Self) -> None:
     formula = 'SUBSTRING("Hello World", 0, 5)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
@@ -898,7 +899,7 @@ class TestLclFunctions(unittest.TestCase):
     result = self._process_and_convert(lcl)
     self.assertEqual(result, 'World')
 
-  def test_UNIX_TO_STR(self) -> None:
+  def test_UNIX_TO_STR(self: Self) -> None:
     formula = 'UNIX_TO_STR(NOW(), "%Y_%m_%d", "UTC")'
     now = datetime.now(zoneinfo.ZoneInfo('UTC'))
     lcl = LclCore(script=formula)

@@ -1,5 +1,6 @@
 """ Chart rendering technology / library """
 from enum import Enum
+from typing import Self
 
 
 class ChartRenderTechnology(Enum):
@@ -14,14 +15,14 @@ class ChartRenderTechnology(Enum):
   FLUTTER = 'FLUTTER'
 
   @property
-  def _readable(self) -> str:
+  def _readable(self: Self) -> str | None | bool:
     """ Readable """
     return f'ChartRenderTechnology.{self.value}'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str | None | bool:
     """ Readable property """
     return self._readable

@@ -1,5 +1,6 @@
 """ Timeline chart entities """
 from datetime import datetime
+from typing import Any, List, Self
 
 from .alignment import ChartAlignment
 from .exceptions import ChartException
@@ -10,7 +11,7 @@ class TimelineSerieItem:
   Chart Data Serie Item for Timeline Charts
   """
 
-  def __init__(self, name: str, start_at: datetime, end_at: datetime, color: str) -> None:
+  def __init__(self: Self, name: str, start_at: datetime, end_at: datetime, color: str) -> None:
     """
     Constructor
     ----
@@ -42,7 +43,7 @@ class TimelineSerie:
   Chart Data Serie for Timeline charts
   """
 
-  def __init__(self, data: list[TimelineSerieItem], label: str) -> None:
+  def __init__(self: Self, data: List[TimelineSerieItem], label: str) -> None:
     """
     Constructor
     ----
@@ -66,8 +67,8 @@ class TimelineChart:
   """
 
   def __init__(
-    self,
-    series: list[TimelineSerie],
+    self: Self,
+    series: List[TimelineSerie],
     title: str = 'Chart',
     align: ChartAlignment = ChartAlignment.CENTER,
   ) -> None:
@@ -93,14 +94,14 @@ class TimelineChart:
       raise ChartException('align must be an instance of ChartAlignment')
     self.align = align
 
-  def render(self) -> dict:
+  def render(self: Self) -> Any:
     """
     Render chart to a Javascript Library.
     Currently only available for ApexCharts.
     """
     return {'library': 'APEXCHARTS', 'configuration': self._render_apexcharts()}
 
-  def _render_apexcharts(self) -> dict:
+  def _render_apexcharts(self: Self) -> Any:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """
