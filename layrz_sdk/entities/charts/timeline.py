@@ -1,6 +1,7 @@
-""" Timeline chart entities """
+"""Timeline chart entities"""
+
 from datetime import datetime
-from typing import Any, List, Self
+from typing import Any, List
 
 from .alignment import ChartAlignment
 from .exceptions import ChartException
@@ -11,7 +12,7 @@ class TimelineSerieItem:
   Chart Data Serie Item for Timeline Charts
   """
 
-  def __init__(self: Self, name: str, start_at: datetime, end_at: datetime, color: str) -> None:
+  def __init__(self, name: str, start_at: datetime, end_at: datetime, color: str) -> None:
     """
     Constructor
     ----
@@ -43,7 +44,7 @@ class TimelineSerie:
   Chart Data Serie for Timeline charts
   """
 
-  def __init__(self: Self, data: List[TimelineSerieItem], label: str) -> None:
+  def __init__(self, data: List[TimelineSerieItem], label: str) -> None:
     """
     Constructor
     ----
@@ -67,7 +68,7 @@ class TimelineChart:
   """
 
   def __init__(
-    self: Self,
+    self,
     series: List[TimelineSerie],
     title: str = 'Chart',
     align: ChartAlignment = ChartAlignment.CENTER,
@@ -94,14 +95,14 @@ class TimelineChart:
       raise ChartException('align must be an instance of ChartAlignment')
     self.align = align
 
-  def render(self: Self) -> Any:
+  def render(self) -> Any:
     """
     Render chart to a Javascript Library.
     Currently only available for ApexCharts.
     """
     return {'library': 'APEXCHARTS', 'configuration': self._render_apexcharts()}
 
-  def _render_apexcharts(self: Self) -> Any:
+  def _render_apexcharts(self) -> Any:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """
@@ -112,11 +113,13 @@ class TimelineChart:
       data = []
 
       for item in serie.data:
-        data.append({
-          'x': item.name,
-          'y': [item.start_at.timestamp() * 1000, item.end_at.timestamp() * 1000],
-          'fillColor': item.color
-        })
+        data.append(
+          {
+            'x': item.name,
+            'y': [item.start_at.timestamp() * 1000, item.end_at.timestamp() * 1000],
+            'fillColor': item.color,
+          }
+        )
 
       series.append({'name': serie.label, 'data': data})
 
@@ -125,35 +128,21 @@ class TimelineChart:
       'title': {
         'text': self.title,
         'align': self.align.value,
-        'style': {
-          'fontFamily': 'Fira Sans Condensed',
-          'fontSize': '20px',
-          'fontWeight': 'normal'
-        }
+        'style': {'fontFamily': 'Fira Sans Condensed', 'fontSize': '20px', 'fontWeight': 'normal'},
       },
       'chart': {
         'type': 'rangeBar',
-        'animations': {
-          'enabled': False
-        },
-        'toolbar': {
-          'show': False
-        },
-        'zoom': {
-          'enabled': False
-        }
+        'animations': {'enabled': False},
+        'toolbar': {'show': False},
+        'zoom': {'enabled': False},
       },
-      'xaxis': {
-        'type': 'datetime'
-      },
+      'xaxis': {'type': 'datetime'},
       'plotOptions': {
         'bar': {
           'horizontal': True,
         }
       },
-      'dataLabels': {
-        'enabled': True
-      }
+      'dataLabels': {'enabled': True},
     }
 
     return config

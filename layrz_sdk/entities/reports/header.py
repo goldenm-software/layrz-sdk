@@ -1,7 +1,6 @@
 """Report header"""
 
 import warnings
-from typing import Self
 
 from ..formatting.text_align import TextAlignment
 
@@ -23,7 +22,7 @@ class ReportHeader:
   """
 
   def __init__(
-    self: Self,
+    self,
     content: str,
     width: int = None,
     color: str = '#ffffff',
@@ -45,14 +44,14 @@ class ReportHeader:
     self.bold = bold
 
   @property
-  def _readable(self: Self) -> str | None | bool:
+  def _readable(self) -> str | None | bool:
     """Readable property"""
     return f'ReportHeader(content={self.content})'
 
-  def __str__(self: Self) -> str | None | bool:
+  def __str__(self) -> str | None | bool:
     """Readable property"""
     return self._readable
 
-  def __repr__(self: Self) -> str | None | bool:
+  def __repr__(self) -> str | None | bool:
     """Readable property"""
     return self._readable

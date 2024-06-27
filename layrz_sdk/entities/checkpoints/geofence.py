@@ -1,5 +1,4 @@
-""" Geofence entity """
-from typing import Self
+"""Geofence entity"""
 
 
 class Geofence:
@@ -12,21 +11,21 @@ class Geofence:
     - color : Geofence color in Hex format
   """
 
-  def __init__(self: Self, pk: int, name: str, color: str) -> None:
-    """ Constructor """
+  def __init__(self, pk: int, name: str, color: str) -> None:
+    """Constructor"""
     self.pk = pk
     self.name = name
     self.color = color
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable """
+  def _readable(self) -> str | None | bool:
+    """Readable"""
     return f'Geofence(pk={self.pk}, name={self.name}, color={self.color})'
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable

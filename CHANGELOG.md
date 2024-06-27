@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.10
+
+- Removed Self type annotation from all classes
+
 ## 3.0.9
 
 - Added different return data of Report when password is set

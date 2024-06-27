@@ -1,5 +1,6 @@
-""" Bar chart """
-from typing import Any, List, Self
+"""Bar chart"""
+
+from typing import Any, List
 
 from .alignment import ChartAlignment
 from .configuration import AxisConfig
@@ -15,7 +16,7 @@ class BarChart:
   """
 
   def __init__(
-    self: Self,
+    self,
     x_axis: ChartDataSerie,
     y_axis: List[ChartDataSerie],
     title: str = 'Chart',
@@ -68,7 +69,7 @@ class BarChart:
     self.y_axis_config = y_axis_config
 
   def render(
-    self: Self,
+    self,
     technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
   ) -> Any:
     """
@@ -105,7 +106,7 @@ class BarChart:
       'configuration': [f'Unsupported rendering technology {technology.name}'],
     }
 
-  def _render_syncfusion_flutter_charts(self: Self) -> Any:
+  def _render_syncfusion_flutter_charts(self) -> Any:
     """
     Converts the configuration of the chart to Syncfusion Flutter Charts.
     """
@@ -117,11 +118,13 @@ class BarChart:
         x_axis = self.x_axis.data[i]
         values.append({'xAxis': x_axis, 'yAxis': value})
 
-      series.append({
-        'label': serie.label,
-        'color': serie.color,
-        'values': values,
-      })
+      series.append(
+        {
+          'label': serie.label,
+          'color': serie.color,
+          'values': values,
+        }
+      )
 
     return {
       'series': series,
@@ -141,7 +144,7 @@ class BarChart:
       },
     }
 
-  def _render_graphic(self: Self) -> Any:
+  def _render_graphic(self) -> Any:
     """
     Converts the configuration of the chart to Flutter library graphic.
     """
@@ -151,16 +154,18 @@ class BarChart:
     for serie in self.y_axis:
       for i, value in enumerate(serie.data):
         x_axis = self.x_axis.data[i]
-        series.append({
-          'label': serie.label,
-          'color': serie.color,
-          'category': x_axis,
-          'value': value,
-        })
+        series.append(
+          {
+            'label': serie.label,
+            'color': serie.color,
+            'category': x_axis,
+            'value': value,
+          }
+        )
 
     return series
 
-  def _render_apexcharts(self: Self) -> Any:
+  def _render_apexcharts(self) -> Any:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """
@@ -183,40 +188,21 @@ class BarChart:
       'xaxis': {
         'categories': self.x_axis.data,
         'type': self.x_axis.data_type.value,
-        'title': {
-          'text': self.x_axis.label
-        }
+        'title': {'text': self.x_axis.label},
       },
       'title': {
         'text': self.title,
         'align': self.align.value,
-        'style': {
-          'fontFamily': 'Fira Sans Condensed',
-          'fontSize': '20px',
-          'fontWeight': 'normal'
-        }
+        'style': {'fontFamily': 'Fira Sans Condensed', 'fontSize': '20px', 'fontWeight': 'normal'},
       },
-      'plotOptions': {
-        'bar': {
-          'horizontal': True,
-          'borderRadius': 4
-        }
-      },
-      'dataLabels': {
-        'enabled': False
-      },
+      'plotOptions': {'bar': {'horizontal': True, 'borderRadius': 4}},
+      'dataLabels': {'enabled': False},
       'chart': {
         'type': 'bar',
-        'animations': {
-          'enabled': False
-        },
-        'toolbar': {
-          'show': False
-        },
-        'zoom': {
-          'enabled': False
-        }
-      }
+        'animations': {'enabled': False},
+        'toolbar': {'show': False},
+        'zoom': {'enabled': False},
+      },
     }
 
     return config

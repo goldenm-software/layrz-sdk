@@ -1,5 +1,6 @@
-""" Asset Entity """
-from typing import List, Self
+"""Asset Entity"""
+
+from typing import List
 
 from .asset_operation_mode import AssetOperationMode
 from .custom_field import CustomField
@@ -25,7 +26,7 @@ class Asset:
   """
 
   def __init__(
-    self: Self,
+    self,
     pk: int,
     name: str,
     vin: str,
@@ -37,7 +38,7 @@ class Asset:
     devices: List[Device] = None,
     children: List = None,
   ) -> None:
-    """ Constructor """
+    """Constructor"""
     self.pk = pk
     self.name = name
     self.vin = vin
@@ -54,16 +55,18 @@ class Asset:
       self.children = []
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable """
-    return f'Asset(pk={self.pk}, name={self.name}, vin={self.vin}, plate={self.plate}, ' +\
-           f'asset_type={self.asset_type}, operation_mode={self.operation_mode}, ' +\
-           f'custom_fields={self.custom_fields}, children={self.children}, sensors={self.sensors})'
+  def _readable(self) -> str | None | bool:
+    """Readable"""
+    return (
+      f'Asset(pk={self.pk}, name={self.name}, vin={self.vin}, plate={self.plate}, '
+      + f'asset_type={self.asset_type}, operation_mode={self.operation_mode}, '
+      + f'custom_fields={self.custom_fields}, children={self.children}, sensors={self.sensors})'
+    )
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable

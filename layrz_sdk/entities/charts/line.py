@@ -1,6 +1,7 @@
-""" Line chart """
+"""Line chart"""
+
 import logging
-from typing import Any, List, Self
+from typing import Any, List
 
 from .alignment import ChartAlignment
 from .configuration import AxisConfig
@@ -20,7 +21,7 @@ class LineChart:
   """
 
   def __init__(
-    self: Self,
+    self,
     x_axis: ChartDataSerie,
     y_axis: List[ChartDataSerie],
     title: str = 'Chart',
@@ -72,7 +73,7 @@ class LineChart:
       raise ChartException('y_axis_config must be an instance of AxisConfig')
     self.y_axis_config = y_axis_config
 
-  def render(self: Self, technology: ChartRenderTechnology) -> Any:
+  def render(self, technology: ChartRenderTechnology) -> Any:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: GRAPHIC and CANVASJS.
@@ -108,7 +109,7 @@ class LineChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_syncfusion_flutter_charts(self: Self) -> Any:
+  def _render_syncfusion_flutter_charts(self) -> Any:
     """
     Converts the configuration of the chart to a Flutter library syncfusion_flutter_charts.
     """
@@ -134,20 +135,24 @@ class LineChart:
             y_value = 0
 
         if not isinstance(y_value, (int, float)):
-          log.debug('Value isn\'t a number: %s', y_value)
+          log.debug("Value isn't a number: %s", y_value)
           continue
 
-        points.append({
-          'xAxis': x_value,
-          'yAxis': y_value,
-        })
+        points.append(
+          {
+            'xAxis': x_value,
+            'yAxis': y_value,
+          }
+        )
 
-      series.append({
-        'color': serie.color,
-        'values': points,
-        'label': serie.label,
-        'type': 'AREA' if serie.serie_type == ChartDataSerieType.AREA else 'LINE',
-      })
+      series.append(
+        {
+          'color': serie.color,
+          'values': points,
+          'label': serie.label,
+          'type': 'AREA' if serie.serie_type == ChartDataSerieType.AREA else 'LINE',
+        }
+      )
 
     return {
       'series': series,
@@ -167,7 +172,7 @@ class LineChart:
       },
     }
 
-  def _render_graphic(self: Self) -> Any:
+  def _render_graphic(self) -> Any:
     """
     Converts the configuration of the chart to a Flutter library Graphic.
     """
@@ -180,25 +185,29 @@ class LineChart:
       points = []
 
       for i, value in enumerate(self.x_axis.data):
-        points.append({
-          'x_axis': {
-            'value': value.timestamp() if self.x_axis.data_type == ChartDataType.DATETIME else value,
-            'is_datetime': self.x_axis.data_type == ChartDataType.DATETIME,
-          },
-          'y_axis': serie.data[i],
-        })
+        points.append(
+          {
+            'x_axis': {
+              'value': value.timestamp() if self.x_axis.data_type == ChartDataType.DATETIME else value,
+              'is_datetime': self.x_axis.data_type == ChartDataType.DATETIME,
+            },
+            'y_axis': serie.data[i],
+          }
+        )
 
-      series.append({
-        'group': serie.label,
-        'color': serie.color,
-        'dashed': serie.serie_type == ChartDataSerieType.LINE and serie.dashed,
-        'type': 'AREA' if serie.serie_type == ChartDataSerieType.AREA else 'LINE',
-        'values': points
-      })
+      series.append(
+        {
+          'group': serie.label,
+          'color': serie.color,
+          'dashed': serie.serie_type == ChartDataSerieType.LINE and serie.dashed,
+          'type': 'AREA' if serie.serie_type == ChartDataSerieType.AREA else 'LINE',
+          'values': points,
+        }
+      )
 
     return series
 
-  def _render_canvasjs(self: Self) -> Any:
+  def _render_canvasjs(self) -> Any:
     """
     Converts the configuration of the chart to Javascript library CanvasJS.
     """
@@ -236,10 +245,12 @@ class LineChart:
           points.append({'x': point.x, 'y': point.y})
       else:
         for i, value in enumerate(self.x_axis.data):
-          points.append({
-            'x': (value.timestamp() * 1000) if self.x_axis.data_type == ChartDataType.DATETIME else value,
-            'y': serie.data[i],
-          })
+          points.append(
+            {
+              'x': (value.timestamp() * 1000) if self.x_axis.data_type == ChartDataType.DATETIME else value,
+              'y': serie.data[i],
+            }
+          )
 
       dataset['dataPoints'] = points
       datasets.append(dataset)
@@ -251,7 +262,7 @@ class LineChart:
         'text': self.title,
         'fontFamily': 'Fira Sans Condensed',
         'fontSize': 20,
-        'horizontalAlign': self.align.value
+        'horizontalAlign': self.align.value,
       },
       'data': datasets,
       'axisX': {
@@ -259,13 +270,8 @@ class LineChart:
         'titleFontFamily': 'Fira Sans Condensed',
         'titleFontSize': 20,
       },
-      'toolTip': {
-        'animationEnabled': False,
-        'shared': True
-      },
-      'legend': {
-        'cursor': 'pointer'
-      }
+      'toolTip': {'animationEnabled': False, 'shared': True},
+      'legend': {'cursor': 'pointer'},
     }
 
 

@@ -1,5 +1,4 @@
-""" Charts entities """
-from typing import Self
+"""Charts entities"""
 
 from .data_type import ChartDataType
 
@@ -9,30 +8,30 @@ class ChartConfiguration:
   Chart configuration
   """
 
-  def __init__(self: Self, name: str, description: str) -> None:
-    """ Constructor """
+  def __init__(self, name: str, description: str) -> None:
+    """Constructor"""
     self.name = name
     self.description = description
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable """
+  def _readable(self) -> str | None | bool:
+    """Readable"""
     return f'ChartConfiguration(name="{self.name}")'
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
 
 class AxisConfig:
-  """ Axis configuration """
+  """Axis configuration"""
 
   def __init__(
-    self: Self,
+    self,
     label: str = '',
     measure_unit: str = '',
     min_value: float = None,

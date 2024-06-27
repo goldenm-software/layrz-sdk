@@ -1,5 +1,6 @@
-""" Scatter chart """
-from typing import Any, List, Self
+"""Scatter chart"""
+
+from typing import Any, List
 
 from .alignment import ChartAlignment
 from .configuration import AxisConfig
@@ -13,7 +14,7 @@ class ScatterSerieItem:
   Chart Data Serie Item for Scatter Charts
   """
 
-  def __init__(self: Self, x: float, y: float) -> None:
+  def __init__(self, x: float, y: float) -> None:
     """
     Constructor
 
@@ -32,7 +33,7 @@ class ScatterSerie:
   """
 
   def __init__(
-    self: Self,
+    self,
     data: List[ScatterSerieItem],
     color: str,
     label: str,
@@ -70,7 +71,7 @@ class ScatterChart:
   """
 
   def __init__(
-    self: Self,
+    self,
     series: List[ScatterSerie],
     title: str = 'Chart',
     align: ChartAlignment = ChartAlignment.CENTER,
@@ -114,7 +115,7 @@ class ScatterChart:
     self.y_axis_config = y_axis_config
 
   def render(
-    self: Self,
+    self,
     technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
   ) -> Any:
     """
@@ -151,7 +152,7 @@ class ScatterChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_syncfusion_flutter_charts(self: Self) -> Any:
+  def _render_syncfusion_flutter_charts(self) -> Any:
     """
     Converts the configuration of the chart to Flutter library Graphic.
     """
@@ -175,17 +176,21 @@ class ScatterChart:
         if not isinstance(item.y, (int, float)):
           continue
 
-        data.append({
-          'xAxis': item.x,
-          'yAxis': item.y,
-        })
+        data.append(
+          {
+            'xAxis': item.x,
+            'yAxis': item.y,
+          }
+        )
 
-      series.append({
-        'label': serie.label,
-        'color': serie.color,
-        'values': data,
-        'type': type_serie,
-      })
+      series.append(
+        {
+          'label': serie.label,
+          'color': serie.color,
+          'values': data,
+          'type': type_serie,
+        }
+      )
 
     return {
       'series': series,
@@ -205,7 +210,7 @@ class ScatterChart:
       },
     }
 
-  def _render_graphic(self: Self) -> Any:
+  def _render_graphic(self) -> Any:
     """
     Converts the configuration of the chart to Flutter library Graphic.
     """
@@ -224,21 +229,25 @@ class ScatterChart:
         continue
 
       for item in serie.data:
-        data.append({
-          'x_axis': item.x,
-          'y_axis': item.y,
-        })
+        data.append(
+          {
+            'x_axis': item.x,
+            'y_axis': item.y,
+          }
+        )
 
-      series.append({
-        'group': serie.label,
-        'color': serie.color,
-        'values': data,
-        'type': type_serie,
-      })
+      series.append(
+        {
+          'group': serie.label,
+          'color': serie.color,
+          'values': data,
+          'type': type_serie,
+        }
+      )
 
     return series
 
-  def _render_apexcharts(self: Self) -> Any:
+  def _render_apexcharts(self) -> Any:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """
@@ -252,11 +261,13 @@ class ScatterChart:
       for item in serie.data:
         data.append([item.x, item.y])
 
-      series.append({
-        'name': serie.label,
-        'data': data,
-        'type': serie.serie_type.value,
-      })
+      series.append(
+        {
+          'name': serie.label,
+          'data': data,
+          'type': serie.serie_type.value,
+        }
+      )
       colors.append(serie.color)
 
     config = {
@@ -265,27 +276,15 @@ class ScatterChart:
       'title': {
         'text': self.title,
         'align': self.align.value,
-        'style': {
-          'fontFamily': 'Fira Sans Condensed',
-          'fontSize': '20px',
-          'fontWeight': 'normal'
-        }
+        'style': {'fontFamily': 'Fira Sans Condensed', 'fontSize': '20px', 'fontWeight': 'normal'},
       },
       'chart': {
         'type': 'scatter',
-        'animations': {
-          'enabled': False
-        },
-        'toolbar': {
-          'show': False
-        },
-        'zoom': {
-          'enabled': False
-        }
+        'animations': {'enabled': False},
+        'toolbar': {'show': False},
+        'zoom': {'enabled': False},
       },
-      'dataLabels': {
-        'enabled': True
-      }
+      'dataLabels': {'enabled': True},
     }
 
     return config
