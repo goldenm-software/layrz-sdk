@@ -13,7 +13,7 @@ INVALID_ARGUMENTS = 'Invalid arguments - {e}'
 class LclCore:
   """Layrz Compute Language SDK"""
 
-  def __init__(  # pylint: disable=dangerous-default-value
+  def __init__(
     self,
     script: str = '',
     sensors: Dict = None,
@@ -40,7 +40,7 @@ class LclCore:
     self._custom_fields = custom_fields
     self._script = script
 
-  def perform(  # pylint: disable=dangerous-default-value, invalid-name
+  def perform(
     self,
     additional_globals: Dict = None,
     additional_locals: Dict = None,
@@ -122,10 +122,10 @@ class LclCore:
 
       import json
 
-      result = json.dumps(eval(self._script, global_functions, local_variables))  # pylint: disable=eval-used
+      result = json.dumps(eval(self._script, global_functions, local_variables))
 
       return result
-    except Exception as err:  # pylint: disable=broad-except
+    except Exception as err:
       import json
 
       return json.dumps(INVALID_ARGUMENTS.format(e=err))
@@ -241,7 +241,7 @@ class LclCore:
 
       try:
         result += float(num)
-      except Exception:  # pylint: disable=broad-except
+      except Exception:
         pass
 
     return result
@@ -261,7 +261,7 @@ class LclCore:
           is_first = False
         else:
           result -= float(num)
-      except Exception:  # pylint: disable=broad-except
+      except Exception:
         pass
 
     return result
@@ -281,7 +281,7 @@ class LclCore:
           result = float(num)
         else:
           result *= float(num)
-      except Exception:  # pylint: disable=broad-except
+      except Exception:
         pass
 
     return result
@@ -301,7 +301,7 @@ class LclCore:
           result = float(num)
         else:
           result /= float(num)
-      except Exception:  # pylint: disable=broad-except
+      except Exception:
         pass
 
     return result
@@ -510,7 +510,7 @@ class LclCore:
     try:
       byte_array = bytes.fromhex(hexa)
       return byte_array.decode('ASCII')
-    except Exception:  # pylint: disable=broad-except
+    except Exception:
       return 'Invalid hex string'
 
   def STR_TO_HEX(self, *args: List[Any]) -> str | None:
@@ -533,7 +533,7 @@ class LclCore:
 
     try:
       return int(int(args[0], 16))
-    except Exception:  # pylint: disable=broad-except
+    except Exception:
       return 'Invalid hex string'
 
   def INT_TO_HEX(self, *args: List[Any]) -> str | None:
@@ -546,7 +546,7 @@ class LclCore:
 
     try:
       return hex(int(args[0]))[2:]
-    except Exception:  # pylint: disable=broad-except
+    except Exception:
       return 'Invalid int value'
 
   def TO_FLOAT(self, *args: List[Any]) -> str | None | float:
@@ -559,7 +559,7 @@ class LclCore:
 
     try:
       return float(args[0])
-    except Exception:  # pylint: disable=broad-except
+    except Exception:
       return f'Invalid arguments - must be real number, not {type(args[0]).__name__}'
 
   def IS_PARAMETER_PRESENT(self, *args: List[Any]) -> str | bool:
