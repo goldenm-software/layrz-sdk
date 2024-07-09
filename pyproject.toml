@@ -33,6 +33,7 @@ classifiers = [
 dependencies = [
   "requests",
   "xlsxwriter",
+  "tzdata"
 ]
 
 [project.urls]
