@@ -130,6 +130,18 @@ class LclCore:
 
       return json.dumps(INVALID_ARGUMENTS.format(e=err))
 
+  def _standarize_datatypes(self, args: List[Any]) -> List[Any]:
+    """Standarize data types"""
+    result_args = []
+
+    for arg in args:
+      if isinstance(arg, (float, int)):
+        result_args.append(float(arg))
+      else:
+        result_args.append(arg)
+
+    return result_args
+
   def GET_PARAM(self, *args: List[Any]) -> Any:
     """GET_PARAM Function"""
     if len(args) > 2:
@@ -197,6 +209,8 @@ class LclCore:
 
     if args[0] is None or args[1] is None:
       return None
+
+    args = self._standarize_datatypes(args)
 
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
@@ -435,6 +449,8 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
+    args = self._standarize_datatypes(args)
+
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
     return args[0] >= args[1]
@@ -448,6 +464,8 @@ class LclCore:
 
     if args[0] is None or args[1] is None:
       return None
+
+    args = self._standarize_datatypes(args)
 
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
@@ -463,6 +481,8 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
+    args = self._standarize_datatypes(args)
+
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
     return args[0] <= args[1]
@@ -477,6 +497,8 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
+    args = self._standarize_datatypes(args)
+
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
     return args[0] < args[1]
@@ -490,6 +512,8 @@ class LclCore:
 
     if args[0] is None or args[1] is None:
       return None
+
+    args = self._standarize_datatypes(args)
 
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
@@ -590,6 +614,8 @@ class LclCore:
     if args[0] is None or args[1] is None or args[2] is None:
       return None
 
+    args = self._standarize_datatypes(args)
+
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES_RANGES.format(
         arg1=type(args[0]).__name__,
@@ -606,6 +632,8 @@ class LclCore:
 
     if args[0] is None or args[1] is None or args[2] is None:
       return None
+
+    args = self._standarize_datatypes(args)
 
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES_RANGES.format(

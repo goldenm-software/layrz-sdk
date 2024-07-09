@@ -541,7 +541,7 @@ class TestLclFunctions(unittest.TestCase):
     formula = 'DIFFERENT("Hola", 10)'
     lcl = LclCore(script=formula)
     result = self._process_and_convert(lcl)
-    self.assertEqual(result, 'Invalid data types - arg1: str - arg2: int')
+    self.assertEqual(result, 'Invalid data types - arg1: str - arg2: float')
 
   def test_HEX_TO_STR(self) -> None:
     formula = 'HEX_TO_STR("48656c6c6f")'

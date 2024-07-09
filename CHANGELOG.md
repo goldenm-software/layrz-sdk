@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.11
+
+- Added way to standarize the `int` and `float` arguments to `float`. Allowing comparison between `int` and `float` values in LCL formulas
+
 ## 3.0.10
 
 - Removed Self type annotation from all classes
