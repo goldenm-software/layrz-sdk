@@ -4,7 +4,7 @@ import logging
 import os
 import time
 import warnings
-from typing import Any, Dict, List, Self
+from typing import Any, Dict, List
 
 import xlsxwriter
 
@@ -28,7 +28,7 @@ class Report:
   """
 
   def __init__(
-    self: Self,
+    self,
     name: str,
     pages: List[ReportPage | CustomReportPage],
     export_format: ReportFormat = None,
@@ -46,25 +46,25 @@ class Report:
     self.export_format = export_format
 
   @property
-  def filename(self: Self) -> str | None | bool:
+  def filename(self) -> str | None | bool:
     """Report filename"""
     return f'{self.name}_{int(time.time() * 1000)}.xlsx'
 
   @property
-  def _readable(self: Self) -> str | None | bool:
+  def _readable(self) -> str | None | bool:
     """Readable property"""
     return f'Report(name={self.name}, pages={len(self.pages)})'
 
-  def __repr__(self: Self) -> str | None | bool:
+  def __repr__(self) -> str | None | bool:
     """Readable property"""
     return self._readable
 
-  def __str__(self: Self) -> str | None | bool:
+  def __str__(self) -> str | None | bool:
     """Readable property"""
     return self._readable
 
   def export(
-    self: Self,
+    self,
     path: str,
     export_format: ReportFormat = None,
     password: str = None,
@@ -103,11 +103,11 @@ class Report:
     else:
       raise AttributeError(f'Unsupported export format: {self.export_format}')
 
-  def export_as_json(self: Self) -> Dict[str, Any]:
+  def export_as_json(self) -> Dict[str, Any]:
     """Returns the report as a JSON dict"""
     return self._export_json()
 
-  def _export_json(self: Self) -> Dict[str, Any]:
+  def _export_json(self) -> Dict[str, Any]:
     """Returns a JSON dict of the report"""
     json_pages = []
     for page in self.pages:
@@ -152,7 +152,7 @@ class Report:
     }
 
   def _export_xlsx(
-    self: Self,
+    self,
     path: str,
     password: str = None,
     msoffice_crypt_path: str = None,
@@ -268,19 +268,19 @@ class ReportConfiguration:
     - pages_count : Number of pages in the report
   """
 
-  def __init__(self: Self, title: str, pages_count: int) -> None:
+  def __init__(self, title: str, pages_count: int) -> None:
     self.title = title
     self.pages_count = pages_count
 
   @property
-  def _readable(self: Self) -> str | None | bool:
+  def _readable(self) -> str | None | bool:
     """Readable property"""
     return f'ReportConfiguration(title={self.title}, pages_count={self.pages_count})'
 
-  def __repr__(self: Self) -> str | None | bool:
+  def __repr__(self) -> str | None | bool:
     """Readable property"""
     return self._readable
 
-  def __str__(self: Self) -> str | None | bool:
+  def __str__(self) -> str | None | bool:
     """Readable property"""
     return self._readable

@@ -1,6 +1,7 @@
-""" Message entity """
+"""Message entity"""
+
 from datetime import datetime, timezone
-from typing import Any, Self
+from typing import Any
 
 from .position import Position
 
@@ -19,7 +20,7 @@ class Message:
   """
 
   def __init__(
-    self: Self,
+    self,
     pk: int,
     asset_id: int,
     position: Position = None,
@@ -27,7 +28,7 @@ class Message:
     sensors: Any = None,
     received_at: datetime = None,
   ) -> None:
-    """ Constructor """
+    """Constructor"""
     self.pk = pk
     self.asset_id = asset_id
     self.position = position or Position()

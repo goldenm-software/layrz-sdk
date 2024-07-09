@@ -1,6 +1,6 @@
-""" Broadcast result """
+"""Broadcast result"""
+
 from datetime import datetime
-from typing import Self
 
 from .request import BroadcastRequest
 from .response import BroadcastResponse
@@ -21,7 +21,7 @@ class BroadcastResult:
   """
 
   def __init__(
-    self: Self,
+    self,
     service_id: int,
     asset_id: int,
     status: BroadcastStatus,
@@ -37,15 +37,17 @@ class BroadcastResult:
     self.submitted_at = submitted_at
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable """
-    return f'BroadcastResult(service_id={self.service_id}, asset_id={self.asset_id}, status={self.status}, ' +\
-           f'request={self.request}, response={self.response}, submitted_at={self.submitted_at})'
+  def _readable(self) -> str | None | bool:
+    """Readable"""
+    return (
+      f'BroadcastResult(service_id={self.service_id}, asset_id={self.asset_id}, status={self.status}, '
+      + f'request={self.request}, response={self.response}, submitted_at={self.submitted_at})'
+    )
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable

@@ -1,10 +1,11 @@
-""" Broadcast result Status """
+"""Broadcast result Status"""
+
 from enum import Enum
-from typing import Self
 
 
 class BroadcastStatus(Enum):
-  """ Broadcast result status """
+  """Broadcast result status"""
+
   OK = 'OK'
   BADREQUEST = 'BADREQUEST'
   INTERNALERROR = 'INTERNALERROR'
@@ -13,14 +14,14 @@ class BroadcastStatus(Enum):
   DISCONNECTED = 'DISCONNECTED'
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable """
+  def _readable(self) -> str | None | bool:
+    """Readable"""
     return f'BroadcastStatus.{self.value}'
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable

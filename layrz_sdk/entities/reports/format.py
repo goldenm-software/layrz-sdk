@@ -1,7 +1,6 @@
 """Report formats"""
 
 from enum import Enum
-from typing import Self
 
 
 class ReportFormat(Enum):
@@ -14,14 +13,14 @@ class ReportFormat(Enum):
   PDF = 'PDF'
 
   @property
-  def _readable(self: Self) -> str:
+  def _readable(self) -> str:
     """Readable"""
     return f'ReportFormat.{self.value}'
 
-  def __str__(self: Self) -> str:
+  def __str__(self) -> str:
     """Readable property"""
     return self._readable
 
-  def __repr__(self: Self) -> str:
+  def __repr__(self) -> str:
     """Readable property"""
     return self._readable

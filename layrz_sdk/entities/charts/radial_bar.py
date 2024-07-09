@@ -1,5 +1,6 @@
-""" Radial Bar chart """
-from typing import Any, List, Self
+"""Radial Bar chart"""
+
+from typing import Any, List
 
 from .alignment import ChartAlignment
 from .exceptions import ChartException
@@ -13,7 +14,7 @@ class RadialBarChart:
   """
 
   def __init__(
-    self: Self,
+    self,
     series: List[ChartDataSerie],
     title: str = 'Chart',
     align: ChartAlignment = ChartAlignment.CENTER,
@@ -41,7 +42,7 @@ class RadialBarChart:
     self.align = align
 
   def render(
-    self: Self,
+    self,
     technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
   ) -> Any:
     """
@@ -78,37 +79,41 @@ class RadialBarChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_syncfusion_flutter_charts(self: Self) -> Any:
+  def _render_syncfusion_flutter_charts(self) -> Any:
     """
     Converts the configuration of the chart to Syncfusion Flutter Charts.
     """
     series = []
 
     for serie in self.series:
-      series.append({
-        'label': serie.label,
-        'color': serie.color,
-        'value': serie.data[0],
-      })
+      series.append(
+        {
+          'label': serie.label,
+          'color': serie.color,
+          'value': serie.data[0],
+        }
+      )
 
     return {'series': series}
 
-  def _render_graphic(self: Self) -> Any:
+  def _render_graphic(self) -> Any:
     """
     Converts the configuration of the chart to a Flutter library Graphic.
     """
     series = []
 
     for serie in self.series:
-      series.append({
-        'group': serie.label,
-        'color': serie.color,
-        'value': serie.data[0],
-      })
+      series.append(
+        {
+          'group': serie.label,
+          'color': serie.color,
+          'value': serie.data[0],
+        }
+      )
 
     return series
 
-  def _render_apexcharts(self: Self) -> Any:
+  def _render_apexcharts(self) -> Any:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """
@@ -129,27 +134,15 @@ class RadialBarChart:
       'title': {
         'text': self.title,
         'align': self.align.value,
-        'style': {
-          'fontFamily': 'Fira Sans Condensed',
-          'fontSize': '20px',
-          'fontWeight': 'normal'
-        }
+        'style': {'fontFamily': 'Fira Sans Condensed', 'fontSize': '20px', 'fontWeight': 'normal'},
       },
       'chart': {
         'type': 'radialBar',
-        'animations': {
-          'enabled': False
-        },
-        'toolbar': {
-          'show': False
-        },
-        'zoom': {
-          'enabled': False
-        }
+        'animations': {'enabled': False},
+        'toolbar': {'show': False},
+        'zoom': {'enabled': False},
       },
-      'dataLabels': {
-        'enabled': True
-      },
+      'dataLabels': {'enabled': True},
     }
 
     return config

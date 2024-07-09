@@ -1,5 +1,4 @@
-""" Device entitiy """
-from typing import Self
+"""Device entitiy"""
 
 
 class Device:
@@ -15,14 +14,14 @@ class Device:
   """
 
   def __init__(
-    self: Self,
+    self,
     pk: int,
     name: str,
     ident: str,
     protocol: str,
     is_primary: bool = False,
   ) -> None:
-    """ Constructor """
+    """Constructor"""
     self.pk = pk
     self.name = name
     self.ident = ident
@@ -30,15 +29,17 @@ class Device:
     self.is_primary = is_primary
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable """
-    return f'Device(pk={self.pk}, ident={self.ident}, name={self.name}, protocol={self.protocol}, ' +\
-           f'is_primary={self.is_primary})'
+  def _readable(self) -> str | None | bool:
+    """Readable"""
+    return (
+      f'Device(pk={self.pk}, ident={self.ident}, name={self.name}, protocol={self.protocol}, '
+      + f'is_primary={self.is_primary})'
+    )
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable

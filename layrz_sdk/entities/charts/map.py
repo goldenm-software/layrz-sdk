@@ -1,6 +1,7 @@
-""" Map chart """
+"""Map chart"""
+
 from enum import Enum
-from typing import Any, List, Self, Tuple
+from typing import Any, List, Tuple
 
 from .exceptions import ChartException
 from .render_technology import ChartRenderTechnology
@@ -10,28 +11,29 @@ class MapCenterType(Enum):
   """
   Map Chart center type
   """
+
   FIXED = 'FIXED'
   CONTAIN = 'CONTAIN'
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable """
+  def _readable(self) -> str | None | bool:
+    """Readable"""
     return f'BroadcastStatus.{self.value}'
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
 
 class MapPoint:
-  """ Map point configuration """
+  """Map point configuration"""
 
   def __init__(
-    self: Self,
+    self,
     latitude: float,
     longitude: float,
     label: str,
@@ -69,7 +71,7 @@ class MapChart:
   """
 
   def __init__(
-    self: Self,
+    self,
     points: List[MapPoint],
     title: str = 'Chart',
     center: MapCenterType = MapCenterType.CONTAIN,
@@ -100,7 +102,7 @@ class MapChart:
       raise ChartException('center_latlng must be an instance of list or tuple')
     self.center_latlng = center_latlng
 
-  def render(self: Self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER_MAP) -> Any:
+  def render(self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER_MAP) -> Any:
     """
     Render chart to a graphic Library.
     We have two graphic libraries: FLUTTER_MAP and LEAFLET.
@@ -121,18 +123,20 @@ class MapChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_flutter_map(self: Self) -> Any:
+  def _render_flutter_map(self) -> Any:
     """
     Converts the configuration to the chart to Flutter Map engine.
     """
     points = []
 
     for point in self.points:
-      points.append({
-        'label': point.label,
-        'color': point.color,
-        'latlng': (point.latitude, point.longitude),
-      })
+      points.append(
+        {
+          'label': point.label,
+          'color': point.color,
+          'latlng': (point.latitude, point.longitude),
+        }
+      )
 
     center = 'CONTAIN'
 
@@ -149,7 +153,7 @@ class MapChart:
 
     return config
 
-  def _render_leaflet(self: Self) -> Any:
+  def _render_leaflet(self) -> Any:
     """
     Converts the configuration of the chart to Leaflet map engine.
     """

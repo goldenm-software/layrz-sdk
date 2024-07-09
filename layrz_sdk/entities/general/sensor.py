@@ -1,5 +1,4 @@
-""" Sensor entity """
-from typing import Self
+"""Sensor entity"""
 
 
 class Sensor:
@@ -12,21 +11,21 @@ class Sensor:
     slug : Slug of the sensor
   """
 
-  def __init__(self: Self, pk: int, name: str, slug: str) -> None:
-    """ Constructor """
+  def __init__(self, pk: int, name: str, slug: str) -> None:
+    """Constructor"""
     self.pk = pk
     self.name = name
     self.slug = slug
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable """
+  def _readable(self) -> str | None | bool:
+    """Readable"""
     return f'Sensor(pk={self.pk}, name={self.name}, slug={self.slug})'
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable

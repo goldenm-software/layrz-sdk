@@ -1,6 +1,6 @@
 """Number chart"""
 
-from typing import Any, List, Self
+from typing import Any, List
 
 from .render_technology import ChartRenderTechnology
 
@@ -8,7 +8,7 @@ from .render_technology import ChartRenderTechnology
 class TableHeader:
   """Table header chart configuration"""
 
-  def __init__(self: Self, label: str, key: str) -> None:
+  def __init__(self, label: str, key: str) -> None:
     """Constructor
     ---
     Arguments
@@ -22,7 +22,7 @@ class TableHeader:
 class TableRow:
   """Table row chart configuration"""
 
-  def __init__(self: Self, data: Any) -> None:
+  def __init__(self, data: Any) -> None:
     """Constructor
     ---
     Arguments
@@ -36,7 +36,7 @@ class TableChart:
   Table chart configuration
   """
 
-  def __init__(self: Self, columns: List[TableHeader], rows: List[TableRow]) -> None:
+  def __init__(self, columns: List[TableHeader], rows: List[TableRow]) -> None:
     """
     Constructor
     ---
@@ -47,7 +47,7 @@ class TableChart:
     self.columns = columns
     self.rows = rows
 
-  def render(self: Self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER) -> Any:
+  def render(self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER) -> Any:
     """
     Render chart to a graphic Library.
     """
@@ -64,7 +64,7 @@ class TableChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_flutter(self: Self) -> Any:
+  def _render_flutter(self) -> Any:
     """
     Converts the configuration of the chart to a Flutter native components.
     """

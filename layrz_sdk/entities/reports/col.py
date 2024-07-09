@@ -1,7 +1,8 @@
-""" Report col """
+"""Report col"""
+
 import warnings
 from enum import Enum
-from typing import Any, Self
+from typing import Any
 
 from ..formatting.text_align import TextAlignment
 
@@ -10,6 +11,7 @@ class ReportDataType(Enum):
   """
   Report date type
   """
+
   STR = 'str'
   INT = 'int'
   FLOAT = 'float'
@@ -18,16 +20,16 @@ class ReportDataType(Enum):
   CURRENCY = 'currency'
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable """
+  def _readable(self) -> str | None | bool:
+    """Readable"""
     return f'ReportDataType.{self.value}'
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
 
@@ -48,7 +50,7 @@ class ReportCol:
   """
 
   def __init__(
-    self: Self,
+    self,
     content: Any,
     color: str = '#ffffff',
     text_color: str = None,
@@ -71,14 +73,14 @@ class ReportCol:
     self.bold = bold
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable property """
+  def _readable(self) -> str | None | bool:
+    """Readable property"""
     return f'ReportCol(content={self.content})'
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable

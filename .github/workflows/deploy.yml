@@ -14,7 +14,7 @@ jobs:
 
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/goldenm-software/python-builder:3.11
+      image: ghcr.io/goldenm-software/python-builder:3.10
       options: --user root
       credentials:
         username: ${{ github.repository_owner }}

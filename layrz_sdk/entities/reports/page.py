@@ -1,5 +1,6 @@
-""" Report page """
-from typing import List, Self
+"""Report page"""
+
+from typing import List
 
 from .header import ReportHeader
 from .row import ReportRow
@@ -16,7 +17,7 @@ class ReportPage:
   """
 
   def __init__(
-    self: Self,
+    self,
     name: str,
     headers: List[ReportHeader],
     rows: List[ReportRow],
@@ -28,16 +29,16 @@ class ReportPage:
     self.freeze_header = freeze_header
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable property """
+  def _readable(self) -> str | None | bool:
+    """Readable property"""
     return f'ReportPage(name={self.name}, headers={self.headers}, rows={self.rows})'
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
 
@@ -54,8 +55,8 @@ class CustomReportPage:
                                  return anything.
   """
 
-  def __init__(self: Self, name: str, builder: callable) -> None:
-    """ Constructor """
+  def __init__(self, name: str, builder: callable) -> None:
+    """Constructor"""
     self.name = name
 
     if not callable(builder):

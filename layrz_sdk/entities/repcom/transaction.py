@@ -1,6 +1,6 @@
-""" Transaction entity """
+"""Transaction entity"""
+
 from datetime import datetime, timedelta
-from typing import Self
 
 from layrz_sdk.entities.general.asset import Asset
 
@@ -25,7 +25,7 @@ class Transaction:
   """
 
   def __init__(
-    self: Self,
+    self,
     pk: int,
     asset: Asset,
     amount: float,
@@ -39,7 +39,7 @@ class Transaction:
     received_at: datetime,
     is_wildcard: bool,
   ) -> None:
-    """ Constructor """
+    """Constructor"""
     self.pk = pk
     self.asset = asset
     self.amount = amount

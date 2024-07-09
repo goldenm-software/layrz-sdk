@@ -1,29 +1,29 @@
-""" Events entitites """
+"""Events entitites"""
 
 from datetime import datetime
 from enum import Enum
-from typing import Self
 
 from .trigger import Trigger
 
 
 class CaseStatus(Enum):
-  """ Case status enum """
+  """Case status enum"""
+
   PENDING = 'PENDING'
   FOLLOWED = 'FOLLOWED'
   CLOSED = 'CLOSED'
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable """
+  def _readable(self) -> str | None | bool:
+    """Readable"""
     return f'BroadcastStatus.{self.value}'
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
 
@@ -31,22 +31,23 @@ class CaseIgnoredStatus(Enum):
   """
   Case ignore status, will define what kind ignore happened.
   """
+
   NORMAL = 'NORMAL'
   IGNORED = 'IGNORED'
   PRESSET = 'PRESSET'
   AUTO = 'AUTO'
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable """
+  def _readable(self) -> str | None | bool:
+    """Readable"""
     return f'BroadcastStatus.{self.value}'
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
 
@@ -67,7 +68,7 @@ class Case:
   """
 
   def __init__(
-    self: Self,
+    self,
     pk: int,
     trigger: Trigger,
     asset_id: int,
@@ -78,7 +79,7 @@ class Case:
     status: CaseStatus = CaseStatus.CLOSED,
     ignored_status: CaseIgnoredStatus = CaseIgnoredStatus.NORMAL,
   ) -> None:
-    """ Constructor """
+    """Constructor"""
     self.pk = pk
     self.trigger = trigger
     self.asset_id = asset_id
@@ -89,29 +90,31 @@ class Case:
     self._sequence = sequence
     self.ignored_status = ignored_status
 
-  def get_sequence(self: Self) -> str | None | bool:
-    """ Sequence getter """
+  def get_sequence(self) -> str | None | bool:
+    """Sequence getter"""
     if self._sequence is not None:
       return f'{self.trigger.code}/{self._sequence}'
     else:
       return f'GENERIC/{self.pk}'
 
-  def set_sequence(self: Self, sequence: int) -> None:
-    """ Sequence setter """
+  def set_sequence(self, sequence: int) -> None:
+    """Sequence setter"""
     self._sequence = sequence
 
   sequence = property(get_sequence, set_sequence)
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable """
-    return f'Case(pk={self.pk}, trigger={self.trigger}, asset_id={self.asset_id}, ' +\
-           f'comments={len(self.comments)}, opened_at={self.opened_at}, closed_at={self.closed_at})'
+  def _readable(self) -> str | None | bool:
+    """Readable"""
+    return (
+      f'Case(pk={self.pk}, trigger={self.trigger}, asset_id={self.asset_id}, '
+      + f'comments={len(self.comments)}, opened_at={self.opened_at}, closed_at={self.closed_at})'
+    )
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable

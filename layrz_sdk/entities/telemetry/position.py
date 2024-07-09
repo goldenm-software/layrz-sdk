@@ -1,5 +1,4 @@
-""" Position entity """
-from typing import Self
+"""Position entity"""
 
 
 class Position:
@@ -17,7 +16,7 @@ class Position:
   """
 
   def __init__(
-    self: Self,
+    self,
     latitude: float = None,
     longitude: float = None,
     altitude: float = None,
@@ -26,7 +25,7 @@ class Position:
     direction: float = None,
     satellites: int = None,
   ) -> None:
-    """ Constructor """
+    """Constructor"""
     self.latitude = latitude
     self.longitude = longitude
     self.altitude = altitude
@@ -36,15 +35,17 @@ class Position:
     self.satellites = satellites
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable """
-    return f'Position(latitude={self.latitude}, longitude={self.longitude}, altitude={self.altitude}, ' +\
-           f'speed={self.speed}, direction={self.direction}, hdop={self.hdop}, satellites={self.satellites})'
+  def _readable(self) -> str | None | bool:
+    """Readable"""
+    return (
+      f'Position(latitude={self.latitude}, longitude={self.longitude}, altitude={self.altitude}, '
+      + f'speed={self.speed}, direction={self.direction}, hdop={self.hdop}, satellites={self.satellites})'
+    )
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable

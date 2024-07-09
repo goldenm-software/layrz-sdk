@@ -1,5 +1,6 @@
-""" Broadcast Result Request data """
-from typing import Dict, List, Self
+"""Broadcast Result Request data"""
+
+from typing import Dict, List
 
 
 class BroadcastRequest:
@@ -11,19 +12,19 @@ class BroadcastRequest:
     - raw : Raw data
   """
 
-  def __init__(self: Self, json: Dict | List, raw: str) -> None:
+  def __init__(self, json: Dict | List, raw: str) -> None:
     self.json = json
     self.raw = raw
 
   @property
-  def _readable(self: Self) -> str | None | bool:
-    """ Readable """
+  def _readable(self) -> str | None | bool:
+    """Readable"""
     return f'BroadcastRequest(json={self.json}, raw={self.raw})'
 
-  def __repr__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
 
-  def __str__(self: Self) -> str | None | bool:
-    """ Readable property """
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
     return self._readable
