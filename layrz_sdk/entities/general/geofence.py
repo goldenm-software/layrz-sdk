@@ -1,5 +1,7 @@
 """Geofence entity"""
 
+from enum import Enum
+
 
 class Geofence:
   """
@@ -21,6 +23,26 @@ class Geofence:
   def _readable(self) -> str | None | bool:
     """Readable"""
     return f'Geofence(pk={self.pk}, name={self.name}, color={self.color})'
+
+  def __str__(self) -> str | None | bool:
+    """Readable property"""
+    return self._readable
+
+  def __repr__(self) -> str | None | bool:
+    """Readable property"""
+    return self._readable
+
+
+class PresenceType(Enum):
+  """Presence type enum"""
+
+  ENTRANCE = 'ENTRANCE'
+  EXIT = 'EXIT'
+
+  @property
+  def _readable(self) -> str | None | bool:
+    """Readable"""
+    return f'PresenceType.{self.value}'
 
   def __str__(self) -> str | None | bool:
     """Readable property"""

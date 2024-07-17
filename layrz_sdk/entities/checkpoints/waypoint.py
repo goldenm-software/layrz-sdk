@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from .geofence import Geofence
+from layrz_sdk.entities.general.geofence import Geofence
 
 
 class Waypoint:

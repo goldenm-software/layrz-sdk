@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.12
+
+- Moved `Geofence` model from `checkpoints` to `general`
+- Added `PresenceType` enum to be used in `Event` model
+
 ## 3.0.11
 
 - Added way to standarize the `int` and `float` arguments to `float`. Allowing comparison between `int` and `float` values in LCL formulas
