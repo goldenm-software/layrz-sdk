@@ -70,4 +70,4 @@ from .reports import (
 )
 
 # Telemetry entities
-from .telemetry import Message, Position
+from .telemetry import LastMessage, Message, Position

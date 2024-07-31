@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.13
+
+- Added `LastMessage` entity to be used in `Trigger`s
+
 ## 3.0.12
 
 - Moved `Geofence` model from `checkpoints` to `general`
