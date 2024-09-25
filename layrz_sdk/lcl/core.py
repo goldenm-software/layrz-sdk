@@ -198,8 +198,15 @@ class LclCore:
 
   def GET_CUSTOM_FIELD(self, *args: List[Any]) -> str:
     """GET_CUSTOM_FIELD Function"""
+    if len(args) > 2:
+      return INVALID_NUMBER_OF_PARAMS.format(expected=2, received=len(args))
+
+    if args[0] is None:
+      return None
+
     if len(args) > 1:
-      return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
+      return self._custom_fields.get(args[0], args[1])
+
     return self._custom_fields.get(args[0], '')
 
   def COMPARE(self, *args: List[Any]) -> str | None | bool:

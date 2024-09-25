@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.14
+
+- Fixes on `GET_CUSTOM_FIELD` LCL function, now accepts a default value as the second argument (Fallback as '')
+
 ## 3.0.13
 
 - Added `LastMessage` entity to be used in `Trigger`s
