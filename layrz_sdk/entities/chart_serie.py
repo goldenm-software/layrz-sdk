@@ -2,9 +2,9 @@
 
 from typing import Any
 
-from .data_type import ChartDataType
-from .exceptions import ChartException
-from .serie_type import ChartDataSerieType
+from .chart_data_type import ChartDataType
+from .chart_exceptions import ChartException
+from .chart_serie_type import ChartDataSerieType
 
 
 class ChartDataSerie:

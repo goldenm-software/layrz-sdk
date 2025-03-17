@@ -2,10 +2,10 @@
 
 from typing import Any, List
 
-from .alignment import ChartAlignment
-from .exceptions import ChartException
-from .serie import ChartDataSerie
-from .serie_type import ChartDataSerieType
+from .chart_alignment import ChartAlignment
+from .chart_exceptions import ChartException
+from .chart_serie import ChartDataSerie
+from .chart_serie_type import ChartDataSerieType
 
 
 class RadarChart:

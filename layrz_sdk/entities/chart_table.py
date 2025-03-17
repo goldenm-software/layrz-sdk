@@ -2,7 +2,7 @@
 
 from typing import Any, List
 
-from .render_technology import ChartRenderTechnology
+from .chart_render_technology import ChartRenderTechnology
 
 
 class TableHeader:

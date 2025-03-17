@@ -2,11 +2,11 @@
 
 from typing import Any, List
 
-from .alignment import ChartAlignment
-from .configuration import AxisConfig
-from .exceptions import ChartException
-from .render_technology import ChartRenderTechnology
-from .serie_type import ChartDataSerieType
+from .axis_config import AxisConfig
+from .chart_alignment import ChartAlignment
+from .chart_exceptions import ChartException
+from .chart_render_technology import ChartRenderTechnology
+from .chart_serie_type import ChartDataSerieType
 
 
 class ScatterSerieItem:

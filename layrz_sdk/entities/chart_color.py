@@ -1,7 +1,13 @@
 """Chart alignment"""
 
+import sys
 from enum import Enum
 from typing import Any
+
+if sys.version_info >= (3, 11):
+  from typing import Self
+else:
+  from typing_extensions import Self
 
 
 class ChartColor(Enum):
@@ -19,18 +25,13 @@ class ChartColor(Enum):
   INDIGO = '#3F51B5'
   LIME = '#CDDC39'
 
-  @property
-  def _readable(self) -> str | None | bool:
-    """Readable"""
-    return f'ChartColor.{self.value}'
-
-  def __str__(self) -> str | None | bool:
+  def __str__(self: Self) -> str:
     """Readable property"""
-    return self._readable
+    return self.name
 
-  def __repr__(self) -> str | None | bool:
+  def __repr__(self: Self) -> str:
     """Readable property"""
-    return self._readable
+    return f'ChartColor.{self.name}'
 
 
 def get_color_list() -> Any:

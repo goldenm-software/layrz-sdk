@@ -4,6 +4,8 @@
 
 - Migrated all models to Pydantic
 - Removed models `Transaction`.
+- Added `mypy` to the project to enforce type checking
+
 
 ## 3.0.14
 

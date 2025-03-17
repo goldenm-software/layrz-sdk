@@ -2,10 +2,10 @@
 
 from typing import Any, List
 
-from .alignment import ChartAlignment
-from .exceptions import ChartException
-from .render_technology import ChartRenderTechnology
-from .serie import ChartDataSerie
+from .chart_alignment import ChartAlignment
+from .chart_exceptions import ChartException
+from .chart_render_technology import ChartRenderTechnology
+from .chart_serie import ChartDataSerie
 
 
 class RadialBarChart:

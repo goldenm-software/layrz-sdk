@@ -3,8 +3,8 @@
 from datetime import datetime
 from typing import Any, List
 
-from .alignment import ChartAlignment
-from .exceptions import ChartException
+from .chart_alignment import ChartAlignment
+from .chart_exceptions import ChartException
 
 
 class TimelineSerieItem:

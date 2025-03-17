@@ -1,78 +1,41 @@
 """Column chart"""
 
-from typing import Any, List
+import sys
+from typing import Any, Dict, List
 
 from layrz_sdk.helpers import convert_to_rgba
 
-from .alignment import ChartAlignment
-from .configuration import AxisConfig
-from .exceptions import ChartException
-from .render_technology import ChartRenderTechnology
-from .serie import ChartDataSerie
-from .serie_type import ChartDataSerieType
+from .axis_config import AxisConfig
+from .chart_alignment import ChartAlignment
+from .chart_render_technology import ChartRenderTechnology
+from .chart_serie import ChartDataSerie
+from .chart_serie_type import ChartDataSerieType
+
+if sys.version_info >= (3, 11):
+  from typing import Self
+else:
+  from typing_extensions import Self
+from pydantic import BaseModel, Field
 
 
-class ColumnChart:
-  """
-  Column chart configuration
+class ColumnChart(BaseModel):
+  """Column chart configuration"""
 
-  """
-
-  def __init__(
-    self,
-    x_axis: ChartDataSerie,
-    y_axis: List[ChartDataSerie],
-    title: str = 'Chart',
-    align: ChartAlignment = ChartAlignment.CENTER,
-    x_axis_config: AxisConfig = None,
-    y_axis_config: AxisConfig = None,
-  ) -> None:
-    """
-    Constructor
-    ----
-    Arguments
-      - x_axis : Defines the X Axis of the chart, uses the ChartDataSerie class.
-                 Please read the documentation to more information.
-      - y_axis : Defines the Y Axis of the chart, uses the ChartDataSerie class.
-                 Please read the documentation to more information.
-      - title : Title of the chart
-      - align : Alignment of the title
-      - x_axis_config : Configuration of the X Axis
-      - y_axis_config : Configuration of the Y Axis
-    """
-    for i, serie in enumerate(y_axis):
-      if not isinstance(serie, ChartDataSerie):
-        raise ChartException(f'Y Axis serie {i} must be an instance of ChartDataSerie')
-    self.y_axis = y_axis
-
-    if not isinstance(x_axis, ChartDataSerie):
-      raise ChartException('X Axis must be an instance of ChartDataSerie')
-    self.x_axis = x_axis
-
-    if not isinstance(title, str):
-      raise ChartException('title must be an instance of str')
-    self.title = title
-
-    if not isinstance(align, ChartAlignment):
-      raise ChartException('align must be an instance of ChartAlignment')
-    self.align = align
-
-    if x_axis_config is None:
-      x_axis_config = AxisConfig()
-
-    if not isinstance(x_axis_config, AxisConfig):
-      raise ChartException('x_axis_config must be an instance of AxisConfig')
-    self.x_axis_config = x_axis_config
-
-    if y_axis_config is None:
-      y_axis_config = AxisConfig()
-
-    if not isinstance(y_axis_config, AxisConfig):
-      raise ChartException('y_axis_config must be an instance of AxisConfig')
-    self.y_axis_config = y_axis_config
+  x_axis: ChartDataSerie = Field(description='Defines the X Axis of the chart')
+  y_axis: List[ChartDataSerie] = Field(description='Defines the Y Axis of the chart', default_factory=list)
+  title: str = Field(default='Chart', description='Title of the chart')
+  align: ChartAlignment = Field(default=ChartAlignment.CENTER, description='Alignment of the title')
+  x_axis_config: AxisConfig = Field(
+    default_factory=lambda: AxisConfig(),
+    description='Configuration of the X Axis',
+  )
+  y_axis_config: AxisConfig = Field(
+    default_factory=lambda: AxisConfig(),
+    description='Configuration of the Y Axis',
+  )
 
   def render(
-    self,
+    self: Self,
     technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
   ) -> Any:
     """
@@ -109,7 +72,7 @@ class ColumnChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_syncfusion_flutter_charts(self) -> Any:
+  def _render_syncfusion_flutter_charts(self: Self) -> Dict[str, Any]:
     """
     Converts the configuration of the chart to Syncfusion Flutter Charts.
     """
@@ -147,7 +110,7 @@ class ColumnChart:
       },
     }
 
-  def _render_graphic(self) -> Any:
+  def _render_graphic(self: Self) -> List[Dict[str, Any]]:
     """
     Converts the configuration of the chart to Flutter library graphic.
     """
@@ -168,18 +131,18 @@ class ColumnChart:
 
     return series
 
-  def _render_apexcharts(self) -> Any:
+  def _render_apexcharts(self: Self) -> Dict[str, Any]:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """
 
     series = []
     colors = []
-    stroke = {'width': [], 'dashArray': []}
+    stroke: Dict[str, Any] = {'width': [], 'dashArray': []}
     markers = []
 
     for serie in self.y_axis:
-      modified_serie = {
+      modified_serie: Dict[str, Any] = {
         'name': serie.label,
       }
       if serie.serie_type == ChartDataSerieType.SCATTER:
