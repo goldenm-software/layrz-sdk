@@ -33,7 +33,9 @@ classifiers = [
 dependencies = [
   "requests",
   "xlsxwriter",
-  "tzdata"
+  "tzdata",
+  "pydantic>=2.10.6",
+  "typing-extensions>=4.12.2",
 ]
 
 [project.urls]
@@ -43,6 +45,15 @@ Changelog = "https://github.com/goldenm-software/layrz-sdk/blob/main/CHANGELOG.m
 [build-system]
 requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    "build>=1.2.2.post1",
+    "mypy>=1.15.0",
+    "ruff>=0.11.0",
+    "twine>=6.1.0",
+]
+
 
 [tool.ruff]
 indent-width = 2
@@ -55,13 +66,6 @@ ignore = [
   "F401", # Unused import
   "E701", # Multiple statements on one line
   "TD003", # Missing issue link
-  'ANN401', # Type Any has no effect
-  'ANN101', # Missing type annotation for self
-]
-
-exclude = [
-  ".venv",
-  "test.py"
 ]
 
 select = [
@@ -74,10 +78,19 @@ select = [
   "DTZ", # flake8-datetimez
   "T20", # flake8-print # En un futuro
   "PYI", # flake8-pyi
-  "ANN", # flake8-annotations
+  # "ANN", # flake8-annotations
 ]
 
 [tool.ruff.format]
 quote-style = "single"
 indent-style = "space"
 docstring-code-format = true
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+ignore_missing_imports = true
+check_untyped_defs = true
+disallow_untyped_defs = true
+warn_unused_ignores = true
+exclude = "(\\.venv|\\.ruff_cache|\\.mypy_cache)"

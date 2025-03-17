@@ -1,73 +1,72 @@
 """Init file"""
 
-# Broadcast entities
-from .broadcasts import BroadcastRequest, BroadcastResponse, BroadcastResult, BroadcastStatus, OutboundService
+from .asset import Asset
+from .asset_operation_mode import AssetOperationMode
+from .broadcast_request import BroadcastRequest
+from .broadcast_response import BroadcastResponse
+from .broadcast_result import BroadcastResult
+from .broadcast_status import BroadcastStatus
+from .case import Case
+from .case_ignored_status import CaseIgnoredStatus
+from .case_status import CaseStatus
+from .checkpoint import Checkpoint
+from .comment import Comment
+from .custom_field import CustomField
+from .custom_report_page import CustomReportPage
+from .device import Device
+from .event import Event
+from .geofence import Geofence
+from .last_message import LastMessage
+from .message import Message, PayloadType
+from .outbound_service import OutboundService
+from .position import Position
+from .report import Report
+from .report_col import ReportCol
+from .report_configuration import ReportConfiguration
+from .report_data_type import ReportDataType
+from .report_format import ReportFormat
+from .report_header import ReportHeader
+from .report_page import ReportPage
+from .report_row import ReportRow
+from .sensor import Sensor
+from .text_alignment import TextAlignment
+from .trigger import Trigger
+from .user import User
+from .waypoint import Waypoint
 
-# Cases entitites
-from .cases import Case, CaseIgnoredStatus, CaseStatus, Comment, Trigger
-
-# Charts entities
-from .charts import (
-  AreaChart,
-  AxisConfig,
-  BarChart,
-  ChartAlignment,
-  ChartColor,
-  ChartConfiguration,
-  ChartDataSerie,
-  ChartDataSerieType,
-  ChartDataType,
-  ChartException,
-  ChartRenderTechnology,
-  ColumnChart,
-  HTMLChart,
-  LineChart,
-  MapCenterType,
-  MapChart,
-  MapPoint,
-  NumberChart,
-  PieChart,
-  RadarChart,
-  RadialBarChart,
-  ScatterChart,
-  ScatterSerie,
-  ScatterSerieItem,
-  TableChart,
-  TableHeader,
-  TableRow,
-  TimelineChart,
-  TimelineSerie,
-  TimelineSerieItem,
-  get_color_list,
-)
-
-# Checkpoints entities
-from .checkpoints import Checkpoint, Waypoint
-
-# Events entities
-from .events import Event
-
-# Formatting entities
-from .formatting import TextAlignment
-
-# General entities
-from .general import Asset, AssetOperationMode, CustomField, Device, Geofence, PresenceType, Sensor, User
-
-# REPCOM entities
-from .repcom import Transaction
-
-# Reports entities
-from .reports import (
-  CustomReportPage,
-  Report,
-  ReportCol,
-  ReportConfiguration,
-  ReportDataType,
-  ReportFormat,
-  ReportHeader,
-  ReportPage,
-  ReportRow,
-)
-
-# Telemetry entities
-from .telemetry import LastMessage, Message, Position
+__all__ = [
+  'Asset',
+  'AssetOperationMode',
+  'CustomField',
+  'Device',
+  'Geofence',
+  'LastMessage',
+  'Message',
+  'Position',
+  'Sensor',
+  'User',
+  'BroadcastRequest',
+  'BroadcastResponse',
+  'BroadcastResult',
+  'BroadcastStatus',
+  'OutboundService',
+  'CaseIgnoredStatus',
+  'CaseStatus',
+  'Trigger',
+  'Comment',
+  'Case',
+  'Event',
+  'Waypoint',
+  'Checkpoint',
+  'TextAlignment',
+  'ReportDataType',
+  'ReportCol',
+  'ReportFormat',
+  'ReportHeader',
+  'ReportRow',
+  'ReportPage',
+  'CustomReportPage',
+  'Report',
+  'ReportConfiguration',
+  'PayloadType',
+]
