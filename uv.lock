@@ -341,7 +341,7 @@ dev = [
 requires-dist = [
     { name = "pydantic", specifier = ">=2.10.6" },
     { name = "requests" },
-    { name = "typing-extensions", specifier = ">=4.12.2" },
+    { name = "typing-extensions", specifier = ">=4.10.0" },
     { name = "tzdata" },
     { name = "xlsxwriter" },
 ]

@@ -1,11 +1,11 @@
 [project]
 name = "layrz-sdk"
-version = "3.0.14"
+version = "3.1.0"
 description = "Layrz SDK for Python"
 authors = [
   {name = "Golden M, Inc.", email = "software@goldenm.com"}
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.10, <3.14"
 
 maintainers = [
   {name = "Kenny Mochizuki", email = "kenny@goldenm.com"},
@@ -29,13 +29,14 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
   "requests",
   "xlsxwriter",
   "tzdata",
   "pydantic>=2.10.6",
-  "typing-extensions>=4.12.2",
+  "typing-extensions>=4.10.0",
 ]
 
 [project.urls]
