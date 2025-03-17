@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.1
+
+- Small fixes on some models to backwards compatibility
+
 ## 3.1.0
 
 - Migrated all models to Pydantic

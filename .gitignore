@@ -15,3 +15,5 @@ tests.py
 .ruff_cache
 .mypy_cache
 .pytest_cache
+
+.env
