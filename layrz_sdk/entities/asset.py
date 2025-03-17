@@ -26,7 +26,7 @@ class Asset(BaseModel):
     description='Defines the serial number of the asset, may be an VIN, or any other unique identifier',
   )
   plate: Optional[str] = Field(default=None, description='Defines the plate number of the asset')
-  asset_type: int = Field(description='Defines the type of the asset', alias='kind_id')
+  asset_type: Optional[int] = Field(description='Defines the type of the asset', alias='kind_id', default=None)
   operation_mode: AssetOperationMode = Field(description='Defines the operation mode of the asset')
   sensors: List[Sensor] = Field(default_factory=list, description='Defines the list of sensors of the asset')
   custom_fields: List[CustomField] = Field(

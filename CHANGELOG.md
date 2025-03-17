@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.2
+
+- Setted as optional the `asset_type` argument in `Asset` class
+
 ## 3.1.1
 
 - Small fixes on some models to backwards compatibility
