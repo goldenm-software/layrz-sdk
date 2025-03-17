@@ -14,7 +14,7 @@ class CaseIgnoredStatus(Enum):
 
   NORMAL = 'NORMAL'
   IGNORED = 'IGNORED'
-  PRESSET = 'PRESSET'
+  PRESET = 'PRESET'
   AUTO = 'AUTO'
 
   def __str__(self: Self) -> str:
