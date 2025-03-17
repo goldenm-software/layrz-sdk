@@ -26,8 +26,8 @@ jobs:
       - name: Lint
         run: |
           uv sync --only-group dev
-          uvx ruff check
-          uvx mypy .
+          uv run ruff check
+          uv run mypy .
 
   uniitest:
     needs: lint
@@ -46,5 +46,5 @@ jobs:
       - name: Install dependencies
         run: |
           uv sync
-          uv run python -m unittest discover -s tests -v
+          uv run pytest ./tests/
 
