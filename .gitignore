@@ -11,3 +11,7 @@
 
 tests.py
 *.xlsx
+
+.ruff_cache
+.mypy_cache
+.pytest_cache
