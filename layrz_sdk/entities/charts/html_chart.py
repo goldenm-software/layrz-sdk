@@ -19,8 +19,9 @@ class HTMLChart(BaseModel):
 
   def render(self: Self) -> Dict[str, Any]:
     """
-    Render chart to a Javascript Library.
-    Currently only available for HTML.
+    Render chart to a graphic Library.
+    :param technology: The technology to use to render the chart.
+    :return: The configuration of the chart.
     """
     return {'library': 'HTML', 'configuration': self._render_html()}
 

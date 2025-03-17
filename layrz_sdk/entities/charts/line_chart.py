@@ -8,10 +8,10 @@ from pydantic import BaseModel, Field
 
 from .axis_config import AxisConfig
 from .chart_alignment import ChartAlignment
+from .chart_data_serie import ChartDataSerie
+from .chart_data_serie_type import ChartDataSerieType
 from .chart_data_type import ChartDataType
 from .chart_render_technology import ChartRenderTechnology
-from .chart_serie import ChartDataSerie
-from .chart_serie_type import ChartDataSerieType
 
 if sys.version_info >= (3, 11):
   from typing import Self
@@ -40,10 +40,8 @@ class LineChart(BaseModel):
   def render(self: Self, technology: ChartRenderTechnology) -> Dict[str, Any]:
     """
     Render chart to a graphic Library.
-    We have two graphic libraries: GRAPHIC and CANVASJS.
-
-    GRAPHIC is a Flutter chart library. To return this option, use the parameter use_new_definition=True.
-    CANVASJS is a Javascript chart library. This is the default option.
+    :param technology: The technology to use to render the chart.
+    :return: The configuration of the chart.
     """
 
     if technology == ChartRenderTechnology.GRAPHIC:

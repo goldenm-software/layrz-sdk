@@ -1,6 +1,12 @@
 """Chart rendering technology / library"""
 
+import sys
 from enum import Enum
+
+if sys.version_info >= (3, 11):
+  from typing import Self
+else:
+  from typing_extensions import Self
 
 
 class ChartRenderTechnology(Enum):
@@ -15,15 +21,10 @@ class ChartRenderTechnology(Enum):
   APEX_CHARTS = 'APEX_CHARTS'
   FLUTTER = 'FLUTTER'
 
-  @property
-  def _readable(self) -> str | None | bool:
-    """Readable"""
+  def __str__(self: Self) -> str:
+    """Readable property"""
+    return self.name
+
+  def __repr__(self: Self) -> str:
+    """Readable property"""
     return f'ChartRenderTechnology.{self.value}'
-
-  def __str__(self) -> str | None | bool:
-    """Readable property"""
-    return self._readable
-
-  def __repr__(self) -> str | None | bool:
-    """Readable property"""
-    return self._readable

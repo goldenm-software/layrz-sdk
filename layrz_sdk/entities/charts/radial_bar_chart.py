@@ -1,75 +1,55 @@
-"""Pie chart"""
+"""Radial Bar chart"""
 
-from typing import Any, List
+import sys
+from typing import Any, Dict, List
+
+from pydantic import BaseModel, Field
 
 from .chart_alignment import ChartAlignment
+from .chart_data_serie import ChartDataSerie
 from .chart_render_technology import ChartRenderTechnology
-from .chart_serie import ChartDataSerie
+
+if sys.version_info >= (3, 11):
+  from typing import Self
+else:
+  from typing_extensions import Self
 
 
-class PieChart:
-  """
-  Pie chart configuration
-  """
+class RadialBarChart(BaseModel):
+  """Radial Bar chart configuration"""
 
-  def __init__(
-    self,
-    series: List[ChartDataSerie],
-    title: str = 'Chart',
-    align: ChartAlignment = ChartAlignment.CENTER,
-  ) -> None:
-    """
-    Constructor
-    ----
-    Arguments
-      series : Defines the series of the chart, uses the ChartDataSerie class.
-               Please read the documentation to more information.
-      title : Title of the chart.
-      align : Alignment of the chart.
-    """
-    for i, serie in enumerate(series):
-      if not isinstance(serie, ChartDataSerie):
-        raise ChartException(f'Y Axis serie {i} must be an instance of ChartDataSerie')
-    self.series = series
-
-    if not isinstance(title, str):
-      raise ChartException('title must be an instance of str')
-    self.title = title
-
-    if not isinstance(align, ChartAlignment):
-      raise ChartException('align must be an instance of ChartAlignment')
-    self.align = align
+  series: List[ChartDataSerie] = Field(description='List of series to be displayed in the chart', default_factory=list)
+  title: str = Field(description='Title of the chart', default='Chart')
+  align: ChartAlignment = Field(description='Alignment of the chart', default=ChartAlignment.CENTER)
 
   def render(
-    self,
+    self: Self,
     technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
-  ) -> Any:
+  ) -> Dict[str, Any]:
     """
     Render chart to a graphic Library.
-    We have two graphic libraries: GRAPHIC and CANVASJS.
-
-    GRAPHIC is a Flutter chart library. To return this option, use the parameter use_new_definition=True.
-    CANVASJS is a Javascript chart library. This is the default option.
+    :param technology: The technology to use to render the chart.
+    :return: The configuration of the chart.
     """
     if technology == ChartRenderTechnology.GRAPHIC:
       return {
         'library': 'GRAPHIC',
-        'chart': 'PIE',
+        'chart': 'RADIALBAR',
         'configuration': self._render_graphic(),
-      }
-
-    if technology == ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS:
-      return {
-        'library': 'SYNCFUSION_FLUTTER_CHARTS',
-        'chart': 'PIE',
-        'configuration': self._render_syncfusion_flutter_charts(),
       }
 
     if technology == ChartRenderTechnology.APEX_CHARTS:
       return {
         'library': 'APEXCHARTS',
-        'chart': 'PIE',
+        'chart': 'RADIALBAR',
         'configuration': self._render_apexcharts(),
+      }
+
+    if technology == ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS:
+      return {
+        'library': 'SYNCFUSION_FLUTTER_CHARTS',
+        'chart': 'RADIALBAR',
+        'configuration': self._render_syncfusion_flutter_charts(),
       }
 
     return {
@@ -136,7 +116,7 @@ class PieChart:
         'style': {'fontFamily': 'Fira Sans Condensed', 'fontSize': '20px', 'fontWeight': 'normal'},
       },
       'chart': {
-        'type': 'pie',
+        'type': 'radialBar',
         'animations': {'enabled': False},
         'toolbar': {'show': False},
         'zoom': {'enabled': False},

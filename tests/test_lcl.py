@@ -1,11 +1,13 @@
-"""Test LCL functions"""
-
 import json
 from datetime import datetime
 from typing import Any
 
+import pytest
+
 from layrz_sdk.constants import UTC
 from layrz_sdk.lcl.core import LclCore
+
+"""Test LCL functions"""
 
 
 def _process_and_convert(lcl: LclCore) -> Any:

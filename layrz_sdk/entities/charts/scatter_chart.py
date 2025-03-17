@@ -1,129 +1,45 @@
 """Scatter chart"""
 
-from typing import Any, List
+import sys
+from typing import Any, Dict, List
+
+from pydantic import BaseModel, Field
 
 from .axis_config import AxisConfig
 from .chart_alignment import ChartAlignment
-from .chart_exceptions import ChartException
+from .chart_data_serie_type import ChartDataSerieType
 from .chart_render_technology import ChartRenderTechnology
-from .chart_serie_type import ChartDataSerieType
+from .scatter_serie import ScatterSerie
+
+if sys.version_info >= (3, 11):
+  from typing import Self
+else:
+  from typing_extensions import Self
 
 
-class ScatterSerieItem:
-  """
-  Chart Data Serie Item for Scatter Charts
-  """
+class ScatterChart(BaseModel):
+  """Scatter chart configuration"""
 
-  def __init__(self, x: float, y: float) -> None:
-    """
-    Constructor
-
-    Args
-    ----
-      x : X value of the item.
-      y : Y value of the item.
-    """
-    self.x = x
-    self.y = y
-
-
-class ScatterSerie:
-  """
-  Chart Data Serie for Timeline charts
-  """
-
-  def __init__(
-    self,
-    data: List[ScatterSerieItem],
-    color: str,
-    label: str,
-    serie_type: ChartDataSerieType = ChartDataSerieType.SCATTER,
-  ) -> None:
-    """
-    Constructor
-    ----
-    Arguments
-      data : List of data points.
-      color : Color of the serie.
-      label : Label of the serie.
-    """
-    for i, datum in enumerate(data):
-      if not isinstance(datum, ScatterSerieItem):
-        raise ChartException(f'Y Axis serie {i} must be an instance of ChartDataSerie')
-    self.data = data
-
-    if not isinstance(color, str):
-      raise ChartException('color must be an instance of str')
-    self.color = color
-
-    if not isinstance(label, str):
-      raise ChartException('label must be an instance of str')
-    self.label = label
-
-    if not isinstance(serie_type, ChartDataSerieType):
-      raise ChartException('serie_type must be an instance of ChartDataSerieType')
-    self.serie_type = serie_type
-
-
-class ScatterChart:
-  """
-  Scatter chart configuration
-  """
-
-  def __init__(
-    self,
-    series: List[ScatterSerie],
-    title: str = 'Chart',
-    align: ChartAlignment = ChartAlignment.CENTER,
-    x_axis_config: AxisConfig = None,
-    y_axis_config: AxisConfig = None,
-  ) -> None:
-    """
-    Constructor
-    ----
-    Arguments
-      series : Defines the series of the chart, uses the ScatterSerie class.
-               Please read the documentation to more information.
-      title : Title of the chart.
-      align : Alignment of the chart.
-    """
-    for i, serie in enumerate(series):
-      if not isinstance(serie, ScatterSerie):
-        raise ChartException(f'Y Axis serie {i} must be an instance of ScatterSerie')
-    self.series = series
-
-    if not isinstance(title, str):
-      raise ChartException('title must be an instance of str')
-    self.title = title
-
-    if not isinstance(align, ChartAlignment):
-      raise ChartException('align must be an instance of ChartAlignment')
-    self.align = align
-
-    if x_axis_config is None:
-      x_axis_config = AxisConfig(label='', measure_unit='')
-
-    if not isinstance(x_axis_config, AxisConfig):
-      raise ChartException('x_axis_config must be an instance of AxisConfig')
-    self.x_axis_config = x_axis_config
-
-    if y_axis_config is None:
-      y_axis_config = AxisConfig(label='', measure_unit='')
-
-    if not isinstance(y_axis_config, AxisConfig):
-      raise ChartException('y_axis_config must be an instance of AxisConfig')
-    self.y_axis_config = y_axis_config
+  series: List[ScatterSerie] = Field(description='List of series to be displayed in the chart', default_factory=list)
+  title: str = Field(description='Title of the chart', default='Chart')
+  align: ChartAlignment = Field(description='Alignment of the chart', default=ChartAlignment.CENTER)
+  x_axis_config: AxisConfig = Field(
+    default_factory=lambda: AxisConfig(),
+    description='Configuration of the X Axis',
+  )
+  y_axis_config: AxisConfig = Field(
+    default_factory=lambda: AxisConfig(),
+    description='Configuration of the Y Axis',
+  )
 
   def render(
-    self,
+    self: Self,
     technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
-  ) -> Any:
+  ) -> Dict[str, Any]:
     """
     Render chart to a graphic Library.
-    We have two graphic libraries: GRAPHIC and APEXCHARTS.
-
-    GRAPHIC is a Flutter chart library. To return this option, use the parameter use_new_definition=True.
-    APEXCHARTS is a Javascript chart library. This is the default option.
+    :param technology: The technology to use to render the chart.
+    :return: The configuration of the chart.
     """
     if technology == ChartRenderTechnology.GRAPHIC:
       return {
@@ -152,7 +68,7 @@ class ScatterChart:
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_syncfusion_flutter_charts(self) -> Any:
+  def _render_syncfusion_flutter_charts(self: Self) -> Dict[str, Any]:
     """
     Converts the configuration of the chart to Flutter library Graphic.
     """
@@ -210,7 +126,7 @@ class ScatterChart:
       },
     }
 
-  def _render_graphic(self) -> Any:
+  def _render_graphic(self: Self) -> List[Dict[str, Any]]:
     """
     Converts the configuration of the chart to Flutter library Graphic.
     """
@@ -247,7 +163,7 @@ class ScatterChart:
 
     return series
 
-  def _render_apexcharts(self) -> Any:
+  def _render_apexcharts(self: Self) -> Dict[str, Any]:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """

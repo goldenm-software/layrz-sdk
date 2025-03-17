@@ -5,7 +5,7 @@
 - Migrated all models to Pydantic
 - Removed models `Transaction`.
 - Added `mypy` to the project to enforce type checking
-
+- Migrated from `uniitest` to `pytest` to the project to enforce unit testing
 
 ## 3.0.14
 

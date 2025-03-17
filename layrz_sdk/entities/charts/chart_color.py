@@ -2,7 +2,7 @@
 
 import sys
 from enum import Enum
-from typing import Any
+from typing import Any, List
 
 if sys.version_info >= (3, 11):
   from typing import Self
@@ -33,7 +33,12 @@ class ChartColor(Enum):
     """Readable property"""
     return f'ChartColor.{self.name}'
 
+  @staticmethod
+  def get_colors() -> List[str]:
+    """Get a color from the list"""
+    return [color.value for color in ChartColor]
 
-def get_color_list() -> Any:
+
+def get_color_list() -> List[str]:
   """Get all colors"""
-  return [color.value for color in ChartColor]
+  return ChartColor.get_colors()
