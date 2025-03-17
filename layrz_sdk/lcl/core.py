@@ -1,7 +1,9 @@
 """Layrz Compute Language SDK"""
 
 # ruff: noqa: ANN401
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
+
+from layrz_sdk.entities.message import PayloadType
 
 PATTERN_INVALID = 'Pattern should be string, received {received}'
 INVALID_NUMBER_OF_PARAMS = 'Invalid number of arguments - Expected {expected} - Given {received}'
@@ -16,41 +18,51 @@ class LclCore:
   def __init__(
     self,
     script: str = '',
-    sensors: Dict = None,
-    previous_sensors: Dict = None,
-    payload: Dict = None,
-    asset_constants: Dict = None,
-    custom_fields: Dict = None,
+    sensors: Optional[PayloadType] = None,
+    previous_sensors: Optional[PayloadType] = None,
+    payload: Optional[PayloadType] = None,
+    asset_constants: Optional[Dict[str, Any]] = None,
+    custom_fields: Optional[Dict[str, Any]] = None,
   ) -> None:
     """
     Creates a new instance of LclCore
-    ---
-    Arguments
-      - script: Is the LCL script to be executed
-      - sensors: Is the current sensor data
-      - previous_sensors: Is the previous sensor data
-      - payload: Is the payload data
-      - asset_constants: Is the asset constants data
-      - custom_fields: Is the custom fields data
+    :param script: Script to be executed
+    :param sensors: Sensors dictionary
+    :param previous_sensors: Previous sensors dictionary
+    :param payload: Payload dictionary
+    :param asset_constants: Asset constants dictionary
+    :param custom_fields: Custom fields dictionary
     """
+    if sensors is None:
+      sensors = {}
+
     self._sensors = sensors
+    if previous_sensors is None:
+      previous_sensors = {}
     self._previous_sensors = previous_sensors
+    if payload is None:
+      payload = {}
     self._payload = payload
+
+    if asset_constants is None:
+      asset_constants = {}
     self._asset_constants = asset_constants
+
+    if custom_fields is None:
+      custom_fields = {}
     self._custom_fields = custom_fields
+
     self._script = script
 
   def perform(
     self,
-    additional_globals: Dict = None,
-    additional_locals: Dict = None,
+    additional_globals: Optional[Dict[str, Any]] = None,
+    additional_locals: Optional[Dict[str, Any]] = None,
   ) -> str:
     """
     Perform script using Layrz Compute Language
-    ---
-    Arguments
-      - additional_globals: Additional global variables and functions
-      - additional_locals: Additional local variables
+    :param additional_globals: Additional global variables
+    :param additional_locals: Additional local variables
     """
     try:
       local_variables = {
@@ -151,14 +163,14 @@ class LclCore:
       return None
 
     if len(args) > 1:
-      return self._payload.get(args[0], args[1])
-    return self._payload.get(args[0], None)
+      return self._payload.get(args[0], args[1])  # type: ignore
+    return self._payload.get(args[0], None)  # type: ignore
 
   def GET_DISTANCE_TRAVELED(self, *args: List[Any]) -> str | float:
     """GET_DISTANCE_TRAVELED Function"""
     if len(args) > 0:
       return INVALID_NUMBER_OF_PARAMS.format(expected=0, received=len(args))
-    return self._asset_constants.get('distanceTraveled', 0)
+    return self._asset_constants.get('distanceTraveled', 0)  # type: ignore
 
   def GET_PREVIOUS_SENSOR(self, *args: List[Any]) -> Any:
     """GET_PREVIOUS_SENSOR Function"""
@@ -172,8 +184,8 @@ class LclCore:
       return None
 
     if len(args) > 1:
-      return self._previous_sensors.get(args[0], args[1])
-    return self._previous_sensors.get(args[0], None)
+      return self._previous_sensors.get(args[0], args[1])  # type: ignore
+    return self._previous_sensors.get(args[0], None)  # type: ignore
 
   def GET_SENSOR(self, *args: List[Any]) -> Any:
     """GET_SENSOR Function"""
@@ -187,8 +199,8 @@ class LclCore:
       return None
 
     if len(args) > 1:
-      return self._sensors.get(args[0], args[1])
-    return self._sensors.get(args[0], None)
+      return self._sensors.get(args[0], args[1])  # type: ignore
+    return self._sensors.get(args[0], None)  # type: ignore
 
   def CONSTANT(self, *args: List[Any]) -> Any:
     """CONSTANT Function"""
@@ -205,9 +217,9 @@ class LclCore:
       return None
 
     if len(args) > 1:
-      return self._custom_fields.get(args[0], args[1])
+      return self._custom_fields.get(args[0], args[1])  # type: ignore
 
-    return self._custom_fields.get(args[0], '')
+    return self._custom_fields.get(args[0], '')  # type: ignore
 
   def COMPARE(self, *args: List[Any]) -> str | None | bool:
     """COMPARE Function"""
@@ -217,7 +229,7 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
-    args = self._standarize_datatypes(args)
+    args = self._standarize_datatypes(args)  # type: ignore
 
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
@@ -246,7 +258,7 @@ class LclCore:
 
       if is_first:
         is_first = False
-        result = val
+        result = val  # type: ignore
       elif isinstance(val, bool):
         result = result and val
 
@@ -261,7 +273,7 @@ class LclCore:
         return None
 
       try:
-        result += float(num)
+        result += float(num)  # type: ignore
       except Exception:
         pass
 
@@ -278,10 +290,10 @@ class LclCore:
 
       try:
         if is_first:
-          result = float(num)
+          result = float(num)  # type: ignore
           is_first = False
         else:
-          result -= float(num)
+          result -= float(num)  # type: ignore
       except Exception:
         pass
 
@@ -299,9 +311,9 @@ class LclCore:
       try:
         if is_first:
           is_first = False
-          result = float(num)
+          result = float(num)  # type: ignore
         else:
-          result *= float(num)
+          result *= float(num)  # type: ignore
       except Exception:
         pass
 
@@ -319,9 +331,9 @@ class LclCore:
       try:
         if is_first:
           is_first = False
-          result = float(num)
+          result = float(num)  # type: ignore
         else:
-          result /= float(num)
+          result /= float(num)  # type: ignore
       except Exception:
         pass
 
@@ -355,7 +367,7 @@ class LclCore:
     if args[0] is None:
       return None
 
-    return int(args[0])
+    return int(args[0])  # type: ignore
 
   def CEIL(self, *args: List[Any]) -> str | None | int:
     """CEIL Function"""
@@ -410,7 +422,7 @@ class LclCore:
 
     import math
 
-    return math.sqrt(args[0])
+    return math.sqrt(args[0])  # type: ignore
 
   def CONCAT(self, *args: List[Any]) -> str | None:
     """CONCAT Function"""
@@ -432,7 +444,7 @@ class LclCore:
 
     import random
 
-    return random.random() * (float(args[1]) - float(args[0])) + float(args[0])
+    return random.random() * (float(args[1]) - float(args[0])) + float(args[0])  # type: ignore
 
   def RANDOM_INT(self, *args: List[Any]) -> int | str:
     """RANDOM_INT Function"""
@@ -444,7 +456,7 @@ class LclCore:
 
     import random
 
-    return random.randint(int(args[0]), int(args[1]))
+    return random.randint(int(args[0]), int(args[1]))  # type: ignore
 
   def GREATER_THAN_OR_EQUALS_TO(self, *args: List[Any]) -> str | None | bool:
     """GREATER_THAN_OR_EQUALS_TO Function"""
@@ -456,7 +468,7 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
-    args = self._standarize_datatypes(args)
+    args = self._standarize_datatypes(args)  # type: ignore
 
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
@@ -472,7 +484,7 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
-    args = self._standarize_datatypes(args)
+    args = self._standarize_datatypes(args)  # type: ignore
 
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
@@ -488,7 +500,7 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
-    args = self._standarize_datatypes(args)
+    args = self._standarize_datatypes(args)  # type: ignore
 
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
@@ -504,7 +516,7 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
-    args = self._standarize_datatypes(args)
+    args = self._standarize_datatypes(args)  # type: ignore
 
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
@@ -520,7 +532,7 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
-    args = self._standarize_datatypes(args)
+    args = self._standarize_datatypes(args)  # type: ignore
 
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
@@ -535,11 +547,11 @@ class LclCore:
       return None
 
     hexa = args[0]
-    if hexa.startswith('0x'):
+    if hexa.startswith('0x'):  # type: ignore
       hexa = hexa[2:]
 
     try:
-      byte_array = bytes.fromhex(hexa)
+      byte_array = bytes.fromhex(hexa)  # type: ignore
       return byte_array.decode('ASCII')
     except Exception:
       return 'Invalid hex string'
@@ -563,7 +575,7 @@ class LclCore:
       return None
 
     try:
-      return int(int(args[0], 16))
+      return int(int(args[0], 16))  # type: ignore
     except Exception:
       return 'Invalid hex string'
 
@@ -576,7 +588,7 @@ class LclCore:
       return None
 
     try:
-      return hex(int(args[0]))[2:]
+      return hex(int(args[0]))[2:]  # type: ignore
     except Exception:
       return 'Invalid int value'
 
@@ -589,7 +601,7 @@ class LclCore:
       return None
 
     try:
-      return float(args[0])
+      return float(args[0])  # type: ignore
     except Exception:
       return f'Invalid arguments - must be real number, not {type(args[0]).__name__}'
 
@@ -601,7 +613,7 @@ class LclCore:
     if args[0] is None:
       return None
 
-    return args[0] in self._payload
+    return args[0] in self._payload  # type: ignore
 
   def IS_SENSOR_PRESENT(self, *args: List[Any]) -> str | bool:
     """IS_SENSOR_PRESENT Function"""
@@ -611,7 +623,7 @@ class LclCore:
     if args[0] is None:
       return None
 
-    return args[0] in self._sensors
+    return args[0] in self._sensors  # type: ignore
 
   def INSIDE_RANGE(self, *args: List[Any]) -> str | None | bool:
     """INSIDE_RANGE Function"""
@@ -621,7 +633,7 @@ class LclCore:
     if args[0] is None or args[1] is None or args[2] is None:
       return None
 
-    args = self._standarize_datatypes(args)
+    args = self._standarize_datatypes(args)  # type: ignore
 
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES_RANGES.format(
@@ -640,7 +652,7 @@ class LclCore:
     if args[0] is None or args[1] is None or args[2] is None:
       return None
 
-    args = self._standarize_datatypes(args)
+    args = self._standarize_datatypes(args)  # type: ignore
 
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES_RANGES.format(
@@ -656,7 +668,7 @@ class LclCore:
     if len(args) > 0:
       return INVALID_NUMBER_OF_PARAMS.format(expected=0, received=len(args))
 
-    return self._asset_constants.get('timeElapsed', 0)
+    return self._asset_constants.get('timeElapsed', 0)  # type: ignore
 
   def IF(self, *args: list[Any]) -> Any:
     """IF Function"""
@@ -743,7 +755,7 @@ class LclCore:
     if len(args) > 0:
       return INVALID_NUMBER_OF_PARAMS.format(expected=0, received=len(args))
 
-    return self._asset_constants.get('primaryDevice', None)
+    return self._asset_constants.get('primaryDevice', None)  # type: ignore
 
   def SUBSTRING(self, *args: List[Any]) -> str:
     """Get a substring from string (args[0])"""
@@ -802,11 +814,11 @@ class LclCore:
         return None
 
       try:
-        tz = zoneinfo.ZoneInfo(args[2])
+        tz = zoneinfo.ZoneInfo(args[2])  # type: ignore
       except zoneinfo.ZoneInfoNotFoundError:
         tz = zoneinfo.ZoneInfo('UTC')
 
-    return datetime.fromtimestamp(int(args[0]), tz=zoneinfo.ZoneInfo('UTC')).astimezone(tz).strftime(args[1])
+    return datetime.fromtimestamp(int(args[0]), tz=zoneinfo.ZoneInfo('UTC')).astimezone(tz).strftime(args[1])  # type: ignore
 
   def VERSION(self, *args: List[Any]) -> str:
     """VERSION function"""

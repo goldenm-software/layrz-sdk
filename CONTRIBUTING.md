@@ -3,9 +3,11 @@
 As an open source project, we welcomes contributions of many forms.
 
 ## To request a Merge Request
+
 Please follow the next structure of your request:
 
 ### Title
+
 A short description of your feature/fix
 
 Also, add this prefix in the title according to the scenario:
@@ -17,6 +19,7 @@ Also, add this prefix in the title according to the scenario:
 | `docs/` | Documentation related changes |
 
 ### Description
+
 Explain your feature/fix request and why we should be approve.
 
 Be explicit and precise with your submission, that helps us to review and approve your request.
