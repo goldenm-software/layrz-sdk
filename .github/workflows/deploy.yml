@@ -26,6 +26,7 @@ jobs:
       
       - name: Build
         run: |
+          uv venv --python 3.13
           uv sync --only-group dev
           uv run python -m build
         
