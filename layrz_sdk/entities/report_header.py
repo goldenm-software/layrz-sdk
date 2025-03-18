@@ -16,7 +16,7 @@ class ReportHeader(BaseModel):
   text_color: Optional[str] = Field(description='Header text color', default=None)
   align: TextAlignment = Field(description='Header text alignment', default=TextAlignment.CENTER)
   bold: bool = Field(description='Bold text', default=False)
-  width: Optional[int] = Field(description='Header width', default=None)
+  width: Optional[float] = Field(description='Header width', default=None)
 
   @field_validator('text_color', mode='before')
   def _validate_text_color(cls, value: Any) -> Any:

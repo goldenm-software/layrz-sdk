@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.5
+
+- Changed `width` on `ReportHeader` from `int` to `float` due to backwards compatibility
+
 ## 3.1.4
 
 - Fixed iteration searching for the primary device on `Asset` class
