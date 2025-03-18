@@ -3,7 +3,7 @@
 import sys
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 if sys.version_info >= (3, 11):
   from typing import Self
@@ -26,7 +26,7 @@ class Asset(BaseModel):
     description='Defines the serial number of the asset, may be an VIN, or any other unique identifier',
   )
   plate: Optional[str] = Field(default=None, description='Defines the plate number of the asset')
-  asset_type: int = Field(description='Defines the type of the asset')
+  asset_type: Optional[int] = Field(description='Defines the type of the asset', alias='kind_id', default=None)
   operation_mode: AssetOperationMode = Field(description='Defines the operation mode of the asset')
   sensors: List[Sensor] = Field(default_factory=list, description='Defines the list of sensors of the asset')
   custom_fields: List[CustomField] = Field(
@@ -38,20 +38,18 @@ class Asset(BaseModel):
   @model_validator(mode='before')
   def _validate_model(cls: Self, data: Dict[str, Any]) -> Dict[str, Any]:
     """Validate model"""
-    operation_mode = data.get('operation_mode')
-    if operation_mode == AssetOperationMode.ASSETMULTIPLE:
+    operation_mode: Optional[str] = data.get('operation_mode')
+    if operation_mode == AssetOperationMode.ASSETMULTIPLE.name:
       data['devices'] = []
 
-    elif operation_mode == AssetOperationMode.SINGLE:
+    elif operation_mode == AssetOperationMode.SINGLE.name:
       primary: Optional[Device] = None
       for device in data['devices']:
         if device.is_primary:
           primary = device
           break
-
-      if not primary:
-        raise ValueError('Single asset must have a primary device')
-      data['devices'] = [primary]
+      if primary is not None:
+        data['devices'] = [primary]
 
     else:
       data['children'] = []
