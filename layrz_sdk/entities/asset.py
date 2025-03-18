@@ -44,10 +44,11 @@ class Asset(BaseModel):
 
     elif operation_mode == AssetOperationMode.SINGLE.name:
       primary: Optional[Device] = None
-      for device in data['devices']:
+      for device in data.get('devices', []):
         if device.is_primary:
           primary = device
           break
+
       if primary is not None:
         data['devices'] = [primary]
 

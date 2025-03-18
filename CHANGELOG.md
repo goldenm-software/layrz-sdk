@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.4
+
+- Fixed iteration searching for the primary device on `Asset` class
+
 ## 3.1.3
 
 - Fixes on `Asset` entity validation, found by @simonjrojas!
@@ -7,6 +11,7 @@
 ## 3.1.2
 
 - Set as optional the `asset_type` argument in `Asset` class
+
 ## 3.1.1
 
 - Small fixes on some models to backwards compatibility
