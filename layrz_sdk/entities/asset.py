@@ -3,7 +3,7 @@
 import sys
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import BaseModel, Field, model_validator
 
 if sys.version_info >= (3, 11):
   from typing import Self
