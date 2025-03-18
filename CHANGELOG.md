@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.3
+
+- Fixes on `Asset` entity validation, found by @simonjrojas!
+
 ## 3.1.2
 
 - Setted as optional the `asset_type` argument in `Asset` class
