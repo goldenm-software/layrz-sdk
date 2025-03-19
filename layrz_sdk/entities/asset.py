@@ -42,16 +42,6 @@ class Asset(BaseModel):
     if operation_mode == AssetOperationMode.ASSETMULTIPLE.name:
       data['devices'] = []
 
-    elif operation_mode == AssetOperationMode.SINGLE.name:
-      primary: Optional[Device] = None
-      for device in data.get('devices', []):
-        if device['is_primary']:
-          primary = device
-          break
-
-      if primary is not None:
-        data['devices'] = [primary]
-
     else:
       data['children'] = []
 

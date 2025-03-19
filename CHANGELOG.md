@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.7
+
+- Removed validation of asset type `SINGLE`
+
 ## 3.1.6
 
 - Fixes on model validate on `Asset` class
