@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.6
+
+- Fixes on model validate on `Asset` class
+
 ## 3.1.5
 
 - Changed `width` on `ReportHeader` from `int` to `float` due to backwards compatibility

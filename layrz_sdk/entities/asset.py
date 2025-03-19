@@ -45,7 +45,7 @@ class Asset(BaseModel):
     elif operation_mode == AssetOperationMode.SINGLE.name:
       primary: Optional[Device] = None
       for device in data.get('devices', []):
-        if device.is_primary:
+        if device['is_primary']:
           primary = device
           break
 
