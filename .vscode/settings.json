@@ -16,6 +16,7 @@
   "python.testing.pytestArgs": [
     "tests"
   ],
+  "mypy-type-checker.importStrategy": "fromEnvironment",
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true
 }
