@@ -4,6 +4,7 @@ import logging
 import os
 import time
 import warnings
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import xlsxwriter
@@ -51,7 +52,7 @@ class Report(BaseModel):
     export_format: Optional[ReportFormat] = None,
     password: Optional[str] = None,
     msoffice_crypt_path: str = '/opt/msoffice/bin/msoffice-crypt.exe',
-  ) -> str | Dict[str, Any]:
+  ) -> Path | Dict[str, Any]:
     """
     Export report to file
 
@@ -60,7 +61,7 @@ class Report(BaseModel):
     :param password: Password to protect the file (Only works with Microsoft Excel format)
     :param msoffice_crypt_path: Path to the msoffice-crypt.exe executable, used to encrypt the file
     :return: Full path of the exported file or JSON representation of the report
-    :rtype: str | dict
+    :rtype: Path | dict
     :raises AttributeError: If the export format is not supported
     """
     if export_format:
@@ -135,10 +136,10 @@ class Report(BaseModel):
 
   def _export_xlsx(
     self,
-    path: str,
+    path: str | Path,
     password: Optional[str] = None,
     msoffice_crypt_path: Optional[str] = None,
-  ) -> str:
+  ) -> Path:
     """
     Export to Microsoft Excel (.xslx)
     :param path: Path to save the report
@@ -147,7 +148,14 @@ class Report(BaseModel):
     :return: Full path of the exported file
     """
 
-    full_path = os.path.join(path, self.filename)
+    if isinstance(path, str):
+      path = Path(path).resolve()
+
+    full_path = path / self.filename
+    if full_path.exists():
+      log.warning(f'File {full_path} already exists, overwriting it')
+      os.remove(full_path)
+
     book = xlsxwriter.Workbook(full_path)
 
     pages_name: List[str] = []

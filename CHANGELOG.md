@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.8
+
+- Replaced `str` in favor of using `Path` object to manage paths on `Report` export methods
+
 ## 3.1.7
 
 - Removed validation of asset type `SINGLE`
