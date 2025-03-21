@@ -2,6 +2,7 @@
 
 import logging
 import os
+import sys
 import time
 import warnings
 from pathlib import Path
@@ -17,6 +18,11 @@ from .report_data_type import ReportDataType
 from .report_format import ReportFormat
 from .report_page import ReportPage
 
+if sys.version_info >= (3, 11):
+  from typing import Self
+else:
+  from typing_extensions import Self
+
 log = logging.getLogger(__name__)
 
 
@@ -31,7 +37,7 @@ class Report(BaseModel):
   export_format: Optional[ReportFormat] = Field(description='Export format of the report', default=None)
 
   @field_validator('export_format', mode='before')
-  def _validate_export_format(cls, value: Any) -> Any:
+  def _validate_export_format(cls: 'Report', value: Any) -> Any:
     if value is not None:
       warnings.warn(
         'export_format is deprecated, use the export method instead',
@@ -42,13 +48,13 @@ class Report(BaseModel):
     return value
 
   @property
-  def filename(self) -> str:
+  def filename(self: Self) -> str:
     """Report filename"""
     return f'{self.name}_{int(time.time() * 1000)}.xlsx'
 
   def export(
-    self,
-    path: str,
+    self: Self,
+    path: str | Path,
     export_format: Optional[ReportFormat] = None,
     password: Optional[str] = None,
     msoffice_crypt_path: str = '/opt/msoffice/bin/msoffice-crypt.exe',
@@ -57,9 +63,13 @@ class Report(BaseModel):
     Export report to file
 
     :param path: Path to save the report
+    :type path: str | Path
     :param export_format: Format to export the report
+    :type export_format: ReportFormat
     :param password: Password to protect the file (Only works with Microsoft Excel format)
+    :type password: str
     :param msoffice_crypt_path: Path to the msoffice-crypt.exe executable, used to encrypt the file
+    :type msoffice_crypt_path: str
     :return: Full path of the exported file or JSON representation of the report
     :rtype: Path | dict
     :raises AttributeError: If the export format is not supported
@@ -83,11 +93,11 @@ class Report(BaseModel):
     else:
       raise AttributeError(f'Unsupported export format: {self.export_format}')
 
-  def export_as_json(self) -> Dict[str, Any]:
+  def export_as_json(self: Self) -> Dict[str, Any]:
     """Returns the report as a JSON dict"""
     return self._export_json()
 
-  def _export_json(self) -> Dict[str, Any]:
+  def _export_json(self: Self) -> Dict[str, Any]:
     """Returns a JSON dict of the report"""
     json_pages = []
     for page in self.pages:
@@ -135,17 +145,25 @@ class Report(BaseModel):
     }
 
   def _export_xlsx(
-    self,
+    self: Self,
     path: str | Path,
     password: Optional[str] = None,
     msoffice_crypt_path: Optional[str] = None,
   ) -> Path:
     """
     Export to Microsoft Excel (.xslx)
+
     :param path: Path to save the report
+    :type path: str | Path
     :param password: Password to protect the file
+    :type password: str
     :param msoffice_crypt_path: Path to the msoffice-crypt.exe executable, used to encrypt the file
+    :type msoffice_crypt_path: str
+
     :return: Full path of the exported file
+    :rtype: Path
+
+    :raises AttributeError: If the export format is not supported
     """
 
     if isinstance(path, str):

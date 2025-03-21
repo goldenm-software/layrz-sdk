@@ -26,12 +26,22 @@ class LclCore:
   ) -> None:
     """
     Creates a new instance of LclCore
+
     :param script: Script to be executed
+    :type script: str
     :param sensors: Sensors dictionary
+    :type sensors: Optional[PayloadType]
     :param previous_sensors: Previous sensors dictionary
+    :type previous_sensors: Optional[PayloadType]
     :param payload: Payload dictionary
+    :type payload: Optional[PayloadType]
     :param asset_constants: Asset constants dictionary
+    :type asset_constants: Optional[Dict[str, Any]]
     :param custom_fields: Custom fields dictionary
+    :type custom_fields: Optional[Dict[str, Any]]
+
+    :return: None
+    :rtype: None
     """
     if sensors is None:
       sensors = {}
@@ -61,8 +71,14 @@ class LclCore:
   ) -> str:
     """
     Perform script using Layrz Compute Language
+
     :param additional_globals: Additional global variables
+    :type additional_globals: Optional[Dict[str, Any]]
     :param additional_locals: Additional local variables
+    :type additional_locals: Optional[Dict[str, Any]]
+
+    :return: Result of the script in JSON format
+    :rtype: str
     """
     try:
       local_variables = {

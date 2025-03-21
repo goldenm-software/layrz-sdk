@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.10
+
+- Updated docstrings to provide more information about types and usage
+
 ## 3.1.9
 
 - Changed `json` to `parsed` on `BroadcastResponse` and `BroadcastRequest` to avoid confusion with the `json` property from `pydantic.BaseModel`

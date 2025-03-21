@@ -28,8 +28,12 @@ class PieChart(BaseModel):
   ) -> Dict[str, Any]:
     """
     Render chart to a graphic Library.
+
     :param technology: The technology to use to render the chart.
+    :type technology: ChartRenderTechnology
+
     :return: The configuration of the chart.
+    :rtype: Dict[str, Any]
     """
     if technology == ChartRenderTechnology.GRAPHIC:
       return {
