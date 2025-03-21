@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.9
+
+- Changed `json` to `parsed` on `BroadcastResponse` and `BroadcastRequest` to avoid confusion with the `json` property from `pydantic.BaseModel`
+
 ## 3.1.8
 
 - Replaced `str` in favor of using `Path` object to manage paths on `Report` export methods
