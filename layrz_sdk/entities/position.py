@@ -31,8 +31,11 @@ class Position(BaseModel):
     if value is None:
       return None
 
-    if not isinstance(value, float):
+    if not isinstance(value, (int, float)):
       return None
+
+    if isinstance(value, int):
+      value = float(value)
 
     if -90 <= value <= 90:
       return value
@@ -45,8 +48,11 @@ class Position(BaseModel):
     if value is None:
       return None
 
-    if not isinstance(value, float):
+    if not isinstance(value, (int, float)):
       return None
+
+    if isinstance(value, int):
+      value = float(value)
 
     if -180 <= value <= 180:
       return value
@@ -70,8 +76,11 @@ class Position(BaseModel):
     if value is None:
       return None
 
-    if not isinstance(value, float):
+    if not isinstance(value, (int, float)):
       return None
+
+    if isinstance(value, int):
+      value = float(value)
 
     return value
 
@@ -84,6 +93,9 @@ class Position(BaseModel):
     if not isinstance(value, (float, int)):
       return None
 
+    if isinstance(value, int):
+      value = float(value)
+
     return abs(value)
 
   @field_validator('direction', mode='before')
@@ -94,6 +106,9 @@ class Position(BaseModel):
 
     if not isinstance(value, (float, int)):
       return None
+
+    if isinstance(value, int):
+      value = float(value)
 
     if 0 <= value <= 360:
       return value

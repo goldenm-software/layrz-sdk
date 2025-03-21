@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.11
+
+- Fixes on data casting in `Message` class
+
 ## 3.1.10
 
 - Updated docstrings to provide more information about types and usage
