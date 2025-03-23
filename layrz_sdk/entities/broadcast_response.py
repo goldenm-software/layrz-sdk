@@ -8,5 +8,5 @@ from pydantic import BaseModel, Field
 class BroadcastResponse(BaseModel):
   """Broadcast response data"""
 
-  json: Any = Field(description='Parsed data')
+  parsed: Any = Field(description='Parsed data')
   raw: str = Field(description='Raw data')

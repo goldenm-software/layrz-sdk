@@ -1,5 +1,41 @@
 # Changelog
 
+## 3.1.12
+
+- Adjustment of all typings
+
+## 3.1.11
+
+- Fixes on data casting in `Message` class
+
+## 3.1.10
+
+- Updated docstrings to provide more information about types and usage
+
+## 3.1.9
+
+- Changed `json` to `parsed` on `BroadcastResponse` and `BroadcastRequest` to avoid confusion with the `json` property from `pydantic.BaseModel`
+
+## 3.1.8
+
+- Replaced `str` in favor of using `Path` object to manage paths on `Report` export methods
+
+## 3.1.7
+
+- Removed validation of asset type `SINGLE`
+
+## 3.1.6
+
+- Fixes on model validate on `Asset` class
+
+## 3.1.5
+
+- Changed `width` on `ReportHeader` from `int` to `float` due to backwards compatibility
+
+## 3.1.4
+
+- Fixed iteration searching for the primary device on `Asset` class
+
 ## 3.1.3
 
 - Fixes on `Asset` entity validation, found by @simonjrojas!
@@ -7,6 +43,7 @@
 ## 3.1.2
 
 - Set as optional the `asset_type` argument in `Asset` class
+
 ## 3.1.1
 
 - Small fixes on some models to backwards compatibility

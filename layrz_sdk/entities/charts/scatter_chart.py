@@ -1,7 +1,7 @@
 """Scatter chart"""
 
 import sys
-from typing import Any, Dict, List
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -20,7 +20,7 @@ else:
 class ScatterChart(BaseModel):
   """Scatter chart configuration"""
 
-  series: List[ScatterSerie] = Field(description='List of series to be displayed in the chart', default_factory=list)
+  series: list[ScatterSerie] = Field(description='List of series to be displayed in the chart', default_factory=list)
   title: str = Field(description='Title of the chart', default='Chart')
   align: ChartAlignment = Field(description='Alignment of the chart', default=ChartAlignment.CENTER)
   x_axis_config: AxisConfig = Field(
@@ -35,11 +35,15 @@ class ScatterChart(BaseModel):
   def render(
     self: Self,
     technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
-  ) -> Dict[str, Any]:
+  ) -> dict[str, Any]:
     """
     Render chart to a graphic Library.
+
     :param technology: The technology to use to render the chart.
+    :type technology: ChartRenderTechnology
+
     :return: The configuration of the chart.
+    :rtype: dict[str, Any]
     """
     if technology == ChartRenderTechnology.GRAPHIC:
       return {
@@ -68,7 +72,7 @@ class ScatterChart(BaseModel):
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_syncfusion_flutter_charts(self: Self) -> Dict[str, Any]:
+  def _render_syncfusion_flutter_charts(self: Self) -> dict[str, Any]:
     """
     Converts the configuration of the chart to Flutter library Graphic.
     """
@@ -126,7 +130,7 @@ class ScatterChart(BaseModel):
       },
     }
 
-  def _render_graphic(self: Self) -> List[Dict[str, Any]]:
+  def _render_graphic(self: Self) -> list[dict[str, Any]]:
     """
     Converts the configuration of the chart to Flutter library Graphic.
     """
@@ -163,7 +167,7 @@ class ScatterChart(BaseModel):
 
     return series
 
-  def _render_apexcharts(self: Self) -> Dict[str, Any]:
+  def _render_apexcharts(self: Self) -> dict[str, Any]:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """

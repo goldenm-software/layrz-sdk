@@ -34,11 +34,11 @@ class ChartColor(Enum):
     return f'ChartColor.{self.name}'
 
   @staticmethod
-  def get_colors() -> List[str]:
+  def get_colors() -> list[str]:
     """Get a color from the list"""
     return [color.value for color in ChartColor]
 
 
-def get_color_list() -> List[str]:
+def get_color_list() -> list[str]:
   """Get all colors"""
   return ChartColor.get_colors()

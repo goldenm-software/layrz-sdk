@@ -1,7 +1,7 @@
 """Column chart"""
 
 import sys
-from typing import Any, Dict, List
+from typing import Any
 
 from layrz_sdk.helpers import convert_to_rgba
 
@@ -22,7 +22,7 @@ class ColumnChart(BaseModel):
   """Column chart configuration"""
 
   x_axis: ChartDataSerie = Field(description='Defines the X Axis of the chart')
-  y_axis: List[ChartDataSerie] = Field(description='Defines the Y Axis of the chart', default_factory=list)
+  y_axis: list[ChartDataSerie] = Field(description='Defines the Y Axis of the chart', default_factory=list)
   title: str = Field(default='Chart', description='Title of the chart')
   align: ChartAlignment = Field(default=ChartAlignment.CENTER, description='Alignment of the title')
   x_axis_config: AxisConfig = Field(
@@ -40,8 +40,12 @@ class ColumnChart(BaseModel):
   ) -> Any:
     """
     Render chart to a graphic Library.
+
     :param technology: The technology to use to render the chart.
+    :type technology: ChartRenderTechnology
+
     :return: The configuration of the chart.
+    :rtype: dict[str, Any]
     """
     if technology == ChartRenderTechnology.GRAPHIC:
       return {
@@ -70,7 +74,7 @@ class ColumnChart(BaseModel):
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_syncfusion_flutter_charts(self: Self) -> Dict[str, Any]:
+  def _render_syncfusion_flutter_charts(self: Self) -> dict[str, Any]:
     """
     Converts the configuration of the chart to Syncfusion Flutter Charts.
     """
@@ -108,7 +112,7 @@ class ColumnChart(BaseModel):
       },
     }
 
-  def _render_graphic(self: Self) -> List[Dict[str, Any]]:
+  def _render_graphic(self: Self) -> list[dict[str, Any]]:
     """
     Converts the configuration of the chart to Flutter library graphic.
     """
@@ -129,18 +133,18 @@ class ColumnChart(BaseModel):
 
     return series
 
-  def _render_apexcharts(self: Self) -> Dict[str, Any]:
+  def _render_apexcharts(self: Self) -> dict[str, Any]:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """
 
     series = []
     colors = []
-    stroke: Dict[str, Any] = {'width': [], 'dashArray': []}
+    stroke: dict[str, Any] = {'width': [], 'dashArray': []}
     markers = []
 
     for serie in self.y_axis:
-      modified_serie: Dict[str, Any] = {
+      modified_serie: dict[str, Any] = {
         'name': serie.label,
       }
       if serie.serie_type == ChartDataSerieType.SCATTER:

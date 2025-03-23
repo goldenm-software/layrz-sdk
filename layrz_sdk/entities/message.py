@@ -1,7 +1,7 @@
 """Message entity"""
 
 from datetime import datetime
-from typing import Any, Dict, TypeAlias
+from typing import Any, TypeAlias
 
 from pydantic import BaseModel, Field
 
@@ -9,7 +9,7 @@ from layrz_sdk.constants import UTC
 
 from .position import Position
 
-PayloadType: TypeAlias = Dict[str, Any]
+PayloadType: TypeAlias = dict[str, Any]
 
 
 class Message(BaseModel):

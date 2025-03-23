@@ -2,6 +2,4 @@
 
 from .core import LclCore
 
-__all__ = [
-  'LclCore',
-]
+__all__ = ['LclCore']

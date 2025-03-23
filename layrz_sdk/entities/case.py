@@ -1,7 +1,8 @@
 """Events entities"""
+
 import sys
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from pydantic import BaseModel, Field, model_validator
 
@@ -22,7 +23,7 @@ class Case(BaseModel):
   pk: int = Field(description='Defines the primary key of the case')
   trigger: Trigger = Field(description='Defines the trigger of the case')
   asset_id: int = Field(description='Defines the asset ID of the case')
-  comments: List[Comment] = Field(default_factory=list, description='Defines the comments of the case')
+  comments: list[Comment] = Field(default_factory=list, description='Defines the comments of the case')
   opened_at: datetime = Field(description='Defines the date when the case was opened')
   closed_at: Optional[datetime] = Field(default=None, description='Defines the date when the case was closed')
   status: CaseStatus = Field(description='Defines the status of the case', default=CaseStatus.CLOSED)
@@ -36,7 +37,7 @@ class Case(BaseModel):
   )
 
   @model_validator(mode='before')
-  def _validate_model(cls: Self, data: Dict[str, Any]) -> Dict[str, Any]:
+  def _validate_model(cls: Self, data: dict[str, Any]) -> dict[str, Any]:
     """Validate model"""
     sequence = data.get('sequence')
     if sequence is not None and isinstance(sequence, int):
