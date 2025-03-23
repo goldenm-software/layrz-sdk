@@ -1,7 +1,7 @@
 """Bar chart"""
 
 import sys
-from typing import Any, Dict, List
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -21,7 +21,7 @@ class BarChart(BaseModel):
   """Bar chart configuration"""
 
   x_axis: ChartDataSerie = Field(description='Defines the X Axis of the chart')
-  y_axis: List[ChartDataSerie] = Field(description='Defines the Y Axis of the chart', default_factory=list)
+  y_axis: list[ChartDataSerie] = Field(description='Defines the Y Axis of the chart', default_factory=list)
   title: str = Field(default='Chart', description='Title of the chart')
   align: ChartAlignment = Field(default=ChartAlignment.CENTER, description='Alignment of the title')
   x_axis_config: AxisConfig = Field(
@@ -36,7 +36,7 @@ class BarChart(BaseModel):
   def render(
     self: Self,
     technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
-  ) -> Dict[str, Any]:
+  ) -> dict[str, Any]:
     """
     Render chart to a graphic Library.
 
@@ -44,7 +44,7 @@ class BarChart(BaseModel):
     :type technology: ChartRenderTechnology
 
     :return: The configuration of the chart.
-    :rtype: Dict[str, Any]
+    :rtype: dict[str, Any]
     """
     if technology == ChartRenderTechnology.GRAPHIC:
       return {
@@ -73,7 +73,7 @@ class BarChart(BaseModel):
       'configuration': [f'Unsupported rendering technology {technology.name}'],
     }
 
-  def _render_syncfusion_flutter_charts(self: Self) -> Dict[str, Any]:
+  def _render_syncfusion_flutter_charts(self: Self) -> dict[str, Any]:
     """
     Converts the configuration of the chart to Syncfusion Flutter Charts.
     """
@@ -111,7 +111,7 @@ class BarChart(BaseModel):
       },
     }
 
-  def _render_graphic(self: Self) -> List[Dict[str, Any]]:
+  def _render_graphic(self: Self) -> list[dict[str, Any]]:
     """
     Converts the configuration of the chart to Flutter library graphic.
     """
@@ -132,7 +132,7 @@ class BarChart(BaseModel):
 
     return series
 
-  def _render_apexcharts(self: Self) -> Dict[str, Any]:
+  def _render_apexcharts(self: Self) -> dict[str, Any]:
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """

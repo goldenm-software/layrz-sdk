@@ -6,7 +6,7 @@ import sys
 import time
 import warnings
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 import xlsxwriter
 from pydantic import BaseModel, Field, field_validator
@@ -30,7 +30,7 @@ class Report(BaseModel):
   """Report definition"""
 
   name: str = Field(description='Name of the report. Length should be less than 60 characters')
-  pages: List[ReportPage | CustomReportPage] = Field(
+  pages: list[ReportPage | CustomReportPage] = Field(
     description='List of report pages',
     default_factory=list,
   )
@@ -58,7 +58,7 @@ class Report(BaseModel):
     export_format: Optional[ReportFormat] = None,
     password: Optional[str] = None,
     msoffice_crypt_path: str = '/opt/msoffice/bin/msoffice-crypt.exe',
-  ) -> Path | Dict[str, Any]:
+  ) -> Path | dict[str, Any]:
     """
     Export report to file
 
@@ -93,11 +93,11 @@ class Report(BaseModel):
     else:
       raise AttributeError(f'Unsupported export format: {self.export_format}')
 
-  def export_as_json(self: Self) -> Dict[str, Any]:
+  def export_as_json(self: Self) -> dict[str, Any]:
     """Returns the report as a JSON dict"""
     return self._export_json()
 
-  def _export_json(self: Self) -> Dict[str, Any]:
+  def _export_json(self: Self) -> dict[str, Any]:
     """Returns a JSON dict of the report"""
     json_pages = []
     for page in self.pages:
@@ -176,7 +176,7 @@ class Report(BaseModel):
 
     book = xlsxwriter.Workbook(full_path)
 
-    pages_name: List[str] = []
+    pages_name: list[str] = []
 
     for page in self.pages:
       sheet_name = page.name[0:20]

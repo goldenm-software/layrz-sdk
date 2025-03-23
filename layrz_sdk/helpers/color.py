@@ -1,8 +1,8 @@
 """Color helpers"""
 
-from typing import Tuple, TypeAlias, cast
+from typing import TypeAlias, cast
 
-Color: TypeAlias = Tuple[int, int, int, int]
+Color: TypeAlias = tuple[int, int, int, int]
 
 
 def convert_to_rgba(hex_color: str) -> Color:

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.12
+
+- Adjustment of all typings
+
 ## 3.1.11
 
 - Fixes on data casting in `Message` class

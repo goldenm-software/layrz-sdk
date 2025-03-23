@@ -1,7 +1,7 @@
 """Radial Bar chart"""
 
 import sys
-from typing import Any, Dict, List
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -18,14 +18,14 @@ else:
 class RadialBarChart(BaseModel):
   """Radial Bar chart configuration"""
 
-  series: List[ChartDataSerie] = Field(description='List of series to be displayed in the chart', default_factory=list)
+  series: list[ChartDataSerie] = Field(description='List of series to be displayed in the chart', default_factory=list)
   title: str = Field(description='Title of the chart', default='Chart')
   align: ChartAlignment = Field(description='Alignment of the chart', default=ChartAlignment.CENTER)
 
   def render(
     self: Self,
     technology: ChartRenderTechnology = ChartRenderTechnology.SYNCFUSION_FLUTTER_CHARTS,
-  ) -> Dict[str, Any]:
+  ) -> dict[str, Any]:
     """
     Render chart to a graphic Library.
 
@@ -33,7 +33,7 @@ class RadialBarChart(BaseModel):
     :type technology: ChartRenderTechnology
 
     :return: The configuration of the chart.
-    :rtype: Dict[str, Any]
+    :rtype: dict[str, Any]
     """
     if technology == ChartRenderTechnology.GRAPHIC:
       return {

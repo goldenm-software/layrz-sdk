@@ -1,7 +1,7 @@
 """Report row"""
 
 import warnings
-from typing import Any, List, Optional
+from typing import Any, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -11,7 +11,7 @@ from .report_col import ReportCol
 class ReportRow(BaseModel):
   """Report row definition"""
 
-  content: List[ReportCol] = Field(description='List of report columns', default_factory=list)
+  content: list[ReportCol] = Field(description='List of report columns', default_factory=list)
   height: Optional[float] = Field(description='Row height', default=None)
   compact: bool = Field(description='Compact mode', default=False)
 

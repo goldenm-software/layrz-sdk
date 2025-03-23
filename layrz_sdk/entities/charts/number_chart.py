@@ -20,7 +20,7 @@ class NumberChart(BaseModel):
   color: str = Field(description='Color of the number')
   label: str = Field(description='Label of the number')
 
-  def render(self: Self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER) -> Dict[str, Any]:
+  def render(self: Self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER) -> dict[str, Any]:
     """
     Render chart to a graphic Library.
 
@@ -28,7 +28,7 @@ class NumberChart(BaseModel):
     :type technology: ChartRenderTechnology
 
     :return: The configuration of the chart.
-    :rtype: Dict[str, Any]
+    :rtype: dict[str, Any]
     """
     if technology == ChartRenderTechnology.FLUTTER:
       return {
@@ -43,7 +43,7 @@ class NumberChart(BaseModel):
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_flutter(self: Self) -> Dict[str, Any]:
+  def _render_flutter(self: Self) -> dict[str, Any]:
     """
     Converts the configuration of the chart to a Flutter native components.
     """

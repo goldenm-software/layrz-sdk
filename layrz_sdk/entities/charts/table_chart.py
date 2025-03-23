@@ -1,7 +1,7 @@
 """Number chart"""
 
 import sys
-from typing import Any, Dict, List
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -18,10 +18,10 @@ else:
 class TableChart(BaseModel):
   """Table chart configuration"""
 
-  columns: List[TableHeader] = Field(description='List of columns', default_factory=list)
-  rows: List[TableRow] = Field(description='List of rows', default_factory=list)
+  columns: list[TableHeader] = Field(description='List of columns', default_factory=list)
+  rows: list[TableRow] = Field(description='List of rows', default_factory=list)
 
-  def render(self: Self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER) -> Dict[str, Any]:
+  def render(self: Self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER) -> dict[str, Any]:
     """
     Render chart to a graphic Library.
 
@@ -29,7 +29,7 @@ class TableChart(BaseModel):
     :type technology: ChartRenderTechnology
 
     :return: The configuration of the chart.
-    :rtype: Dict[str, Any]
+    :rtype: dict[str, Any]
     """
     if technology == ChartRenderTechnology.FLUTTER:
       return {
@@ -44,7 +44,7 @@ class TableChart(BaseModel):
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_flutter(self: Self) -> Dict[str, Any]:
+  def _render_flutter(self: Self) -> dict[str, Any]:
     """
     Converts the configuration of the chart to a Flutter native components.
     """

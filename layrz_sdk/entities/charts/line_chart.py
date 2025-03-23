@@ -2,7 +2,7 @@
 
 import logging
 import sys
-from typing import Any, Dict, List
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -25,7 +25,7 @@ class LineChart(BaseModel):
   """Line chart configuration"""
 
   x_axis: ChartDataSerie = Field(description='Defines the X Axis of the chart')
-  y_axis: List[ChartDataSerie] = Field(description='Defines the Y Axis of the chart', default_factory=list)
+  y_axis: list[ChartDataSerie] = Field(description='Defines the Y Axis of the chart', default_factory=list)
   title: str = Field(default='Chart', description='Title of the chart')
   align: ChartAlignment = Field(default=ChartAlignment.CENTER, description='Alignment of the title')
   x_axis_config: AxisConfig = Field(
@@ -37,7 +37,7 @@ class LineChart(BaseModel):
     description='Configuration of the Y Axis',
   )
 
-  def render(self: Self, technology: ChartRenderTechnology) -> Dict[str, Any]:
+  def render(self: Self, technology: ChartRenderTechnology) -> dict[str, Any]:
     """
     Render chart to a graphic Library.
 
@@ -45,7 +45,7 @@ class LineChart(BaseModel):
     :type technology: ChartRenderTechnology
 
     :return: The configuration of the chart.
-    :rtype: Dict[str, Any]
+    :rtype: dict[str, Any]
     """
 
     if technology == ChartRenderTechnology.GRAPHIC:
@@ -75,7 +75,7 @@ class LineChart(BaseModel):
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_syncfusion_flutter_charts(self: Self) -> Dict[str, Any]:
+  def _render_syncfusion_flutter_charts(self: Self) -> dict[str, Any]:
     """
     Converts the configuration of the chart to a Flutter library syncfusion_flutter_charts.
     """
@@ -138,7 +138,7 @@ class LineChart(BaseModel):
       },
     }
 
-  def _render_graphic(self: Self) -> List[Dict[str, Any]]:
+  def _render_graphic(self: Self) -> list[dict[str, Any]]:
     """
     Converts the configuration of the chart to a Flutter library Graphic.
     """
@@ -173,7 +173,7 @@ class LineChart(BaseModel):
 
     return series
 
-  def _render_canvasjs(self: Self) -> Dict[str, Any]:
+  def _render_canvasjs(self: Self) -> dict[str, Any]:
     """
     Converts the configuration of the chart to Javascript library CanvasJS.
     """

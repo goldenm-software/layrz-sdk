@@ -1,7 +1,7 @@
 """Map chart"""
 
 import sys
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional, Tuple
 
 from pydantic import BaseModel, Field
 
@@ -18,12 +18,12 @@ else:
 class MapChart(BaseModel):
   """Map chart configuration"""
 
-  points: List[MapPoint] = Field(description='Points of the chart', default_factory=list)
+  points: list[MapPoint] = Field(description='Points of the chart', default_factory=list)
   title: str = Field(description='Title of the chart', default='Chart')
   center: MapCenterType = Field(description='Center of the chart', default=MapCenterType.CONTAIN)
-  center_latlng: Optional[List[float]] = Field(description='Center of the chart in latlng format', default=None)
+  center_latlng: Optional[list[float]] = Field(description='Center of the chart in latlng format', default=None)
 
-  def render(self: Self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER_MAP) -> Dict[str, Any]:
+  def render(self: Self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER_MAP) -> dict[str, Any]:
     """
     Render chart to a graphic Library.
 
@@ -31,7 +31,7 @@ class MapChart(BaseModel):
     :type technology: ChartRenderTechnology
 
     :return: The configuration of the chart.
-    :rtype: Dict[str, Any]
+    :rtype: dict[str, Any]
     """
     if technology == ChartRenderTechnology.FLUTTER_MAP:
       return {
@@ -46,7 +46,7 @@ class MapChart(BaseModel):
       'configuration': [f'Unsupported {technology}'],
     }
 
-  def _render_flutter_map(self: Self) -> Dict[str, Any]:
+  def _render_flutter_map(self: Self) -> dict[str, Any]:
     """
     Converts the configuration to the chart to Flutter Map engine.
     """
@@ -66,7 +66,7 @@ class MapChart(BaseModel):
     if self.center == MapCenterType.FIXED:
       center = 'FIXED'
 
-    config: Dict[str, Any] = {
+    config: dict[str, Any] = {
       'points': points,
       'center': center,
     }
@@ -79,7 +79,7 @@ class MapChart(BaseModel):
 
     return config
 
-  def _render_leaflet(self: Self) -> Dict[str, Any]:
+  def _render_leaflet(self: Self) -> dict[str, Any]:
     """
     Converts the configuration of the chart to Leaflet map engine.
     """
@@ -93,7 +93,7 @@ class MapChart(BaseModel):
     if self.center == MapCenterType.FIXED:
       center = 'FIXED'
 
-    config: Dict[str, Any] = {
+    config: dict[str, Any] = {
       'points': points,
       'title': self.title,
       'center': center,

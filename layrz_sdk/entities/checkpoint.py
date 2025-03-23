@@ -1,7 +1,6 @@
 """Checkpoints entitites"""
 
 from datetime import datetime
-from typing import List
 
 from pydantic import BaseModel, Field
 
@@ -13,6 +12,6 @@ class Checkpoint(BaseModel):
 
   pk: int = Field(description='Checkpoint ID')
   asset_id: int = Field(description='Asset ID')
-  waypoints: List[Waypoint] = Field(description='List of waypoints', default_factory=list)
+  waypoints: list[Waypoint] = Field(description='List of waypoints', default_factory=list)
   start_at: datetime = Field(description='Checkpoint start date')
   end_at: datetime = Field(description='Checkpoint end date')
