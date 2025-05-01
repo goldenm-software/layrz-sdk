@@ -190,7 +190,7 @@ class Report(BaseModel):
       sheet = book.add_worksheet(sheet_name)
 
       if isinstance(page, CustomReportPage):
-        page.builder(sheet)
+        page.builder(sheet, book)
         sheet.autofit()
         continue
 
