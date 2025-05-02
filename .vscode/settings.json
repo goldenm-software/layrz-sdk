@@ -18,5 +18,14 @@
   ],
   "mypy-type-checker.importStrategy": "fromEnvironment",
   "python.testing.unittestEnabled": false,
-  "python.testing.pytestEnabled": true
+  "python.testing.pytestEnabled": true,
+  "cSpell.words": [
+    "Aptos",
+    "autofit",
+    "layrz",
+    "msoffice",
+    "rtype",
+    "xlswriter",
+    "xslx"
+  ]
 }
