@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Any, Optional, Protocol
+from typing import Any, Protocol
 
 from pydantic import BaseModel, Field
 from xlsxwriter import Workbook
@@ -11,7 +11,7 @@ class BuilderFunction(Protocol):
   Protocol for the builder function.
   """
 
-  def __call__(self, sheet: Worksheet, *args: Any, **kwargs: Any) -> None: ...
+  def __call__(self, *, sheet: Worksheet, **kwargs: Any) -> None: ...
 
 
 class CustomReportPage(BaseModel):
@@ -21,8 +21,15 @@ class CustomReportPage(BaseModel):
   """
 
   name: str = Field(description='Name of the page. Length should be less than 60 characters')
-  builder: BuilderFunction = Field(
+  builder: Callable[[Worksheet], None] | None = Field(
+    description=('Function to build the page. The only argument is the worksheet object'),
+    default=None,
+  )
+  extended_builder: BuilderFunction | None = Field(
     description=(
-      'Function to build the page. The first argument is the worksheet object, followed by optional arguments'
+      'Function to build the page. The first argument is the worksheet object, '
+      'and the rest are the kwargs to give support for the builder function.'
+      '\n Currently, the only supported kwarg is `workbook` which is the workbook object'
     ),
+    default=None,
   )
