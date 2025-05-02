@@ -190,7 +190,14 @@ class Report(BaseModel):
       sheet = book.add_worksheet(sheet_name)
 
       if isinstance(page, CustomReportPage):
-        page.builder(sheet, book)
+        try:
+          page.builder(
+            sheet,
+            book=book,
+          )
+        except TypeError:
+          page.builder(sheet)
+
         sheet.autofit()
         continue
 
