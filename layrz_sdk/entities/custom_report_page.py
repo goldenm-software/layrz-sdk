@@ -1,11 +1,11 @@
 from collections.abc import Callable
-from typing import Any, Protocol
+from typing import Any, Protocol, runtime_checkable
 
-from pydantic import BaseModel, Field
-from xlsxwriter import Workbook
+from pydantic import BaseModel, ConfigDict, Field
 from xlsxwriter.worksheet import Worksheet
 
 
+@runtime_checkable
 class BuilderFunction(Protocol):
   """
   Protocol for the builder function.
@@ -19,6 +19,11 @@ class CustomReportPage(BaseModel):
   Custom report page
   Basically it's a wrapper of the `xlswriter` worksheet that uses a function to construct the page
   """
+
+  model_config = ConfigDict(
+    from_attributes=True,
+    arbitrary_types_allowed=True,
+  )
 
   name: str = Field(description='Name of the page. Length should be less than 60 characters')
   builder: Callable[[Worksheet], None] | None = Field(
