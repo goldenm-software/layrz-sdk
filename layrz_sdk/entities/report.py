@@ -190,7 +190,13 @@ class Report(BaseModel):
       sheet = book.add_worksheet(sheet_name)
 
       if isinstance(page, CustomReportPage):
-        page.builder(sheet)
+        if page.extended_builder:
+          page.extended_builder(sheet=sheet, workbook=book)
+        elif page.builder:
+          page.builder(sheet)
+        else:
+          raise AttributeError('Custom report page must have a builder or extended_builder function')
+
         sheet.autofit()
         continue
 
