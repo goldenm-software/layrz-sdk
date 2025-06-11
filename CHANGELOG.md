@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.14
+
+- Some changes related to the `Case` entity
+
 ## 3.1.12
 
 - Adjustment of all typings

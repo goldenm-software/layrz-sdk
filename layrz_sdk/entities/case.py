@@ -41,7 +41,11 @@ class Case(BaseModel):
     """Validate model"""
     sequence = data.get('sequence')
     if sequence is not None and isinstance(sequence, int):
-      data['sequence'] = f'{data["trigger"].code}/{sequence}'
+      trigger = data['trigger']
+      if not isinstance(trigger, Trigger):
+        data['sequence'] = f'{trigger["code"]}/{data["pk"]}'
+      else:
+        data['sequence'] = f'{trigger.code}/{sequence}'
     else:
       data['sequence'] = f'GENERIC/{data["pk"]}'
 
