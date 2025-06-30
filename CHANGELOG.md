@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.16
+
+- Added `primary_id` into `Asset`
+
 ## 3.1.15
 
 - Added some parameters on `Asset` and `Device` classes

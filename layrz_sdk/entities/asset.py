@@ -46,6 +46,11 @@ class Asset(BaseModel):
     description='List of static positions for the asset. The altitude of StaticPosition is not used in this case.',
   )
 
+  primary_id: int | None = Field(
+    default=None,
+    description='Defines the primary device ID of the asset',
+  )
+
   @model_validator(mode='before')
   def _validate_model(cls: Self, data: dict[str, Any]) -> dict[str, Any]:
     """Validate model"""
