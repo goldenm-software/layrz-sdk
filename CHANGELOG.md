@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.15
+
+- Added some parameters on `Asset` and `Device` classes
+- Added `AssetMessage` and `DeviceMessage` classes to handle messages related to assets and devices 
+
 ## 3.1.14
 
 - Some changes related to the `Case` entity

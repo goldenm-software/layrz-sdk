@@ -46,6 +46,7 @@ from .event import Event
 from .geofence import Geofence
 from .last_message import LastMessage
 from .message import Message
+from .modbus import ModbusConfig, ModbusParameter, ModbusSchema, ModbusStatus, ModbusWait
 from .outbound_service import OutboundService
 from .position import Position
 from .presence_type import PresenceType
@@ -58,6 +59,7 @@ from .report_header import ReportHeader
 from .report_page import ReportPage
 from .report_row import ReportRow
 from .sensor import Sensor
+from .telemetry import AssetMessage, DeviceMessage
 from .text_alignment import TextAlignment
 from .trigger import Trigger
 from .user import User
@@ -126,4 +128,11 @@ __all__ = [
   'Trigger',
   'User',
   'Waypoint',
+  'ModbusConfig',
+  'ModbusParameter',
+  'ModbusSchema',
+  'ModbusStatus',
+  'ModbusWait',
+  'AssetMessage',
+  'DeviceMessage',
 ]

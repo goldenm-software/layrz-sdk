@@ -14,6 +14,7 @@ from .asset_operation_mode import AssetOperationMode
 from .custom_field import CustomField
 from .device import Device
 from .sensor import Sensor
+from .static_position import StaticPosition
 
 
 class Asset(BaseModel):
@@ -34,6 +35,16 @@ class Asset(BaseModel):
   )
   devices: list[Device] = Field(default_factory=list, description='Defines the list of devices of the asset')
   children: list[Self] = Field(default_factory=list, description='Defines the list of children of the asset')
+
+  static_position: StaticPosition | None = Field(
+    default=None,
+    description='Static position of the asset',
+  )
+
+  points: list[StaticPosition] = Field(
+    default_factory=list,
+    description='List of static positions for the asset. The altitude of StaticPosition is not used in this case.',
+  )
 
   @model_validator(mode='before')
   def _validate_model(cls: Self, data: dict[str, Any]) -> dict[str, Any]:
