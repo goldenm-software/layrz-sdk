@@ -15,7 +15,7 @@ else:
   from typing_extensions import Self
 
 from geopy.distance import geodesic
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_serializer
 from shapely.geometry import MultiPoint
 
 from layrz_sdk.constants import UTC
@@ -27,6 +27,14 @@ from layrz_sdk.entities.telemetry.devicemessage import DeviceMessage
 
 class AssetMessage(BaseModel):
   """Asset message model"""
+
+  model_config = {
+    'json_encoders': {
+      datetime: lambda v: v.timestamp(),
+      timedelta: lambda v: v.total_seconds(),
+      Position: lambda v: json.loads(v.model_dump_json(exclude_none=True)),
+    }
+  }
 
   pk: int | None = Field(
     default=None,
@@ -69,10 +77,20 @@ class AssetMessage(BaseModel):
     description='Timestamp when the message was received',
   )
 
+  @field_serializer('received_at')
+  def serialize_received_at(self: Self, value: datetime) -> float:
+    """Serialize received_at to a timestamp."""
+    return value.timestamp()
+
   elapsed_time: timedelta = Field(
     default_factory=lambda: timedelta(seconds=0),
     description='Elapsed time since the last message',
   )
+
+  @field_serializer('elapsed_time')
+  def serialize_elapsed_time(self: Self, value: timedelta) -> float:
+    """Serialize elapsed_time to total seconds."""
+    return value.total_seconds()
 
   @property
   def datum_gis(self: Self) -> int:

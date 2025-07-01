@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.1.19
+
+- Added serializers for messages
+
+## 3.1.18
+
+- Fixes
+
+## 3.1.17
+
+- Fixes
+
 ## 3.1.16
 
 - Added `primary_id` into `Asset`

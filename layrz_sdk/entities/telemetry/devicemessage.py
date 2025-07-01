@@ -15,7 +15,7 @@ if sys.version_info >= (3, 11):
 else:
   from typing_extensions import Self
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_serializer
 
 from layrz_sdk.constants import REJECTED_KEYS, UTC
 from layrz_sdk.entities.device import Device
@@ -58,6 +58,11 @@ class DeviceMessage(BaseModel):
     default_factory=lambda: datetime.now(UTC),
     description='Timestamp when the message was received',
   )
+
+  @field_serializer('received_at')
+  def serialize_received_at(self: Self, value: datetime) -> float:
+    """Serialize received_at to a timestamp."""
+    return value.timestamp()
 
   @property
   def datum_gis(self: Self) -> int:
@@ -105,7 +110,7 @@ class DeviceMessage(BaseModel):
     return cls(
       ident=device.ident,
       device_id=device.pk,
-      protocol_id=device.protocol_id,
+      protocol_id=device.protocol_id,  # type: ignore
       position=position,
       payload=payload,
       received_at=received_at,
