@@ -1,6 +1,6 @@
 [project]
 name = "layrz-sdk"
-version = "3.1.19"
+version = "3.1.20"
 description = "Layrz SDK for Python"
 authors = [
   {name = "Golden M, Inc.", email = "software@goldenm.com"}
@@ -42,6 +42,7 @@ dependencies = [
   "typing-extensions>=4.10.0",
   "geopy>=2.4.1",
   "shapely>=2.1.1",
+  "strenum>=0.4.15",
 ]
 
 [project.urls]

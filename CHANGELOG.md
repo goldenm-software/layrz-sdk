@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.20
+
+- Fixed condition of `StrEnum` on Python 3.11, for versions below 3.11 it will use `strenum.StrEnum` instead of `enum.StrEnum`
+
 ## 3.1.19
 
 - Added serializers for messages
