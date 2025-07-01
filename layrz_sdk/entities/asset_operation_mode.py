@@ -6,8 +6,9 @@ if sys.version_info >= (3, 11):
   from enum import StrEnum
   from typing import Self
 else:
-  from strenum import StrEnum
   from typing_extensions import Self
+
+  from layrz_sdk.backwards import StrEnum
 
 
 class AssetOperationMode(StrEnum):

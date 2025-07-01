@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.24
+## 3.1.23
+## 3.1.22
+
+- Backwards compatibility for `StrEnum` in Python 3.11 and below, now using `layrz_sdk.backwards.StrEnum` for versions below 3.11.
+
 ## 3.1.21
 
 - Moved all enums to `StrEnum` and added compatibility for Python 3.11 and below.
