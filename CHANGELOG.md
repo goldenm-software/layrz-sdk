@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.27
+
+- Fixes on `ChartDataSerieType` that can have a `None` value, removed str inheritance to avoid issues
+
 ## 3.1.26
 
 - Reverted StrEnum in favor to str + Enum due to compatibility issues

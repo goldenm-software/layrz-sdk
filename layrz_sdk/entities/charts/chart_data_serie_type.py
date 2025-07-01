@@ -9,7 +9,7 @@ else:
   from typing_extensions import Self
 
 
-class ChartDataSerieType(str, Enum):
+class ChartDataSerieType(Enum):
   """
   Chart data serie type
   """
