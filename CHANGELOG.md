@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.21
+
+- Moved all enums to `StrEnum` and added compatibility for Python 3.11 and below.
+
 ## 3.1.20
 
 - Fixed condition of `StrEnum` on Python 3.11, for versions below 3.11 it will use `strenum.StrEnum` instead of `enum.StrEnum`

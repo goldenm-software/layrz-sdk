@@ -1,15 +1,16 @@
 """Chart Data type"""
 
 import sys
-from enum import Enum
 
 if sys.version_info >= (3, 11):
+  from enum import StrEnum
   from typing import Self
 else:
+  from strenum import StrEnum
   from typing_extensions import Self
 
 
-class ChartDataType(Enum):
+class ChartDataType(StrEnum):
   """
   Chart Data Type
   """
