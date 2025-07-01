@@ -1,12 +1,7 @@
-import sys
-
-if sys.version_info >= (3, 11):
-  from enum import StrEnum
-else:
-  from layrz_sdk.backwards import StrEnum
+from enum import Enum
 
 
-class ModbusStatus(StrEnum):
+class ModbusStatus(str, Enum):
   """Modbus schema enumeration"""
 
   PENDING = 'PENDING'

@@ -1,17 +1,15 @@
 """Asset Operation Mode"""
 
 import sys
+from enum import Enum
 
 if sys.version_info >= (3, 11):
-  from enum import StrEnum
   from typing import Self
 else:
   from typing_extensions import Self
 
-  from layrz_sdk.backwards import StrEnum
 
-
-class AssetOperationMode(StrEnum):
+class AssetOperationMode(str, Enum):
   """
   Asset Operation mode definition
   It's an enum of the operation mode of the asset.

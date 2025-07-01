@@ -1,18 +1,15 @@
 """Chart alignment"""
 
 import sys
-from typing import Any, List
+from enum import Enum
 
 if sys.version_info >= (3, 11):
-  from enum import StrEnum
   from typing import Self
 else:
   from typing_extensions import Self
 
-  from layrz_sdk.backwards import StrEnum
 
-
-class ChartColor(StrEnum):
+class ChartColor(str, Enum):
   """Chart color list, ideal to use to colorize the series"""
 
   RED = '#F44336'

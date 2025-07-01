@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.26
+
+- Reverted StrEnum in favor to str + Enum due to compatibility issues
+
 ## 3.1.25
 
 - Added `AssetConstants` class to hold constants related to assets on sensors, triggers and functions.

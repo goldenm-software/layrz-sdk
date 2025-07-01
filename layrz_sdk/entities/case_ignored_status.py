@@ -1,15 +1,13 @@
 import sys
+from enum import Enum
 
 if sys.version_info >= (3, 11):
-  from enum import StrEnum
   from typing import Self
 else:
   from typing_extensions import Self
 
-  from layrz_sdk.backwards import StrEnum
 
-
-class CaseIgnoredStatus(StrEnum):
+class CaseIgnoredStatus(str, Enum):
   """
   Case ignore status, will define what kind ignore happened.
   """
