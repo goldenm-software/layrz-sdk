@@ -1,6 +1,7 @@
 """Init file"""
 
 from .asset import Asset
+from .asset_constants import AssetConstants
 from .asset_operation_mode import AssetOperationMode
 from .broadcast_request import BroadcastRequest
 from .broadcast_response import BroadcastResponse
@@ -135,4 +136,5 @@ __all__ = [
   'ModbusWait',
   'AssetMessage',
   'DeviceMessage',
+  'AssetConstants',
 ]

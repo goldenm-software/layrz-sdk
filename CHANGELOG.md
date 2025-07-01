@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.25
+
+- Added `AssetConstants` class to hold constants related to assets on sensors, triggers and functions.
+
 ## 3.1.24
 ## 3.1.23
 ## 3.1.22
