@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.28
+
+- Added `BroadcastPayload` and `BroadcastService` models
+
 ## 3.1.27
 
 - Fixes on `ChartDataSerieType` that can have a `None` value, removed str inheritance to avoid issues
