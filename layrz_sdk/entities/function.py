@@ -6,7 +6,6 @@ from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field, constr
 
 from .asset import Asset
-from .tag import Tag
 
 
 class Function(BaseModel):
@@ -23,7 +22,6 @@ class Function(BaseModel):
   credentials: Dict[str, Any] = Field(default_factory=dict)
 
   # Many-to-manys  ➜  list of nested DTOs
-  groups: List[Tag] = Field(default_factory=list)
   assets: List[Asset] = Field(default_factory=list)
 
   # Foreign keys – normally expose only the FK id to keep the payload small.
