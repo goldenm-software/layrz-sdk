@@ -48,6 +48,7 @@ from .custom_field import CustomField
 from .custom_report_page import CustomReportPage
 from .device import Device
 from .event import Event
+from .function import Function
 from .geofence import Geofence
 from .last_message import LastMessage
 from .message import Message
