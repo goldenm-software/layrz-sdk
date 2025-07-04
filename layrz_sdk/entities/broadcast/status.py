@@ -9,7 +9,7 @@ else:
   from typing_extensions import Self
 
 
-class BroadcastStatus(Enum):
+class BroadcastStatus(str, Enum):
   """Broadcast result status"""
 
   OK = 'OK'

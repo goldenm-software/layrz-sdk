@@ -7,7 +7,7 @@ else:
   from typing_extensions import Self
 
 
-class CaseIgnoredStatus(Enum):
+class CaseIgnoredStatus(str, Enum):
   """
   Case ignore status, will define what kind ignore happened.
   """

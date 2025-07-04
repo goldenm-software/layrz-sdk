@@ -1,11 +1,11 @@
 [project]
 name = "layrz-sdk"
-version = "3.1.13"
+version = "3.1.30"
 description = "Layrz SDK for Python"
 authors = [
   {name = "Golden M, Inc.", email = "software@goldenm.com"}
 ]
-requires-python = ">=3.10, <3.14"
+requires-python = ">=3.10"
 
 maintainers = [
   {name = "Kenny Mochizuki", email = "kenny@goldenm.com"},
@@ -30,6 +30,9 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
 ]
 dependencies = [
   "requests",
@@ -37,6 +40,9 @@ dependencies = [
   "tzdata",
   "pydantic>=2.10.6",
   "typing-extensions>=4.10.0",
+  "geopy>=2.4.1",
+  "shapely>=2.1.1",
+  "strenum>=0.4.15",
 ]
 
 [project.urls]

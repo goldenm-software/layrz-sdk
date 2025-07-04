@@ -9,7 +9,7 @@ else:
   from typing_extensions import Self
 
 
-class ChartRenderTechnology(Enum):
+class ChartRenderTechnology(str, Enum):
   """
   Chart Alignment
   """

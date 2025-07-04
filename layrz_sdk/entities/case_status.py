@@ -7,7 +7,7 @@ else:
   from typing_extensions import Self
 
 
-class CaseStatus(Enum):
+class CaseStatus(str, Enum):
   """Case status enum"""
 
   PENDING = 'PENDING'

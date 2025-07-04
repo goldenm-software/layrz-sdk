@@ -7,7 +7,7 @@ else:
   from typing_extensions import Self
 
 
-class ReportDataType(Enum):
+class ReportDataType(str, Enum):
   """
   Report date type
   """

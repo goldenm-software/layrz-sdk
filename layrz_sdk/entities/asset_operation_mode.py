@@ -9,7 +9,7 @@ else:
   from typing_extensions import Self
 
 
-class AssetOperationMode(Enum):
+class AssetOperationMode(str, Enum):
   """
   Asset Operation mode definition
   It's an enum of the operation mode of the asset.

@@ -4,9 +4,9 @@ from datetime import datetime
 
 from pydantic import BaseModel, Field
 
-from .broadcast_request import BroadcastRequest
-from .broadcast_response import BroadcastResponse
-from .broadcast_status import BroadcastStatus
+from .request import BroadcastRequest
+from .response import BroadcastResponse
+from .status import BroadcastStatus
 
 
 class BroadcastResult(BaseModel):

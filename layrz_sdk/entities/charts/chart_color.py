@@ -2,7 +2,6 @@
 
 import sys
 from enum import Enum
-from typing import Any, List
 
 if sys.version_info >= (3, 11):
   from typing import Self
@@ -10,7 +9,7 @@ else:
   from typing_extensions import Self
 
 
-class ChartColor(Enum):
+class ChartColor(str, Enum):
   """Chart color list, ideal to use to colorize the series"""
 
   RED = '#F44336'

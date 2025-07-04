@@ -1,5 +1,60 @@
 # Changelog
 
+## 3.1.28
+
+- Added `BroadcastPayload` and `BroadcastService` models
+
+## 3.1.27
+
+- Fixes on `ChartDataSerieType` that can have a `None` value, removed str inheritance to avoid issues
+
+## 3.1.26
+
+- Reverted StrEnum in favor to str + Enum due to compatibility issues
+
+## 3.1.25
+
+- Added `AssetConstants` class to hold constants related to assets on sensors, triggers and functions.
+
+## 3.1.24
+## 3.1.23
+## 3.1.22
+
+- Backwards compatibility for `StrEnum` in Python 3.11 and below, now using `layrz_sdk.backwards.StrEnum` for versions below 3.11.
+
+## 3.1.21
+
+- Moved all enums to `StrEnum` and added compatibility for Python 3.11 and below.
+
+## 3.1.20
+
+- Fixed condition of `StrEnum` on Python 3.11, for versions below 3.11 it will use `strenum.StrEnum` instead of `enum.StrEnum`
+
+## 3.1.19
+
+- Added serializers for messages
+
+## 3.1.18
+
+- Fixes
+
+## 3.1.17
+
+- Fixes
+
+## 3.1.16
+
+- Added `primary_id` into `Asset`
+
+## 3.1.15
+
+- Added some parameters on `Asset` and `Device` classes
+- Added `AssetMessage` and `DeviceMessage` classes to handle messages related to assets and devices 
+
+## 3.1.14
+
+- Some changes related to the `Case` entity
+
 ## 3.1.12
 
 - Adjustment of all typings

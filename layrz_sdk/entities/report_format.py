@@ -9,7 +9,7 @@ else:
   from typing_extensions import Self
 
 
-class ReportFormat(Enum):
+class ReportFormat(str, Enum):
   """
   Report format definition.
   """

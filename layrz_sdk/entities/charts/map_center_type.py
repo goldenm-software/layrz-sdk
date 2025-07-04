@@ -7,7 +7,7 @@ else:
   from typing_extensions import Self
 
 
-class MapCenterType(Enum):
+class MapCenterType(str, Enum):
   """Map Chart center type"""
 
   FIXED = 'FIXED'

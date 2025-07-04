@@ -9,7 +9,7 @@ else:
   from typing_extensions import Self
 
 
-class TextAlignment(Enum):
+class TextAlignment(str, Enum):
   """Text alignment enum definition"""
 
   CENTER = 'center'
