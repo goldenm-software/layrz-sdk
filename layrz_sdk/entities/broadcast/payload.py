@@ -8,6 +8,7 @@ from pydantic import BaseModel, Field
 from layrz_sdk.constants import UTC
 from layrz_sdk.entities.asset import Asset
 from layrz_sdk.entities.device import Device
+from layrz_sdk.entities.trigger import Trigger
 
 from .service import BroadcastService
 
@@ -23,9 +24,17 @@ class BroadcastPayload(BaseModel):
   }
 
   asset: Asset = Field(..., description='Asset object')
-  primary_device: Device | None = Field(None, description='Primary device object', serialization_alias='primaryDevice')
+  primary_device: Device | None = Field(
+    default=None,
+    description='Primary device object',
+    serialization_alias='primaryDevice',
+  )
+  trigger: Trigger | None = Field(
+    default=None,
+    description='Trigger object, if available',
+  )
   message_id: int | str = Field(..., description='Message ID', serialization_alias='message.id')
-  service: BroadcastService | None = Field(None, description='Broadcast service object')
+  service: BroadcastService | None = Field(default=None, description='Broadcast service object')
   position: dict[str, Any] = Field(default_factory=dict, description='Position data, if available')
   sensors: dict[str, Any] = Field(default_factory=dict, description='Sensors data, if available')
   payload: dict[str, Any] = Field(default_factory=dict, description='Payload data, if available')
