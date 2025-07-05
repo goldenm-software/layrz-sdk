@@ -1,7 +1,6 @@
 """Event entity"""
 
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel, Field
 
@@ -19,5 +18,5 @@ class Event(BaseModel):
   asset_id: int = Field(description='Asset ID')
   message: Message = Field(description='Message')
   activated_at: datetime = Field(description='Event activation date')
-  geofence: Optional[Geofence] = Field(default=None, description='Geofence object')
-  presence_type: Optional[PresenceType] = Field(default=None, description='Presence type object')
+  geofence: Geofence | None = Field(default=None, description='Geofence object')
+  presence_type: PresenceType | None = Field(default=None, description='Presence type object')

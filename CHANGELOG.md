@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.1.31
+
+- Expanded `Trigger` model with new fields (Almost closed to the Dart equivalent on [`layrz_models`](https://pub.dev/packages/layrz_models))
+- Added `Weekday` enum to represent days of the week
+- Added `TriggerKind`, `TriggerGeofenceKind`, `TriggerCaseKind`, and `TriggerCommentPattern` enums to represent different trigger types and patterns
+- Almost removed all aliases from the models
+
+## 3.1.30
+
+- New `Function` model
+
+## 3.1.29
+
+- Serialization changes
+
 ## 3.1.28
 
 - Added `BroadcastPayload` and `BroadcastService` models

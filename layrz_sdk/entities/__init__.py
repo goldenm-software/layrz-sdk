@@ -68,8 +68,10 @@ from .sensor import Sensor
 from .telemetry import AssetMessage, DeviceMessage
 from .text_alignment import TextAlignment
 from .trigger import Trigger
+from .trigger_kind import TriggerCaseKind, TriggerCommentPattern, TriggerGeofenceKind, TriggerKind
 from .user import User
 from .waypoint import Waypoint
+from .weekday import Weekday
 
 __all__ = [
   'Asset',
@@ -144,4 +146,10 @@ __all__ = [
   'AssetMessage',
   'DeviceMessage',
   'AssetConstants',
+  'Function',
+  'TriggerKind',
+  'TriggerGeofenceKind',
+  'TriggerCaseKind',
+  'TriggerCommentPattern',
+  'Weekday',
 ]

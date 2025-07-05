@@ -20,7 +20,7 @@ from .static_position import StaticPosition
 class Asset(BaseModel):
   """Asset entity definition"""
 
-  pk: int = Field(description='Defines the primary key of the asset', serialization_alias='id')
+  pk: int = Field(description='Defines the primary key of the asset')
   name: str = Field(description='Defines the name of the asset')
   vin: str | None = Field(
     default=None,

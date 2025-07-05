@@ -1,6 +1,6 @@
 [project]
 name = "layrz-sdk"
-version = "3.1.30"
+version = "3.1.31"
 description = "Layrz SDK for Python"
 authors = [
   {name = "Golden M, Inc.", email = "software@goldenm.com"}
@@ -11,6 +11,8 @@ maintainers = [
   {name = "Kenny Mochizuki", email = "kenny@goldenm.com"},
   {name = "Luis Reyes", email = "lreyes@goldenm.com"},
   {name = "Kasen Li", email = "kli@goldenm.com"},
+  {name = "Miguel Zauzich", email = "miguel@goldenm.com"},
+  {name = "Angel Prieto", email = "aprieto@goldenm.com"},
 ]
 
 readme = "README.md"
