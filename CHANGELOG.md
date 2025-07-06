@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.36
+
+- Updated enum of `OperationType`
+
 ## 3.1.35
 
 - Added models for operations handling

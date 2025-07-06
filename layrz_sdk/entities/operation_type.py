@@ -17,13 +17,13 @@ class OperationType(str, Enum):
   WEBHOOKS = 'WEBHOOKS'
   """ All the operations by http request """
 
-  SENDEMAIL = 'SENDEMAIL'
+  SEND_EMAIL = 'SENDEMAIL'
   """ Send notifications emails """
 
-  ACTIVATEASSET = 'ACTIVATEASSET'
+  REGISTER_ON_ASSET = 'ACTIVATEASSET'
   """ Register an event for the asset """
 
-  INAPPNOTIFICATION = 'INAPPNOTIFICATION'
+  IN_APP_NOTIFICATION = 'INAPPNOTIFICATION'
   """ Send notifications inside the app """
 
   TWILIO = 'TWILIO'
