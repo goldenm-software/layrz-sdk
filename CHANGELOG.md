@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.34
+
+- Fixes on data types onf `Action` model
+
 ## 3.1.33
 
 - New `Action` model

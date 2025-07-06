@@ -23,7 +23,7 @@ class Action(BaseModel):
     },
   }
 
-  pk: str = Field(
+  pk: int = Field(
     ...,
     description='Primary key of the action entity',
     alias='id',
@@ -37,7 +37,7 @@ class Action(BaseModel):
     description='Kind of the action',
   )
 
-  command_id: str | None = Field(
+  command_id: int | None = Field(
     default=None,
     description='Tag ID associated with the action to send commands to primary devices',
   )
