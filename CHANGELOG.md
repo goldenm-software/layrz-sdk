@@ -1,7 +1,9 @@
 # Changelog
 
 ## 3.1.32
+
 - New `AtsREception` model
+
 ## 3.1.31
 
 - Expanded `Trigger` model with new fields (Almost closed to the Dart equivalent on [`layrz_models`](https://pub.dev/packages/layrz_models))
