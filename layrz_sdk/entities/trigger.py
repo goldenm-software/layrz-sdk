@@ -1,6 +1,6 @@
 """Trigger entity"""
 
-from datetime import datetime, time, timedelta
+from datetime import time, timedelta
 from typing import Any
 
 from pydantic import BaseModel, Field
@@ -11,6 +11,17 @@ from .weekday import Weekday
 
 class Trigger(BaseModel):
   """Trigger entity"""
+
+  model_config = {
+    'json_encoders': {
+      timedelta: lambda v: v.total_seconds(),
+      TriggerCaseKind: lambda v: v.value,
+      TriggerGeofenceKind: lambda v: v.value,
+      TriggerKind: lambda v: v.value,
+      TriggerCommentPattern: lambda v: v.value,
+      Weekday: lambda v: v.value,
+    },
+  }
 
   pk: int = Field(description='Defines the primary key of the trigger')
   name: str = Field(description='Defines the name of the trigger')

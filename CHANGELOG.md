@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.33
+
+- New `Action` model
+- New `ActionKind`, `ActionSubKind`, `GeofenceCategory` and `ActionGeofenceOwnership` enums
+
 ## 3.1.32
 
 - New `AtsREception` model

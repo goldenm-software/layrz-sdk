@@ -1,5 +1,9 @@
 """Init file"""
 
+from .action import Action
+from .action_geofence_ownership import ActionGeofenceOwnership
+from .action_kind import ActionKind
+from .action_subkind import ActionSubKind
 from .asset import Asset
 from .asset_constants import AssetConstants
 from .asset_operation_mode import AssetOperationMode
@@ -51,6 +55,7 @@ from .device import Device
 from .event import Event
 from .function import Function
 from .geofence import Geofence
+from .geofence_category import GeofenceCategory
 from .last_message import LastMessage
 from .message import Message
 from .modbus import ModbusConfig, ModbusParameter, ModbusSchema, ModbusStatus, ModbusWait
@@ -154,4 +159,9 @@ __all__ = [
   'TriggerCommentPattern',
   'Weekday',
   'AtsReception',
+  'Action',
+  'ActionKind',
+  'ActionSubKind',
+  'GeofenceCategory',
+  'ActionGeofenceOwnership',
 ]
