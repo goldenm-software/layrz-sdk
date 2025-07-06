@@ -59,7 +59,13 @@ from .geofence_category import GeofenceCategory
 from .last_message import LastMessage
 from .message import Message
 from .modbus import ModbusConfig, ModbusParameter, ModbusSchema, ModbusStatus, ModbusWait
+from .notification_type import TwilioNotificationType
+from .operation import Operation
+from .operation_case_payload import OperationCaseCommentPayload, OperationCasePayload
+from .operation_payload import OperationPayload
+from .operation_type import OperationType
 from .outbound_service import OutboundService
+from .platform import Platform
 from .position import Position
 from .presence_type import PresenceType
 from .report import Report
@@ -70,9 +76,12 @@ from .report_format import ReportFormat
 from .report_header import ReportHeader
 from .report_page import ReportPage
 from .report_row import ReportRow
+from .request_type import HttpRequestType
 from .sensor import Sensor
+from .sound_effect import SoundEffect
 from .telemetry import AssetMessage, DeviceMessage
 from .text_alignment import TextAlignment
+from .timezone import Timezone
 from .trigger import Trigger
 from .trigger_kind import TriggerCaseKind, TriggerCommentPattern, TriggerGeofenceKind, TriggerKind
 from .user import User
@@ -164,4 +173,14 @@ __all__ = [
   'ActionSubKind',
   'GeofenceCategory',
   'ActionGeofenceOwnership',
+  'SoundEffect',
+  'OperationType',
+  'Operation',
+  'TwilioNotificationType',
+  'HttpRequestType',
+  'Platform',
+  'Timezone',
+  'OperationCasePayload',
+  'OperationCaseCommentPayload',
+  'OperationPayload',
 ]

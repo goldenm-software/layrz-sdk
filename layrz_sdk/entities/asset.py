@@ -74,3 +74,8 @@ class Asset(BaseModel):
         return device
 
     return None
+
+  contacts: list[str] = Field(
+    default_factory=list,
+    description='Defines the list of contacts of the asset, used for notifications',
+  )

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.35
+
+- Added models for operations handling
+
 ## 3.1.34
 
 - Fixes on data types onf `Action` model
