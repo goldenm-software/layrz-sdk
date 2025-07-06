@@ -99,6 +99,21 @@ class Operation(BaseModel):
     alias='notification_type',
   )
 
+  host_phone: str | None = Field(
+    default=None,
+    description='Defines the host phone number for Twilio notifications',
+  )
+
+  username: str | None = Field(
+    default=None,
+    description='Defines the username for the operation, used for authentication in some cases',
+  )
+
+  token: str | None = Field(
+    default=None,
+    description='Defines the token for the operation, used for authentication in some cases',
+  )
+
   destination_phones: list[str] = Field(
     default_factory=list,
     description='Defines the destination phone numbers for Twilio notifications',

@@ -8,4 +8,4 @@ class Timezone(BaseModel):
 
   pk: int = Field(..., description='Defines the primary key of the timezone', alias='id')
   name: str = Field(..., description='Defines the name of the timezone')
-  color: str = Field(default='#2196F3', description='Defines the color of the timezone in hex format')
+  offset: int = Field(..., description='Defines the offset of the timezone in seconds from UTC')

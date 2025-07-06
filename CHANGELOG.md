@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.37
+
+- Fixes on `Timezone` model, added `offset` field to represent the timezone offset in seconds from UTC.
+- Added some fields on `Operation` model
+
 ## 3.1.36
 
 - Updated enum of `OperationType`
