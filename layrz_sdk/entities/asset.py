@@ -79,3 +79,8 @@ class Asset(BaseModel):
     default_factory=list,
     description='Defines the list of contacts of the asset, used for notifications',
   )
+
+  owner_id: int | None = Field(
+    default=None,
+    description='Owner ID',
+  )

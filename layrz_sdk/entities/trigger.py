@@ -128,3 +128,8 @@ class Trigger(BaseModel):
     default=None,
     description='Defines the care protocol ID of the trigger',
   )
+
+  owner_id: int | None = Field(
+    default=None,
+    description='Owner ID',
+  )

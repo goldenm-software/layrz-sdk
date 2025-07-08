@@ -79,3 +79,8 @@ class Action(BaseModel):
     default=ActionGeofenceOwnership.NONE,
     description='Ownership of the new geofence created by the action',
   )
+
+  owner_id: int | None = Field(
+    default=None,
+    description='Owner ID',
+  )

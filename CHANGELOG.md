@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.38
+
+- Added `owner_id` field to `Asset`, `Action`, and `Trigger` models to represent the owner of the entity.
+
 ## 3.1.37
 
 - Fixes on `Timezone` model, added `offset` field to represent the timezone offset in seconds from UTC.
