@@ -48,11 +48,13 @@ from .charts.timeline_chart import TimelineChart
 from .charts.timeline_serie import TimelineSerie
 from .charts.timeline_serie_item import TimelineSerieItem
 from .checkpoint import Checkpoint
+from .command_series_ticket import CommandSeriesTicket, CommandSeriesTicketStatus
 from .comment import Comment
 from .custom_field import CustomField
 from .custom_report_page import CustomReportPage
 from .device import Device
 from .event import Event
+from .exchange_service import ExchangeService
 from .function import Function
 from .geofence import Geofence
 from .geofence_category import GeofenceCategory
@@ -183,4 +185,7 @@ __all__ = [
   'OperationCasePayload',
   'OperationCaseCommentPayload',
   'OperationPayload',
+  'ExchangeService',
+  'CommandSeriesTicket',
+  'CommandSeriesTicketStatus',
 ]

@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.39
+
+- Added `ExchangeService` entity to represent outbound services with credentials.
+- New `CommandSeriesTicket` model
+- Added more information on `OutboundService` model
+
 ## 3.1.38
 
 - Added `owner_id` field to `Asset`, `Action`, and `Trigger` models to represent the owner of the entity.
