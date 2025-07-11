@@ -45,7 +45,7 @@ class CheckpointRef(BaseModel):
   }
 
   pk: int = Field(description='Checkpoint ID', alias='id')
-  asset_id: int = Field(description='Asset ID')
+  name: str = Field(description='Checkpoint name')
   waypoints: list[WaypointRef] = Field(description='List of waypoints', default_factory=list)
 
   operation_mode: CheckpointOperationMode = Field(

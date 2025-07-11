@@ -27,11 +27,12 @@ class Waypoint(BaseModel):
   """Waypoint entity definition"""
 
   pk: int = Field(description='Waypoint ID')
-  geofence: Geofence = Field(description='Geofence object')
-  start_at: datetime = Field(description='Waypoint start date')
-  end_at: datetime = Field(description='Waypoint end date')
-  sequence_real: int = Field(description='Real sequence number')
-  sequence_ideal: int = Field(description='Ideal sequence number')
+  geofence: Geofence | None = Field(default=None, description='Geofence object')
+  geofence_id: int | None = Field(default=None, description='Geofence ID')
+  start_at: datetime | None = Field(default=None, description='Waypoint start date')
+  end_at: datetime | None = Field(default=None, description='Waypoint end date')
+  sequence_real: int = Field(..., description='Real sequence number')
+  sequence_ideal: int = Field(..., description='Ideal sequence number')
 
 
 class WaypointRef(BaseModel):

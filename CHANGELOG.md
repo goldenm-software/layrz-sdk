@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.1.45
+
+- Updates over `Checkpoint` and `Waypoint` models
+
+## 3.1.44
+
+- Removed `asset_id` from `Checkpoint` entity, now using `name` field to represent the checkpoint name.
+
 ## 3.1.43
 
 - Fixes
