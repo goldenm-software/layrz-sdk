@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.40
+
+- Added `Preset` entity to represent presets with a name, valid before date, and comment.
+
 ## 3.1.39
 
 - Added `ExchangeService` entity to represent outbound services with credentials.
