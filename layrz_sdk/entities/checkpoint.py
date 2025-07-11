@@ -35,7 +35,7 @@ class Checkpoint(BaseModel):
   end_at: datetime = Field(description='Checkpoint end date')
 
 
-class CheckointRef(BaseModel):
+class CheckpointRef(BaseModel):
   """Checkpoint reference entity definition"""
 
   model_config = {

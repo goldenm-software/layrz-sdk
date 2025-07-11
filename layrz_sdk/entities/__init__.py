@@ -47,7 +47,7 @@ from .charts.table_row import TableRow
 from .charts.timeline_chart import TimelineChart
 from .charts.timeline_serie import TimelineSerie
 from .charts.timeline_serie_item import TimelineSerieItem
-from .checkpoint import Checkpoint, CheckpointOperationMode
+from .checkpoint import Checkpoint, CheckpointOperationMode, CheckpointRef
 from .command_series_ticket import CommandSeriesTicket, CommandSeriesTicketStatus
 from .comment import Comment
 from .custom_field import CustomField
@@ -88,7 +88,7 @@ from .timezone import Timezone
 from .trigger import Trigger
 from .trigger_kind import TriggerCaseKind, TriggerCommentPattern, TriggerGeofenceKind, TriggerKind
 from .user import User
-from .waypoint import Waypoint
+from .waypoint import Waypoint, WaypointKind, WaypointRef
 from .weekday import Weekday
 
 __all__ = [
@@ -191,4 +191,7 @@ __all__ = [
   'CommandSeriesTicketStatus',
   'Preset',
   'CheckpointOperationMode',
+  'CheckpointRef',
+  'WaypointKind',
+  'WaypointRef',
 ]

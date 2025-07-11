@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.43
+
+- Fixes
+
 ## 3.1.42
 
 - New models `CheckpointRef` and `WaypointRef` to represent checkpoints with waypoints.
