@@ -25,3 +25,7 @@ class Preset(BaseModel):
     default='',
     description='Defines the comment of the preset',
   )
+  owner_id: int = Field(
+    ...,
+    description='Defines the ID of the owner of the preset',
+  )

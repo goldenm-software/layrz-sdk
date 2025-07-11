@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.41
+
+- Added `owner_id` field to `Preset` entity to represent the owner of the preset.
+
 ## 3.1.40
 
 - Added `Preset` entity to represent presets with a name, valid before date, and comment.
