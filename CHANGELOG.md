@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.42
+
+- New models `CheckpointRef` and `WaypointRef` to represent checkpoints with waypoints.
+
 ## 3.1.41
 
 - Added `owner_id` field to `Preset` entity to represent the owner of the preset.

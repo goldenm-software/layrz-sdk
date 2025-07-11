@@ -47,7 +47,7 @@ from .charts.table_row import TableRow
 from .charts.timeline_chart import TimelineChart
 from .charts.timeline_serie import TimelineSerie
 from .charts.timeline_serie_item import TimelineSerieItem
-from .checkpoint import Checkpoint
+from .checkpoint import Checkpoint, CheckpointOperationMode
 from .command_series_ticket import CommandSeriesTicket, CommandSeriesTicketStatus
 from .comment import Comment
 from .custom_field import CustomField
@@ -190,4 +190,5 @@ __all__ = [
   'CommandSeriesTicket',
   'CommandSeriesTicketStatus',
   'Preset',
+  'CheckpointOperationMode',
 ]
