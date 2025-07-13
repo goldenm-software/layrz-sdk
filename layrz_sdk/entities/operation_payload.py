@@ -225,7 +225,7 @@ class OperationPayload(BaseModel):
   )
 
   ## For usage of Twilio operations
-  destinations: list[str] = Field(
+  destinations: list[TwilioHostPhone] = Field(
     default_factory=list,
     description='Defines the destination phone numbers for Twilio notifications',
   )

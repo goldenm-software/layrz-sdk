@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.47
+
+- Changed datatype of `destinations` field in `OperationPayload` entity from `list[str]` to `list[TwilioHostPhone]`.
+
 ## 3.1.46
 
 - Added `AssetContact` entity to represent contacts of an asset.
