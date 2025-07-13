@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.46
+
+- Added `AssetContact` entity to represent contacts of an asset.
+- Updated `Asset` entity to use `AssetContact` instead of a list of strings for contacts.
+- Added `contacts` field to `Asset` entity to represent the list of contacts associated with the asset.
+
 ## 3.1.45
 
 - Updates over `Checkpoint` and `Waypoint` models

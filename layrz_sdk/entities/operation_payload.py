@@ -1,7 +1,13 @@
 """Operation Payload entity"""
 
+import sys
 from datetime import datetime, timedelta
 from typing import Any
+
+if sys.version_info >= (3, 11):
+  from typing import Self
+else:
+  from typing_extensions import Self
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -16,6 +22,27 @@ from layrz_sdk.entities.presence_type import PresenceType
 from layrz_sdk.entities.request_type import HttpRequestType
 from layrz_sdk.entities.sound_effect import SoundEffect
 from layrz_sdk.entities.trigger import Trigger
+
+
+class TwilioHostPhone(BaseModel):
+  """Twilio Host Phone entity"""
+
+  phone_number: str = Field(
+    ...,
+    description='Defines the phone number for Twilio notifications',
+    alias='phoneNumber',
+  )
+
+  country_code: str = Field(
+    ...,
+    description='Defines the country code for the phone number',
+    alias='countryCode',
+  )
+
+  @property
+  def formatted_phone_number(self: Self) -> str:
+    """Returns the formatted phone number"""
+    return f'{self.country_code}{self.phone_number}'
 
 
 class OperationPayload(BaseModel):
@@ -203,7 +230,7 @@ class OperationPayload(BaseModel):
     description='Defines the destination phone numbers for Twilio notifications',
   )
 
-  twilio_host_phone: str | None = Field(
+  twilio_host_phone: TwilioHostPhone | None = Field(
     default=None,
     description='Defines the host phone number for Twilio notifications',
     alias='hostPhone',

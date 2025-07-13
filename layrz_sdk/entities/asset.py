@@ -10,6 +10,7 @@ if sys.version_info >= (3, 11):
 else:
   from typing_extensions import Self
 
+from .asset_contact import AssetContact
 from .asset_operation_mode import AssetOperationMode
 from .custom_field import CustomField
 from .device import Device
@@ -75,7 +76,7 @@ class Asset(BaseModel):
 
     return None
 
-  contacts: list[str] = Field(
+  contacts: list[AssetContact] = Field(
     default_factory=list,
     description='Defines the list of contacts of the asset, used for notifications',
   )
