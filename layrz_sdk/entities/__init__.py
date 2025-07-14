@@ -1,5 +1,7 @@
 """Init file"""
 
+from ats_exit_history import AtsExitExecutionHistory
+
 from .action import Action
 from .action_geofence_ownership import ActionGeofenceOwnership
 from .action_kind import ActionKind
@@ -8,6 +10,7 @@ from .asset import Asset
 from .asset_constants import AssetConstants
 from .asset_contact import AssetContact
 from .asset_operation_mode import AssetOperationMode
+from .ats_possible_exit import AtsPossibleExit
 from .ats_reception import AtsReception
 from .broadcast import (
   BroadcastPayload,
@@ -103,6 +106,8 @@ __all__ = [
   'AssetContact',
   'AssetMessage',
   'AssetOperationMode',
+  'AtsExitExecutionHistory',
+  'AtsPossibleExit',
   'AtsReception',
   'AxisConfig',
   'BarChart',
