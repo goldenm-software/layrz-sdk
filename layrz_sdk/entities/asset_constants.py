@@ -14,20 +14,9 @@ class AssetConstants(BaseModel):
     },
   }
 
-  distance_traveled: float = Field(
-    default=0.0,
-    description='Total distance traveled by the asset in meters',
-    alias='distanceTraveled',
-  )
-
+  distance_traveled: float = Field(default=0.0, description='Total distance traveled by the asset in meters')
+  primary_device: str = Field(default='N/a', description='Primary device associated with the asset')
   elapsed_time: timedelta = Field(
     default=timedelta(seconds=0),
     description='Total elapsed time for the asset in seconds',
-    alias='elapsedTime',
-  )
-
-  primary_device: str = Field(
-    default='N/a',
-    description='Primary device associated with the asset',
-    alias='primaryDevice',
   )

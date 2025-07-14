@@ -1,5 +1,98 @@
 # Changelog
 
+## 3.1.49
+
+- New models `AtsExitExecutionHistory` and  `AtsPossibleExit` for Ats exits add formula field to `Sensor`.
+## 3.1.48
+
+- Moved `DestinationPhone` entity to its own file, and renamed from `TwilioHostPhone` to `DestinationPhone`.
+- Updated `Operation` entity to use `DestinationPhone` instead of a `list[str]` for `destination_phones`.
+
+## 3.1.47
+
+- Changed datatype of `destinations` field in `OperationPayload` entity from `list[str]` to `list[TwilioHostPhone]`.
+
+## 3.1.46
+
+- Added `AssetContact` entity to represent contacts of an asset.
+- Updated `Asset` entity to use `AssetContact` instead of a list of strings for contacts.
+- Added `contacts` field to `Asset` entity to represent the list of contacts associated with the asset.
+
+## 3.1.45
+
+- Updates over `Checkpoint` and `Waypoint` models
+
+## 3.1.44
+
+- Removed `asset_id` from `Checkpoint` entity, now using `name` field to represent the checkpoint name.
+
+## 3.1.43
+
+- Fixes
+
+## 3.1.42
+
+- New models `CheckpointRef` and `WaypointRef` to represent checkpoints with waypoints.
+
+## 3.1.41
+
+- Added `owner_id` field to `Preset` entity to represent the owner of the preset.
+
+## 3.1.40
+
+- Added `Preset` entity to represent presets with a name, valid before date, and comment.
+
+## 3.1.39
+
+- Added `ExchangeService` entity to represent outbound services with credentials.
+- New `CommandSeriesTicket` model
+- Added more information on `OutboundService` model
+
+## 3.1.38
+
+- Added `owner_id` field to `Asset`, `Action`, and `Trigger` models to represent the owner of the entity.
+
+## 3.1.37
+
+- Fixes on `Timezone` model, added `offset` field to represent the timezone offset in seconds from UTC.
+- Added some fields on `Operation` model
+
+## 3.1.36
+
+- Updated enum of `OperationType`
+
+## 3.1.35
+
+- Added models for operations handling
+
+## 3.1.34
+
+- Fixes on data types onf `Action` model
+
+## 3.1.33
+
+- New `Action` model
+- New `ActionKind`, `ActionSubKind`, `GeofenceCategory` and `ActionGeofenceOwnership` enums
+
+## 3.1.32
+
+- New `AtsREception` model
+
+## 3.1.31
+
+- Expanded `Trigger` model with new fields (Almost closed to the Dart equivalent on [`layrz_models`](https://pub.dev/packages/layrz_models))
+- Added `Weekday` enum to represent days of the week
+- Added `TriggerKind`, `TriggerGeofenceKind`, `TriggerCaseKind`, and `TriggerCommentPattern` enums to represent different trigger types and patterns
+- Almost removed all aliases from the models
+
+## 3.1.30
+
+- New `Function` model
+
+## 3.1.29
+
+- Serialization changes
+
 ## 3.1.28
 
 - Added `BroadcastPayload` and `BroadcastService` models

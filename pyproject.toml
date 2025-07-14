@@ -1,6 +1,6 @@
 [project]
 name = "layrz-sdk"
-version = "3.1.30"
+version = "3.1.49"
 description = "Layrz SDK for Python"
 authors = [
   {name = "Golden M, Inc.", email = "software@goldenm.com"}
@@ -11,11 +11,13 @@ maintainers = [
   {name = "Kenny Mochizuki", email = "kenny@goldenm.com"},
   {name = "Luis Reyes", email = "lreyes@goldenm.com"},
   {name = "Kasen Li", email = "kli@goldenm.com"},
+  {name = "Miguel Zauzich", email = "miguel@goldenm.com"},
+  {name = "Angel Prieto", email = "aprieto@goldenm.com"},
 ]
 
 readme = "README.md"
 
-license = {text = "MIT License"}
+license = "MIT"
 
 keywords = [
   "sdk",
@@ -31,7 +33,6 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
-  "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
 ]
 dependencies = [

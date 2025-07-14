@@ -10,6 +10,7 @@ if sys.version_info >= (3, 11):
 else:
   from typing_extensions import Self
 
+from .asset_contact import AssetContact
 from .asset_operation_mode import AssetOperationMode
 from .custom_field import CustomField
 from .device import Device
@@ -20,7 +21,7 @@ from .static_position import StaticPosition
 class Asset(BaseModel):
   """Asset entity definition"""
 
-  pk: int = Field(description='Defines the primary key of the asset', serialization_alias='id')
+  pk: int = Field(description='Defines the primary key of the asset')
   name: str = Field(description='Defines the name of the asset')
   vin: str | None = Field(
     default=None,
@@ -74,3 +75,13 @@ class Asset(BaseModel):
         return device
 
     return None
+
+  contacts: list[AssetContact] = Field(
+    default_factory=list,
+    description='Defines the list of contacts of the asset, used for notifications',
+  )
+
+  owner_id: int | None = Field(
+    default=None,
+    description='Owner ID',
+  )

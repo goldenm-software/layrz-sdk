@@ -24,11 +24,7 @@ from layrz_sdk.entities.device import Device
 class DeviceMessage(BaseModel):
   """Device message model"""
 
-  pk: int | None = Field(
-    default=None,
-    description='Device message ID',
-    alias='id',
-  )
+  pk: int | None = Field(default=None, description='Device message ID')
 
   ident: str = Field(
     ...,

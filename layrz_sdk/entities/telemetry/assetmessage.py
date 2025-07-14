@@ -36,16 +36,8 @@ class AssetMessage(BaseModel):
     }
   }
 
-  pk: int | None = Field(
-    default=None,
-    description='Message ID',
-    alias='id',
-  )
-
-  asset_id: int = Field(
-    ...,
-    description='Asset ID',
-  )
+  pk: int | None = Field(default=None, description='Message ID')
+  asset_id: int = Field(..., description='Asset ID')
 
   position: dict[str, float | int] = Field(
     default_factory=dict,

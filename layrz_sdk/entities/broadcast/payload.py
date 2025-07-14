@@ -24,16 +24,9 @@ class BroadcastPayload(BaseModel):
   }
 
   asset: Asset = Field(..., description='Asset object')
-  primary_device: Device | None = Field(
-    default=None,
-    description='Primary device object',
-    serialization_alias='primaryDevice',
-  )
-  trigger: Trigger | None = Field(
-    default=None,
-    description='Trigger object, if available',
-  )
-  message_id: int | str = Field(..., description='Message ID', serialization_alias='message.id')
+  primary_device: Device | None = Field(default=None, description='Primary device object')
+  trigger: Trigger | None = Field(default=None, description='Trigger object, if available')
+  message_id: int | str = Field(..., description='Message ID')
   service: BroadcastService | None = Field(default=None, description='Broadcast service object')
   position: dict[str, Any] = Field(default_factory=dict, description='Position data, if available')
   sensors: dict[str, Any] = Field(default_factory=dict, description='Sensors data, if available')
@@ -41,5 +34,4 @@ class BroadcastPayload(BaseModel):
   received_at: datetime = Field(
     default_factory=lambda: datetime.now(UTC),
     description='Broadcast payload received date',
-    serialization_alias='receivedAt',
   )
