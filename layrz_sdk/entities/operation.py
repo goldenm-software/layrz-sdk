@@ -5,6 +5,7 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
+from .destination_phone import DestinationPhone
 from .notification_type import TwilioNotificationType
 from .operation_type import OperationType
 from .platform import Platform
@@ -99,7 +100,7 @@ class Operation(BaseModel):
     alias='notification_type',
   )
 
-  host_phone: str | None = Field(
+  host_phone: DestinationPhone | None = Field(
     default=None,
     description='Defines the host phone number for Twilio notifications',
   )
@@ -114,7 +115,7 @@ class Operation(BaseModel):
     description='Defines the token for the operation, used for authentication in some cases',
   )
 
-  destination_phones: list[str] = Field(
+  destination_phones: list[DestinationPhone] = Field(
     default_factory=list,
     description='Defines the destination phone numbers for Twilio notifications',
   )

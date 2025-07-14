@@ -53,6 +53,7 @@ from .command_series_ticket import CommandSeriesTicket, CommandSeriesTicketStatu
 from .comment import Comment
 from .custom_field import CustomField
 from .custom_report_page import CustomReportPage
+from .destination_phone import DestinationPhone
 from .device import Device
 from .event import Event
 from .exchange_service import ExchangeService
@@ -65,7 +66,7 @@ from .modbus import ModbusConfig, ModbusParameter, ModbusSchema, ModbusStatus, M
 from .notification_type import TwilioNotificationType
 from .operation import Operation
 from .operation_case_payload import OperationCaseCommentPayload, OperationCasePayload
-from .operation_payload import OperationPayload, TwilioHostPhone
+from .operation_payload import OperationPayload
 from .operation_type import OperationType
 from .outbound_service import OutboundService
 from .platform import Platform
@@ -190,7 +191,7 @@ __all__ = [
   'TriggerCommentPattern',
   'TriggerGeofenceKind',
   'TriggerKind',
-  'TwilioHostPhone',
+  'DestinationPhone',
   'TwilioNotificationType',
   'User',
   'Waypoint',

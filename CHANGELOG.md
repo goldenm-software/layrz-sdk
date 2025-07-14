@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.48
+
+- Moved `DestinationPhone` entity to its own file, and renamed from `TwilioHostPhone` to `DestinationPhone`.
+- Updated `Operation` entity to use `DestinationPhone` instead of a `list[str]` for `destination_phones`.
+
 ## 3.1.47
 
 - Changed datatype of `destinations` field in `OperationPayload` entity from `list[str]` to `list[TwilioHostPhone]`.
