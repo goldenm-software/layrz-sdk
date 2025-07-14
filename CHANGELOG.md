@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.1.49
+
+- New models `AtsExitExecutionHistory` and  `AtsPossibleExit` for Ats exits.
 ## 3.1.48
 
 - Moved `DestinationPhone` entity to its own file, and renamed from `TwilioHostPhone` to `DestinationPhone`.
