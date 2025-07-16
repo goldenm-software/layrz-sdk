@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.50
+
+- Added `is_fixed` field to `CustomField` entity to indicate if the custom field is fixed or not.
+- Updated `CustomField` entity to include `pk` field as an alias for `id`.
+
 ## 3.1.49
 
 - New models `AtsExitExecutionHistory` and  `AtsPossibleExit` for Ats exits add formula field to `Sensor`.
