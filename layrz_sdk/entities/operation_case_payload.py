@@ -52,7 +52,7 @@ class OperationCasePayload(BaseModel):
     """Serialize trigger to a dictionary"""
     if isinstance(value, Trigger):
       return Trigger(
-        pk=value.pk,
+        id=value.pk,
         name=value.name,
         code=value.code,
       )

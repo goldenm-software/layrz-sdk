@@ -97,7 +97,7 @@ class DeviceMessage(BaseModel):
   def to_message(self: Self) -> Message:
     """Convert the asset message to a Message object."""
     return Message(
-      pk=self.pk if self.pk is not None else 0,
+      id=self.pk if self.pk is not None else 0,
       asset_id=self.device_id if self.device_id is not None else 0,
       position=Position.model_validate(self.position),
       payload=self.payload,
