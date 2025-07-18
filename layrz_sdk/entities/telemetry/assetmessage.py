@@ -3,16 +3,8 @@
 from __future__ import annotations
 
 import json
-import sys
 from datetime import datetime, timedelta
-from typing import Any, cast
-
-from layrz_sdk.entities.position import Position
-
-if sys.version_info >= (3, 11):
-  from typing import Self
-else:
-  from typing_extensions import Self
+from typing import Any, Self, cast
 
 from geopy.distance import geodesic
 from pydantic import BaseModel, Field, field_serializer
@@ -22,6 +14,7 @@ from layrz_sdk.constants import UTC
 from layrz_sdk.entities.asset import Asset
 from layrz_sdk.entities.asset_operation_mode import AssetOperationMode
 from layrz_sdk.entities.message import Message
+from layrz_sdk.entities.position import Position
 from layrz_sdk.entities.telemetry.devicemessage import DeviceMessage
 
 
@@ -36,7 +29,7 @@ class AssetMessage(BaseModel):
     }
   }
 
-  pk: int | None = Field(default=None, description='Message ID')
+  pk: int | None = Field(default=None, description='Message ID', alias='id')
   asset_id: int = Field(..., description='Asset ID')
 
   position: dict[str, float | int] = Field(

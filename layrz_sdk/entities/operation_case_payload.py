@@ -18,7 +18,6 @@ class OperationCaseCommentPayload(BaseModel):
   created_at: datetime = Field(
     default_factory=lambda: datetime.now(UTC),
     description='Defines the creation date of the operation case comment',
-    alias='createdAt',
   )
 
 
@@ -37,12 +36,10 @@ class OperationCasePayload(BaseModel):
   created_at: datetime = Field(
     default_factory=lambda: datetime.now(UTC),
     description='Defines the creation date of the operation case payload',
-    alias='createdAt',
   )
   updated_at: datetime = Field(
     default_factory=lambda: datetime.now(UTC),
     description='Defines the last update date of the operation case payload',
-    alias='updatedAt',
   )
 
   trigger: Trigger = Field(
@@ -67,17 +64,14 @@ class OperationCasePayload(BaseModel):
   file_id: int | None = Field(
     default=None,
     description='Defines the file ID associated with the operation case payload',
-    alias='fileId',
   )
 
   file_created_at: datetime | None = Field(
     default=None,
     description='Defines the creation date of the file associated with the operation case payload',
-    alias='fileCreatedAt',
   )
 
   comment: OperationCaseCommentPayload | None = Field(
     default=None,
     description='Defines the comment associated with the operation case payload',
-    alias='comment',
   )

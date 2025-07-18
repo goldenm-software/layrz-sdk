@@ -1,11 +1,11 @@
 """Command Series Ticket entity"""
 
 from datetime import datetime
+from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, Field
 
-from layrz_sdk.backwards import StrEnum
 from layrz_sdk.constants import UTC
 from layrz_sdk.entities.action import Action
 from layrz_sdk.entities.asset import Asset

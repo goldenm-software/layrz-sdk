@@ -1,9 +1,10 @@
 """Ats Reception entity"""
 
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel, Field
+
+from layrz_sdk.constants import UTC
 
 
 class AtsReception(BaseModel):
@@ -14,12 +15,12 @@ class AtsReception(BaseModel):
     description='Volume bought in liters',
     default=0.0,
   )
-  real_volume: Optional[float] = Field(
+  real_volume: float | None = Field(
     description='Real volume in liters',
     default=None,
   )
 
   received_at: datetime = Field(
     description='Date and time when the reception was made',
-    default_factory=datetime.now,
+    default_factory=lambda: datetime.now(UTC),
   )

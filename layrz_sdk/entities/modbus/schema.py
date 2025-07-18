@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class ModbusSchema(str, Enum):
+class ModbusSchema(StrEnum):
   """Modbus schema enumeration"""
 
   SINGLE = 'SINGLE'

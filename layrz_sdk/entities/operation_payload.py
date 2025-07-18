@@ -1,19 +1,12 @@
 """Operation Payload entity"""
 
-import sys
 from datetime import datetime, timedelta
-from typing import Any
-
-from layrz_sdk.entities.destination_phone import DestinationPhone
-
-if sys.version_info >= (3, 11):
-  from typing import Self
-else:
-  from typing_extensions import Self
+from typing import Any, Self
 
 from pydantic import BaseModel, Field, field_validator
 
 from layrz_sdk.entities.asset import Asset
+from layrz_sdk.entities.destination_phone import DestinationPhone
 from layrz_sdk.entities.geofence import Geofence
 from layrz_sdk.entities.notification_type import TwilioNotificationType
 from layrz_sdk.entities.operation import Operation
@@ -59,7 +52,7 @@ class OperationPayload(BaseModel):
     """Serialize asset to a dictionary"""
     if isinstance(value, Asset):
       return Asset(
-        pk=value.pk,
+        id=value.pk,
         name=value.name,
         operation_mode=value.operation_mode,
         vin=value.vin,
@@ -80,7 +73,7 @@ class OperationPayload(BaseModel):
     """Serialize trigger to a dictionary"""
     if isinstance(value, Trigger):
       return Trigger(
-        pk=value.pk,
+        id=value.pk,
         name=value.name,
         code=value.code,
       )

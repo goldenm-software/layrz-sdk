@@ -3,42 +3,24 @@
 from __future__ import annotations
 
 import json
-import sys
 from datetime import datetime
-from typing import Any
-
-from layrz_sdk.entities.message import Message
-from layrz_sdk.entities.position import Position
-
-if sys.version_info >= (3, 11):
-  from typing import Self
-else:
-  from typing_extensions import Self
+from typing import Any, Self
 
 from pydantic import BaseModel, Field, field_serializer
 
 from layrz_sdk.constants import REJECTED_KEYS, UTC
 from layrz_sdk.entities.device import Device
+from layrz_sdk.entities.message import Message
+from layrz_sdk.entities.position import Position
 
 
 class DeviceMessage(BaseModel):
   """Device message model"""
 
-  pk: int | None = Field(default=None, description='Device message ID')
-
-  ident: str = Field(
-    ...,
-    description='Device identifier',
-  )
-  device_id: int = Field(
-    ...,
-    description='Device ID',
-  )
-
-  protocol_id: int = Field(
-    ...,
-    description='Protocol ID',
-  )
+  pk: int | None = Field(default=None, description='Device message ID', alias='id')
+  ident: str = Field(..., description='Device identifier')
+  device_id: int = Field(..., description='Device ID')
+  protocol_id: int = Field(..., description='Protocol ID')
 
   position: dict[str, float | int] = Field(
     default_factory=dict,

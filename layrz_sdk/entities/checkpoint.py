@@ -1,10 +1,9 @@
 """Checkpoints entitites"""
 
 from datetime import datetime
+from enum import StrEnum
 
 from pydantic import BaseModel, Field
-
-from layrz_sdk.backwards import StrEnum
 
 from .waypoint import Waypoint, WaypointRef
 

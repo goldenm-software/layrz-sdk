@@ -1,7 +1,7 @@
 """Operation entity"""
 
 from datetime import time, timedelta
-from typing import Any
+from typing import Any, Self
 
 from pydantic import BaseModel, Field
 
@@ -36,17 +36,25 @@ class Operation(BaseModel):
     description='Defines the cooldown time of the trigger',
   )
 
-  kind: OperationType = Field(
+  operation_type: OperationType = Field(
     ...,
     description='Defines the kind of the operation',
-    alias='operation_type',
   )
 
-  http_method: HttpRequestType | None = Field(
+  @property
+  def kind(self: Self) -> OperationType:
+    """Get the kind of the operation"""
+    return self.operation_type
+
+  request_type: HttpRequestType | None = Field(
     default=None,
     description='Defines the HTTP method of the operation',
-    alias='request_type',
   )
+
+  @property
+  def http_method(self: Self) -> HttpRequestType | None:
+    """Get the HTTP method of the operation"""
+    return self.request_type
 
   url: str | None = Field(
     default=None,
@@ -88,17 +96,25 @@ class Operation(BaseModel):
     description='Defines the color of the operation',
   )
 
-  external_account_id: int | None = Field(
+  account_id: int | None = Field(
     default=None,
     description='Defines the external account ID of the operation',
-    alias='account_id',
   )
 
-  twilio_notification_type: TwilioNotificationType = Field(
+  @property
+  def external_account_id(self: Self) -> int | None:
+    """Get the external account ID of the operation"""
+    return self.account_id
+
+  notification_type: TwilioNotificationType = Field(
     default=TwilioNotificationType.SMS,
     description='Defines the Twilio notification type of the operation',
-    alias='notification_type',
   )
+
+  @property
+  def twilio_notification_type(self: Self) -> TwilioNotificationType:
+    """Get the Twilio notification type of the operation"""
+    return self.notification_type
 
   host_phone: DestinationPhone | None = Field(
     default=None,

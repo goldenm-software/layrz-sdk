@@ -1,26 +1,20 @@
 """Position entity"""
 
-import sys
-from typing import Any, Optional
+from typing import Any, Self
 
 from pydantic import BaseModel, Field, field_validator
-
-if sys.version_info >= (3, 11):
-  from typing import Self
-else:
-  from typing_extensions import Self
 
 
 class Position(BaseModel):
   """Geographic position definition"""
 
-  latitude: Optional[float] = Field(default=None, description='Defines the latitude of the position')
-  longitude: Optional[float] = Field(default=None, description='Defines the longitude of the position')
-  altitude: Optional[float] = Field(default=None, description='Defines the altitude of the position')
-  hdop: Optional[float] = Field(default=None, description='Defines the horizontal dilution of precision')
-  speed: Optional[float] = Field(default=None, description='Defines the speed of the position')
-  direction: Optional[float] = Field(default=None, description='Defines the direction of the position')
-  satellites: Optional[int] = Field(
+  latitude: float | None = Field(default=None, description='Defines the latitude of the position')
+  longitude: float | None = Field(default=None, description='Defines the longitude of the position')
+  altitude: float | None = Field(default=None, description='Defines the altitude of the position')
+  hdop: float | None = Field(default=None, description='Defines the horizontal dilution of precision')
+  speed: float | None = Field(default=None, description='Defines the speed of the position')
+  direction: float | None = Field(default=None, description='Defines the direction of the position')
+  satellites: int | None = Field(
     default=None,
     description='Defines the number of satellites used to calculate the position',
   )

@@ -1,6 +1,6 @@
 """Preset entity"""
 
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from pydantic import BaseModel, Field
 
@@ -10,7 +10,6 @@ class Preset(BaseModel):
 
   model_config = {
     'json_encoders': {
-      timedelta: lambda v: v.total_seconds(),
       datetime: lambda v: v.timestamp(),
     },
   }
