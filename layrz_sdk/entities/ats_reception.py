@@ -24,3 +24,15 @@ class AtsReception(BaseModel):
     description='Date and time when the reception was made',
     default_factory=lambda: datetime.now(UTC),
   )
+  fuel_type: str = Field(
+    description='Type of fuel used in the reception',
+    default='',
+  )
+  is_merged: bool = Field(
+    description='Indicates if the reception is merged with another',
+    default=False,
+  )
+  order_id: int | None = Field(
+    description='Order ID associated with the reception',
+    default=None,
+  )

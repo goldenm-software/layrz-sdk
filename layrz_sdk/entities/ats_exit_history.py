@@ -18,10 +18,10 @@ class AtsExitExecutionHistory(BaseModel):
   }
   pk: int = Field(description='Primary key of the Exit Execution History', alias='id')
 
-  from_asset: int = Field(
+  from_asset_id: int = Field(
     description='ID of the asset from which the exit is initiated',
   )
-  to_asset: int = Field(
+  to_asset_id: int = Field(
     description='ID of the asset to which the exit is directed',
   )
 
@@ -33,7 +33,7 @@ class AtsExitExecutionHistory(BaseModel):
   )
 
   error_response: str | None = Field(default=None, description='Error response received during the exit process')
-  generated_by: int = Field(description='ID of the user or system that initiated the exit')
+  generated_by_id: int = Field(description='ID of the user or system that initiated the exit')
   queue_id: int | None = Field(default=None, description='ID of the queue associated with the exit')
   to_asset_mileage: float | None = Field(default=None, description='Mileage of the asset to which the exit is directed')
 

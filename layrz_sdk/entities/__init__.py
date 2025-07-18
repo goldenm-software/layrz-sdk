@@ -8,7 +8,9 @@ from .asset import Asset
 from .asset_constants import AssetConstants
 from .asset_contact import AssetContact
 from .asset_operation_mode import AssetOperationMode
+from .ats_entry import AtsEntry
 from .ats_exit_history import AtsExitExecutionHistory
+from .ats_possible_entry import AtsPossibleEntry
 from .ats_possible_exit import AtsPossibleExit
 from .ats_reception import AtsReception
 from .broadcast import (
@@ -108,6 +110,8 @@ __all__ = [
   'AtsExitExecutionHistory',
   'AtsPossibleExit',
   'AtsReception',
+  'AtsEntry',
+  'AtsPossibleEntry',
   'AxisConfig',
   'BarChart',
   'BroadcastPayload',
