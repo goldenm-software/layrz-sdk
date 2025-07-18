@@ -1,18 +1,12 @@
 """Number chart"""
 
-import sys
-from typing import Any
+from typing import Any, Self
 
 from pydantic import BaseModel, Field
 
 from .chart_render_technology import ChartRenderTechnology
 from .table_header import TableHeader
 from .table_row import TableRow
-
-if sys.version_info >= (3, 11):
-  from typing import Self
-else:
-  from typing_extensions import Self
 
 
 class TableChart(BaseModel):

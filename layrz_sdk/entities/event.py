@@ -13,7 +13,7 @@ from .trigger import Trigger
 class Event(BaseModel):
   """Event entity definition"""
 
-  pk: int = Field(description='Event ID')
+  pk: int = Field(description='Event ID', alias='id')
   trigger: Trigger = Field(description='Event trigger')
   asset_id: int = Field(description='Asset ID')
   message: Message = Field(description='Message')

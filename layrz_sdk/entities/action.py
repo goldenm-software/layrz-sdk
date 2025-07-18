@@ -23,29 +23,16 @@ class Action(BaseModel):
     },
   }
 
-  pk: int = Field(
-    ...,
-    description='Primary key of the action entity',
-    alias='id',
-  )
-  name: str = Field(
-    ...,
-    description='Name of the action',
-  )
-  kind: ActionKind = Field(
-    ...,
-    description='Kind of the action',
-  )
+  pk: int = Field(..., description='Primary key of the action entity', alias='id')
+  name: str = Field(..., description='Name of the action')
+  kind: ActionKind = Field(..., description='Kind of the action')
 
   command_id: int | None = Field(
     default=None,
     description='Tag ID associated with the action to send commands to primary devices',
   )
 
-  subkind: ActionSubKind = Field(
-    default=ActionSubKind.UNUSED,
-    description='Subkind of the action',
-  )
+  subkind: ActionSubKind = Field(default=ActionSubKind.UNUSED, description='Subkind of the action')
 
   wait_for_image: bool = Field(
     default=False,
@@ -80,7 +67,4 @@ class Action(BaseModel):
     description='Ownership of the new geofence created by the action',
   )
 
-  owner_id: int | None = Field(
-    default=None,
-    description='Owner ID',
-  )
+  owner_id: int | None = Field(default=None, description='Owner ID')

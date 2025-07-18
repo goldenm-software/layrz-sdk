@@ -1,28 +1,23 @@
 """Chart Serie type"""
 
-import sys
-from enum import Enum
-
-if sys.version_info >= (3, 11):
-  from typing import Self
-else:
-  from typing_extensions import Self
+from enum import StrEnum
+from typing import Self
 
 
-class ChartDataSerieType(Enum):
+class ChartDataSerieType(StrEnum):
   """
   Chart data serie type
   """
 
-  NONE = None
+  NONE = 'None'
   LINE = 'line'
   AREA = 'area'
   SCATTER = 'scatter'
 
-  def __str__(self) -> str:
+  def __str__(self: Self) -> str:
     """Readable property"""
     return self.name
 
-  def __repr__(self) -> str:
+  def __repr__(self: Self) -> str:
     """Readable property"""
     return f'ChartDataSerieType.{self.name}'

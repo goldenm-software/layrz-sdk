@@ -1,8 +1,7 @@
 """Events entities"""
 
-import sys
 from datetime import datetime
-from typing import Any, Optional
+from typing import Any, Optional, Self
 
 from pydantic import BaseModel, Field, model_validator
 
@@ -11,16 +10,11 @@ from .case_status import CaseStatus
 from .comment import Comment
 from .trigger import Trigger
 
-if sys.version_info >= (3, 11):
-  from typing import Self
-else:
-  from typing_extensions import Self
-
 
 class Case(BaseModel):
   """Case entity"""
 
-  pk: int = Field(description='Defines the primary key of the case')
+  pk: int = Field(description='Defines the primary key of the case', alias='id')
   trigger: Trigger = Field(description='Defines the trigger of the case')
   asset_id: int = Field(description='Defines the asset ID of the case')
   comments: list[Comment] = Field(default_factory=list, description='Defines the comments of the case')

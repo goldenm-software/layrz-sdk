@@ -2,11 +2,10 @@
 
 import logging
 import os
-import sys
 import time
 import warnings
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Optional, Self
 
 import xlsxwriter
 from pydantic import BaseModel, Field, field_validator
@@ -17,11 +16,6 @@ from .custom_report_page import CustomReportPage
 from .report_data_type import ReportDataType
 from .report_format import ReportFormat
 from .report_page import ReportPage
-
-if sys.version_info >= (3, 11):
-  from typing import Self
-else:
-  from typing_extensions import Self
 
 log = logging.getLogger(__name__)
 

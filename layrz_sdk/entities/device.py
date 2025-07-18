@@ -8,7 +8,7 @@ from .modbus import ModbusConfig
 class Device(BaseModel):
   """Device entity"""
 
-  pk: int = Field(description='Defines the primary key of the device')
+  pk: int = Field(description='Defines the primary key of the device', alias='id')
   name: str = Field(description='Defines the name of the device')
   ident: str = Field(description='Defines the identifier of the device')
   protocol_id: int | None = Field(

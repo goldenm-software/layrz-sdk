@@ -1,18 +1,12 @@
 """Report col"""
 
-import sys
 import warnings
-from typing import Any, Optional
+from typing import Any, Optional, Self
 
 from pydantic import BaseModel, Field, field_validator
 
 from .report_data_type import ReportDataType
 from .text_alignment import TextAlignment
-
-if sys.version_info >= (3, 11):
-  from typing import Self
-else:
-  from typing_extensions import Self
 
 
 class ReportCol(BaseModel):

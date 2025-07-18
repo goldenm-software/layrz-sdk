@@ -1,34 +1,33 @@
 """Ats Exit entity"""
 
 from datetime import datetime
-from typing import Optional
 
-from pydantic import (
-  BaseModel,
-  ConfigDict,
-  Field,
-  PositiveInt,  # useful if you later want a non-nullable positive int
-  conint,
-)
+from pydantic import BaseModel, Field
 
 
 class AtsPossibleExit(BaseModel):
   """AtsPossibleExit entity"""
 
-  pk: int = Field(description='Defines the primary key of the AtsPossibleExit')
+  model_config = {
+    'json_encoders': {
+      datetime: lambda v: v.timestamp(),
+    }
+  }
 
-  # Nullable “positive big integer” identifier
-  identifier: Optional[conint(ge=0)] = Field(  # type: ignore
+  pk: int = Field(description='Defines the primary key of the AtsPossibleExit', alias='id')
+
+  identifier: int | None = Field(
     default=None,
     description='Nullable positive big integer identifier for the exit',
+    ge=0,
   )
 
   # Volume / gauge snapshots
-  initial_tank_volume: Optional[float] = Field(
+  initial_tank_volume: float | None = Field(
     default=None,
     description='Initial tank volume in liters',
   )
-  initial_fluxometer: Optional[float] = Field(
+  initial_fluxometer: float | None = Field(
     default=None,
     description='Initial fluxometer reading in liters',
   )
@@ -56,7 +55,7 @@ class AtsPossibleExit(BaseModel):
     default_factory=datetime.now,
     description='Timestamp when the exit started',
   )
-  end_at: Optional[datetime] = Field(
+  end_at: datetime | None = Field(
     default=None,
     description='Timestamp when the exit ended',
   )
@@ -66,13 +65,11 @@ class AtsPossibleExit(BaseModel):
     default=False,
     description='Indicates if the exit has been recalculated',
   )
-  is_blackbox: Optional[bool] = Field(
+  is_blackbox: bool | None = Field(
     default=False,
     description='Indicates if the exit is a blackbox',
   )
-  false_positive_count: Optional[int] = Field(
+  false_positive_count: int | None = Field(
     default=0,
     description='Count of false positives detected',
   )
-
-  model_config = ConfigDict(from_attributes=True)  # enables .from_orm()

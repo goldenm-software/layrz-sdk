@@ -1,10 +1,9 @@
 """Waypoint entity"""
 
 from datetime import datetime, timedelta
+from enum import StrEnum
 
 from pydantic import BaseModel, Field
-
-from layrz_sdk.backwards import StrEnum
 
 from .geofence import Geofence
 
@@ -26,7 +25,13 @@ class WaypointKind(StrEnum):
 class Waypoint(BaseModel):
   """Waypoint entity definition"""
 
-  pk: int = Field(description='Waypoint ID')
+  model_config = {
+    'json_encoders': {
+      datetime: lambda v: v.timestamp(),
+    },
+  }
+
+  pk: int = Field(description='Waypoint ID', alias='id')
   geofence: Geofence | None = Field(default=None, description='Geofence object')
   geofence_id: int | None = Field(default=None, description='Geofence ID')
   start_at: datetime | None = Field(default=None, description='Waypoint start date')

@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 class OutboundService(BaseModel):
   """Outbound service definition"""
 
-  pk: int = Field(description='Service ID')
+  pk: int = Field(description='Service ID', alias='id')
   name: str = Field(description='Service name')
 
   protocol_name: str | None = Field(

@@ -1,18 +1,12 @@
 """Map chart"""
 
-import sys
-from typing import Any, Optional, Tuple
+from typing import Any, Optional, Self, Tuple
 
 from pydantic import BaseModel, Field
 
 from .chart_render_technology import ChartRenderTechnology
 from .map_center_type import MapCenterType
 from .map_point import MapPoint
-
-if sys.version_info >= (3, 11):
-  from typing import Self
-else:
-  from typing_extensions import Self
 
 
 class MapChart(BaseModel):

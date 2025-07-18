@@ -1,15 +1,10 @@
 """Operation type"""
 
-import sys
-from enum import Enum
-
-if sys.version_info >= (3, 11):
-  from typing import Self
-else:
-  from typing_extensions import Self
+from enum import StrEnum
+from typing import Self
 
 
-class OperationType(str, Enum):
+class OperationType(StrEnum):
   """
   Operation type definition
   """

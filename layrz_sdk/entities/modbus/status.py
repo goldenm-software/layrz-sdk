@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class ModbusStatus(str, Enum):
+class ModbusStatus(StrEnum):
   """Modbus schema enumeration"""
 
   PENDING = 'PENDING'

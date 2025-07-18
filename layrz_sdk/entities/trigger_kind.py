@@ -1,15 +1,10 @@
 """Asset Operation Mode"""
 
-import sys
-from enum import Enum
-
-if sys.version_info >= (3, 11):
-  from typing import Self
-else:
-  from typing_extensions import Self
+from enum import StrEnum
+from typing import Self
 
 
-class TriggerKind(str, Enum):
+class TriggerKind(StrEnum):
   """
   Trigger Kind definition
   """
@@ -33,7 +28,7 @@ class TriggerKind(str, Enum):
     return f'TriggerKind.{self.name}'
 
 
-class TriggerGeofenceKind(str, Enum):
+class TriggerGeofenceKind(StrEnum):
   """
   Geofence Kind definition
   """
@@ -51,7 +46,7 @@ class TriggerGeofenceKind(str, Enum):
     return f'GeofenceKind.{self.name}'
 
 
-class TriggerCaseKind(str, Enum):
+class TriggerCaseKind(StrEnum):
   """
   Case Kind definition
   """
@@ -70,7 +65,7 @@ class TriggerCaseKind(str, Enum):
     return f'TriggerCaseKind.{self.name}'
 
 
-class TriggerCommentPattern(str, Enum):
+class TriggerCommentPattern(StrEnum):
   """
   Comment Pattern definition
   """

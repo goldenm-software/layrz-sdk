@@ -1,18 +1,12 @@
 """Radar chart"""
 
-import sys
-from typing import Any
+from typing import Any, Self
 
 from pydantic import BaseModel, Field
 
 from .chart_alignment import ChartAlignment
 from .chart_data_serie import ChartDataSerie
 from .chart_data_serie_type import ChartDataSerieType
-
-if sys.version_info >= (3, 11):
-  from typing import Self
-else:
-  from typing_extensions import Self
 
 
 class RadarChart(BaseModel):
