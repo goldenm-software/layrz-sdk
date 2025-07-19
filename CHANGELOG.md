@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.0.8
+
+- Allowed `int | str | None` for `account_id` in `Operation` and `OperationPayload` entities.
+
+## 4.0.7
+
+- Added validation for `headers` field in `Operation` entity to ensure it is a list of dictionaries.
+- Added validation for `reception_emails` field in `Operation` entity to ensure it is a list of strings or a single string.
+
 ## 4.0.6
 
 - Added validation for `manual_action_fields` in `Trigger` entity to ensure it is a list of dictionaries.

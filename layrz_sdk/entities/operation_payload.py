@@ -151,7 +151,7 @@ class OperationPayload(BaseModel):
     alias='useAssetContactsInstead',
   )
 
-  account_id: int | None = Field(
+  account_id: int | str | None = Field(
     default=None,
     description='Defines the external account ID of the operation',
     alias='accountId',
