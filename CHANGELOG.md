@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.0.6
+
+- Added validation for `manual_action_fields` in `Trigger` entity to ensure it is a list of dictionaries.
+- Added validation for `priority` field in `Trigger` entity to ensure it is an integer
+
+## 4.0.5
+
+- Missing doc
+
 ## 4.0.4
 
 - Fixes on `is_primary` field in `Device` entity to ensure it is a boolean value.
