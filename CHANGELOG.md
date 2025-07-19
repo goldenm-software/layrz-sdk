@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.9
+
+- Added validation for `destination_phones` field in `Operation` entity to ensure it is a list of `DestinationPhone` objects.
+- Updated `OperationPayload` entity to use `DestinationPhone` instead of a list of strings for `destinations`.
+
+
 ## 4.0.8
 
 - Allowed `int | str | None` for `account_id` in `Operation` and `OperationPayload` entities.

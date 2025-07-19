@@ -150,6 +150,17 @@ class Operation(BaseModel):
     description='Defines the destination phone numbers for Twilio notifications',
   )
 
+  @field_validator('destination_phones', mode='before')
+  def serialize_destination_phones(cls, value: Any) -> list[DestinationPhone]:
+    """Serialize destination phones to a list of DestinationPhone"""
+    if isinstance(value, list):
+      return value
+
+    if isinstance(value, DestinationPhone):
+      return [value]
+
+    return []
+
   attach_image: bool = Field(
     default=False,
     description='Defines if the operation should attach an image',

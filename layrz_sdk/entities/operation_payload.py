@@ -204,6 +204,17 @@ class OperationPayload(BaseModel):
     description='Defines the destination phone numbers for Twilio notifications',
   )
 
+  @field_validator('destinations', mode='before')
+  def serialize_destinations(cls, value: Any) -> list[DestinationPhone]:
+    """Serialize destinations to a list of DestinationPhone"""
+    if isinstance(value, list):
+      return value
+
+    if isinstance(value, DestinationPhone):
+      return [value]
+
+    return []
+
   twilio_host_phone: DestinationPhone | None = Field(
     default=None,
     description='Defines the host phone number for Twilio notifications',
