@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.4
+
+- Fixes on `is_primary` field in `Device` entity to ensure it is a boolean value.
+
 ## 4.0.3
 
 - Added validation for `static_position` in `Asset` entity to ensure it can accept a dictionary representation of `StaticPosition`.
