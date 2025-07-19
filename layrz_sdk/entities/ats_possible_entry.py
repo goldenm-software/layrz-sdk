@@ -19,8 +19,10 @@ class AtsPossibleEntry(BaseModel):
   )
   is_recalculated: bool = Field(description='Indicates if the entry is recalculated', default=False)
   is_blackbox: bool = Field(description='Indicates if the entry is a black box', default=False)
-  is_executed_by_command: bool = Field(description='Indicates if the entry is executed by command', default=False)
-  is_ready_by_reception: bool = Field(description='Indicates if the entry is ready by reception', default=False)
+  is_executed_by_command: bool | None = Field(
+    description='Indicates if the entry is executed by command', default=False
+  )
+  is_ready_by_reception: bool | None = Field(description='Indicates if the entry is ready by reception', default=False)
   false_positive_count: int = Field(description='Count of false positives for the entry', default=0)
   reception_id: int | None = Field(
     description='Reception ID associated with the entry', default=None, alias='receptionId'
