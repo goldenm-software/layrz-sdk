@@ -3,7 +3,7 @@
 from datetime import time, timedelta
 from typing import Any, Self
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from .destination_phone import DestinationPhone
 from .notification_type import TwilioNotificationType
@@ -181,10 +181,20 @@ class Operation(BaseModel):
     description='Defines the URI for the sound effect of the operation. Only when sound_effect is set to CUSTOM.',
   )
 
-  duration: timedelta = Field(
+  duration: timedelta | None = Field(
     default_factory=lambda: timedelta(seconds=5),
     description='Defines the duration of the operation',
   )
+
+  @field_validator('duration', mode='before')
+  def validate_duration(cls, value: Any) -> timedelta:
+    if value is None:
+      return timedelta(seconds=0)
+    if isinstance(value, timedelta):
+      return value
+    if isinstance(value, (int, float)):
+      return timedelta(seconds=value)
+    return timedelta(seconds=0)
 
   credentials: dict[str, Any] = Field(
     default_factory=dict,

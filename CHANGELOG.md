@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.0.4
+
+- Fixes on `is_primary` field in `Device` entity to ensure it is a boolean value.
+
+## 4.0.3
+
+- Added validation for `static_position` in `Asset` entity to ensure it can accept a dictionary representation of `StaticPosition`.
+
+## 4.0.2
+
+- Missing doc
+
+## 4.0.1
+
+- Missing doc
+
 ## 4.0.0
 
 - Removed all aliases to be more accurate and similar to the Dart equivalent on [`layrz_models`](https://pub.dev/packages/layrz_models).

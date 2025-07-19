@@ -275,8 +275,18 @@ class OperationPayload(BaseModel):
     alias='icon',
   )
 
-  duration: timedelta = Field(
+  duration: timedelta | None = Field(
     default_factory=lambda: timedelta(seconds=0),
     description='Defines the duration of the in-app notification',
     alias='duration',
   )
+
+  @field_validator('duration', mode='before')
+  def validate_duration(cls, value: Any) -> timedelta:
+    if value is None:
+      return timedelta(seconds=0)
+    if isinstance(value, timedelta):
+      return value
+    if isinstance(value, (int, float)):
+      return timedelta(seconds=value)
+    return timedelta(seconds=0)

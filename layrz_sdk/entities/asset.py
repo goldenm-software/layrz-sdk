@@ -2,7 +2,7 @@
 
 from typing import Any, Self
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from .asset_contact import AssetContact
 from .asset_operation_mode import AssetOperationMode
@@ -41,6 +41,20 @@ class Asset(BaseModel):
     default=None,
     description='Static position of the asset',
   )
+
+  @field_validator('static_position', mode='before')
+  def _validate_static_position(cls: Self, value: Any) -> StaticPosition | None:
+    """Validate static position"""
+    if isinstance(value, dict):
+      try:
+        return StaticPosition.model_validate(value)
+      except Exception:
+        return None
+
+    if isinstance(value, StaticPosition):
+      return value
+
+    return None
 
   points: list[StaticPosition] = Field(
     default_factory=list,
