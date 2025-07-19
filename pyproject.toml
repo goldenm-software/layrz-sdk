@@ -1,31 +1,23 @@
 [project]
 name = "layrz-sdk"
-version = "4.0.4"
+version = "4.0.5"
 description = "Layrz SDK for Python"
-authors = [
-  {name = "Golden M, Inc.", email = "software@goldenm.com"}
-]
+authors = [{ name = "Golden M, Inc.", email = "software@goldenm.com" }]
 requires-python = ">=3.13"
 
 maintainers = [
-  {name = "Kenny Mochizuki", email = "kenny@goldenm.com"},
-  {name = "Luis Reyes", email = "lreyes@goldenm.com"},
-  {name = "Kasen Li", email = "kli@goldenm.com"},
-  {name = "Miguel Zauzich", email = "miguel@goldenm.com"},
-  {name = "Angel Prieto", email = "aprieto@goldenm.com"},
+  { name = "Kenny Mochizuki", email = "kenny@goldenm.com" },
+  { name = "Luis Reyes", email = "lreyes@goldenm.com" },
+  { name = "Kasen Li", email = "kli@goldenm.com" },
+  { name = "Miguel Zauzich", email = "miguel@goldenm.com" },
+  { name = "Angel Prieto", email = "aprieto@goldenm.com" },
 ]
 
 readme = "README.md"
 
 license = "MIT"
 
-keywords = [
-  "sdk",
-  "goldenm",
-  "lcl",
-  "layrz compute language",
-  "layrz",
-]
+keywords = ["sdk", "goldenm", "lcl", "layrz compute language", "layrz"]
 classifiers = [
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.13",
@@ -53,12 +45,12 @@ build-backend = "setuptools.build_meta"
 
 [dependency-groups]
 dev = [
-    "build>=1.2.2.post1",
-    "mypy>=1.15.0",
-    "pytest>=8.3.5",
-    "python-dotenv>=1.0.1",
-    "ruff>=0.11.0",
-    "twine>=6.1.0",
+  "build>=1.2.2.post1",
+  "mypy>=1.15.0",
+  "pytest>=8.3.5",
+  "python-dotenv>=1.0.1",
+  "ruff>=0.11.0",
+  "twine>=6.1.0",
 ]
 
 
@@ -70,19 +62,20 @@ exclude = [".venv"]
 
 [tool.ruff.lint]
 ignore = [
-  "F401", # Unused import
-  "E701", # Multiple statements on one line
-  "TD003", # Missing issue link
+  "F401",   # Unused import
+  "E701",   # Multiple statements on one line
+  "TD003",  # Missing issue link
   "ANN401", # Any type annotation
 ]
 
 select = [
-  "I", # isort
-  "E", "W", # pycodestyle
-  "F", # pyflakes
-  "B", # flakes8-bugbear
-  "TD", # flake8-todo
-  "DJ", # flake8-django
+  "I",   # isort
+  "E",
+  "W",   # pycodestyle
+  "F",   # pyflakes
+  "B",   # flakes8-bugbear
+  "TD",  # flake8-todo
+  "DJ",  # flake8-django
   "DTZ", # flake8-datetimez
   "T20", # flake8-print # En un futuro
   "PYI", # flake8-pyi
@@ -101,8 +94,4 @@ ignore_missing_imports = true
 check_untyped_defs = true
 disallow_untyped_defs = true
 
-exclude = [
-  ".*\\.venv",
-  ".*\\.ruff_cache",
-  ".*\\.mypy_cache",
-]
+exclude = [".*\\.venv", ".*\\.ruff_cache", ".*\\.mypy_cache"]
