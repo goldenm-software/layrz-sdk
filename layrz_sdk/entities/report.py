@@ -215,6 +215,7 @@ class Report(BaseModel):
         )
         sheet.write(0, i, header.content, style)
 
+      should_protect = False
       for i, row in enumerate(page.rows):
         for j, cell in enumerate(row.content):
           style = {
@@ -234,6 +235,8 @@ class Report(BaseModel):
           format_ = book.add_format(style)
 
           if cell.lock:
+            if not should_protect:
+              should_protect = True
             format_.set_locked(True)
 
           value: Any = None
@@ -276,6 +279,9 @@ class Report(BaseModel):
             sheet.set_row(i + 1, None, None, {'collapsed': True})
 
       sheet.autofit()
+
+      if should_protect:
+        sheet.protect()
     book.close()
 
     if password and msoffice_crypt_path:

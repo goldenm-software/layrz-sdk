@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.11
+
+- Added protection of worksheets in `Report` entity when exporting to Microsoft Excel to enable cell locking.
+
 ## 4.0.10
 
 - Added support for lock cells in `ReportCol` entity and their export to Microsoft Excel.
