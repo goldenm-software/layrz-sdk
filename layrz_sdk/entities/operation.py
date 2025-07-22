@@ -66,10 +66,24 @@ class Operation(BaseModel):
     description='Defines the headers of the operation',
   )
 
+  @field_validator('headers', mode='before')
+  def validate_headers(cls, value: Any) -> list[dict[str, Any]]:
+    if isinstance(value, list):
+      return value
+    return []
+
   reception_emails: list[str] = Field(
     default_factory=list,
     description='Defines the reception emails of the operation',
   )
+
+  @field_validator('reception_emails', mode='before')
+  def validate_reception_emails(cls, value: Any) -> list[str]:
+    if isinstance(value, list):
+      return value
+    if isinstance(value, str):
+      return [value]
+    return []
 
   language_id: int = Field(
     default=2,
@@ -96,13 +110,13 @@ class Operation(BaseModel):
     description='Defines the color of the operation',
   )
 
-  account_id: int | None = Field(
+  account_id: int | str | None = Field(
     default=None,
     description='Defines the external account ID of the operation',
   )
 
   @property
-  def external_account_id(self: Self) -> int | None:
+  def external_account_id(self: Self) -> int | str | None:
     """Get the external account ID of the operation"""
     return self.account_id
 
@@ -135,6 +149,17 @@ class Operation(BaseModel):
     default_factory=list,
     description='Defines the destination phone numbers for Twilio notifications',
   )
+
+  @field_validator('destination_phones', mode='before')
+  def serialize_destination_phones(cls, value: Any) -> list[DestinationPhone]:
+    """Serialize destination phones to a list of DestinationPhone"""
+    if isinstance(value, list):
+      return value
+
+    if isinstance(value, DestinationPhone):
+      return [value]
+
+    return []
 
   attach_image: bool = Field(
     default=False,

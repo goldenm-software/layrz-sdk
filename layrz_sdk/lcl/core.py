@@ -1,9 +1,7 @@
 """Layrz Compute Language SDK"""
 
 # ruff: noqa: ANN401
-from typing import Any, Optional
-
-from layrz_sdk.entities.message import PayloadType
+from typing import Any, Optional, Self, cast
 
 PATTERN_INVALID = 'Pattern should be string, received {received}'
 INVALID_NUMBER_OF_PARAMS = 'Invalid number of arguments - Expected {expected} - Given {received}'
@@ -18,9 +16,9 @@ class LclCore:
   def __init__(
     self,
     script: str = '',
-    sensors: Optional[PayloadType] = None,
-    previous_sensors: Optional[PayloadType] = None,
-    payload: Optional[PayloadType] = None,
+    sensors: dict[str, Any] | None = None,
+    previous_sensors: dict[str, Any] | None = None,
+    payload: dict[str, Any] | None = None,
     asset_constants: Optional[dict[str, Any]] = None,
     custom_fields: Optional[dict[str, Any]] = None,
   ) -> None:
@@ -158,7 +156,7 @@ class LclCore:
 
       return json.dumps(INVALID_ARGUMENTS.format(e=err))
 
-  def _standarize_datatypes(self, args: list[Any]) -> list[Any]:
+  def _standarize_datatypes(self: Self, args: Any) -> Any:
     """Standarize data types"""
     result_args = []
 
@@ -170,7 +168,7 @@ class LclCore:
 
     return result_args
 
-  def GET_PARAM(self, *args: list[Any]) -> Any:
+  def GET_PARAM(self: Self, *args: Any) -> Any | None:
     """GET_PARAM Function"""
     if len(args) > 2:
       return INVALID_NUMBER_OF_PARAMS.format(expected=2, received=len(args))
@@ -178,17 +176,20 @@ class LclCore:
     if args[0] is None:
       return None
 
-    if len(args) > 1:
-      return self._payload.get(args[0], args[1])  # type: ignore
-    return self._payload.get(args[0], None)  # type: ignore
+    if not isinstance(args[0], str):
+      return f'Argument 0 should be a string, got {type(args[0]).__name__}'
 
-  def GET_DISTANCE_TRAVELED(self, *args: list[Any]) -> str | float:
+    if len(args) > 1:
+      return self._payload.get(args[0], args[1])
+    return self._payload.get(args[0], None)
+
+  def GET_DISTANCE_TRAVELED(self: Self, *args: Any) -> str | float:
     """GET_DISTANCE_TRAVELED Function"""
     if len(args) > 0:
       return INVALID_NUMBER_OF_PARAMS.format(expected=0, received=len(args))
-    return self._asset_constants.get('distanceTraveled', 0)  # type: ignore
+    return cast(float, self._asset_constants.get('distanceTraveled', 0))
 
-  def GET_PREVIOUS_SENSOR(self, *args: list[Any]) -> Any:
+  def GET_PREVIOUS_SENSOR(self: Self, *args: Any) -> Any:
     """GET_PREVIOUS_SENSOR Function"""
     if len(args) < 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -200,10 +201,10 @@ class LclCore:
       return None
 
     if len(args) > 1:
-      return self._previous_sensors.get(args[0], args[1])  # type: ignore
-    return self._previous_sensors.get(args[0], None)  # type: ignore
+      return self._previous_sensors.get(args[0], args[1])
+    return self._previous_sensors.get(args[0], None)
 
-  def GET_SENSOR(self, *args: list[Any]) -> Any:
+  def GET_SENSOR(self: Self, *args: Any) -> Any:
     """GET_SENSOR Function"""
     if len(args) < 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -215,16 +216,16 @@ class LclCore:
       return None
 
     if len(args) > 1:
-      return self._sensors.get(args[0], args[1])  # type: ignore
-    return self._sensors.get(args[0], None)  # type: ignore
+      return self._sensors.get(args[0], args[1])
+    return self._sensors.get(args[0], None)
 
-  def CONSTANT(self, *args: list[Any]) -> Any:
+  def CONSTANT(self: Self, *args: Any) -> Any:
     """CONSTANT Function"""
     if len(args) > 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
     return args[0]
 
-  def GET_CUSTOM_FIELD(self, *args: list[Any]) -> str:
+  def GET_CUSTOM_FIELD(self: Self, *args: Any) -> str | None:
     """GET_CUSTOM_FIELD Function"""
     if len(args) > 2:
       return INVALID_NUMBER_OF_PARAMS.format(expected=2, received=len(args))
@@ -233,11 +234,11 @@ class LclCore:
       return None
 
     if len(args) > 1:
-      return self._custom_fields.get(args[0], args[1])  # type: ignore
+      return cast(str | None, self._custom_fields.get(args[0], args[1]))
 
-    return self._custom_fields.get(args[0], '')  # type: ignore
+    return cast(str | None, self._custom_fields.get(args[0], ''))
 
-  def COMPARE(self, *args: list[Any]) -> str | None | bool:
+  def COMPARE(self: Self, *args: Any) -> str | None | bool:
     """COMPARE Function"""
     if len(args) != 2:
       return INVALID_NUMBER_OF_PARAMS.format(expected=2, received=len(args))
@@ -245,13 +246,13 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
-    args = self._standarize_datatypes(args)  # type: ignore
+    args = self._standarize_datatypes(args)
 
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
-    return args[0] == args[1]
+    return cast(bool, args[0] == args[1])
 
-  def OR_OPERATOR(self, *args: list[Any]) -> bool:
+  def OR_OPERATOR(self: Self, *args: Any) -> bool | None:
     """OR_OPERATOR Function"""
     result = False
 
@@ -263,7 +264,7 @@ class LclCore:
 
     return result
 
-  def AND_OPERATOR(self, *args: list[Any]) -> bool:
+  def AND_OPERATOR(self: Self, *args: Any) -> bool | None:
     """AND_OPERATOR Function"""
     result = False
     is_first = True
@@ -274,30 +275,30 @@ class LclCore:
 
       if is_first:
         is_first = False
-        result = val  # type: ignore
+        result = val
       elif isinstance(val, bool):
         result = result and val
 
     return result
 
-  def SUM(self, *args: list[Any]) -> float:
+  def SUM(self: Self, *args: Any) -> float | None:
     """SUM Function"""
-    result = 0
+    result: float = 0
 
     for num in args:
       if num is None:
         return None
 
       try:
-        result += float(num)  # type: ignore
+        result += float(num)
       except Exception:
         pass
 
     return result
 
-  def SUBSTRACT(self, *args: list[Any]) -> float:
+  def SUBSTRACT(self: Self, *args: Any) -> float | None:
     """SUBSTRACT Function"""
-    result = 0
+    result: float = 0
     is_first = True
 
     for num in args:
@@ -306,18 +307,18 @@ class LclCore:
 
       try:
         if is_first:
-          result = float(num)  # type: ignore
+          result = float(num)
           is_first = False
         else:
-          result -= float(num)  # type: ignore
+          result -= float(num)
       except Exception:
         pass
 
     return result
 
-  def MULTIPLY(self, *args: list[Any]) -> float:
+  def MULTIPLY(self: Self, *args: Any) -> float | None:
     """MULTIPLY Function"""
-    result = 0
+    result: float = 0
     is_first = True
 
     for num in args:
@@ -327,17 +328,17 @@ class LclCore:
       try:
         if is_first:
           is_first = False
-          result = float(num)  # type: ignore
+          result = float(num)
         else:
-          result *= float(num)  # type: ignore
+          result *= float(num)
       except Exception:
         pass
 
     return result
 
-  def DIVIDE(self, *args: list[Any]) -> float:
+  def DIVIDE(self: Self, *args: Any) -> float | None:
     """DIVIDE Function"""
-    result = 0
+    result: float = 0
     is_first = True
 
     for num in args:
@@ -347,15 +348,15 @@ class LclCore:
       try:
         if is_first:
           is_first = False
-          result = float(num)  # type: ignore
+          result = float(num)
         else:
-          result /= float(num)  # type: ignore
+          result /= float(num)
       except Exception:
         pass
 
     return result
 
-  def TO_BOOL(self, *args: list[Any]) -> str | None | bool:
+  def TO_BOOL(self: Self, *args: Any) -> str | None | bool:
     """TO_BOOL Function"""
     if len(args) > 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -365,7 +366,7 @@ class LclCore:
 
     return bool(args[0])
 
-  def TO_STR(self, *args: list[Any]) -> str | None:
+  def TO_STR(self: Self, *args: Any) -> str | None:
     """TO_STR Function"""
     if len(args) > 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -375,7 +376,7 @@ class LclCore:
 
     return str(args[0])
 
-  def TO_INT(self, *args: list[Any]) -> str | None | int:
+  def TO_INT(self: Self, *args: Any) -> str | None | int:
     """TO_INT Function"""
     if len(args) > 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -383,9 +384,9 @@ class LclCore:
     if args[0] is None:
       return None
 
-    return int(args[0])  # type: ignore
+    return int(args[0])
 
-  def CEIL(self, *args: list[Any]) -> str | None | int:
+  def CEIL(self: Self, *args: Any) -> str | None | int:
     """CEIL Function"""
     if len(args) > 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -400,7 +401,7 @@ class LclCore:
 
     return math.ceil(args[0])
 
-  def FLOOR(self, *args: list[Any]) -> str | None | int:
+  def FLOOR(self: Self, *args: Any) -> str | None | int:
     """FLOOR Function"""
     if len(args) > 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -415,7 +416,7 @@ class LclCore:
 
     return math.floor(args[0])
 
-  def ROUND(self, *args: list[Any]) -> str | None | int:
+  def ROUND(self: Self, *args: Any) -> str | None | int:
     """ROUND Function"""
     if len(args) > 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -428,7 +429,7 @@ class LclCore:
 
     return round(args[0])
 
-  def SQRT(self, *args: list[Any]) -> str | None | float:
+  def SQRT(self: Self, *args: Any) -> str | None | float:
     """SQRT Function"""
     if len(args) > 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -438,9 +439,9 @@ class LclCore:
 
     import math
 
-    return math.sqrt(args[0])  # type: ignore
+    return math.sqrt(args[0])
 
-  def CONCAT(self, *args: list[Any]) -> str | None:
+  def CONCAT(self: Self, *args: Any) -> str | None:
     """CONCAT Function"""
     for val in args:
       if val is None:
@@ -448,7 +449,7 @@ class LclCore:
 
     return ''.join([str(val) for val in args])
 
-  def RANDOM(self, *args: list[Any]) -> float | str:
+  def RANDOM(self: Self, *args: Any) -> float | str | None:
     """RANDOM Function"""
     if len(args) > 2:
       return INVALID_NUMBER_OF_PARAMS.format(expected=2, received=len(args))
@@ -460,9 +461,9 @@ class LclCore:
 
     import random
 
-    return random.random() * (float(args[1]) - float(args[0])) + float(args[0])  # type: ignore
+    return random.random() * (float(args[1]) - float(args[0])) + float(args[0])
 
-  def RANDOM_INT(self, *args: list[Any]) -> int | str:
+  def RANDOM_INT(self: Self, *args: Any) -> int | str | None:
     """RANDOM_INT Function"""
     if len(args) != 2:
       return INVALID_NUMBER_OF_PARAMS.format(expected=2, received=len(args))
@@ -472,9 +473,9 @@ class LclCore:
 
     import random
 
-    return random.randint(int(args[0]), int(args[1]))  # type: ignore
+    return random.randint(int(args[0]), int(args[1]))
 
-  def GREATER_THAN_OR_EQUALS_TO(self, *args: list[Any]) -> str | None | bool:
+  def GREATER_THAN_OR_EQUALS_TO(self: Self, *args: Any) -> str | None | bool:
     """GREATER_THAN_OR_EQUALS_TO Function"""
     if len(args) > 2:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -484,13 +485,17 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
-    args = self._standarize_datatypes(args)  # type: ignore
+    args = self._standarize_datatypes(args)
 
-    if not isinstance(args[0], type(args[1])):
-      return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
+    if not isinstance(args[0], (int, float)):
+      return f'Invalid argument 0 - must be real number, not {type(args[0]).__name__}'
+
+    if not isinstance(args[1], (int, float)):
+      return f'Invalid argument 1 - must be real number, not {type(args[1]).__name__}'
+
     return args[0] >= args[1]
 
-  def GREATER_THAN(self, *args: list[Any]) -> str | None | bool:
+  def GREATER_THAN(self: Self, *args: Any) -> str | None | bool:
     """GREATER_THAN Function"""
     if len(args) > 2:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -500,13 +505,17 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
-    args = self._standarize_datatypes(args)  # type: ignore
+    args = self._standarize_datatypes(args)
 
-    if not isinstance(args[0], type(args[1])):
-      return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
+    if not isinstance(args[0], (int, float)):
+      return f'Invalid argument 0 - must be real number, not {type(args[0]).__name__}'
+
+    if not isinstance(args[1], (int, float)):
+      return f'Invalid argument 1 - must be real number, not {type(args[1]).__name__}'
+
     return args[0] > args[1]
 
-  def LESS_THAN_OR_EQUALS_TO(self, *args: list[Any]) -> str | None | bool:
+  def LESS_THAN_OR_EQUALS_TO(self: Self, *args: Any) -> str | None | bool:
     """LESS_THAN_OR_EQUALS_TO Function"""
     if len(args) > 2:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -516,13 +525,17 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
-    args = self._standarize_datatypes(args)  # type: ignore
+    args = self._standarize_datatypes(args)
 
-    if not isinstance(args[0], type(args[1])):
-      return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
+    if not isinstance(args[0], (int, float)):
+      return f'Invalid argument 0 - must be real number, not {type(args[0]).__name__}'
+
+    if not isinstance(args[1], (int, float)):
+      return f'Invalid argument 1 - must be real number, not {type(args[1]).__name__}'
+
     return args[0] <= args[1]
 
-  def LESS_THAN(self, *args: list[Any]) -> str | None | bool:
+  def LESS_THAN(self: Self, *args: Any) -> str | None | bool:
     """LESS_THAN Function"""
     if len(args) > 2:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -532,13 +545,17 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
-    args = self._standarize_datatypes(args)  # type: ignore
+    args = self._standarize_datatypes(args)
 
-    if not isinstance(args[0], type(args[1])):
-      return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
+    if not isinstance(args[0], (int, float)):
+      return f'Invalid argument 0 - must be real number, not {type(args[0]).__name__}'
+
+    if not isinstance(args[1], (int, float)):
+      return f'Invalid argument 1 - must be real number, not {type(args[1]).__name__}'
+
     return args[0] < args[1]
 
-  def DIFFERENT(self, *args: list[Any]) -> str | None | bool:
+  def DIFFERENT(self: Self, *args: Any) -> str | None | bool:
     """DIFFERENT Function"""
     if len(args) > 2:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -548,13 +565,14 @@ class LclCore:
     if args[0] is None or args[1] is None:
       return None
 
-    args = self._standarize_datatypes(args)  # type: ignore
+    args = self._standarize_datatypes(args)
 
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES.format(arg1=type(args[0]).__name__, arg2=type(args[1]).__name__)
-    return args[0] != args[1]
 
-  def HEX_TO_STR(self, *args: list[Any]) -> str | None:
+    return cast(bool, args[0] != args[1])
+
+  def HEX_TO_STR(self: Self, *args: Any) -> str | None:
     """HEX_TO_STR Function"""
     if len(args) > 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -563,16 +581,16 @@ class LclCore:
       return None
 
     hexa = args[0]
-    if hexa.startswith('0x'):  # type: ignore
+    if hexa.startswith('0x'):
       hexa = hexa[2:]
 
     try:
-      byte_array = bytes.fromhex(hexa)  # type: ignore
+      byte_array = bytes.fromhex(hexa)
       return byte_array.decode('ASCII')
     except Exception:
       return 'Invalid hex string'
 
-  def STR_TO_HEX(self, *args: list[Any]) -> str | None:
+  def STR_TO_HEX(self: Self, *args: Any) -> str | None:
     """STR_TO_HEX Function"""
     if len(args) > 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -582,7 +600,7 @@ class LclCore:
 
     return str(args[0]).encode('ASCII').hex()
 
-  def HEX_TO_INT(self, *args: list[Any]) -> str | None | int:
+  def HEX_TO_INT(self: Self, *args: Any) -> str | None | int:
     """HEX_TO_INT Function"""
     if len(args) > 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -591,11 +609,11 @@ class LclCore:
       return None
 
     try:
-      return int(int(args[0], 16))  # type: ignore
+      return int(int(args[0], 16))
     except Exception:
       return 'Invalid hex string'
 
-  def INT_TO_HEX(self, *args: list[Any]) -> str | None:
+  def INT_TO_HEX(self: Self, *args: Any) -> str | None:
     """INT_TO_HEX Function"""
     if len(args) > 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -604,11 +622,11 @@ class LclCore:
       return None
 
     try:
-      return hex(int(args[0]))[2:]  # type: ignore
+      return hex(int(args[0]))[2:]
     except Exception:
       return 'Invalid int value'
 
-  def TO_FLOAT(self, *args: list[Any]) -> str | None | float:
+  def TO_FLOAT(self: Self, *args: Any) -> str | None | float:
     """TO_FLOAT Function"""
     if len(args) > 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -617,11 +635,11 @@ class LclCore:
       return None
 
     try:
-      return float(args[0])  # type: ignore
+      return float(args[0])
     except Exception:
       return f'Invalid arguments - must be real number, not {type(args[0]).__name__}'
 
-  def IS_PARAMETER_PRESENT(self, *args: list[Any]) -> str | bool:
+  def IS_PARAMETER_PRESENT(self: Self, *args: Any) -> str | bool | None:
     """IS_PARAMETER_PRESENT Function"""
     if len(args) > 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -629,9 +647,9 @@ class LclCore:
     if args[0] is None:
       return None
 
-    return args[0] in self._payload  # type: ignore
+    return args[0] in self._payload
 
-  def IS_SENSOR_PRESENT(self, *args: list[Any]) -> str | bool:
+  def IS_SENSOR_PRESENT(self: Self, *args: Any) -> str | bool | None:
     """IS_SENSOR_PRESENT Function"""
     if len(args) > 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -639,9 +657,9 @@ class LclCore:
     if args[0] is None:
       return None
 
-    return args[0] in self._sensors  # type: ignore
+    return args[0] in self._sensors
 
-  def INSIDE_RANGE(self, *args: list[Any]) -> str | None | bool:
+  def INSIDE_RANGE(self: Self, *args: Any) -> str | None | bool:
     """INSIDE_RANGE Function"""
     if len(args) != 3:
       return INVALID_NUMBER_OF_PARAMS.format(expected=3, received=len(args))
@@ -649,18 +667,20 @@ class LclCore:
     if args[0] is None or args[1] is None or args[2] is None:
       return None
 
-    args = self._standarize_datatypes(args)  # type: ignore
+    args = self._standarize_datatypes(args)
 
-    if not isinstance(args[0], type(args[1])):
-      return DIFFERENT_TYPES_RANGES.format(
-        arg1=type(args[0]).__name__,
-        arg2=type(args[1]).__name__,
-        arg3=type(args[2]).__name__,
-      )
+    if not isinstance(args[0], (int, float)):
+      return f'Invalid argument 0 - must be real number, not {type(args[0]).__name__}'
+
+    if not isinstance(args[1], (int, float)):
+      return f'Invalid argument 1 - must be real number, not {type(args[1]).__name__}'
+
+    if not isinstance(args[2], (int, float)):
+      return f'Invalid argument 2 - must be real number, not {type(args[2]).__name__}'
 
     return args[1] <= args[0] <= args[2]
 
-  def OUTSIDE_RANGE(self, *args: list[Any]) -> str | None | bool:
+  def OUTSIDE_RANGE(self: Self, *args: Any) -> str | None | bool:
     """OUTSIDE_RANGE Function"""
     if len(args) != 3:
       return INVALID_NUMBER_OF_PARAMS.format(expected=3, received=len(args))
@@ -668,7 +688,7 @@ class LclCore:
     if args[0] is None or args[1] is None or args[2] is None:
       return None
 
-    args = self._standarize_datatypes(args)  # type: ignore
+    args = self._standarize_datatypes(args)
 
     if not isinstance(args[0], type(args[1])):
       return DIFFERENT_TYPES_RANGES.format(
@@ -679,14 +699,14 @@ class LclCore:
 
     return not args[1] <= args[0] <= args[2]
 
-  def GET_TIME_DIFFERENCE(self, *args: list[Any]) -> str | float:
+  def GET_TIME_DIFFERENCE(self: Self, *args: Any) -> str | float:
     """GET_TIME_DIFFERENCE Function"""
     if len(args) > 0:
       return INVALID_NUMBER_OF_PARAMS.format(expected=0, received=len(args))
 
-    return self._asset_constants.get('timeElapsed', 0)  # type: ignore
+    return cast(float, self._asset_constants.get('timeElapsed', 0))
 
-  def IF(self, *args: list[Any]) -> Any:
+  def IF(self: Self, *args: Any) -> Any:
     """IF Function"""
     if len(args) != 3:
       return INVALID_NUMBER_OF_PARAMS.format(expected=3, received=len(args))
@@ -696,14 +716,14 @@ class LclCore:
 
     return args[1] if args[0] else args[2]
 
-  def NOW(self, *args: list[Any]) -> float:
+  def NOW(self: Self, *args: Any) -> float:
     """NOW Function"""
     import zoneinfo
     from datetime import datetime
 
     return datetime.now(tz=zoneinfo.ZoneInfo('UTC')).timestamp()
 
-  def REGEX(self, *args: list[Any]) -> str | None | bool:
+  def REGEX(self: Self, *args: Any) -> str | None | bool:
     """REGEX Function"""
     if len(args) != 2:
       return INVALID_NUMBER_OF_PARAMS.format(expected=2, received=len(args))
@@ -719,14 +739,14 @@ class LclCore:
     pattern = re.compile(args[1])
     return bool(pattern.match(args[0]))
 
-  def IS_NONE(self, *args: list[Any]) -> str | bool:
+  def IS_NONE(self: Self, *args: Any) -> str | bool:
     """IS_NONE Function"""
     if len(args) != 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
 
     return args[0] is None
 
-  def NOT(self, *args: list[Any]) -> str | bool:
+  def NOT(self: Self, *args: Any) -> str | bool | None:
     """NOT Function"""
     if len(args) != 1:
       return INVALID_NUMBER_OF_PARAMS.format(expected=1, received=len(args))
@@ -736,7 +756,7 @@ class LclCore:
 
     return not args[0]
 
-  def CONTAINS(self, *args: list[Any]) -> str | bool:
+  def CONTAINS(self: Self, *args: Any) -> str | bool | None:
     """CONTAINS function"""
     if len(args) != 2:
       return INVALID_NUMBER_OF_PARAMS.format(expected=2, received=len(args))
@@ -746,7 +766,7 @@ class LclCore:
 
     return str(args[0]) in str(args[1])
 
-  def STARTS_WITH(self, *args: list[Any]) -> str | bool:
+  def STARTS_WITH(self: Self, *args: Any) -> str | bool | None:
     """STARTS_WITH function"""
     if len(args) != 2:
       return INVALID_NUMBER_OF_PARAMS.format(expected=2, received=len(args))
@@ -756,7 +776,7 @@ class LclCore:
 
     return str(args[1]).startswith(str(args[0]))
 
-  def ENDS_WITH(self, *args: list[Any]) -> str | bool:
+  def ENDS_WITH(self: Self, *args: Any) -> str | bool | None:
     """ENDS_WITH function"""
     if len(args) != 2:
       return INVALID_NUMBER_OF_PARAMS.format(expected=2, received=len(args))
@@ -766,14 +786,14 @@ class LclCore:
 
     return str(args[1]).endswith(str(args[0]))
 
-  def PRIMARY_DEVICE(self, *args: list[Any]) -> str:
+  def PRIMARY_DEVICE(self: Self, *args: Any) -> str | None:
     """PRIMARY_DEVICE function"""
     if len(args) > 0:
       return INVALID_NUMBER_OF_PARAMS.format(expected=0, received=len(args))
 
-    return self._asset_constants.get('primaryDevice', None)  # type: ignore
+    return self._asset_constants.get('primaryDevice', None)
 
-  def SUBSTRING(self, *args: list[Any]) -> str:
+  def SUBSTRING(self: Self, *args: Any) -> str | None:
     """Get a substring from string (args[0])"""
     if len(args) < 2:
       return INVALID_NUMBER_OF_PARAMS.format(
@@ -809,7 +829,7 @@ class LclCore:
       return args[0][args[1] : args[2]]
     return args[0][args[1] :]
 
-  def UNIX_TO_STR(self, *args: list[Any]) -> str:
+  def UNIX_TO_STR(self: Self, *args: Any) -> str | None:
     """Convert UNIX timestamp date (args[0]) to format (args[1]) string"""
     if len(args) < 2:
       return INVALID_NUMBER_OF_PARAMS.format(expected=2, received=len(args))
@@ -830,13 +850,13 @@ class LclCore:
         return None
 
       try:
-        tz = zoneinfo.ZoneInfo(args[2])  # type: ignore
+        tz = zoneinfo.ZoneInfo(args[2])
       except zoneinfo.ZoneInfoNotFoundError:
         tz = zoneinfo.ZoneInfo('UTC')
 
-    return datetime.fromtimestamp(int(args[0]), tz=zoneinfo.ZoneInfo('UTC')).astimezone(tz).strftime(args[1])  # type: ignore
+    return datetime.fromtimestamp(int(args[0]), tz=zoneinfo.ZoneInfo('UTC')).astimezone(tz).strftime(args[1])
 
-  def VERSION(self, *args: list[Any]) -> str:
+  def VERSION(self: Self, *args: Any) -> str:
     """VERSION function"""
     if len(args) > 0:
       return INVALID_NUMBER_OF_PARAMS.format(expected=0, received=len(args))

@@ -1,5 +1,34 @@
 # Changelog
 
+## 4.0.10
+
+- Added support for lock cells in `ReportCol` entity and their export to Microsoft Excel.
+- Added support for `list[Geofence]` on `Message` entity for presence in geofences.
+
+## 4.0.9
+
+- Added validation for `destination_phones` field in `Operation` entity to ensure it is a list of `DestinationPhone` objects.
+- Updated `OperationPayload` entity to use `DestinationPhone` instead of a list of strings for `destinations`.
+
+
+## 4.0.8
+
+- Allowed `int | str | None` for `account_id` in `Operation` and `OperationPayload` entities.
+
+## 4.0.7
+
+- Added validation for `headers` field in `Operation` entity to ensure it is a list of dictionaries.
+- Added validation for `reception_emails` field in `Operation` entity to ensure it is a list of strings or a single string.
+
+## 4.0.6
+
+- Added validation for `manual_action_fields` in `Trigger` entity to ensure it is a list of dictionaries.
+- Added validation for `priority` field in `Trigger` entity to ensure it is an integer
+
+## 4.0.5
+
+- Missing doc
+
 ## 4.0.4
 
 - Fixes on `is_primary` field in `Device` entity to ensure it is a boolean value.

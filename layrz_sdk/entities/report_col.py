@@ -20,6 +20,7 @@ class ReportCol(BaseModel):
   datetime_format: str = Field(description='Datetime format', default='%Y-%m-%d %H:%M:%S')
   currency_symbol: str = Field(description='Currency symbol', default='')
   bold: bool = Field(description='Bold text', default=False)
+  lock: bool = Field(description='Lock column', default=False)
 
   @field_validator('text_color', mode='before')
   def _validate_text_color(cls: Self, value: Any) -> Any:

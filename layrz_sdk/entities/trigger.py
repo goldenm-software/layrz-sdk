@@ -3,7 +3,7 @@
 from datetime import time, timedelta
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from .trigger_kind import TriggerCaseKind, TriggerCommentPattern, TriggerGeofenceKind, TriggerKind
 from .weekday import Weekday
@@ -92,6 +92,13 @@ class Trigger(BaseModel):
     description='Defines the fields for manual action in the trigger',
   )
 
+  @field_validator('manual_action_fields', mode='before')
+  def validate_manual_action_fields(cls, value: Any) -> list[dict[str, Any]]:
+    """Ensure manual_action_fields is a list of dictionaries."""
+    if isinstance(value, list):
+      return value
+    return []
+
   formula: str | None = Field(
     default=None,
     description='Defines the formula of the trigger, this formula is only LCL (Layrz Computation Language) compatible',
@@ -113,6 +120,16 @@ class Trigger(BaseModel):
     default=0,
     description='Defines the priority of the trigger',
   )
+
+  @field_validator('priority', mode='before')
+  def validate_priority(cls, value: Any) -> int:
+    """Ensure priority is an integer."""
+    if isinstance(value, int):
+      return value
+    try:
+      return int(value)
+    except (ValueError, TypeError):
+      return 0
 
   color: str | None = Field(
     default='#2196F3',
