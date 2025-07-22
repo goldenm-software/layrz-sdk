@@ -19,7 +19,6 @@ class AtsPossibleExit(BaseModel):
   identifier: int | None = Field(
     default=None,
     description='Nullable positive big integer identifier for the exit',
-    ge=0,
   )
 
   # Volume / gauge snapshots

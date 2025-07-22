@@ -117,7 +117,7 @@ class AssetMessage(BaseModel):
       case AssetOperationMode.STATIC:
         obj.position = asset.static_position.model_dump(exclude_none=True) if asset.static_position else {}
       case AssetOperationMode.ZONE:
-        points = MultiPoint([(p.longitude, p.latitude) for p in asset.points])
+        points: MultiPoint = MultiPoint([(p.longitude, p.latitude) for p in asset.points])
         obj.position = {'latitude': points.centroid.y, 'longitude': points.centroid.x}
       case _:
         obj.position = device_message.position

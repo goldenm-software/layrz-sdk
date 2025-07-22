@@ -10,12 +10,11 @@ from typing import Any, Optional, Self
 import xlsxwriter
 from pydantic import BaseModel, Field, field_validator
 
+from layrz_sdk.entities.custom_report_page import CustomReportPage
+from layrz_sdk.entities.report_data_type import ReportDataType
+from layrz_sdk.entities.report_format import ReportFormat
+from layrz_sdk.entities.report_page import ReportPage
 from layrz_sdk.helpers.color import use_black
-
-from .custom_report_page import CustomReportPage
-from .report_data_type import ReportDataType
-from .report_format import ReportFormat
-from .report_page import ReportPage
 
 log = logging.getLogger(__name__)
 
@@ -87,6 +86,7 @@ class Report(BaseModel):
     else:
       raise AttributeError(f'Unsupported export format: {self.export_format}')
 
+  @warnings.deprecated('export_as_json is deprecated, use export with export_format=ReportFormat.JSON instead')
   def export_as_json(self: Self) -> dict[str, Any]:
     """Returns the report as a JSON dict"""
     return self._export_json()
@@ -98,7 +98,7 @@ class Report(BaseModel):
       if isinstance(page, CustomReportPage):
         continue
 
-      headers = []
+      headers: list[dict[str, Any]] = []
       for header in page.headers:
         headers.append(
           {
@@ -231,34 +231,44 @@ class Report(BaseModel):
             'font_name': 'Aptos Narrow',
           }
 
+          format_ = book.add_format(style)
+
+          if cell.lock:
+            format_.set_locked(True)
+
           value: Any = None
 
-          if cell.data_type == ReportDataType.BOOL:
-            value = 'Yes' if cell.content else 'No'
-          elif cell.data_type == ReportDataType.DATETIME:
-            value = cell.content.strftime(cell.datetime_format)
-          elif cell.data_type == ReportDataType.INT:
-            try:
-              value = int(cell.content)
-            except ValueError:
-              value = cell.content
-              log.warning(f'Invalid int value: {cell.content} in cell {i + 1}, {j}')
-          elif cell.data_type == ReportDataType.FLOAT:
-            try:
-              value = float(cell.content)
-              style.update({'num_format': '0.00'})
-            except ValueError:
-              value = cell.content
-              log.warning(f'Invalid float value: {cell.content} in cell {i + 1}, {j}')
-          elif cell.data_type == ReportDataType.CURRENCY:
-            value = float(cell.content)
-            style.update(
-              {'num_format': f'"{cell.currency_symbol}" * #,##0.00;[Red]"{cell.currency_symbol}" * #,##0.00'}
-            )
-          else:
-            value = cell.content
+          match cell.data_type:
+            case ReportDataType.BOOL:
+              value = 'Yes' if cell.content else 'No'
 
-          sheet.write(i + 1, j, value, book.add_format(style))
+            case ReportDataType.DATETIME:
+              value = cell.content.strftime(cell.datetime_format)
+
+            case ReportDataType.INT:
+              try:
+                value = int(cell.content)
+              except ValueError:
+                value = cell.content
+                log.warning(f'Invalid int value: {cell.content} in cell {i + 1}, {j}')
+
+            case ReportDataType.FLOAT:
+              try:
+                value = float(cell.content)
+                format_.set_num_format('0.00')
+
+              except ValueError:
+                value = cell.content
+                log.warning(f'Invalid float value: {cell.content} in cell {i + 1}, {j}')
+
+            case ReportDataType.CURRENCY:
+              value = float(cell.content)
+              format_.set_num_format(f'"{cell.currency_symbol}" * #,##0.00;[Red]"{cell.currency_symbol}" * #,##0.00')
+
+            case _:
+              value = str(cell.content)
+
+          sheet.write(i + 1, j, value, format_)
 
           if row.compact:
             sheet.set_row(i + 1, None, None, {'level': 1, 'hidden': True})

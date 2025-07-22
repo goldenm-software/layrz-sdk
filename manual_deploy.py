@@ -1,5 +1,3 @@
-"""Manual deploy"""
-
 import os
 import shutil
 

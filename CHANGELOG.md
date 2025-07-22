@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.10
+
+- Added support for lock cells in `ReportCol` entity and their export to Microsoft Excel.
+- Added support for `list[Geofence]` on `Message` entity for presence in geofences.
+
 ## 4.0.9
 
 - Added validation for `destination_phones` field in `Operation` entity to ensure it is a list of `DestinationPhone` objects.

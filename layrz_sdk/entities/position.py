@@ -1,6 +1,6 @@
 """Position entity"""
 
-from typing import Any, Self
+from typing import Any, Self, cast
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -32,7 +32,7 @@ class Position(BaseModel):
       value = float(value)
 
     if -90 <= value <= 90:
-      return value
+      return cast(float, value)
 
     return None
 
@@ -49,7 +49,7 @@ class Position(BaseModel):
       value = float(value)
 
     if -180 <= value <= 180:
-      return value
+      return cast(float, value)
 
     return None
 
@@ -76,7 +76,7 @@ class Position(BaseModel):
     if isinstance(value, int):
       value = float(value)
 
-    return value
+    return cast(float, value)
 
   @field_validator('speed', mode='before')
   def _validate_speed(cls: Self, value: Any) -> None | float:
@@ -90,7 +90,7 @@ class Position(BaseModel):
     if isinstance(value, int):
       value = float(value)
 
-    return abs(value)
+    return cast(float, abs(value))
 
   @field_validator('direction', mode='before')
   def _validate_direction(cls: Self, value: Any) -> None | float:
@@ -105,6 +105,6 @@ class Position(BaseModel):
       value = float(value)
 
     if 0 <= value <= 360:
-      return value
+      return cast(float, value)
 
     return None

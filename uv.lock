@@ -241,7 +241,6 @@ dependencies = [
     { name = "requests" },
     { name = "shapely" },
     { name = "strenum" },
-    { name = "typing-extensions" },
     { name = "tzdata" },
     { name = "xlsxwriter" },
 ]
@@ -254,18 +253,18 @@ dev = [
     { name = "python-dotenv" },
     { name = "ruff" },
     { name = "twine" },
+    { name = "types-shapely" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "geopy", specifier = ">=2.4.1" },
     { name = "pydantic", specifier = ">=2.10.6" },
-    { name = "requests" },
+    { name = "requests", specifier = ">=2.32.4" },
     { name = "shapely", specifier = ">=2.1.1" },
     { name = "strenum", specifier = ">=0.4.15" },
-    { name = "typing-extensions", specifier = ">=4.10.0" },
-    { name = "tzdata" },
-    { name = "xlsxwriter" },
+    { name = "tzdata", specifier = ">=2025.2" },
+    { name = "xlsxwriter", specifier = ">=3.2.5,<4.0.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -276,6 +275,7 @@ dev = [
     { name = "python-dotenv", specifier = ">=1.0.1" },
     { name = "ruff", specifier = ">=0.11.0" },
     { name = "twine", specifier = ">=6.1.0" },
+    { name = "types-shapely", specifier = ">=2.1.0.20250710" },
 ]
 
 [[package]]
@@ -686,6 +686,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/c8/a2/6df94fc5c8e2170d21d7134a565c3a8fb84f9797c1dd65a5976aaf714418/twine-6.1.0.tar.gz", hash = "sha256:be324f6272eff91d07ee93f251edf232fc647935dd585ac003539b42404a8dbd", size = 168404, upload-time = "2025-01-21T18:45:26.758Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/7c/b6/74e927715a285743351233f33ea3c684528a0d374d2e43ff9ce9585b73fe/twine-6.1.0-py3-none-any.whl", hash = "sha256:a47f973caf122930bf0fbbf17f80b83bc1602c9ce393c7845f289a3001dc5384", size = 40791, upload-time = "2025-01-21T18:45:24.584Z" },
+]
+
+[[package]]
+name = "types-shapely"
+version = "2.1.0.20250710"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/58/70/37f63bc62aefde18795bd807381f7e2c2b7884f7f1ddaed2e6f727a099f9/types_shapely-2.1.0.20250710.tar.gz", hash = "sha256:f93067996f5203dffe57f57a130ae757b7e83609b046ea9631de8b900e4be77b", size = 26205, upload-time = "2025-07-10T03:15:50.902Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4a/f1/bc36b6a7dbe742b0dc75c0fe6b4f27a2a37dedcf63bac9afe55bdb998870/types_shapely-2.1.0.20250710-py3-none-any.whl", hash = "sha256:cf58a2f6a79ec7cbdaf2ba8a8d744842bd1f5ae159afc2512db552b2c67219f4", size = 37696, upload-time = "2025-07-10T03:15:49.852Z" },
 ]
 
 [[package]]
