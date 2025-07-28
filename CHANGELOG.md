@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.12
+
+- Added `search_time_delta` field to `Trigger` entity to define the search time delta of the trigger.
+- Updated `TriggerKind` enum to include `NESTED` as a new trigger kind
+
 ## 4.0.11
 
 - Added protection of worksheets in `Report` entity when exporting to Microsoft Excel to enable cell locking.
