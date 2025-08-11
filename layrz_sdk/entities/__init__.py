@@ -20,6 +20,7 @@ from .broadcast import (
   BroadcastResult,
   BroadcastService,
   BroadcastStatus,
+  RawBroadcastResult,
 )
 from .case import Case
 from .case_ignored_status import CaseIgnoredStatus
@@ -118,6 +119,7 @@ __all__ = [
   'BroadcastRequest',
   'BroadcastResponse',
   'BroadcastResult',
+  'RawBroadcastResult',
   'BroadcastService',
   'BroadcastStatus',
   'Case',
