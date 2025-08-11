@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.0.13
+
+- Added `partition_number` field to `Asset` entity to represent the partition number assigned to the asset.
+- Added `pk` and `trigger_id` fields to `BroadcastResult` entity to represent the broadcast result ID and trigger ID respectively.
+- Updated `BroadcastResult` entity to include an `error` field to represent any error message if the broadcast failed.
+- Updated `BroadcastStatus` enum to include `BAD_REQUEST` and `INTERNAL_ERROR` as new status values.
+- Added `algorithm` field to `BroadcastResult` entity to represent the algorithm used for the broadcast, if any.
+
 ## 4.0.12
 
 - Added `search_time_delta` field to `Trigger` entity to define the search time delta of the trigger.
