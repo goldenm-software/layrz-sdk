@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.14
+
+- Added decorators to measure function execution time.
+
 ## 4.0.13
 
 - Added `partition_number` field to `Asset` entity to represent the partition number assigned to the asset.
