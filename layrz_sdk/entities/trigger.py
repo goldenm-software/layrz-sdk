@@ -150,3 +150,8 @@ class Trigger(BaseModel):
     default=None,
     description='Owner ID',
   )
+
+  search_time_delta: timedelta | None = Field(
+    default=None,
+    description='Defines the search time delta of the trigger',
+  )

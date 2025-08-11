@@ -18,6 +18,7 @@ class TriggerKind(StrEnum):
   BHS_SPEEDING = 'BHS_SPEEDING'
   BHS_PRESENCE = 'BHS_PRESENCE'
   MANUAL_ACTION = 'MANUAL_ACTION'
+  NESTED = 'NESTED_TRIGGERS'
 
   def __str__(self: Self) -> str:
     """Readable property"""

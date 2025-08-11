@@ -104,3 +104,8 @@ class Asset(BaseModel):
   def asset_type(self: Self) -> int | None:
     """Get asset type"""
     return self.kind_id
+
+  partition_number: int | None = Field(
+    default=None,
+    description='Partition number assigned for this Asset, if is None, will be auto-assigned by the system',
+  )
