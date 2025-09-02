@@ -10,7 +10,7 @@ from layrz_sdk.constants import UTC
 class AtsReception(BaseModel):
   """AtsReception entity"""
 
-  pk: int = Field(description='Defines the primary key of the AtsReception')
+  pk: int = Field(description='Defines the primary key of the AtsReception', alias='id')
   volume_bought: float = Field(
     description='Volume bought in liters',
     default=0.0,
