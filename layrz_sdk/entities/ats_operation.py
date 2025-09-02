@@ -20,7 +20,7 @@ class AtsOperationMovement(BaseModel):
   pk: int = Field(description='Defines the primary key of the Function', alias='id')
   status: OrderStatus = Field(..., description='Current status of the order')
   created_at: datetime = Field(description='Timestamp when the operation movement was created')
-  asset_id: int = Field(description='ID of the asset')
+  asset_id: int | None = Field(description='ID of the asset', default=None)
   operation_id: int = Field(description='ID of the operation')
 
 
@@ -42,6 +42,6 @@ class AtsOperation(BaseModel):
   deliver_category: DeliveryCategories = Field(..., description='Delivery category of the operation')
   seller_asset_id: int = Field(description='ID of the seller asset')
   transport_asset_id: int = Field(description='ID of the transport asset')
-  finished_at: datetime | None = Field(description='Timestamp when the operation was finished')
+  finished_at: datetime | None = Field(description='Timestamp when the operation was finished', default=None)
   history: list[AtsOperationMovement] = Field(description='List of operation movements')
   purchase_orders: list[AtsPurchaseOrder] = Field(description='List of purchase orders')
