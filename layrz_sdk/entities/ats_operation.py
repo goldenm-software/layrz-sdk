@@ -42,6 +42,6 @@ class AtsOperation(BaseModel):
   deliver_category: DeliveryCategories = Field(..., description='Delivery category of the operation')
   seller_asset_id: int = Field(description='ID of the seller asset')
   transport_asset_id: int = Field(description='ID of the transport asset')
-  finished_at: datetime = Field(description='Timestamp when the operation was finished')
+  finished_at: datetime | None = Field(description='Timestamp when the operation was finished')
   history: list[AtsOperationMovement] = Field(description='List of operation movements')
   purchase_orders: list[AtsPurchaseOrder] = Field(description='List of purchase orders')
