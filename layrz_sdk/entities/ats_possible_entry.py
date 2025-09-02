@@ -24,6 +24,4 @@ class AtsPossibleEntry(BaseModel):
   )
   is_ready_by_reception: bool | None = Field(description='Indicates if the entry is ready by reception', default=False)
   false_positive_count: int = Field(description='Count of false positives for the entry', default=0)
-  reception_id: int | None = Field(
-    description='Reception ID associated with the entry', default=None, alias='receptionId'
-  )
+  reception_id: int | None = Field(description='Reception ID associated with the entry', default=None)

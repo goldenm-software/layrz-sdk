@@ -10,8 +10,10 @@ from .asset_contact import AssetContact
 from .asset_operation_mode import AssetOperationMode
 from .ats_entry import AtsEntry
 from .ats_exit_history import AtsExitExecutionHistory
+from .ats_operation import AtsOperation, AtsOperationMovement
 from .ats_possible_entry import AtsPossibleEntry
 from .ats_possible_exit import AtsPossibleExit
+from .ats_purchaseorder import AtsPurchaseOrder, DeliveryCategories, OrderCategories, OrderStatus
 from .ats_reception import AtsReception
 from .broadcast import (
   BroadcastPayload,
@@ -20,6 +22,7 @@ from .broadcast import (
   BroadcastResult,
   BroadcastService,
   BroadcastStatus,
+  RawBroadcastResult,
 )
 from .case import Case
 from .case_ignored_status import CaseIgnoredStatus
@@ -118,6 +121,7 @@ __all__ = [
   'BroadcastRequest',
   'BroadcastResponse',
   'BroadcastResult',
+  'RawBroadcastResult',
   'BroadcastService',
   'BroadcastStatus',
   'Case',
@@ -206,4 +210,10 @@ __all__ = [
   'WaypointKind',
   'WaypointRef',
   'Weekday',
+  'AtsPurchaseOrder',
+  'DeliveryCategories',
+  'OrderCategories',
+  'OrderStatus',
+  'AtsOperationMovement',
+  'AtsOperation',
 ]
