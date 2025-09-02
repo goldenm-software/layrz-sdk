@@ -17,11 +17,11 @@ class AtsOperationMovement(BaseModel):
       OrderStatus: lambda v: v.value,
     },
   }
-  pk: int = Field(description='Defines the primary key of the Function', alias='id')
-  status: OrderStatus = Field(..., description='Current status of the order')
-  created_at: datetime = Field(description='Timestamp when the operation movement was created')
+  pk: int | None = Field(description='Defines the primary key of the Function', alias='id', default=None)
+  status: OrderStatus | None = Field(description='Current status of the order', default=None)
+  created_at: datetime | None = Field(description='Timestamp when the operation movement was created', default=None)
   asset_id: int | None = Field(description='ID of the asset', default=None)
-  operation_id: int = Field(description='ID of the operation')
+  operation_id: int | None = Field(description='ID of the operation', default=None)
 
 
 class AtsOperation(BaseModel):
