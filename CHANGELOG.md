@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.19
+
+- Applied fixes on `Case` entity to correctly generate the `sequence` field when creating a new case.
+
 ## 4.0.14
 
 - Added decorators to measure function execution time.
