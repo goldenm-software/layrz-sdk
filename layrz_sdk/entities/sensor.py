@@ -2,6 +2,8 @@
 
 from pydantic import BaseModel, Field
 
+from .sensor_mask import SensorMask
+
 
 class Sensor(BaseModel):
   """Sensor entity"""
@@ -12,4 +14,13 @@ class Sensor(BaseModel):
   formula: str = Field(
     default='',
     description='Defines the formula of the sensor, used for calculations',
+  )
+  mask: list[SensorMask] | None = Field(
+    default=None,
+    description='Defines the mask of the sensor, used for filtering data',
+  )
+
+  measuring_unit: str | None = Field(
+    default=None,
+    description='Defines the measuring unit of the sensor, e.g., km/h, °C',
   )
