@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.20
+- Added `SensorMask` entity to represent the mask values of the sensors
+- Added `mask` to sensor to represent the list of mask from the sensor.
+- Added `measuring_unit` field to `Sensor` entity to represent the measuring unit assigned to the Sensor.
+
 ## 4.0.19
 
 - Applied fixes on `Case` entity to correctly generate the `sequence` field when creating a new case.
