@@ -37,7 +37,12 @@ class Case(BaseModel):
     if sequence is not None and isinstance(sequence, int):
       trigger = data['trigger']
       if not isinstance(trigger, Trigger):
-        data['sequence'] = f'{trigger["code"]}/{data["pk"]}'
+        if pk := data.get('pk'):
+          data['sequence'] = f'{trigger["code"]}/{pk}'
+        elif id_ := data.get('id'):
+          data['sequence'] = f'{trigger["code"]}/{id_}'
+        else:
+          data['sequence'] = f'{trigger["code"]}/{sequence}'
       else:
         data['sequence'] = f'{trigger.code}/{sequence}'
     else:

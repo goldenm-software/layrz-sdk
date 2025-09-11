@@ -90,6 +90,7 @@ from .report_page import ReportPage
 from .report_row import ReportRow
 from .request_type import HttpRequestType
 from .sensor import Sensor
+from .sensor_mask import SensorMask
 from .sound_effect import SoundEffect
 from .telemetry import AssetMessage, DeviceMessage
 from .text_alignment import TextAlignment
@@ -189,6 +190,7 @@ __all__ = [
   'ScatterSerie',
   'ScatterSerieItem',
   'Sensor',
+  'SensorMask',
   'SoundEffect',
   'TableChart',
   'TableHeader',
