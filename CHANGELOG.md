@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.21
+
+- Added `owner_id` field to `Geofence` entity to represent the owner of the geofence.
+- Added `geom_wgs84` and `geom_web_mercator` fields to `Geofence` entity to represent the geometry of the geofence in GeoJSON format for WGS84 and Web Mercator coordinate systems respectively.
+
 ## 4.0.20
 - Added `SensorMask` entity to represent the mask values of the sensors
 - Added `mask` to sensor to represent the list of mask from the sensor.
