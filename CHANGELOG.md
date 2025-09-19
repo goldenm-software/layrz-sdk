@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.22
+
+- Updated `Case` entity to include `ignored_status` field to represent the ignored status of the case.
+- Updated `Trigger` entity to support cases changes.
+- Some changes on the affected models to use the right definiton of pydantic regarding of the serialization.
+
 ## 4.0.21
 
 - Added `owner_id` field to `Geofence` entity to represent the owner of the geofence.

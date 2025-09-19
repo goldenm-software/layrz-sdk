@@ -11,6 +11,7 @@ class CaseIgnoredStatus(StrEnum):
   IGNORED = 'IGNORED'
   PRESET = 'PRESET'
   AUTO = 'AUTO'
+  EXPIRED = 'EXPIRED'
 
   def __str__(self: Self) -> str:
     """Readable property"""
