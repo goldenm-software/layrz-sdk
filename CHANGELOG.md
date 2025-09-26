@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.0.23
+
+- Added `should_stack` field to `Trigger` entity to define if the trigger cases should stack.
+- Added `stack_upper_limit` field to `Trigger` entity to define the stack upper limit of the trigger cases.
+- Added `stack_count` field to `Case` entity to define how many cases are stacked together. By default is 1 due to backwards compatibility.
+- Added validation to `stack_count` field in `Case` entity to ensure it is a positive integer. If the value is less than 1 or not an integer, it defaults to 1.
+- Added `metadata` field to `Comment` entity to store additional metadata associated with the comment. This field is a dictionary with string keys and values of any type, defaulting to an empty dictionary.
+
 ## 4.0.22
 
 - Updated `Case` entity to include `ignored_status` field to represent the ignored status of the case.

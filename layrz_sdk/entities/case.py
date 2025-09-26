@@ -30,6 +30,11 @@ class Case(BaseModel):
     description='Defines the sequence of the case. This is a unique identifier for the case',
   )
 
+  stack_count: int = Field(
+    default=1,
+    description='Defines how many cases are stacked together. Only applicable if the trigger allows stacking',
+  )
+
   @model_validator(mode='before')
   def _validate_model(cls: Self, data: dict[str, Any]) -> dict[str, Any]:
     """Validate model"""
@@ -47,5 +52,11 @@ class Case(BaseModel):
         data['sequence'] = f'{trigger.code}/{sequence}'
     else:
       data['sequence'] = f'GENERIC/{data["pk"]}'
+
+    if stack_count := data.get('stack_count'):
+      if not isinstance(stack_count, int) or stack_count < 1:
+        data['stack_count'] = 1
+    else:
+      data['stack_count'] = 1
 
     return data

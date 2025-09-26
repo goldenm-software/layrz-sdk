@@ -179,6 +179,15 @@ class Trigger(BaseModel):
     """Serialize when_case_expires_delta to total seconds."""
     return value.total_seconds() if value else None
 
+  should_stack: bool = Field(
+    default=False,
+    description='Defines if the trigger cases should stack',
+  )
+  stack_upper_limit: int | None = Field(
+    default=None,
+    description='Defines the stack upper limit of the trigger cases. None means no limit',
+  )
+
   owner_id: int | None = Field(
     default=None,
     description='Owner ID',
