@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.24
+
+- Added `is_paused` field to `Trigger` entity to define if the trigger is paused.
+
 ## 4.0.23
 
 - Added `should_stack` field to `Trigger` entity to define if the trigger cases should stack.

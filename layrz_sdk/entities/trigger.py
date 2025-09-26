@@ -202,3 +202,8 @@ class Trigger(BaseModel):
   def serialize_search_time_delta(self, value: timedelta | None) -> float | None:
     """Serialize search_time_delta to total seconds."""
     return value.total_seconds() if value else None
+
+  is_paused: bool = Field(
+    default=False,
+    description='Defines if the trigger is paused',
+  )
