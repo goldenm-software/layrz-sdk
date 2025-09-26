@@ -1,6 +1,10 @@
 import os
 import shutil
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # Remove previous build
 if os.path.exists('dist'):
   shutil.rmtree('dist')
