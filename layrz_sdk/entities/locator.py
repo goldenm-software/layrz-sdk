@@ -18,7 +18,7 @@ class LocatorMqttConfig(BaseModel):
 class Locator(BaseModel):
   pk: str = Field(..., description='Defines the primary key of the locator', alias='id')
   token: str = Field(..., description='Defines the token of the locator')
-  mqtt_config: LocatorMqttConfig = Field(..., description='Defines the MQTT configuration of the locator')
+  mqtt_config: LocatorMqttConfig | None = Field(..., description='Defines the MQTT configuration of the locator')
   assets: list[Asset] = Field(
     default_factory=list,
     description='Defines the list of assets associated with the locator',

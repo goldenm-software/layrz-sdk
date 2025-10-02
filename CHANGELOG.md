@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.27
+
+- Added possibility to be null the LocatorMqttConfig
+
 ## 4.0.26
 
 - Added `Locator` entity alongside `LocatorMqttConfig` to expose locator metadata, MQTT settings, and linked assets, geofences, and triggers.
