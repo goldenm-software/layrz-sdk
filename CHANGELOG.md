@@ -1,8 +1,12 @@
 # Changelog
 
+## 4.0.28
+
+- Added `owner_id` field to `Locator` entity to represent the owner of the locator.
+
 ## 4.0.27
 
-- Added possibility to be null the LocatorMqttConfig
+- Added possibility to be `None` the `LocatorMqttConfig` on `Locator` entity
 
 ## 4.0.26
 
