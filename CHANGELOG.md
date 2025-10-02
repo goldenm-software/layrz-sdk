@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.26
+
+- Added `Locator` entity alongside `LocatorMqttConfig` to expose locator metadata, MQTT settings, and linked assets, geofences, and triggers.
+- Exported `Locator`, `LocatorMqttConfig`, and `StaticPosition` from `layrz_sdk.entities` so the models are available to SDK consumers.
+
 ## 4.0.25
 
 - Added `should_generate_locator` field to `Trigger` entity to control locator generation.
