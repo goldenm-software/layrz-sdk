@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.25
+
+- Added `should_generate_locator` field to `Trigger` entity to control locator generation.
+- Added `locator_expires_delta` field to `Trigger` entity and serialize it as seconds for API compatibility.
+- Added `locator_expires_triggers_ids` and `locator_geofences_ids` fields to `Trigger` entity to configure locator expiration behavior.
+
 ## 4.0.24
 
 - Added `is_paused` field to `Trigger` entity to define if the trigger is paused.

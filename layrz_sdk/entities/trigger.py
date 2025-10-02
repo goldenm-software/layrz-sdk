@@ -207,3 +207,28 @@ class Trigger(BaseModel):
     default=False,
     description='Defines if the trigger is paused',
   )
+
+  should_generate_locator: bool = Field(
+    default=False,
+    description='Defines if the trigger should generate a locator',
+  )
+
+  locator_expires_delta: timedelta | None = Field(
+    default=None,
+    description='Defines the locator expires delta of the trigger',
+  )
+
+  @field_serializer('locator_expires_delta', when_used='always')
+  def serialize_locator_expires_delta(self, value: timedelta | None) -> float | None:
+    """Serialize locator_expires_delta to total seconds."""
+    return value.total_seconds() if value else None
+
+  locator_expires_triggers_ids: list[int] = Field(
+    default_factory=list,
+    description='Defines the locator expires triggers IDs of the trigger',
+  )
+
+  locator_geofences_ids: list[int] = Field(
+    default_factory=list,
+    description='Defines the locator geofences IDs of the trigger',
+  )
