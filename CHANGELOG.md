@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.29
+
+- Added `created_at` and `updated_at` fields to `Locator` entity to track creation and last update timestamps.
+
 ## 4.0.28
 
 - Added `owner_id` field to `Locator` entity to represent the owner of the locator.

@@ -20,6 +20,18 @@ class Locator(BaseModel):
   token: str = Field(..., description='Defines the token of the locator')
   owner_id: int = Field(..., description='Defines the owner ID of the locator')
 
+  created_at: datetime = Field(..., description='Defines the creation date of the locator')
+
+  @field_serializer('created_at', when_used='always')
+  def serialize_created_at(self, created_at: datetime) -> float:
+    return created_at.timestamp()
+
+  updated_at: datetime = Field(..., description='Defines the last update date of the locator')
+
+  @field_serializer('updated_at', when_used='always')
+  def serialize_updated_at(self, updated_at: datetime) -> float:
+    return updated_at.timestamp()
+
   mqtt_config: LocatorMqttConfig | None = Field(..., description='Defines the MQTT configuration of the locator')
   assets: list[Asset] = Field(
     default_factory=list,
