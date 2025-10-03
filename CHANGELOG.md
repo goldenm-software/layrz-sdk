@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.30
+
+- Added a validation for `pk` field in `Locator` entity to ensure it is always a string, converting from `int` or `UUID` if necessary.
+
 ## 4.0.29
 
 - Added `created_at` and `updated_at` fields to `Locator` entity to track creation and last update timestamps.
