@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.31
+
+- Refined `OperationPayload` serialization to rely on field serializers, ensuring nested models, enums, datetimes, and timedeltas dump with the expected API shape.
+- Allowed passing Twilio host phone data as dictionaries when constructing `OperationPayload`.
+
 ## 4.0.30
 
 - Added a validation for `pk` field in `Locator` entity to ensure it is always a string, converting from `int` or `UUID` if necessary.
