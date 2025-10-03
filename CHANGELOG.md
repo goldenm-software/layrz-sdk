@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.33
+
+- Reworked `BroadcastPayload` serialization to rely on Pydantic field serializers, keeping nested models and timestamps aligned with JSON expectations.
+- Added optional `locator` field to `BroadcastPayload` so locator metadata can accompany broadcast messages.
+
 ## 4.0.32
 
 - Added `locator` field to `OperationPayload` entity to include locator information in operation payloads.
