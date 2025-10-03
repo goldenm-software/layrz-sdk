@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.32
+
+- Added `locator` field to `OperationPayload` entity to include locator information in operation payloads.
+
 ## 4.0.31
 
 - Refined `OperationPayload` serialization to rely on field serializers, ensuring nested models, enums, datetimes, and timedeltas dump with the expected API shape.

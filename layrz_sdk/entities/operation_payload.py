@@ -8,6 +8,7 @@ from pydantic import BaseModel, Field, field_serializer, field_validator
 from layrz_sdk.entities.asset import Asset
 from layrz_sdk.entities.destination_phone import DestinationPhone
 from layrz_sdk.entities.geofence import Geofence
+from layrz_sdk.entities.locator import Locator
 from layrz_sdk.entities.notification_type import TwilioNotificationType
 from layrz_sdk.entities.operation import Operation
 from layrz_sdk.entities.operation_case_payload import OperationCasePayload
@@ -364,3 +365,14 @@ class OperationPayload(BaseModel):
   @field_serializer('duration', when_used='always')
   def serialize_duration(self, value: timedelta) -> float:
     return value.total_seconds()
+
+  locator: Locator | None = Field(
+    default=None,
+    description='Defines the generated locator for the operation',
+  )
+
+  @field_serializer('locator', when_used='always')
+  def serialize_locator(self, value: Locator | None) -> Any:
+    if value is None:
+      return None
+    return value.model_dump(by_alias=True)
