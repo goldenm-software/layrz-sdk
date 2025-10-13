@@ -113,7 +113,7 @@ class Report(BaseModel):
         for cell in row.content:
           cells.append(
             {
-              'content': cell.content,
+              'content': cell.content.timestamp() if cell.data_type == ReportDataType.DATETIME else cell.content,
               'text_color': '#000000' if use_black(cell.color) else '#ffffff',
               'color': cell.color,
               'data_type': cell.data_type.value,

@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from enum import StrEnum
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -63,3 +64,4 @@ class AtsPurchaseOrder(BaseModel):
   eta_updated_at: datetime | None = Field(description='Timestamp when the ETA was last updated', default=None)
   invoice_type: str = Field(description='Type of the invoice')
   operation_id: int | None = Field(description='ID of the operation', default=None)
+  products_information: list[dict[str, Any]] = Field(description='List of products information', default_factory=list)

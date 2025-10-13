@@ -1,19 +1,18 @@
-/dist
-/build
-/*.egg-info
-/.pypirc
+dist/
+build/
+layrz_sdk.egg-info/
 /test.py
 /**/*.pyc
-/.venv
-/site
+.venv/
+site/
 
-/**/*/__pycache__
+**/__pycache__/
 
 tests.py
 *.xlsx
 
-.ruff_cache
-.mypy_cache
-.pytest_cache
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
 
 .env

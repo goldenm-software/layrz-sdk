@@ -3,7 +3,7 @@
 from datetime import time, timedelta
 from typing import Any
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_serializer, field_validator
 
 from .trigger_kind import TriggerCaseKind, TriggerCommentPattern, TriggerGeofenceKind, TriggerKind
 from .weekday import Weekday
@@ -11,17 +11,6 @@ from .weekday import Weekday
 
 class Trigger(BaseModel):
   """Trigger entity"""
-
-  model_config = {
-    'json_encoders': {
-      timedelta: lambda v: v.total_seconds(),
-      TriggerCaseKind: lambda v: v.value,
-      TriggerGeofenceKind: lambda v: v.value,
-      TriggerKind: lambda v: v.value,
-      TriggerCommentPattern: lambda v: v.value,
-      Weekday: lambda v: v.value,
-    },
-  }
 
   pk: int = Field(description='Defines the primary key of the trigger', alias='id')
   name: str = Field(description='Defines the name of the trigger')
@@ -32,26 +21,51 @@ class Trigger(BaseModel):
     description='Defines the cooldown time of the trigger',
   )
 
+  @field_serializer('cooldown_time', when_used='always')
+  def serialize_cooldown_time(self, value: timedelta) -> float:
+    """Serialize cooldown_time to total seconds."""
+    return value.total_seconds()
+
   type_: TriggerKind | None = Field(
     default=None,
     description='Defines the kind of the trigger',
     alias='type',
   )
 
+  @field_serializer('type_', when_used='always')
+  def serialize_type(self, value: TriggerKind | None) -> str | None:
+    """Serialize type_ to its value."""
+    return value.value if value else None
+
   presence_type: TriggerGeofenceKind | None = Field(
     default=None,
     description='Defines the geofence kind of the trigger',
   )
+
+  @field_serializer('presence_type', when_used='always')
+  def serialize_presence_type(self, value: TriggerGeofenceKind | None) -> str | None:
+    """Serialize presence_type to its value."""
+    return value.value if value else None
 
   case_type: TriggerCaseKind | None = Field(
     default=None,
     description='Defines the case kind of the trigger',
   )
 
+  @field_serializer('case_type', when_used='always')
+  def serialize_case_type(self, value: TriggerCaseKind | None) -> str | None:
+    """Serialize case_type to its value."""
+    return value.value if value else None
+
   case_comment_pattern: TriggerCommentPattern | None = Field(
     default=None,
     description='Defines the comment pattern of the trigger',
   )
+
+  @field_serializer('case_comment_pattern', when_used='always')
+  def serialize_case_comment_pattern(self, value: TriggerCommentPattern | None) -> str | None:
+    """Serialize case_comment_pattern to its value."""
+    return value.value if value else None
 
   case_comment_value: str | None = Field(
     default=None,
@@ -71,6 +85,11 @@ class Trigger(BaseModel):
     default_factory=list,
     description='Defines the weekdays of the trigger',
   )
+
+  @field_serializer('weekdays', when_used='always')
+  def serialize_weekdays(self, value: list[Weekday]) -> list[str]:
+    """Serialize weekdays to their values."""
+    return [day.value for day in value]
 
   is_plain_crontab: bool = Field(
     default=False,
@@ -145,6 +164,29 @@ class Trigger(BaseModel):
     default=None,
     description='Defines the care protocol ID of the trigger',
   )
+  has_case_expirity: bool = Field(
+    default=False,
+    description='Defines if the trigger has case expiry',
+  )
+
+  when_case_expires_delta: timedelta | None = Field(
+    default=None,
+    description='Defines when the trigger expires delta',
+  )
+
+  @field_serializer('when_case_expires_delta', when_used='always')
+  def serialize_when_case_expires_delta(self, value: timedelta | None) -> float | None:
+    """Serialize when_case_expires_delta to total seconds."""
+    return value.total_seconds() if value else None
+
+  should_stack: bool = Field(
+    default=False,
+    description='Defines if the trigger cases should stack',
+  )
+  stack_upper_limit: int | None = Field(
+    default=None,
+    description='Defines the stack upper limit of the trigger cases. None means no limit',
+  )
 
   owner_id: int | None = Field(
     default=None,
@@ -154,4 +196,44 @@ class Trigger(BaseModel):
   search_time_delta: timedelta | None = Field(
     default=None,
     description='Defines the search time delta of the trigger',
+  )
+
+  @field_serializer('search_time_delta', when_used='always')
+  def serialize_search_time_delta(self, value: timedelta | None) -> float | None:
+    """Serialize search_time_delta to total seconds."""
+    return value.total_seconds() if value else None
+
+  is_paused: bool = Field(
+    default=False,
+    description='Defines if the trigger is paused',
+  )
+
+  should_generate_locator: bool = Field(
+    default=False,
+    description='Defines if the trigger should generate a locator',
+  )
+
+  locator_expires_delta: timedelta | None = Field(
+    default=None,
+    description='Defines the locator expires delta of the trigger',
+  )
+
+  @field_serializer('locator_expires_delta', when_used='always')
+  def serialize_locator_expires_delta(self, value: timedelta | None) -> float | None:
+    """Serialize locator_expires_delta to total seconds."""
+    return value.total_seconds() if value else None
+
+  locator_expires_triggers_ids: list[int] = Field(
+    default_factory=list,
+    description='Defines the locator expires triggers IDs of the trigger',
+  )
+
+  locator_geofences_ids: list[int] = Field(
+    default_factory=list,
+    description='Defines the locator geofences IDs of the trigger',
+  )
+
+  locator_customization_id: int | None = Field(
+    default=None,
+    description='Defines the locator customization ID of the trigger',
   )

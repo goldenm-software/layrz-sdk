@@ -68,6 +68,7 @@ from .function import Function
 from .geofence import Geofence
 from .geofence_category import GeofenceCategory
 from .last_message import LastMessage
+from .locator import Locator, LocatorMqttConfig
 from .message import Message
 from .modbus import ModbusConfig, ModbusParameter, ModbusSchema, ModbusStatus, ModbusWait
 from .notification_type import TwilioNotificationType
@@ -92,6 +93,7 @@ from .request_type import HttpRequestType
 from .sensor import Sensor
 from .sensor_mask import SensorMask
 from .sound_effect import SoundEffect
+from .static_position import StaticPosition
 from .telemetry import AssetMessage, DeviceMessage
 from .text_alignment import TextAlignment
 from .timezone import Timezone
@@ -155,6 +157,8 @@ __all__ = [
   'HttpRequestType',
   'LastMessage',
   'LineChart',
+  'Locator',
+  'LocatorMqttConfig',
   'MapCenterType',
   'MapChart',
   'MapPoint',
@@ -192,6 +196,7 @@ __all__ = [
   'Sensor',
   'SensorMask',
   'SoundEffect',
+  'StaticPosition',
   'TableChart',
   'TableHeader',
   'TableRow',
