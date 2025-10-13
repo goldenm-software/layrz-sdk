@@ -233,7 +233,7 @@ wheels = [
 
 [[package]]
 name = "layrz-sdk"
-version = "4.0.34"
+version = "4.0.35"
 source = { editable = "." }
 dependencies = [
     { name = "geopy" },

@@ -1,6 +1,6 @@
 [project]
 name = "layrz-sdk"
-version = "4.0.34"
+version = "4.0.35"
 description = "Layrz SDK for Python"
 authors = [{ name = "Golden M, Inc.", email = "software@goldenm.com" }]
 requires-python = ">=3.13"

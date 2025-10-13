@@ -232,3 +232,8 @@ class Trigger(BaseModel):
     default_factory=list,
     description='Defines the locator geofences IDs of the trigger',
   )
+
+  locator_customization_id: int | None = Field(
+    default=None,
+    description='Defines the locator customization ID of the trigger',
+  )
