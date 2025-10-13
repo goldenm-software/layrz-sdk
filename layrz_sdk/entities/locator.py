@@ -74,3 +74,8 @@ class Locator(BaseModel):
   @field_serializer('expires_at', when_used='always')
   def serialize_expires_at(self, expires_at: datetime | None) -> float | None:
     return expires_at.timestamp() if expires_at else None
+
+  customization_id: int | None = Field(
+    default=None,
+    description='Defines the customization ID associated with the locator, if applicable',
+  )

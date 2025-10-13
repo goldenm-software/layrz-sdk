@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.34
+
+- Added `customization_id` to `Locator` to represent the customization ID assigned to the locator.
+
 ## 4.0.33
 
 - Reworked `BroadcastPayload` serialization to rely on Pydantic field serializers, keeping nested models and timestamps aligned with JSON expectations.
