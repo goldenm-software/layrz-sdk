@@ -1,6 +1,6 @@
 dist/
 build/
-*.egg-info/
+layrz_sdk.egg-info/
 /test.py
 /**/*.pyc
 .venv/
