@@ -76,6 +76,9 @@ class DeviceMessage(BaseModel):
   @classmethod
   def parse_from_dict(cls, *, raw_payload: dict[str, Any], device: Device) -> DeviceMessage:
     """Format a DeviceMessage from a dictionary."""
+    if not device.protocol_id:
+      raise ValueError('Device protocol_id is required to parse DeviceMessage')
+
     received_at: datetime
     position: dict[str, float | int] = {}
     payload: dict[str, Any] = {}
@@ -95,7 +98,7 @@ class DeviceMessage(BaseModel):
     return cls(
       ident=device.ident,
       device_id=device.pk,
-      protocol_id=device.protocol_id,  # type: ignore
+      protocol_id=device.protocol_id,
       position=position,
       payload=payload,
       received_at=received_at,
