@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.0.37
+## 4.1.0
 
 - Major refactor on the code to migrate to Pydantic v2, updating all models, serializers, and validators to be compatible with the new version.
 
