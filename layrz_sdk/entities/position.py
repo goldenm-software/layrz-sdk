@@ -1,12 +1,16 @@
-"""Position entity"""
-
 from typing import Any, Self, cast
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class Position(BaseModel):
   """Geographic position definition"""
+
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
 
   latitude: float | None = Field(default=None, description='Defines the latitude of the position')
   longitude: float | None = Field(default=None, description='Defines the longitude of the position')

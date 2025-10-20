@@ -1,9 +1,7 @@
-"""Events entities"""
-
 from datetime import datetime
-from typing import Any, Optional, Self
+from typing import Any, Self
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_serializer, model_validator
 
 from .case_ignored_status import CaseIgnoredStatus
 from .case_status import CaseStatus
@@ -14,18 +12,48 @@ from .trigger import Trigger
 class Case(BaseModel):
   """Case entity"""
 
-  pk: int = Field(description='Defines the primary key of the case', alias='id')
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+
+  pk: int = Field(
+    description='Defines the primary key of the case',
+    serialization_alias='id',
+    validation_alias='id',
+  )
   trigger: Trigger = Field(description='Defines the trigger of the case')
   asset_id: int = Field(description='Defines the asset ID of the case')
   comments: list[Comment] = Field(default_factory=list, description='Defines the comments of the case')
   opened_at: datetime = Field(description='Defines the date when the case was opened')
-  closed_at: Optional[datetime] = Field(default=None, description='Defines the date when the case was closed')
+
+  @field_serializer('opened_at', when_used='always')
+  def serialize_opened_at(self, opened_at: datetime) -> float:
+    return opened_at.timestamp()
+
+  closed_at: datetime | None = Field(default=None, description='Defines the date when the case was closed')
+
+  @field_serializer('closed_at', when_used='always')
+  def serialize_closed_at(self, closed_at: datetime | None) -> float | None:
+    return closed_at.timestamp() if closed_at else None
+
   status: CaseStatus = Field(description='Defines the status of the case', default=CaseStatus.CLOSED)
+
+  @field_serializer('status', when_used='always')
+  def serialize_status(self, status: CaseStatus) -> str:
+    return status.value
+
   ignored_status: CaseIgnoredStatus = Field(
     description='Defines the ignored status of the case',
     default=CaseIgnoredStatus.NORMAL,
   )
-  sequence: Optional[int | str] = Field(
+
+  @field_serializer('ignored_status', when_used='always')
+  def serialize_ignored_status(self, ignored_status: CaseIgnoredStatus) -> str:
+    return ignored_status.value
+
+  sequence: int | str | None = Field(
     default=None,
     description='Defines the sequence of the case. This is a unique identifier for the case',
   )

@@ -3,9 +3,7 @@ from typing import Self
 
 
 class ReportDataType(StrEnum):
-  """
-  Report date type
-  """
+  """Report date type"""
 
   STR = 'str'
   INT = 'int'

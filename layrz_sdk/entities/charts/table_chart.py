@@ -1,8 +1,6 @@
-"""Number chart"""
-
 from typing import Any, Self
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from .chart_render_technology import ChartRenderTechnology
 from .table_header import TableHeader
@@ -11,6 +9,12 @@ from .table_row import TableRow
 
 class TableChart(BaseModel):
   """Table chart configuration"""
+
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
 
   columns: list[TableHeader] = Field(description='List of columns', default_factory=list)
   rows: list[TableRow] = Field(description='List of rows', default_factory=list)

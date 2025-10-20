@@ -1,5 +1,3 @@
-"""Action geofence ownership"""
-
 from enum import StrEnum
 from typing import Self
 

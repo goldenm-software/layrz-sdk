@@ -1,5 +1,3 @@
-"""Operation type"""
-
 from enum import StrEnum
 from typing import Self
 

@@ -1,13 +1,9 @@
-"""Asset Operation Mode"""
-
 from enum import StrEnum
 from typing import Self
 
 
 class TriggerKind(StrEnum):
-  """
-  Trigger Kind definition
-  """
+  """Trigger Kind definition"""
 
   PRESENCE_IN_GEOFENCE = 'PRESENCEINGEOFENCE'
   EXACT_TIME = 'EXACTTIME'

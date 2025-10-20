@@ -3,7 +3,7 @@
 from datetime import time, timedelta
 from typing import Any
 
-from pydantic import BaseModel, Field, field_serializer, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
 
 from .trigger_kind import TriggerCaseKind, TriggerCommentPattern, TriggerGeofenceKind, TriggerKind
 from .weekday import Weekday
@@ -12,7 +12,17 @@ from .weekday import Weekday
 class Trigger(BaseModel):
   """Trigger entity"""
 
-  pk: int = Field(description='Defines the primary key of the trigger', alias='id')
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+
+  pk: int = Field(
+    description='Defines the primary key of the trigger',
+    serialization_alias='id',
+    validation_alias='id',
+  )
   name: str = Field(description='Defines the name of the trigger')
   code: str = Field(description='Defines the code of the trigger')
 
@@ -29,12 +39,12 @@ class Trigger(BaseModel):
   type_: TriggerKind | None = Field(
     default=None,
     description='Defines the kind of the trigger',
-    alias='type',
+    serialization_alias='type',
+    validation_alias='type',
   )
 
   @field_serializer('type_', when_used='always')
   def serialize_type(self, value: TriggerKind | None) -> str | None:
-    """Serialize type_ to its value."""
     return value.value if value else None
 
   presence_type: TriggerGeofenceKind | None = Field(
@@ -44,7 +54,6 @@ class Trigger(BaseModel):
 
   @field_serializer('presence_type', when_used='always')
   def serialize_presence_type(self, value: TriggerGeofenceKind | None) -> str | None:
-    """Serialize presence_type to its value."""
     return value.value if value else None
 
   case_type: TriggerCaseKind | None = Field(
@@ -54,7 +63,6 @@ class Trigger(BaseModel):
 
   @field_serializer('case_type', when_used='always')
   def serialize_case_type(self, value: TriggerCaseKind | None) -> str | None:
-    """Serialize case_type to its value."""
     return value.value if value else None
 
   case_comment_pattern: TriggerCommentPattern | None = Field(
@@ -64,7 +72,6 @@ class Trigger(BaseModel):
 
   @field_serializer('case_comment_pattern', when_used='always')
   def serialize_case_comment_pattern(self, value: TriggerCommentPattern | None) -> str | None:
-    """Serialize case_comment_pattern to its value."""
     return value.value if value else None
 
   case_comment_value: str | None = Field(
@@ -88,7 +95,6 @@ class Trigger(BaseModel):
 
   @field_serializer('weekdays', when_used='always')
   def serialize_weekdays(self, value: list[Weekday]) -> list[str]:
-    """Serialize weekdays to their values."""
     return [day.value for day in value]
 
   is_plain_crontab: bool = Field(
@@ -113,10 +119,7 @@ class Trigger(BaseModel):
 
   @field_validator('manual_action_fields', mode='before')
   def validate_manual_action_fields(cls, value: Any) -> list[dict[str, Any]]:
-    """Ensure manual_action_fields is a list of dictionaries."""
-    if isinstance(value, list):
-      return value
-    return []
+    return value if isinstance(value, list) else []
 
   formula: str | None = Field(
     default=None,
@@ -176,7 +179,6 @@ class Trigger(BaseModel):
 
   @field_serializer('when_case_expires_delta', when_used='always')
   def serialize_when_case_expires_delta(self, value: timedelta | None) -> float | None:
-    """Serialize when_case_expires_delta to total seconds."""
     return value.total_seconds() if value else None
 
   should_stack: bool = Field(
@@ -200,7 +202,6 @@ class Trigger(BaseModel):
 
   @field_serializer('search_time_delta', when_used='always')
   def serialize_search_time_delta(self, value: timedelta | None) -> float | None:
-    """Serialize search_time_delta to total seconds."""
     return value.total_seconds() if value else None
 
   is_paused: bool = Field(
@@ -220,7 +221,6 @@ class Trigger(BaseModel):
 
   @field_serializer('locator_expires_delta', when_used='always')
   def serialize_locator_expires_delta(self, value: timedelta | None) -> float | None:
-    """Serialize locator_expires_delta to total seconds."""
     return value.total_seconds() if value else None
 
   locator_expires_triggers_ids: list[int] = Field(

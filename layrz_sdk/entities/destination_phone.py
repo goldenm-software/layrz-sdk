@@ -1,10 +1,16 @@
 from typing import Self
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class DestinationPhone(BaseModel):
   """Destination Phone"""
+
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
 
   phone_number: str = Field(
     ...,

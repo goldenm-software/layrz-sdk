@@ -1,5 +1,3 @@
-"""Report class"""
-
 import logging
 import os
 import time
@@ -8,7 +6,7 @@ from pathlib import Path
 from typing import Any, Optional, Self
 
 import xlsxwriter
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from layrz_sdk.entities.custom_report_page import CustomReportPage
 from layrz_sdk.entities.report_data_type import ReportDataType
@@ -21,6 +19,12 @@ log = logging.getLogger(__name__)
 
 class Report(BaseModel):
   """Report definition"""
+
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
 
   name: str = Field(description='Name of the report. Length should be less than 60 characters')
   pages: list[ReportPage | CustomReportPage] = Field(

@@ -1,5 +1,3 @@
-"""SoundEffect"""
-
 from enum import StrEnum
 from typing import Self
 

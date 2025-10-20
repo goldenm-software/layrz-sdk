@@ -1,6 +1,4 @@
-"""Report page"""
-
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from .report_header import ReportHeader
 from .report_row import ReportRow
@@ -8,6 +6,12 @@ from .report_row import ReportRow
 
 class ReportPage(BaseModel):
   """Report page definition"""
+
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
 
   name: str = Field(description='Name of the page. Length should be less than 60 characters')
   headers: list[ReportHeader] = Field(description='List of report headers', default_factory=list)

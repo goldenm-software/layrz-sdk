@@ -1,8 +1,14 @@
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class MapPoint(BaseModel):
   """Map point configuration"""
+
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
 
   latitude: float = Field(description='Latitude of the point')
   longitude: float = Field(description='Longitude of the point')

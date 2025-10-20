@@ -1,5 +1,3 @@
-"""Text alignment"""
-
 from enum import StrEnum
 from typing import Self
 

@@ -1,8 +1,6 @@
-"""Device entitiy"""
-
 from typing import Any
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from .modbus import ModbusConfig
 
@@ -10,7 +8,17 @@ from .modbus import ModbusConfig
 class Device(BaseModel):
   """Device entity"""
 
-  pk: int = Field(description='Defines the primary key of the device', alias='id')
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+
+  pk: int = Field(
+    description='Defines the primary key of the device',
+    serialization_alias='id',
+    validation_alias='id',
+  )
   name: str = Field(description='Defines the name of the device')
   ident: str = Field(description='Defines the identifier of the device')
   protocol_id: int | None = Field(

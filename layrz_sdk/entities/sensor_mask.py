@@ -1,10 +1,14 @@
-"""Sensor entity"""
-
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class SensorMask(BaseModel):
   """Sensor entity"""
+
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
 
   icon: str | None = Field(description='Defines the icon of the sensor')
   text: str | None = Field(description='Defines the text of the sensor')

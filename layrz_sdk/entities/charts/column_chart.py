@@ -2,7 +2,7 @@
 
 from typing import Any, Self
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
 from layrz_sdk.helpers import convert_to_rgba
 
@@ -16,10 +16,21 @@ from .chart_render_technology import ChartRenderTechnology
 class ColumnChart(BaseModel):
   """Column chart configuration"""
 
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+
   x_axis: ChartDataSerie = Field(description='Defines the X Axis of the chart')
   y_axis: list[ChartDataSerie] = Field(description='Defines the Y Axis of the chart', default_factory=list)
   title: str = Field(default='Chart', description='Title of the chart')
   align: ChartAlignment = Field(default=ChartAlignment.CENTER, description='Alignment of the title')
+
+  @field_serializer('align', when_used='always')
+  def serialize_align(self, align: ChartAlignment) -> str:
+    return align.value
+
   x_axis_config: AxisConfig = Field(
     default_factory=lambda: AxisConfig(),
     description='Configuration of the X Axis',

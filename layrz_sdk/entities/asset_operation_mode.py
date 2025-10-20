@@ -1,5 +1,3 @@
-"""Asset Operation Mode"""
-
 from enum import StrEnum
 from typing import Self
 

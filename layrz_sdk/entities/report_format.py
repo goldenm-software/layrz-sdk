@@ -1,13 +1,9 @@
-"""Report formats"""
-
 from enum import StrEnum
 from typing import Self
 
 
 class ReportFormat(StrEnum):
-  """
-  Report format definition.
-  """
+  """Report format definition."""
 
   MICROSOFT_EXCEL = 'MICROSOFT_EXCEL'
   JSON = 'JSON'

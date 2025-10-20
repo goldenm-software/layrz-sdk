@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Any
 from uuid import UUID
 
-from pydantic import BaseModel, Field, field_serializer, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
 
 from .asset import Asset
 from .geofence import Geofence
@@ -10,6 +10,11 @@ from .trigger import Trigger
 
 
 class LocatorMqttConfig(BaseModel):
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
   host: str = Field(..., description='Defines the MQTT host of the locator')
   port: int = Field(..., description='Defines the MQTT port of the locator')
   username: str | None = Field(default=None, description='Defines the MQTT username of the locator')
@@ -18,7 +23,17 @@ class LocatorMqttConfig(BaseModel):
 
 
 class Locator(BaseModel):
-  pk: str = Field(..., description='Defines the primary key of the locator', alias='id')
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+  pk: str = Field(
+    ...,
+    description='Defines the primary key of the locator',
+    serialization_alias='id',
+    validation_alias='id',
+  )
 
   @field_validator('pk', mode='before')
   def validate_pk(cls, v: Any) -> str:

@@ -3,7 +3,7 @@
 from datetime import datetime
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
 from .request import BroadcastRequest
 from .response import BroadcastResponse
@@ -24,12 +24,28 @@ class BroadcastResult(BaseModel):
 class RawBroadcastResult(BaseModel):
   """Broadcast result data"""
 
-  pk: int | None = Field(default=None, description='Broadcast result ID', alias='id')
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+
+  pk: int | None = Field(
+    default=None,
+    description='Broadcast result ID',
+    serialization_alias='id',
+    validation_alias='id',
+  )
+
   trigger_id: int | None = Field(default=None, description='Trigger ID')
   service_id: int | None = Field(description='Service ID')
   asset_id: int | None = Field(description='Asset ID')
 
   status: BroadcastStatus = Field(description='Broadcast status')
+
+  @field_serializer('status', when_used='always')
+  def serialize_status(self, status: BroadcastStatus) -> str:
+    return status.value
 
   algorithm: str | None = Field(
     default=None,
@@ -68,5 +84,10 @@ class RawBroadcastResult(BaseModel):
 
   submitted_at: datetime = Field(
     description='Broadcast submission date',
-    alias='at',
+    serialization_alias='at',
+    validation_alias='at',
   )
+
+  @field_serializer('submitted_at', when_used='always')
+  def serialize_submitted_at(self, v: datetime) -> float:
+    return v.timestamp()

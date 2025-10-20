@@ -1,12 +1,16 @@
-"""Entry entity"""
-
 from datetime import datetime
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class AtsPossibleEntry(BaseModel):
   """Entry entity"""
+
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
 
   initial_tank_level: float = Field(description='Initial tank level in liters', default=0.0)
   tank_accumulator: float = Field(description='Tank accumulator in liters', default=0.0)
@@ -20,7 +24,8 @@ class AtsPossibleEntry(BaseModel):
   is_recalculated: bool = Field(description='Indicates if the entry is recalculated', default=False)
   is_blackbox: bool = Field(description='Indicates if the entry is a black box', default=False)
   is_executed_by_command: bool | None = Field(
-    description='Indicates if the entry is executed by command', default=False
+    description='Indicates if the entry is executed by command',
+    default=False,
   )
   is_ready_by_reception: bool | None = Field(description='Indicates if the entry is ready by reception', default=False)
   false_positive_count: int = Field(description='Count of false positives for the entry', default=0)

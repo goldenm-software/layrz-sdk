@@ -1,14 +1,18 @@
-"""Number chart"""
+from typing import Any, Self
 
-from typing import Any, Dict, Self
-
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from .chart_render_technology import ChartRenderTechnology
 
 
 class NumberChart(BaseModel):
   """Number chart configuration"""
+
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
 
   value: float = Field(description='Value of the number')
   color: str = Field(description='Color of the number')

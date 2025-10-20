@@ -1,12 +1,9 @@
-"""Device message"""
-
 from __future__ import annotations
 
-import json
 from datetime import datetime
 from typing import Any, Self
 
-from pydantic import BaseModel, Field, field_serializer
+from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
 from layrz_sdk.constants import REJECTED_KEYS, UTC
 from layrz_sdk.entities.device import Device
@@ -17,7 +14,17 @@ from layrz_sdk.entities.position import Position
 class DeviceMessage(BaseModel):
   """Device message model"""
 
-  pk: int | None = Field(default=None, description='Device message ID', alias='id')
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+  pk: int | None = Field(
+    default=None,
+    description='Device message ID',
+    serialization_alias='id',
+    validation_alias='id',
+  )
   ident: str = Field(..., description='Device identifier')
   device_id: int = Field(..., description='Device ID')
   protocol_id: int = Field(..., description='Protocol ID')
@@ -37,7 +44,7 @@ class DeviceMessage(BaseModel):
     description='Timestamp when the message was received',
   )
 
-  @field_serializer('received_at')
+  @field_serializer('received_at', when_used='always')
   def serialize_received_at(self: Self, value: datetime) -> float:
     """Serialize received_at to a timestamp."""
     return value.timestamp()
@@ -97,7 +104,7 @@ class DeviceMessage(BaseModel):
   def to_message(self: Self) -> Message:
     """Convert the asset message to a Message object."""
     return Message(
-      id=self.pk if self.pk is not None else 0,
+      pk=self.pk if self.pk is not None else 0,
       asset_id=self.device_id if self.device_id is not None else 0,
       position=Position.model_validate(self.position),
       payload=self.payload,

@@ -1,5 +1,3 @@
-"""Twilio Notification Type Enum"""
-
 from enum import StrEnum
 from typing import Self
 

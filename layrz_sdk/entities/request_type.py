@@ -1,5 +1,3 @@
-"""Http Operation Type"""
-
 from enum import StrEnum
 from typing import Self
 

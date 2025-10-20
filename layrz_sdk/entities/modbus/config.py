@@ -1,9 +1,15 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from .parameter import ModbusParameter
 
 
 class ModbusConfig(BaseModel):
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+
   port_id: str = Field(
     ...,
     description='Port ID for Modbus communication',
