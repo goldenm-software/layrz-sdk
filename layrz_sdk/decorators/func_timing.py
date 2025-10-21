@@ -13,6 +13,13 @@ P = ParamSpec('P')
 log = logging.getLogger(__name__)
 
 SHOULD_DISPLAY = os.environ.get('LAYRZ_SDK_DISPLAY_TIMING', '1') == '1'
+if raw_depth := os.environ.get('LAYRZ_SDK_TIMING_DEPTH'):
+  try:
+    MAX_DEPTH = int(raw_depth)
+  except ValueError:
+    MAX_DEPTH = 0
+else:
+  MAX_DEPTH = 0
 
 
 @overload
@@ -49,7 +56,7 @@ def func_timing(
       result: T = await func(*args, **kwargs)  # type: ignore
       diff = time.perf_counter_ns() - start_time
 
-      if SHOULD_DISPLAY or depth == 0:
+      if SHOULD_DISPLAY and depth <= MAX_DEPTH:
         log.info(f'{prefix}{func.__name__}() took {_readable_time(diff)}')  # ty: ignore
 
       return result
@@ -60,7 +67,7 @@ def func_timing(
       result = func(*args, **kwargs)
       diff = time.perf_counter_ns() - start_time
 
-      if SHOULD_DISPLAY or depth == 0:
+      if SHOULD_DISPLAY and depth <= MAX_DEPTH:
         log.info(f'{prefix}{func.__name__}() took {_readable_time(diff)}')  # ty: ignore
 
       return result
