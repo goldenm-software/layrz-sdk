@@ -21,6 +21,9 @@ class CustomReportPage(BaseModel):
   """
 
   model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
     from_attributes=True,
     arbitrary_types_allowed=True,
   )

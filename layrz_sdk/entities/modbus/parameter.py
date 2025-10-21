@@ -1,12 +1,18 @@
 from typing import Any
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from .schema import ModbusSchema
 
 
 class ModbusParameter(BaseModel):
   """Modbus parameter model"""
+
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
 
   schema_: ModbusSchema = Field(
     ...,

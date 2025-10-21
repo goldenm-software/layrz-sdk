@@ -1,6 +1,6 @@
 from typing import Any
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
 
 from .schema import ModbusSchema
 from .status import ModbusStatus
@@ -9,10 +9,20 @@ from .status import ModbusStatus
 class ModbusWait(BaseModel):
   """Modbus parameter model"""
 
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+
   status: ModbusStatus = Field(
     ...,
     description='Status of the Modbus command',
   )
+
+  @field_serializer('status', when_used='always')
+  def serialize_status(self, status: ModbusStatus) -> str:
+    return status.value
 
   structure: ModbusSchema = Field(
     ...,

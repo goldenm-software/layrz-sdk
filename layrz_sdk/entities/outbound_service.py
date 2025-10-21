@@ -1,14 +1,21 @@
-"""Service entity"""
-
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class OutboundService(BaseModel):
   """Outbound service definition"""
 
-  pk: int = Field(description='Service ID', alias='id')
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+
+  pk: int = Field(
+    description='Service ID',
+    alias='id',
+  )
   name: str = Field(description='Service name')
 
   protocol_name: str | None = Field(

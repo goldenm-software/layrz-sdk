@@ -1,8 +1,6 @@
-"""Radial Bar chart"""
-
 from typing import Any, Self
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
 from .chart_alignment import ChartAlignment
 from .chart_data_serie import ChartDataSerie
@@ -12,9 +10,19 @@ from .chart_render_technology import ChartRenderTechnology
 class RadialBarChart(BaseModel):
   """Radial Bar chart configuration"""
 
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+
   series: list[ChartDataSerie] = Field(description='List of series to be displayed in the chart', default_factory=list)
   title: str = Field(description='Title of the chart', default='Chart')
   align: ChartAlignment = Field(description='Alignment of the chart', default=ChartAlignment.CENTER)
+
+  @field_serializer('align', when_used='always')
+  def serialize_align(self, align: ChartAlignment) -> str:
+    return align.value
 
   def render(
     self: Self,

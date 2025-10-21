@@ -3,7 +3,7 @@
 import asyncio
 import logging
 import os
-from collections.abc import Callable
+from collections.abc import Callable, Coroutine
 from functools import wraps
 from typing import Any, ParamSpec, TypeVar, overload
 
@@ -13,14 +13,21 @@ P = ParamSpec('P')
 log = logging.getLogger(__name__)
 
 SHOULD_DISPLAY = os.environ.get('LAYRZ_SDK_DISPLAY_TIMING', '1') == '1'
+if raw_depth := os.environ.get('LAYRZ_SDK_TIMING_DEPTH'):
+  try:
+    MAX_DEPTH = int(raw_depth)
+  except ValueError:
+    MAX_DEPTH = 0
+else:
+  MAX_DEPTH = 0
 
 
 @overload
-def func_timing(func: Callable[P, T]) -> Callable[P, T]: ...
+def func_timing(func: Callable[P, T]) -> Callable[P, T | Coroutine[Any, Any, T]]: ...
 
 
 @overload
-def func_timing(*, depth: int) -> Callable[[Callable[P, T]], Callable[P, T]]: ...
+def func_timing(*, depth: int) -> Callable[[Callable[P, T]], Callable[P, T | Coroutine[Any, Any, T]]]: ...
 
 
 def func_timing(
@@ -47,8 +54,8 @@ def func_timing(
       result: T = await func(*args, **kwargs)  # type: ignore
       diff = time.perf_counter_ns() - start_time
 
-      if SHOULD_DISPLAY:
-        log.info(f'{prefix}{func.__name__}() took {_readable_time(diff)}')
+      if SHOULD_DISPLAY and depth <= MAX_DEPTH:
+        log.info(f'{prefix}{func.__name__}() took {_readable_time(diff)}')  # ty: ignore
 
       return result
 
@@ -58,8 +65,8 @@ def func_timing(
       result = func(*args, **kwargs)
       diff = time.perf_counter_ns() - start_time
 
-      if SHOULD_DISPLAY:
-        log.info(f'{prefix}{func.__name__}() took {_readable_time(diff)}')
+      if SHOULD_DISPLAY and depth <= MAX_DEPTH:
+        log.info(f'{prefix}{func.__name__}() took {_readable_time(diff)}')  # ty: ignore
 
       return result
 

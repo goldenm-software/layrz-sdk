@@ -1,9 +1,7 @@
-"""Operation Payload entity"""
-
 from datetime import datetime, timedelta
-from typing import Any, Self
+from typing import Any
 
-from pydantic import BaseModel, Field, field_serializer, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
 
 from layrz_sdk.entities.asset import Asset
 from layrz_sdk.entities.destination_phone import DestinationPhone
@@ -23,6 +21,12 @@ from layrz_sdk.entities.trigger import Trigger
 class OperationPayload(BaseModel):
   """Operation Payload entity"""
 
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+
   kind: OperationType = Field(
     ...,
     description='Defines the kind of the operation',
@@ -36,7 +40,7 @@ class OperationPayload(BaseModel):
   asset: Asset = Field(..., description='Defines the asset associated with the operation')
 
   @field_validator('asset', mode='before')
-  def serialize_asset(cls, value: Any) -> Asset:
+  def validate_asset(cls, value: Any) -> Asset:
     """Serialize asset to a dictionary"""
     if isinstance(value, Asset):
       return Asset(
@@ -54,15 +58,10 @@ class OperationPayload(BaseModel):
 
     raise ValueError('Asset must be an instance of Asset or a dictionary')
 
-  @field_serializer('asset', when_used='always')
-  def serialize_asset_field(self, value: Asset) -> dict[str, Any]:
-    """Serialize asset to a dictionary"""
-    return value.model_dump(by_alias=True)
-
   trigger: Trigger = Field(..., description='Defines the trigger associated with the operation')
 
   @field_validator('trigger', mode='before')
-  def serialize_trigger(cls, value: Any) -> Trigger:
+  def validate_trigger(cls, value: Any) -> Trigger:
     """Serialize trigger to a dictionary"""
     if isinstance(value, Trigger):
       return Trigger(
@@ -76,15 +75,10 @@ class OperationPayload(BaseModel):
 
     raise ValueError('Trigger must be an instance of Trigger or a dictionary')
 
-  @field_serializer('trigger', when_used='always')
-  def serialize_trigger_field(self, value: Trigger) -> dict[str, Any]:
-    """Serialize trigger to a dictionary"""
-    return value.model_dump(by_alias=True)
-
   operation: Operation = Field(..., description='Defines the operation associated with the payload')
 
   @field_validator('operation', mode='before')
-  def serialize_operation(cls, value: Any) -> Operation:
+  def validate_operation(cls, value: Any) -> Operation:
     """Serialize operation to a dictionary"""
     if isinstance(value, Operation):
       return Operation(
@@ -98,11 +92,6 @@ class OperationPayload(BaseModel):
       return Operation.model_validate(value)
 
     raise ValueError('Operation must be an instance of Operation or a dictionary')
-
-  @field_serializer('operation', when_used='always')
-  def serialize_operation_field(self, value: Operation) -> dict[str, Any]:
-    """Serialize operation to a dictionary"""
-    return value.model_dump(by_alias=True)
 
   activated_at: datetime = Field(
     ...,
@@ -129,12 +118,6 @@ class OperationPayload(BaseModel):
     description='Defines the geofence of the operation',
   )
 
-  @field_serializer('geofence', when_used='always')
-  def serialize_geofence(self, value: Geofence | None) -> Any:
-    if value is None:
-      return None
-    return value.model_dump(by_alias=True)
-
   presence_type: PresenceType | None = Field(
     default=None,
     description='Defines the presence type of the operation',
@@ -143,21 +126,13 @@ class OperationPayload(BaseModel):
 
   @field_serializer('presence_type', when_used='always')
   def serialize_presence_type(self, value: PresenceType | None) -> Any:
-    if value is None:
-      return None
-    return value.value
+    return value.value if value else None
 
   case_: OperationCasePayload | None = Field(
     default=None,
     description='Defines the case of the operation',
     alias='case',
   )
-
-  @field_serializer('case_', when_used='always')
-  def serialize_case(self, value: OperationCasePayload | None) -> Any:
-    if value is None:
-      return None
-    return value.model_dump(by_alias=True)
 
   language_id: int = Field(
     default=2,
@@ -195,9 +170,7 @@ class OperationPayload(BaseModel):
 
   @field_serializer('http_method', when_used='always')
   def serialize_http_method(self, value: HttpRequestType | None) -> Any:
-    if value is None:
-      return None
-    return value.value
+    return value.value if value else None
 
   http_headers: list[dict[str, Any]] = Field(
     default_factory=list,
@@ -246,11 +219,6 @@ class OperationPayload(BaseModel):
       return [value]
 
     return []
-
-  @field_serializer('destinations', when_used='always')
-  def serialize_destinations_field(self, value: list[DestinationPhone]) -> list[dict[str, Any]]:
-    """Serialize destinations to a list of dictionaries"""
-    return [dest.model_dump(by_alias=True) for dest in value]
 
   twilio_host_phone: DestinationPhone | None = Field(
     default=None,
@@ -370,9 +338,3 @@ class OperationPayload(BaseModel):
     default=None,
     description='Defines the generated locator for the operation',
   )
-
-  @field_serializer('locator', when_used='always')
-  def serialize_locator(self, value: Locator | None) -> Any:
-    if value is None:
-      return None
-    return value.model_dump(by_alias=True)

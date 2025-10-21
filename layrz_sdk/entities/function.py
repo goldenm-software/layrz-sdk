@@ -1,9 +1,7 @@
-"""Geofence entity"""
-
 from datetime import timedelta
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from .asset import Asset
 
@@ -11,7 +9,16 @@ from .asset import Asset
 class Function(BaseModel):
   """Function entity"""
 
-  pk: int = Field(description='Defines the primary key of the Function', alias='id')
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+
+  pk: int = Field(
+    description='Defines the primary key of the Function',
+    alias='id',
+  )
   name: str = Field(description='Name of the function')
 
   maximum_time: timedelta | None = Field(

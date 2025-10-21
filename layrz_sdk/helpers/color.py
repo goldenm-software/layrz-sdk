@@ -10,11 +10,7 @@ def convert_to_rgba(hex_color: str) -> Color:
   Convert Hex (or Hexa) color to RGB (or RGBA) color
 
   :param hex_color: Hex color
-  :type hex_color: str
-
   :return: RGB or RGBA color
-  :rtype: tuple
-
   :raises ValueError: If the color is invalid
   """
 
@@ -33,10 +29,9 @@ def use_black(color: str) -> bool:
   Use black
   Will return when the background color works well with black text color.
   Note: This method is not 100% accurate and will not work with alpha channel (Hexa color)
+
   :param color: Hex color
-  :type color: str
   :return: True if the color works well with black text color
-  :rtype: bool
   :raises ValueError: If the color is invalid
   """
   rgb = convert_to_rgba(color)

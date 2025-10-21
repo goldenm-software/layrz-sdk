@@ -1,20 +1,21 @@
-"""Ats Exit entity"""
-
 from datetime import datetime
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
 
 class AtsPossibleExit(BaseModel):
   """AtsPossibleExit entity"""
 
-  model_config = {
-    'json_encoders': {
-      datetime: lambda v: v.timestamp(),
-    }
-  }
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
 
-  pk: int = Field(description='Defines the primary key of the AtsPossibleExit', alias='id')
+  pk: int = Field(
+    description='Defines the primary key of the AtsPossibleExit',
+    alias='id',
+  )
 
   identifier: int | None = Field(
     default=None,
@@ -54,10 +55,19 @@ class AtsPossibleExit(BaseModel):
     default_factory=datetime.now,
     description='Timestamp when the exit started',
   )
+
+  @field_serializer('start_at', when_used='always')
+  def serialize_start_at(self, start_at: datetime) -> float:
+    return start_at.timestamp()
+
   end_at: datetime | None = Field(
     default=None,
     description='Timestamp when the exit ended',
   )
+
+  @field_serializer('end_at', when_used='always')
+  def serialize_end_at(self, end_at: datetime | None) -> float | None:
+    return end_at.timestamp() if end_at else None
 
   # Derived / bookkeeping flags
   is_recalculated: bool = Field(

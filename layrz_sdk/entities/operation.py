@@ -1,9 +1,7 @@
-"""Operation entity"""
-
-from datetime import time, timedelta
+from datetime import timedelta
 from typing import Any, Self
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
 
 from .destination_phone import DestinationPhone
 from .notification_type import TwilioNotificationType
@@ -17,18 +15,16 @@ from .timezone import Timezone
 class Operation(BaseModel):
   """Operation entity"""
 
-  model_config = {
-    'json_encoders': {
-      timedelta: lambda v: v.total_seconds(),
-      OperationType: lambda v: v.value,
-      HttpRequestType: lambda v: v.value,
-      TwilioNotificationType: lambda v: v.value,
-      SoundEffect: lambda v: v.value,
-      Platform: lambda v: v.value,
-    },
-  }
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
 
-  pk: int = Field(description='Defines the primary key of the trigger', alias='id')
+  pk: int = Field(
+    description='Defines the primary key of the trigger',
+    alias='id',
+  )
   name: str = Field(description='Defines the name of the trigger')
 
   cooldown_time: timedelta = Field(
@@ -36,10 +32,18 @@ class Operation(BaseModel):
     description='Defines the cooldown time of the trigger',
   )
 
+  @field_serializer('cooldown_time', when_used='always')
+  def serialize_cooldown_time(self, value: timedelta) -> float:
+    return value.total_seconds()
+
   operation_type: OperationType = Field(
     ...,
     description='Defines the kind of the operation',
   )
+
+  @field_serializer('operation_type', when_used='always')
+  def serialize_operation_type(self, value: OperationType) -> str:
+    return value.value
 
   @property
   def kind(self: Self) -> OperationType:
@@ -50,6 +54,10 @@ class Operation(BaseModel):
     default=None,
     description='Defines the HTTP method of the operation',
   )
+
+  @field_serializer('request_type', when_used='always')
+  def serialize_request_type(self, value: HttpRequestType | None) -> str | None:
+    return value.value if value else None
 
   @property
   def http_method(self: Self) -> HttpRequestType | None:
@@ -124,6 +132,11 @@ class Operation(BaseModel):
     default=TwilioNotificationType.SMS,
     description='Defines the Twilio notification type of the operation',
   )
+
+  @field_serializer('notification_type', when_used='always')
+  def serialize_notification_type(self, value: TwilioNotificationType) -> str:
+    """Serialize notification_type to its value."""
+    return value.value
 
   @property
   def twilio_notification_type(self: Self) -> TwilioNotificationType:
@@ -201,6 +214,10 @@ class Operation(BaseModel):
     description='Defines the sound effect for the operation',
   )
 
+  @field_serializer('sound_effect', when_used='always')
+  def serialize_sound_effect(self, value: SoundEffect) -> str:
+    return value.value
+
   sound_effect_uri: str | None = Field(
     default=None,
     description='Defines the URI for the sound effect of the operation. Only when sound_effect is set to CUSTOM.',
@@ -210,6 +227,10 @@ class Operation(BaseModel):
     default_factory=lambda: timedelta(seconds=5),
     description='Defines the duration of the operation',
   )
+
+  @field_serializer('duration', when_used='always')
+  def serialize_duration(self, value: timedelta | None) -> float | None:
+    return value.total_seconds() if value else None
 
   @field_validator('duration', mode='before')
   def validate_duration(cls, value: Any) -> timedelta:

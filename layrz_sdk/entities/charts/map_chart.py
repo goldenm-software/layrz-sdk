@@ -1,8 +1,6 @@
-"""Map chart"""
+from typing import Any, Self
 
-from typing import Any, Optional, Self, Tuple
-
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
 from .chart_render_technology import ChartRenderTechnology
 from .map_center_type import MapCenterType
@@ -12,10 +10,21 @@ from .map_point import MapPoint
 class MapChart(BaseModel):
   """Map chart configuration"""
 
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+
   points: list[MapPoint] = Field(description='Points of the chart', default_factory=list)
   title: str = Field(description='Title of the chart', default='Chart')
   center: MapCenterType = Field(description='Center of the chart', default=MapCenterType.CONTAIN)
-  center_latlng: Optional[list[float]] = Field(description='Center of the chart in latlng format', default=None)
+
+  @field_serializer('center', when_used='always')
+  def serialize_center(self, center: MapCenterType) -> str:
+    return center.value
+
+  center_latlng: list[float] | None = Field(description='Center of the chart in latlng format', default=None)
 
   def render(self: Self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER_MAP) -> dict[str, Any]:
     """

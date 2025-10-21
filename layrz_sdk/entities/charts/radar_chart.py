@@ -1,8 +1,6 @@
-"""Radar chart"""
-
 from typing import Any, Self
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
 from .chart_alignment import ChartAlignment
 from .chart_data_serie import ChartDataSerie
@@ -12,10 +10,20 @@ from .chart_data_serie_type import ChartDataSerieType
 class RadarChart(BaseModel):
   """Radar chart configuration"""
 
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+
   x_axis: ChartDataSerie = Field(description='X Axis of the chart')
   y_axis: list[ChartDataSerie] = Field(description='Y Axis of the chart', default_factory=list)
   title: str = Field(description='Title of the chart', default='Chart')
   align: ChartAlignment = Field(description='Alignment of the chart', default=ChartAlignment.CENTER)
+
+  @field_serializer('align', when_used='always')
+  def serialize_align(self, align: ChartAlignment) -> str:
+    return align.value
 
   def render(self: Self) -> dict[str, Any]:
     """

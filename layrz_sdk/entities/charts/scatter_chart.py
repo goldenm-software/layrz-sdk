@@ -1,8 +1,6 @@
-"""Scatter chart"""
-
 from typing import Any, Self
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
 from .axis_config import AxisConfig
 from .chart_alignment import ChartAlignment
@@ -14,9 +12,20 @@ from .scatter_serie import ScatterSerie
 class ScatterChart(BaseModel):
   """Scatter chart configuration"""
 
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
+
   series: list[ScatterSerie] = Field(description='List of series to be displayed in the chart', default_factory=list)
   title: str = Field(description='Title of the chart', default='Chart')
   align: ChartAlignment = Field(description='Alignment of the chart', default=ChartAlignment.CENTER)
+
+  @field_serializer('align', when_used='always')
+  def serialize_align(self, align: ChartAlignment) -> str:
+    return align.value
+
   x_axis_config: AxisConfig = Field(
     default_factory=lambda: AxisConfig(),
     description='Configuration of the X Axis',

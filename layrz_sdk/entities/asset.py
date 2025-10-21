@@ -1,8 +1,6 @@
-"""Asset Entity"""
-
 from typing import Any, Self
 
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator, model_validator
 
 from .asset_contact import AssetContact
 from .asset_operation_mode import AssetOperationMode
@@ -15,13 +13,16 @@ from .static_position import StaticPosition
 class Asset(BaseModel):
   """Asset entity definition"""
 
-  model_config = {
-    'json_encoders': {
-      AssetOperationMode: lambda v: v.value,
-    }
-  }
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
 
-  pk: int = Field(description='Defines the primary key of the asset', alias='id')
+  pk: int = Field(
+    description='Defines the primary key of the asset',
+    alias='id',
+  )
   name: str = Field(description='Defines the name of the asset')
   vin: str | None = Field(
     default=None,
@@ -30,6 +31,11 @@ class Asset(BaseModel):
   plate: str | None = Field(default=None, description='Defines the plate number of the asset')
   kind_id: int | None = Field(description='Defines the type of the asset', default=None)
   operation_mode: AssetOperationMode = Field(description='Defines the operation mode of the asset')
+
+  @field_serializer('operation_mode', when_used='always')
+  def serialize_operation_mode(self, operation_mode: AssetOperationMode) -> str:
+    return operation_mode.value
+
   sensors: list[Sensor] = Field(default_factory=list, description='Defines the list of sensors of the asset')
   custom_fields: list[CustomField] = Field(
     default_factory=list, description='Defines the list of custom fields of the asset'

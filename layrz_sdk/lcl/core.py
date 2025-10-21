@@ -1,6 +1,5 @@
 """Layrz Compute Language SDK"""
 
-# ruff: noqa: ANN401
 from typing import Any, Optional, Self, cast
 
 PATTERN_INVALID = 'Pattern should be string, received {received}'

@@ -1,13 +1,10 @@
-"""Asset message"""
-
 from __future__ import annotations
 
-import json
 from datetime import datetime, timedelta
 from typing import Any, Self, cast
 
 from geopy.distance import geodesic
-from pydantic import BaseModel, Field, field_serializer
+from pydantic import BaseModel, ConfigDict, Field, field_serializer
 from shapely.geometry import MultiPoint
 
 from layrz_sdk.constants import UTC
@@ -21,15 +18,17 @@ from layrz_sdk.entities.telemetry.devicemessage import DeviceMessage
 class AssetMessage(BaseModel):
   """Asset message model"""
 
-  model_config = {
-    'json_encoders': {
-      datetime: lambda v: v.timestamp(),
-      timedelta: lambda v: v.total_seconds(),
-      Position: lambda v: json.loads(v.model_dump_json(exclude_none=True)),
-    }
-  }
+  model_config = ConfigDict(
+    validate_by_name=False,
+    validate_by_alias=True,
+    serialize_by_alias=True,
+  )
 
-  pk: int | None = Field(default=None, description='Message ID', alias='id')
+  pk: int | None = Field(
+    default=None,
+    description='Message ID',
+    alias='id',
+  )
   asset_id: int = Field(..., description='Asset ID')
 
   position: dict[str, float | int] = Field(
@@ -62,7 +61,7 @@ class AssetMessage(BaseModel):
     description='Timestamp when the message was received',
   )
 
-  @field_serializer('received_at')
+  @field_serializer('received_at', when_used='always')
   def serialize_received_at(self: Self, value: datetime) -> float:
     """Serialize received_at to a timestamp."""
     return value.timestamp()
@@ -72,7 +71,7 @@ class AssetMessage(BaseModel):
     description='Elapsed time since the last message',
   )
 
-  @field_serializer('elapsed_time')
+  @field_serializer('elapsed_time', when_used='always')
   def serialize_elapsed_time(self: Self, value: timedelta) -> float:
     """Serialize elapsed_time to total seconds."""
     return value.total_seconds()
@@ -153,7 +152,7 @@ class AssetMessage(BaseModel):
   def to_message(self: Self) -> Message:
     """Convert the asset message to a Message object."""
     return Message(
-      id=self.pk if self.pk is not None else 0,
+      id=self.pk if self.pk is not None else 0,  # ty: ignore
       asset_id=self.asset_id,
       position=Position.model_validate(self.position),
       payload=self.payload,

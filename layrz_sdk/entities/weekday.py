@@ -3,9 +3,7 @@ from typing import Self
 
 
 class Weekday(StrEnum):
-  """
-  Weekday definition
-  """
+  """Weekday definition"""
 
   MONDAY = 'MON'
   TUESDAY = 'TUE'
