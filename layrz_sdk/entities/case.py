@@ -20,8 +20,7 @@ class Case(BaseModel):
 
   pk: int = Field(
     description='Defines the primary key of the case',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   trigger: Trigger = Field(description='Defines the trigger of the case')
   asset_id: int = Field(description='Defines the asset ID of the case')

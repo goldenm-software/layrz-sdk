@@ -15,8 +15,7 @@ class Geofence(BaseModel):
   pk: int = Field(
     ...,
     description='Defines the primary key of the geofence',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   name: str = Field(..., description='Defines the name of the geofence')
   color: str = Field(..., description='Defines the color of the geofence')

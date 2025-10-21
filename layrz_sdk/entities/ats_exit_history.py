@@ -13,8 +13,7 @@ class AtsExitExecutionHistory(BaseModel):
   )
   pk: int = Field(
     description='Primary key of the Exit Execution History',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
 
   from_asset_id: int = Field(description='ID of the asset from which the exit is initiated')

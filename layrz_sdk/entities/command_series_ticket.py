@@ -34,8 +34,7 @@ class CommandSeriesTicket(BaseModel):
   pk: int = Field(
     ...,
     description='ID',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   service_id: int = Field(..., description='Service ID')
   status: CommandSeriesTicketStatus = Field(

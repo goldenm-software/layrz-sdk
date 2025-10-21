@@ -31,8 +31,7 @@ class Waypoint(BaseModel):
 
   pk: int = Field(
     description='Waypoint ID',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   geofence: Geofence | None = Field(default=None, description='Geofence object')
   geofence_id: int | None = Field(default=None, description='Geofence ID')
@@ -63,8 +62,7 @@ class WaypointRef(BaseModel):
 
   pk: int = Field(
     description='Waypoint ID',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   geofence_id: int = Field(description='Geofence ID')
   time: timedelta = Field(

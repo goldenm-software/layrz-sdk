@@ -33,8 +33,7 @@ class RawBroadcastResult(BaseModel):
   pk: int | None = Field(
     default=None,
     description='Broadcast result ID',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
 
   trigger_id: int | None = Field(default=None, description='Trigger ID')
@@ -84,8 +83,7 @@ class RawBroadcastResult(BaseModel):
 
   submitted_at: datetime = Field(
     description='Broadcast submission date',
-    serialization_alias='at',
-    validation_alias='at',
+    alias='at',
   )
 
   @field_serializer('submitted_at', when_used='always')

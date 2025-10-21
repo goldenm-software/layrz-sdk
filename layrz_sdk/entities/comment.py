@@ -17,8 +17,7 @@ class Comment(BaseModel):
 
   pk: int = Field(
     description='Comment ID',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   content: str = Field(description='Comment content')
   user: User | None = Field(description='Operator/User what commented the case. None if system generated')

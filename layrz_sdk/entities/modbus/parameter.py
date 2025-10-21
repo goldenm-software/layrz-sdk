@@ -17,8 +17,7 @@ class ModbusParameter(BaseModel):
   schema_: ModbusSchema = Field(
     ...,
     description='Modbus schema',
-    serialization_alias='schema',
-    validation_alias='schema',
+    alias='schema',
   )
 
   split_each: int = Field(

@@ -18,8 +18,7 @@ class Action(BaseModel):
   pk: int = Field(
     ...,
     description='Primary key of the action entity',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   name: str = Field(..., description='Name of the action')
   kind: ActionKind = Field(..., description='Kind of the action')
@@ -42,8 +41,7 @@ class Action(BaseModel):
   wait_for_image: bool = Field(
     default=False,
     description='Whether to wait for an image to be taken before executing the action',
-    serialization_alias='watch_image',
-    validation_alias='watch_image',
+    alias='watch_image',
   )
 
   geofence_cateogry: GeofenceCategory = Field(
@@ -58,15 +56,13 @@ class Action(BaseModel):
   geofence_name_formula: str | None = Field(
     default=None,
     description='Formula to generate the geofence name',
-    serialization_alias='geofence_name',
-    validation_alias='geofence_name',
+    alias='geofence_name',
   )
 
   geofence_radius: float | None = Field(
     default=None,
     description='Radius of the geofence in meters',
-    serialization_alias='geofence_radius',
-    validation_alias='geofence_radius',
+    alias='geofence_radius',
   )
 
   mappit_route_id: str | None = Field(

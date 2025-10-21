@@ -20,8 +20,7 @@ class Message(BaseModel):
   pk: int = Field(
     ...,
     description='Message ID',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   asset_id: int = Field(..., description='Asset ID')
   position: Position = Field(

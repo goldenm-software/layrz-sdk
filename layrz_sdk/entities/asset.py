@@ -21,8 +21,7 @@ class Asset(BaseModel):
 
   pk: int = Field(
     description='Defines the primary key of the asset',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   name: str = Field(description='Defines the name of the asset')
   vin: str | None = Field(
@@ -35,7 +34,7 @@ class Asset(BaseModel):
 
   @field_serializer('operation_mode', when_used='always')
   def serialize_operation_mode(self, operation_mode: AssetOperationMode) -> str:
-    return operation_mode.name
+    return operation_mode.value
 
   sensors: list[Sensor] = Field(default_factory=list, description='Defines the list of sensors of the asset')
   custom_fields: list[CustomField] = Field(

@@ -20,8 +20,7 @@ class Trigger(BaseModel):
 
   pk: int = Field(
     description='Defines the primary key of the trigger',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   name: str = Field(description='Defines the name of the trigger')
   code: str = Field(description='Defines the code of the trigger')
@@ -39,8 +38,7 @@ class Trigger(BaseModel):
   type_: TriggerKind | None = Field(
     default=None,
     description='Defines the kind of the trigger',
-    serialization_alias='type',
-    validation_alias='type',
+    alias='type',
   )
 
   @field_serializer('type_', when_used='always')

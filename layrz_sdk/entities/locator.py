@@ -31,8 +31,7 @@ class Locator(BaseModel):
   pk: str = Field(
     ...,
     description='Defines the primary key of the locator',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
 
   @field_validator('pk', mode='before')

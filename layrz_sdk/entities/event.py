@@ -19,8 +19,7 @@ class Event(BaseModel):
 
   pk: int = Field(
     description='Event ID',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   trigger: Trigger = Field(description='Event trigger')
   asset_id: int = Field(description='Asset ID')

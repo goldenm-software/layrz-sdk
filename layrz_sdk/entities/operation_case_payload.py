@@ -19,8 +19,7 @@ class OperationCaseCommentPayload(BaseModel):
   pk: int = Field(
     ...,
     description='Defines the primary key of the operation case comment',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   user: str = Field(..., description='Defines the user who created the operation case comment')
   content: str = Field(..., description='Defines the content of the operation case comment')
@@ -45,8 +44,7 @@ class OperationCasePayload(BaseModel):
 
   pk: int = Field(
     description='Defines the primary key of the operation case payload',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   created_at: datetime = Field(
     default_factory=lambda: datetime.now(UTC),
@@ -76,7 +74,7 @@ class OperationCasePayload(BaseModel):
     """Serialize trigger to a dictionary"""
     if isinstance(value, Trigger):
       return Trigger(
-        pk=value.pk,
+        id=value.pk,  # ty: ignore
         name=value.name,
         code=value.code,
       )

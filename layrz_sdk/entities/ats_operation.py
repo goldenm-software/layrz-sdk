@@ -20,8 +20,7 @@ class AtsOperationMovement(BaseModel):
   pk: int | None = Field(
     description='Defines the primary key of the Function',
     default=None,
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   status: OrderStatus | None = Field(description='Current status of the order', default=None)
 
@@ -50,8 +49,7 @@ class AtsOperation(BaseModel):
 
   pk: int = Field(
     description='Defines the primary key of the Function',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   purchased_at: datetime = Field(description='Timestamp when the operation was purchased')
 

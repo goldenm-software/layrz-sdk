@@ -13,8 +13,7 @@ class CustomField(BaseModel):
   pk: int | None = Field(
     default=None,
     description='Primary key of the custom field',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   name: str = Field(description='Defines the name of the custom field')
   value: str = Field(description='Defines the value of the custom field')

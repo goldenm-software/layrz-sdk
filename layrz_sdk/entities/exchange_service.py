@@ -15,8 +15,7 @@ class ExchangeService(BaseModel):
   pk: int = Field(
     ...,
     description='Service ID',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   name: str = Field(..., description='Service name')
   credentials: dict[str, Any] = Field(

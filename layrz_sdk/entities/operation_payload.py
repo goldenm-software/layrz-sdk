@@ -30,8 +30,7 @@ class OperationPayload(BaseModel):
   kind: OperationType = Field(
     ...,
     description='Defines the kind of the operation',
-    serialization_alias='operationType',
-    validation_alias='operationType',
+    alias='operationType',
   )
 
   @field_serializer('kind', when_used='always')
@@ -45,7 +44,7 @@ class OperationPayload(BaseModel):
     """Serialize asset to a dictionary"""
     if isinstance(value, Asset):
       return Asset(
-        pk=value.pk,
+        id=value.pk,  # ty: ignore
         name=value.name,
         operation_mode=value.operation_mode,
         vin=value.vin,
@@ -66,7 +65,7 @@ class OperationPayload(BaseModel):
     """Serialize trigger to a dictionary"""
     if isinstance(value, Trigger):
       return Trigger(
-        pk=value.pk,
+        id=value.pk,  # ty: ignore
         name=value.name,
         code=value.code,
       )
@@ -83,7 +82,7 @@ class OperationPayload(BaseModel):
     """Serialize operation to a dictionary"""
     if isinstance(value, Operation):
       return Operation(
-        pk=value.pk,
+        id=value.pk,  # ty: ignore
         name=value.name,
         operation_type=value.kind,
         timezone=value.timezone,
@@ -97,8 +96,7 @@ class OperationPayload(BaseModel):
   activated_at: datetime = Field(
     ...,
     description='Defines the date when the operation was activated',
-    serialization_alias='activatedAt',
-    validation_alias='activatedAt',
+    alias='activatedAt',
   )
 
   @field_serializer('activated_at', when_used='always')
@@ -123,8 +121,7 @@ class OperationPayload(BaseModel):
   presence_type: PresenceType | None = Field(
     default=None,
     description='Defines the presence type of the operation',
-    serialization_alias='presenceType',
-    validation_alias='presenceType',
+    alias='presenceType',
   )
 
   @field_serializer('presence_type', when_used='always')
@@ -134,8 +131,7 @@ class OperationPayload(BaseModel):
   case_: OperationCasePayload | None = Field(
     default=None,
     description='Defines the case of the operation',
-    serialization_alias='case',
-    validation_alias='case',
+    alias='case',
   )
 
   language_id: int = Field(
@@ -152,15 +148,13 @@ class OperationPayload(BaseModel):
   use_asset_contacts_instead: bool = Field(
     default=False,
     description='Defines if the operation should use asset contacts instead of reception emails',
-    serialization_alias='useAssetContactsInstead',
-    validation_alias='useAssetContactsInstead',
+    alias='useAssetContactsInstead',
   )
 
   account_id: int | str | None = Field(
     default=None,
     description='Defines the external account ID of the operation',
-    serialization_alias='accountId',
-    validation_alias='accountId',
+    alias='accountId',
   )
 
   ## For usage of Webhooks operations
@@ -171,8 +165,7 @@ class OperationPayload(BaseModel):
   http_method: HttpRequestType | None = Field(
     default=None,
     description='Defines the HTTP method of the operation',
-    serialization_alias='method',
-    validation_alias='method',
+    alias='method',
   )
 
   @field_serializer('http_method', when_used='always')
@@ -182,37 +175,32 @@ class OperationPayload(BaseModel):
   http_headers: list[dict[str, Any]] = Field(
     default_factory=list,
     description='Defines the headers of the operation',
-    serialization_alias='headers',
-    validation_alias='headers',
+    alias='headers',
   )
 
   ## For usage of Email operations
   email_subject: str = Field(
     default='',
     description='Defines the email subject of the operation',
-    serialization_alias='emailSubject',
-    validation_alias='emailSubject',
+    alias='emailSubject',
   )
 
   attach_image: bool = Field(
     default=False,
     description='Defines if the operation should attach an image',
-    serialization_alias='attachImage',
-    validation_alias='attachImage',
+    alias='attachImage',
   )
 
   reception_emails: list[str] = Field(
     default_factory=list,
     description='Defines the reception emails of the operation',
-    serialization_alias='receptionEmails',
-    validation_alias='receptionEmails',
+    alias='receptionEmails',
   )
 
   template_id: int | None = Field(
     default=None,
     description='Defines the template ID of the operation',
-    serialization_alias='templateId',
-    validation_alias='templateId',
+    alias='templateId',
   )
 
   ## For usage of Twilio operations
@@ -235,8 +223,7 @@ class OperationPayload(BaseModel):
   twilio_host_phone: DestinationPhone | None = Field(
     default=None,
     description='Defines the host phone number for Twilio notifications',
-    serialization_alias='hostPhone',
-    validation_alias='hostPhone',
+    alias='hostPhone',
   )
 
   @field_validator('twilio_host_phone', mode='before')
@@ -273,30 +260,26 @@ class OperationPayload(BaseModel):
   requires_bhs_validation: bool = Field(
     default=False,
     description='Defines if the operation requires BHS validation',
-    serialization_alias='requiresBhsValidation',
-    validation_alias='requiresBhsValidation',
+    alias='requiresBhsValidation',
   )
 
   bhs_tier_id: int | None = Field(
     default=None,
     description='Defines the BHS tier ID for the operation',
-    serialization_alias='bhsTierId',
-    validation_alias='bhsTierId',
+    alias='bhsTierId',
   )
 
   ## For usage of BHS Push operations
   push_title: str = Field(
     default='',
     description='Defines the title for push notifications',
-    serialization_alias='pushTitle',
-    validation_alias='pushTitle',
+    alias='pushTitle',
   )
 
   push_platforms: list[Platform] = Field(
     default_factory=list,
     description='Defines the platforms for push notifications',
-    serialization_alias='pushPlatforms',
-    validation_alias='pushPlatforms',
+    alias='pushPlatforms',
   )
 
   @field_serializer('push_platforms', when_used='always')
@@ -307,14 +290,12 @@ class OperationPayload(BaseModel):
   destinations_ids: list[int] = Field(
     default_factory=list,
     description='Defines the destination IDs for in-app notifications',
-    serialization_alias='destinationsIds',
-    validation_alias='destinationsIds',
+    alias='destinationsIds',
   )
   sound_effect: SoundEffect = Field(
     default=SoundEffect.NONE,
     description='Defines the sound effect for the operation',
-    serialization_alias='soundEffect',
-    validation_alias='soundEffect',
+    alias='soundEffect',
   )
 
   @field_serializer('sound_effect', when_used='always')
@@ -324,22 +305,19 @@ class OperationPayload(BaseModel):
   sound_effect_uri: str | None = Field(
     default=None,
     description='Defines the sound effect URI for the operation',
-    serialization_alias='soundEffectUri',
-    validation_alias='soundEffectUri',
+    alias='soundEffectUri',
   )
 
   icon: str | None = Field(
     default=None,
     description='Defines the icon for the in-app notification',
-    serialization_alias='icon',
-    validation_alias='icon',
+    alias='icon',
   )
 
   duration: timedelta | None = Field(
     default_factory=lambda: timedelta(seconds=0),
     description='Defines the duration of the in-app notification',
-    serialization_alias='duration',
-    validation_alias='duration',
+    alias='duration',
   )
 
   @field_validator('duration', mode='before')

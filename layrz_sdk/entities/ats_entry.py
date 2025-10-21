@@ -12,8 +12,7 @@ class AtsEntry(BaseModel):
 
   pk: int = Field(
     description='Defines the primary key of the Function',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   old_tank_level: float = Field(description='Old tank level in liters', default=0.0)
   new_tank_level: float = Field(description='New tank level in liters', default=0.0)

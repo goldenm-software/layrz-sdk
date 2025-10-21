@@ -27,8 +27,7 @@ class AssetMessage(BaseModel):
   pk: int | None = Field(
     default=None,
     description='Message ID',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   asset_id: int = Field(..., description='Asset ID')
 
@@ -153,7 +152,7 @@ class AssetMessage(BaseModel):
   def to_message(self: Self) -> Message:
     """Convert the asset message to a Message object."""
     return Message(
-      pk=self.pk if self.pk is not None else 0,
+      id=self.pk if self.pk is not None else 0,  # ty: ignore
       asset_id=self.asset_id,
       position=Position.model_validate(self.position),
       payload=self.payload,

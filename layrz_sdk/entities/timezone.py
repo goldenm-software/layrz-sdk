@@ -13,8 +13,7 @@ class Timezone(BaseModel):
   pk: int = Field(
     ...,
     description='Defines the primary key of the timezone',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   name: str = Field(..., description='Defines the name of the timezone')
   offset: int = Field(..., description='Defines the offset of the timezone in seconds from UTC')

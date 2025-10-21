@@ -16,8 +16,7 @@ class Device(BaseModel):
 
   pk: int = Field(
     description='Defines the primary key of the device',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   name: str = Field(description='Defines the name of the device')
   ident: str = Field(description='Defines the identifier of the device')

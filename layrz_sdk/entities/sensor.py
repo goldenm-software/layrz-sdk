@@ -14,8 +14,7 @@ class Sensor(BaseModel):
 
   pk: int = Field(
     description='Defines the primary key of the sensor',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   name: str = Field(description='Defines the name of the sensor')
   slug: str = Field(description='Defines the slug of the sensor')

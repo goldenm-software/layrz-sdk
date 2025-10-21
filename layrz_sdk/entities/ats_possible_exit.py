@@ -14,8 +14,7 @@ class AtsPossibleExit(BaseModel):
 
   pk: int = Field(
     description='Defines the primary key of the AtsPossibleExit',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
 
   identifier: int | None = Field(

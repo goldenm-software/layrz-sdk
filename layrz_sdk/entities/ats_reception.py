@@ -16,8 +16,7 @@ class AtsReception(BaseModel):
 
   pk: int = Field(
     description='Defines the primary key of the AtsReception',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   volume_bought: float = Field(
     description='Volume bought in liters',

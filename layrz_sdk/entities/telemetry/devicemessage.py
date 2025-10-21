@@ -22,8 +22,7 @@ class DeviceMessage(BaseModel):
   pk: int | None = Field(
     default=None,
     description='Device message ID',
-    serialization_alias='id',
-    validation_alias='id',
+    alias='id',
   )
   ident: str = Field(..., description='Device identifier')
   device_id: int = Field(..., description='Device ID')
@@ -107,7 +106,7 @@ class DeviceMessage(BaseModel):
   def to_message(self: Self) -> Message:
     """Convert the asset message to a Message object."""
     return Message(
-      pk=self.pk if self.pk is not None else 0,
+      id=self.pk if self.pk is not None else 0,  # ty: ignore
       asset_id=self.device_id if self.device_id is not None else 0,
       position=Position.model_validate(self.position),
       payload=self.payload,
