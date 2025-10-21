@@ -39,9 +39,7 @@ def func_timing(
   Decorator to time a function execution.
 
   :param depth: The depth of the function call for logging indentation.
-  :type depth: int
   :return: The wrapped function with timing functionality.
-  :rtype: Callable[[Callable[P, T]], Callable[P, T]]
   """
 
   def decorator(func: Callable[P, T]) -> Callable[P, T]:
