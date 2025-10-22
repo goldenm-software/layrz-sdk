@@ -4,6 +4,8 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
+from .asset import Asset
+
 
 class OrderStatus(StrEnum):
   GENERATED = 'GENERATED'
@@ -77,6 +79,10 @@ class AtsPurchaseOrder(BaseModel):
   seller_asset_id: int = Field(description='ID of the seller asset')
   transport_asset_id: int | None = Field(description='ID of the transport asset', default=None)
   asset_id: int = Field(description='ID of the asset')
+
+  seller_asset: Asset | None = Field(description='Seller asset details', default=None)
+  transport_asset: Asset | None = Field(description='Transport asset details', default=None)
+  asset: Asset | None = Field(description='Destination asset details', default=None)
   delivered_at: datetime | None = Field(description='Timestamp when the operation was delivered', default=None)
 
   @field_serializer('delivered_at', when_used='always')
