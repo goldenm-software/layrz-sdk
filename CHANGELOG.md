@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.1.2
+
+- Changed on json output of reports, now uses `ReportDataType.name` instead of `ReportDataType.value` to support changes on frontend.
+
+## 4.1.1
+
+- Not documented changes.
+
 ## 4.1.0
 
 - Major refactor on the code to migrate to Pydantic v2, updating all models, serializers, and validators to be compatible with the new version.
