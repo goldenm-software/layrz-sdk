@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.3
+
+- Created `ParameterUpdate` entity to represent updates to asset parameters, including asset ID, parameter name, update timestamp, and current value.
+
 ## 4.1.2
 
 - Changed on json output of reports, now uses `ReportDataType.name` instead of `ReportDataType.value` to support changes on frontend.
