@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.6
+
+- Refactor `parameters` field in `ParameterUpdate` entity to be a dictionary mapping parameter names to their current values, allowing multiple parameter updates in a single entity.
+
 ## 4.1.5
 
 - Renamed `current_value` to `value` field in `ParameterUpdate` entity for consistency.
