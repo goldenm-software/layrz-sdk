@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.4
+
+- Added serializer for `updated_at` field in `ParameterUpdate` entity to output the timestamp in UNIX format.
+
 ## 4.1.3
 
 - Created `ParameterUpdate` entity to represent updates to asset parameters, including asset ID, parameter name, update timestamp, and current value.

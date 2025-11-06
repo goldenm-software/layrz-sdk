@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Any
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_serializer, field_validator
 
 
 class ParameterUpdate(BaseModel):
@@ -13,3 +13,7 @@ class ParameterUpdate(BaseModel):
   @field_validator('parameter', mode='before')
   def validate_parameter(cls, value: str) -> str:
     return value.replace('__', '.')
+
+  @field_serializer('updated_at', when_used='always')
+  def serialize_updated_at(self, value: datetime) -> float:
+    return value.timestamp()
