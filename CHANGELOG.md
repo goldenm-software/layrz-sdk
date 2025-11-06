@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.5
+
+- Renamed `current_value` to `value` field in `ParameterUpdate` entity for consistency.
+
 ## 4.1.4
 
 - Added serializer for `updated_at` field in `ParameterUpdate` entity to output the timestamp in UNIX format.
