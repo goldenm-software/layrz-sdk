@@ -120,7 +120,7 @@ class Report(BaseModel):
               'content': cell.content.timestamp() if cell.data_type == ReportDataType.DATETIME else cell.content,
               'text_color': '#000000' if use_black(cell.color) else '#ffffff',
               'color': cell.color,
-              'data_type': cell.data_type.value,
+              'data_type': cell.data_type.name,
             }
           )
         rows.append(

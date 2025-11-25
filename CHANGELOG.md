@@ -1,5 +1,32 @@
 # Changelog
 
+## 4.1.7
+- Added default `None` values to `icon`, `text`, and `color` fields in `SensorMask` entity to ensure compatibility during deserialization when these fields are absent.
+
+## 4.1.6
+
+- Refactor `parameters` field in `ParameterUpdate` entity to be a dictionary mapping parameter names to their current values, allowing multiple parameter updates in a single entity.
+
+## 4.1.5
+
+- Renamed `current_value` to `value` field in `ParameterUpdate` entity for consistency.
+
+## 4.1.4
+
+- Added serializer for `updated_at` field in `ParameterUpdate` entity to output the timestamp in UNIX format.
+
+## 4.1.3
+
+- Created `ParameterUpdate` entity to represent updates to asset parameters, including asset ID, parameter name, update timestamp, and current value.
+
+## 4.1.2
+
+- Changed on json output of reports, now uses `ReportDataType.name` instead of `ReportDataType.value` to support changes on frontend.
+
+## 4.1.1
+
+- Not documented changes.
+
 ## 4.1.0
 
 - Major refactor on the code to migrate to Pydantic v2, updating all models, serializers, and validators to be compatible with the new version.

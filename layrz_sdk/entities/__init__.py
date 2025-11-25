@@ -77,6 +77,7 @@ from .operation_case_payload import OperationCaseCommentPayload, OperationCasePa
 from .operation_payload import OperationPayload
 from .operation_type import OperationType
 from .outbound_service import OutboundService
+from .parameter_update import ParameterUpdate
 from .platform import Platform
 from .position import Position
 from .presence_type import PresenceType
@@ -223,4 +224,5 @@ __all__ = [
   'OrderStatus',
   'AtsOperationMovement',
   'AtsOperation',
+  'ParameterUpdate',
 ]
