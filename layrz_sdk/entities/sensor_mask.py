@@ -10,9 +10,16 @@ class SensorMask(BaseModel):
     serialize_by_alias=True,
   )
 
-  icon: str | None = Field(description='Defines the icon of the sensor')
-  text: str | None = Field(description='Defines the text of the sensor')
+  icon: str | None = Field(
+    default=None,
+    description='Defines the icon of the sensor',
+  )
+  text: str | None = Field(
+    default=None,
+    description='Defines the text of the sensor',
+  )
   color: str | None = Field(
+    default=None,
     description='Defines the color of the sensor, used for visual representation',
   )
   value: str | float | int | None = Field(

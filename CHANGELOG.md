@@ -1,5 +1,8 @@
 # Changelog
 
+## 4.1.7
+- Added default `None` values to `icon`, `text`, and `color` fields in `SensorMask` entity to ensure compatibility during deserialization when these fields are absent.
+
 ## 4.1.6
 
 - Refactor `parameters` field in `ParameterUpdate` entity to be a dictionary mapping parameter names to their current values, allowing multiple parameter updates in a single entity.
