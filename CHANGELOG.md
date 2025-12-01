@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.8
+
+- Added validation on `position` field in `DeviceMessage` entity to ensure latitude and longitude values are of type `float` or `int` before assignment, preventing potential type errors during deserialization.
+
 ## 4.1.7
 - Added default `None` values to `icon`, `text`, and `color` fields in `SensorMask` entity to ensure compatibility during deserialization when these fields are absent.
 

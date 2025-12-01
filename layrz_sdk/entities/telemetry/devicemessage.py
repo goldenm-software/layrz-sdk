@@ -89,7 +89,8 @@ class DeviceMessage(BaseModel):
 
     for key, value in raw_payload.items():
       if key.startswith('position.'):
-        position[key[9:]] = value
+        if isinstance(value, (float, int)):
+          position[key[9:]] = value
 
       if key not in REJECTED_KEYS:
         payload[key] = value
