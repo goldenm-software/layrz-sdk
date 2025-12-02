@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.1.9
+
+- Added `DEFAULT_FONT` constant to define the default font used in report generation, ensuring consistent font usage across reports.
+- Modified `autofit` method in `Report`, now uses calculations for column width based on character count and a scaling factor, instead of relying on xlsxwriter's `autofit` method, to improve accuracy in column sizing.
+
 ## 4.1.8
 
 - Added validation on `position` field in `DeviceMessage` entity to ensure latitude and longitude values are of type `float` or `int` before assignment, preventing potential type errors during deserialization.
