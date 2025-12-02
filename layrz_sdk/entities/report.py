@@ -3,7 +3,7 @@ import os
 import time
 import warnings
 from pathlib import Path
-from typing import Any, Optional, Self
+from typing import Any, Literal, Optional, Self, overload
 
 import xlsxwriter
 from pydantic import BaseModel, ConfigDict, Field, field_validator
@@ -15,6 +15,7 @@ from layrz_sdk.entities.report_page import ReportPage
 from layrz_sdk.helpers.color import use_black
 
 log = logging.getLogger(__name__)
+DEFAULT_FONT = 'Calibri'
 
 
 class Report(BaseModel):
@@ -49,26 +50,40 @@ class Report(BaseModel):
     """Report filename"""
     return f'{self.name}_{int(time.time() * 1000)}.xlsx'
 
+  @overload
   def export(
     self: Self,
-    path: str | Path,
-    export_format: Optional[ReportFormat] = None,
-    password: Optional[str] = None,
+    path: Path,
+    export_format: Literal[ReportFormat.MICROSOFT_EXCEL] = ReportFormat.MICROSOFT_EXCEL,
+    password: str | None = None,
+    msoffice_crypt_path: str = '/opt/msoffice/bin/msoffice-crypt.exe',
+  ) -> Path: ...
+
+  @overload
+  def export(
+    self: Self,
+    path: Path,
+    export_format: Literal[ReportFormat.JSON] = ReportFormat.JSON,
+    password: str | None = None,
+    msoffice_crypt_path: str = '/opt/msoffice/bin/msoffice-crypt.exe',
+  ) -> dict[str, Any]: ...
+
+  def export(
+    self: Self,
+    path: Path,
+    export_format: ReportFormat | None = None,
+    password: str | None = None,
     msoffice_crypt_path: str = '/opt/msoffice/bin/msoffice-crypt.exe',
   ) -> Path | dict[str, Any]:
     """
     Export report to file
 
     :param path: Path to save the report
-    :type path: str | Path
     :param export_format: Format to export the report
-    :type export_format: ReportFormat
     :param password: Password to protect the file (Only works with Microsoft Excel format)
-    :type password: str
     :param msoffice_crypt_path: Path to the msoffice-crypt.exe executable, used to encrypt the file
-    :type msoffice_crypt_path: str
     :return: Full path of the exported file or JSON representation of the report
-    :rtype: Path | dict
+
     :raises AttributeError: If the export format is not supported
     """
     if export_format:
@@ -144,22 +159,18 @@ class Report(BaseModel):
 
   def _export_xlsx(
     self: Self,
-    path: str | Path,
-    password: Optional[str] = None,
-    msoffice_crypt_path: Optional[str] = None,
+    path: Path,
+    password: str | None = None,
+    msoffice_crypt_path: str | None = None,
   ) -> Path:
     """
     Export to Microsoft Excel (.xslx)
 
     :param path: Path to save the report
-    :type path: str | Path
     :param password: Password to protect the file
-    :type password: str
     :param msoffice_crypt_path: Path to the msoffice-crypt.exe executable, used to encrypt the file
-    :type msoffice_crypt_path: str
 
     :return: Full path of the exported file
-    :rtype: Path
 
     :raises AttributeError: If the export format is not supported
     """
@@ -190,8 +201,10 @@ class Report(BaseModel):
       if isinstance(page, CustomReportPage):
         if page.extended_builder:
           page.extended_builder(sheet=sheet, workbook=book)
+
         elif page.builder:
           page.builder(sheet)
+
         else:
           raise AttributeError('Custom report page must have a builder or extended_builder function')
 
@@ -200,6 +213,8 @@ class Report(BaseModel):
 
       if page.freeze_header:
         sheet.freeze_panes(1, 0)
+
+      sizes: dict[int, float] = {}
 
       for i, header in enumerate(page.headers):
         style = book.add_format(
@@ -214,10 +229,11 @@ class Report(BaseModel):
             'left': 1,
             'right': 1,
             'bottom': 1,
-            'font_name': 'Aptos Narrow',
+            'font_name': DEFAULT_FONT,
           }
         )
         sheet.write(0, i, header.content, style)
+        sizes[i] = max(sizes.get(i, 0), len(str(header.content)) * 1.8)
 
       should_protect = False
       for i, row in enumerate(page.rows):
@@ -233,7 +249,7 @@ class Report(BaseModel):
             'left': 1,
             'right': 1,
             'bottom': 1,
-            'font_name': 'Aptos Narrow',
+            'font_name': DEFAULT_FONT,
           }
 
           format_ = book.add_format(style)
@@ -277,15 +293,19 @@ class Report(BaseModel):
 
           sheet.write(i + 1, j, value, format_)
 
+          sizes[j] = max(sizes.get(j, 0), len(str(value)) * 1.2)
+
           if row.compact:
             sheet.set_row(i + 1, None, None, {'level': 1, 'hidden': True})
           else:
             sheet.set_row(i + 1, None, None, {'collapsed': True})
 
-      sheet.autofit()
-
       if should_protect:
         sheet.protect()
+
+      for col, size in sizes.items():
+        sheet.set_column(col, col, size)
+
     book.close()
 
     if password and msoffice_crypt_path:
