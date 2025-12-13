@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.1.11
+
+- Added `pk` field to `PushNotification` entity to represent the primary key of the push notification.
+- Added default factory on `PushNotification` field `timestamp` to set the current datetime if not provided during instantiation.
+
 ## 4.1.10
 
 - Added `PushNotification` entity to represent push notification messages.
