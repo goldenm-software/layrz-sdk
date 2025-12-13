@@ -10,7 +10,7 @@ on:
       - '*'
 
 jobs:
-  link:
+  lint:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/goldenm-software/python-builder:uv-3.13
