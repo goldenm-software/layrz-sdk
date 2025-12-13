@@ -82,6 +82,7 @@ from .platform import Platform
 from .position import Position
 from .presence_type import PresenceType
 from .preset import Preset
+from .push import PushNotification
 from .report import Report
 from .report_col import ReportCol
 from .report_configuration import ReportConfiguration
@@ -225,4 +226,5 @@ __all__ = [
   'AtsOperationMovement',
   'AtsOperation',
   'ParameterUpdate',
+  'PushNotification',
 ]

@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.10
+
+- Added `PushNotification` entity to represent push notification messages.
+
 ## 4.1.9
 
 - Added `DEFAULT_FONT` constant to define the default font used in report generation, ensuring consistent font usage across reports.

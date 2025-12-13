@@ -1,6 +1,6 @@
 [project]
 name = "layrz-sdk"
-version = "4.1.9"
+version = "4.1.10"
 description = "Layrz SDK for Python"
 authors = [{ name = "Golden M, Inc.", email = "software@goldenm.com" }]
 requires-python = ">=3.13"
@@ -34,6 +34,7 @@ dependencies = [
   "strenum>=0.4.15",
   "requests>=2.32.4",
   "tzdata>=2025.2",
+  "ty>=0.0.1a34",
 ]
 
 [project.urls]
@@ -47,10 +48,9 @@ build-backend = "setuptools.build_meta"
 [dependency-groups]
 dev = [
   "build>=1.2.2.post1",
-  "mypy>=1.15.0",
   "pytest>=8.3.5",
   "python-dotenv>=1.0.1",
-  "ruff>=0.11.0",
+  "ruff>=0.14.9",
   "twine>=6.1.0",
   "types-shapely>=2.1.0.20250710",
 ]
@@ -89,11 +89,11 @@ quote-style = "single"
 indent-style = "space"
 docstring-code-format = true
 
-[tool.mypy]
-python_version = "3.13"
-strict = true
-ignore_missing_imports = true
-check_untyped_defs = true
-disallow_untyped_defs = true
+[tool.ty.environment]
+python-version = "3.13"
 
-exclude = [".*\\.venv", ".*\\.ruff_cache", ".*\\.mypy_cache"]
+[tool.ty.src]
+exclude = [
+  ".venv/",
+  ".ruff_cache/",
+]
