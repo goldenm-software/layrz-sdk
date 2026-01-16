@@ -7,8 +7,6 @@ import pytest
 from layrz_sdk.constants import UTC
 from layrz_sdk.lcl.core import LclCore
 
-"""Test LCL functions"""
-
 
 def _process_and_convert(lcl: LclCore) -> Any:
   result = lcl.perform()

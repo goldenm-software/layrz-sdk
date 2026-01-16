@@ -1,47 +1,63 @@
-name: "Deploy package"
+name: "Deploy versions"
 
 on:
   push:
-    branches: [ "main" ]
+    tags:
+      - 'v*.*.*'
 
 jobs:
-  build:
-    permissions:
-      id-token: write
-      contents: read
-      repository-projects: read
-      packages: read
-
+  tag-mirror:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/goldenm-software/python-builder:uv-3.13
-      options: --user root
-      credentials:
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required to access tags
 
-      - name: Cache uv
+      - name: Create and push mirror tags
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          # Add other tag namespaces here
+          for prefix in golang dart python; do
+            git tag "$prefix/$TAG"
+            git push origin "$prefix/$TAG"
+          done
+
+  deploy-python:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: Setup uv cache
         uses: actions/cache@v4
         with:
           path: |
-            ~/.cache/uv
-            .venv
+            .venv/
           key: ${{ runner.os }}-uv-${{ hashFiles('uv.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-uv-
+          restore-keys: ${{ runner.os }}-uv-
 
+      - name: Setup UV
+        uses: astral-sh/setup-uv@v7.2.0
+      
+      - name: Get tag version
+        run: |
+          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      
       - name: Install dependencies
-        run: |
-          uv sync
-
-      - name: Build and upload
-        run: |
-          uv run python -m build
-
-      - name: Publish to PyPI
-        run: |
-          uv run python -m twine upload -u ${{ secrets.LAYRZ_PYPI_USERNAME }} -p ${{ secrets.LAYRZ_PYPI_PASSWORD }} dist/*
+        run: uv sync
+      
+      - name: Build
+        run: uv run python -m build
+      
+      - name: Upload to PyPI
+        uses: pypa/gh-action-pypi-publish@v1.13.0
+        with:
+          user: ${{ secrets.LAYRZ_PYPI_USERNAME }}
+          password: ${{ secrets.LAYRZ_PYPI_PASSWORD }}
