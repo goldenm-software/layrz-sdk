@@ -57,6 +57,9 @@ jobs:
           CLEAN_VERSION=${TAG_NAME#v}
           echo "VERSION=$CLEAN_VERSION" >> $GITHUB_ENV
 
+      - name: Copy README.md
+        run: cp ./README.md ./python/README.md
+
       - name: Sed version
         working-directory: ./python
         run: |
