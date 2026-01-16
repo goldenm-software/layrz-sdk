@@ -22,13 +22,11 @@ type AssetMessage struct {
 	// IDs of geofences associated with the asset message. Can be an empty slice if none are associated.
 	GeofencesIds []int64 `json:"geofences_ids"`
 	// Distance traveled since the last message in meters. To be computed externally.
-	//
 	// You can compute this using the ComputeDistanceTraveled method.
 	DistanceTraveled float64 `json:"distance_traveled"`
 	// Time when the message was received.
 	ReceivedAt converters.UnixTime `json:"received_at"`
 	// Elapsed time since the last message. To be computed externally.
-	//
 	// You can compute this using the ComputeElapsedTime method.
 	ElapsedTime converters.Duration `json:"elapsed_time"`
 }
