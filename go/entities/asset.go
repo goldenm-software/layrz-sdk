@@ -17,23 +17,23 @@ type Asset struct {
 	// StaticPosition is the fixed position of the asset when in STATIC mode
 	StaticPosition *StaticPosition `json:"static_position,omitempty"`
 	// Points to the primary device associated with the asset
-	Points *[]StaticPosition `json:"points,omitempty"`
+	Points []StaticPosition `json:"points,omitempty"`
 	// PrimaryId is the identifier of the primary device linked to the asset
 	PrimaryId *int64 `json:"primary_id,omitempty"`
 	// Contacts associated with the asset
-	Contacts *[]AssetContact `json:"contacts,omitempty"`
+	Contacts []AssetContact `json:"contacts,omitempty"`
 	// OwnerId is the identifier of the user who owns the asset
 	OwnerId *int64 `json:"owner_id,omitempty"`
 	// PartitionNumber is the partition number the asset belongs to, useful on multi-tenant systems
 	PartitionNumber *int64 `json:"partition_number,omitempty"`
 	// Devices associated with the asset, only populated on Operation Mode is not ASSETMULTIPLE
-	Devices *[]Device `json:"devices,omitempty"`
+	Devices []Device `json:"devices,omitempty"`
 	// Children assets, only populated when Operation Mode is ASSETMULTIPLE
-	Children *[]Asset `json:"children,omitempty"`
+	Children []Asset `json:"children,omitempty"`
 	// CustomFields holds additional custom data for the asset
-	CustomFields *[]CustomField `json:"custom_fields,omitempty"`
+	CustomFields []CustomField `json:"custom_fields,omitempty"`
 	// Sensors associated with the asset
-	Sensors *[]Sensor `json:"sensors,omitempty"`
+	Sensors []Sensor `json:"sensors,omitempty"`
 }
 
 // Primary returns the Device of the primary device associated with the asset
