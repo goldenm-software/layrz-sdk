@@ -1,50 +1,53 @@
-name: "Checks before merging"
+name: "Lint check"
 
 on:
   pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-    branches:
-      - '*'
+    branches: [ main, next, development ]
+    types: [ opened, synchronize, reopened ]
 
 jobs:
-  lint:
+  lint-python:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/goldenm-software/python-builder:uv-3.13
-      options: --user root
-      credentials:
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.1
 
-      - name: Cache uv
+      - name: Setup uv cache
         uses: actions/cache@v4
         with:
           path: |
-            ~/.cache/uv
-            .venv
+            .venv/
           key: ${{ runner.os }}-uv-${{ hashFiles('uv.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-uv-
+          restore-keys: ${{ runner.os }}-uv-
+
+      - name: Setup UV
+        uses: astral-sh/setup-uv@v7.2.0
 
       - name: Install dependencies
-        run: |
-          uv sync
+        run: uv sync
 
-      - name: Run linters
-        run: |
-          uv run ruff check
+      - name: Run lint checks
+        run: uv run ruff check
 
-      - name: Run type checks
-        run: |
-          uv run ty check
-      
+      - name: Run Type checking
+        run: uv run ty check
+
       - name: Run tests
-        run: |
-          uv run pytest ./tests/
+        run: uv run pytest ./tests/
+  
+  lint-go:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone the code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Run linter
+        uses: golangci/golangci-lint-action@v8
+        with:
+          version: v2.5.0

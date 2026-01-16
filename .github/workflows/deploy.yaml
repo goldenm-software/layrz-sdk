@@ -1,47 +1,67 @@
-name: "Deploy package"
+name: "Deploy versions"
 
 on:
   push:
-    branches: [ "main" ]
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
-  build:
-    permissions:
-      id-token: write
-      contents: read
-      repository-projects: read
-      packages: read
-
+  deploy-python:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/goldenm-software/python-builder:uv-3.13
-      options: --user root
-      credentials:
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.1
 
-      - name: Cache uv
+      - name: Setup uv cache
         uses: actions/cache@v4
         with:
           path: |
-            ~/.cache/uv
-            .venv
+            .venv/
           key: ${{ runner.os }}-uv-${{ hashFiles('uv.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-uv-
+          restore-keys: ${{ runner.os }}-uv-
+
+      - name: Setup UV
+        uses: astral-sh/setup-uv@v7.2.0
+
+      - name: Get tag version
+        id: get_version
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          CLEAN_VERSION=${TAG_NAME#v}
+          echo "VERSION=$CLEAN_VERSION" >> $GITHUB_ENV
+
+      - name: Sed version
+        working-directory: ./python
+        run: |
+          sed -i "s/^[[:blank:]]*version = \".*\"/version = \"$VERSION\"/" pyproject.toml
 
       - name: Install dependencies
-        run: |
-          uv sync
+        working-directory: ./python
+        run: uv sync
 
-      - name: Build and upload
-        run: |
-          uv run python -m build
+      - name: Build
+        working-directory: ./python
+        run: uv run python -m build
 
-      - name: Publish to PyPI
-        run: |
-          uv run python -m twine upload -u ${{ secrets.LAYRZ_PYPI_USERNAME }} -p ${{ secrets.LAYRZ_PYPI_PASSWORD }} dist/*
+      - name: Upload to PyPI
+        uses: pypa/gh-action-pypi-publish@v1.13.0
+        with:
+          user: ${{ secrets.LAYRZ_PYPI_USERNAME }}
+          password: ${{ secrets.LAYRZ_PYPI_PASSWORD }}
+          packages-dir: ./python/dist
+
+  create-release:
+    needs: deploy-python
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
