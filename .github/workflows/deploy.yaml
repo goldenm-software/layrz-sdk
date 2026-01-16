@@ -3,31 +3,9 @@ name: "Deploy versions"
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
-  tag-mirror:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Required to access tags
-
-      - name: Create and push mirror tags
-        env:
-          TAG: ${{ github.ref_name }}
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-
-          # Add other tag namespaces here
-          for prefix in golang dart python; do
-            git tag "$prefix/$TAG"
-            git push origin "$prefix/$TAG"
-          done
-
   deploy-python:
     runs-on: ubuntu-latest
 
@@ -45,19 +23,45 @@ jobs:
 
       - name: Setup UV
         uses: astral-sh/setup-uv@v7.2.0
-      
+
       - name: Get tag version
+        id: get_version
         run: |
-          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-      
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          CLEAN_VERSION=${TAG_NAME#v}
+          echo "VERSION=$CLEAN_VERSION" >> $GITHUB_ENV
+
+      - name: Sed version
+        working-directory: ./python
+        run: |
+          sed -i "s/^[[:blank:]]*version = \".*\"/version = \"$VERSION\"/" pyproject.toml
+
       - name: Install dependencies
+        working-directory: ./python
         run: uv sync
-      
+
       - name: Build
+        working-directory: ./python
         run: uv run python -m build
-      
+
       - name: Upload to PyPI
         uses: pypa/gh-action-pypi-publish@v1.13.0
         with:
           user: ${{ secrets.LAYRZ_PYPI_USERNAME }}
           password: ${{ secrets.LAYRZ_PYPI_PASSWORD }}
+          packages-dir: ./python/dist
+
+  create-release:
+    needs: deploy-python
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
