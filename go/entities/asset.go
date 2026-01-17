@@ -1,5 +1,7 @@
 package entities
 
+import "github.com/goldenm-software/layrz-sdk/enums"
+
 // Asset represents an asset entity.
 type Asset struct {
 	// Id is the unique identifier of the asset.
@@ -13,7 +15,7 @@ type Asset struct {
 	// Optional KindId representing the type or category of the asset
 	KindId *int64 `json:"kind_id,omitempty"`
 	// OperationMode indicates the current operation mode of the asset
-	OperationMode *AssetOperationMode `json:"operation_mode,omitempty"`
+	OperationMode *enums.AssetOperationMode `json:"operation_mode,omitempty"`
 	// StaticPosition is the fixed position of the asset when in STATIC mode
 	StaticPosition *StaticPosition `json:"static_position,omitempty"`
 	// Points to the primary device associated with the asset

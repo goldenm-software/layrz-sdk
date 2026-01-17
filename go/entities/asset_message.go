@@ -3,7 +3,7 @@ package entities
 import (
 	"fmt"
 
-	"github.com/goldenm-software/layrz-sdk/converters"
+	"github.com/goldenm-software/layrz-sdk/types"
 	"github.com/umahmood/haversine"
 )
 
@@ -25,10 +25,10 @@ type AssetMessage struct {
 	// You can compute this using the ComputeDistanceTraveled method.
 	DistanceTraveled float64 `json:"distance_traveled"`
 	// Time when the message was received.
-	ReceivedAt converters.UnixTime `json:"received_at"`
+	ReceivedAt types.UnixTime `json:"received_at"`
 	// Elapsed time since the last message. To be computed externally.
 	// You can compute this using the ComputeElapsedTime method.
-	ElapsedTime converters.Duration `json:"elapsed_time"`
+	ElapsedTime types.Duration `json:"elapsed_time"`
 }
 
 // DatumGis returns the EPSG code for WGS 84
@@ -62,17 +62,17 @@ func (a *AssetMessage) PointGis() *string {
 }
 
 // ComputeElapsedTime calculates the elapsed time between this message and a previous message
-func (a *AssetMessage) ComputeElapsedTime(previousMessage *AssetMessage) *converters.Duration {
+func (a *AssetMessage) ComputeElapsedTime(previousMessage *AssetMessage) *types.Duration {
 	if previousMessage == nil {
-		return &converters.Duration{Duration: 0}
+		return &types.Duration{Duration: 0}
 	}
 
 	if a.ReceivedAt.Before(previousMessage.ReceivedAt.Time) {
-		return &converters.Duration{Duration: 0}
+		return &types.Duration{Duration: 0}
 	}
 
 	elapsed := a.ReceivedAt.Sub(previousMessage.ReceivedAt.Time)
-	return &converters.Duration{Duration: elapsed}
+	return &types.Duration{Duration: elapsed}
 }
 
 // ComputeDistanceTraveled calculates the distance traveled between this message and a previous message
@@ -110,7 +110,7 @@ func AssetMessageFromDeviceMessage(deviceMessage *DeviceMessage, asset *Asset) *
 		Sensors:          make(map[string]any),
 		GeofencesIds:     make([]int64, 0),
 		DistanceTraveled: 0,
-		ElapsedTime:      converters.Duration{Duration: 0},
+		ElapsedTime:      types.Duration{Duration: 0},
 		ReceivedAt:       deviceMessage.ReceivedAt,
 	}
 }

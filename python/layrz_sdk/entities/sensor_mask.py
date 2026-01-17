@@ -1,3 +1,4 @@
+# go migrated
 from pydantic import BaseModel, ConfigDict, Field
 
 

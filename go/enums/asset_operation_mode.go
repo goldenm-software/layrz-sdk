@@ -1,4 +1,4 @@
-package entities
+package enums
 
 // AssetOperationMode represents the operation mode of an asset.
 type AssetOperationMode string

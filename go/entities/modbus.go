@@ -1,14 +1,6 @@
 package entities
 
-// ModubSchema defines the schema type for Modbus parameters.
-type ModubSchema string
-
-const (
-	// ModbusSchemaSingle indicates a single schema, aka, one parameter per read.
-	ModbusSchemaSingle ModubSchema = "SINGLE"
-	// ModbusSchemaMultiple indicates a multiple schema, aka, multiple parameters per read.
-	ModbusSchemaMultiple ModubSchema = "MULTIPLE"
-)
+import "github.com/goldenm-software/layrz-sdk/enums"
 
 // ModbusConfig represents the configuration for Modbus communication.
 type ModbusConfig struct {
@@ -23,7 +15,7 @@ type ModbusConfig struct {
 // ModubsParameter represents a single Modbus parameter configuration.
 type ModubsParameter struct {
 	// Schema used for the Modbus parameter.
-	Schema ModubSchema `json:"schema"`
+	Schema enums.ModbusSchema `json:"schema"`
 	// SplitEach indicates how many items to read per split. It will only used on MULTIPLE schema.
 	SplitEach int `json:"split_each"`
 	// Length of data to read. Internally, we convert this number into hex
