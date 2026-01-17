@@ -6,18 +6,18 @@ import (
 	"strings"
 	"time"
 
-	"github.com/goldenm-software/layrz-sdk/converters"
+	"github.com/goldenm-software/layrz-sdk/types"
 )
 
 // DeviceMessage represents a message sent from or to a device.
 type DeviceMessage struct {
-	Id         int64               `json:"id"`
-	DeviceId   int64               `json:"device_id"`
-	Ident      string              `json:"ident"`
-	ProtocolId int64               `json:"protocol_id"`
-	Position   map[string]any      `json:"position"`
-	Payload    map[string]any      `json:"payload"`
-	ReceivedAt converters.UnixTime `json:"received_at"`
+	Id         int64          `json:"id"`
+	DeviceId   int64          `json:"device_id"`
+	Ident      string         `json:"ident"`
+	ProtocolId int64          `json:"protocol_id"`
+	Position   map[string]any `json:"position"`
+	Payload    map[string]any `json:"payload"`
+	ReceivedAt types.UnixTime `json:"received_at"`
 }
 
 // DatumGis returns the EPSG code for WGS 84
@@ -89,7 +89,7 @@ func DeviceMessageFromMap(data *map[string]any, device *Device) (*DeviceMessage,
 		return nil, fmt.Errorf("invalid type for received_at: %T", rawTimestamp)
 	}
 
-	msec := int64(timestamp * converters.MicrosecondsToSeconds)
+	msec := int64(timestamp * types.MicrosecondsToSeconds)
 	receivedAt := time.UnixMicro(msec).UTC()
 
 	position := make(map[string]any)
@@ -111,6 +111,6 @@ func DeviceMessageFromMap(data *map[string]any, device *Device) (*DeviceMessage,
 		ProtocolId: *device.ProtocolId,
 		Position:   position,
 		Payload:    payload,
-		ReceivedAt: converters.UnixTime{Time: receivedAt},
+		ReceivedAt: types.UnixTime{Time: receivedAt},
 	}, nil
 }

@@ -1,3 +1,4 @@
+# go migrated
 from enum import StrEnum
 from typing import Self
 

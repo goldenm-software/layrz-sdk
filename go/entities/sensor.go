@@ -11,7 +11,7 @@ type Sensor struct {
 	// Script used to compute the sensor value.
 	Script *string `json:"script,omitempty"`
 	// Optional mask applied to the sensor data.
-	Mask *[]SensorMask `json:"mask,omitempty"`
+	Mask []SensorMask `json:"mask,omitempty"`
 	// Optional measuring unit of the sensor data.
 	MeasuringUnit *string `json:"measuring_unit,omitempty"`
 }

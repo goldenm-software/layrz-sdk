@@ -24,15 +24,19 @@ jobs:
         uses: astral-sh/setup-uv@v7.2.0
 
       - name: Install dependencies
+        working-directory: ./python
         run: uv sync
 
       - name: Run lint checks
+        working-directory: ./python  
         run: uv run ruff check
 
       - name: Run Type checking
+        working-directory: ./python  
         run: uv run ty check
 
       - name: Run tests
+        working-directory: ./python  
         run: uv run pytest ./tests/
   
   lint-go:
@@ -44,10 +48,11 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: go.mod
+          go-version-file: ./go/go.mod
           cache: true
 
       - name: Run linter
         uses: golangci/golangci-lint-action@v8
         with:
+          working-directory: ./go
           version: v2.5.0

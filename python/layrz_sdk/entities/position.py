@@ -1,3 +1,4 @@
+# go migrated
 from typing import Any, Self, cast
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
