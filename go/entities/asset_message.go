@@ -63,16 +63,18 @@ func (a *AssetMessage) PointGis() *string {
 
 // ComputeElapsedTime calculates the elapsed time between this message and a previous message
 func (a *AssetMessage) ComputeElapsedTime(previousMessage *AssetMessage) *types.Duration {
+	zero := types.Duration(0)
 	if previousMessage == nil {
-		return &types.Duration{Duration: 0}
+		return &zero
 	}
 
 	if a.ReceivedAt.Before(previousMessage.ReceivedAt.Time) {
-		return &types.Duration{Duration: 0}
+		return &zero
 	}
 
 	elapsed := a.ReceivedAt.Sub(previousMessage.ReceivedAt.Time)
-	return &types.Duration{Duration: elapsed}
+	duration := types.Duration(elapsed)
+	return &duration
 }
 
 // ComputeDistanceTraveled calculates the distance traveled between this message and a previous message
@@ -95,6 +97,7 @@ func (a *AssetMessage) ComputeDistanceTraveled(previousMessage *AssetMessage) fl
 
 // Helper function to create an AssetMessage from a DeviceMessage
 func AssetMessageFromDeviceMessage(deviceMessage *DeviceMessage, asset *Asset) *AssetMessage {
+	zero := types.Duration(0)
 	if deviceMessage == nil {
 		return nil
 	}
@@ -110,7 +113,7 @@ func AssetMessageFromDeviceMessage(deviceMessage *DeviceMessage, asset *Asset) *
 		Sensors:          make(map[string]any),
 		GeofencesIds:     make([]int64, 0),
 		DistanceTraveled: 0,
-		ElapsedTime:      types.Duration{Duration: 0},
+		ElapsedTime:      zero,
 		ReceivedAt:       deviceMessage.ReceivedAt,
 	}
 }

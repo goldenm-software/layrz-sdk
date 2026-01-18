@@ -1,4 +1,4 @@
-"""Trigger entity"""
+# go migrated
 
 from datetime import time, timedelta
 from typing import Any
