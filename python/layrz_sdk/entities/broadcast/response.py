@@ -1,4 +1,4 @@
-"""Broadcast Result Response data"""
+# go migrated
 
 from typing import Any
 

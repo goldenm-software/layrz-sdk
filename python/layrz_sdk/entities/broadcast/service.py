@@ -1,4 +1,4 @@
-"""Broadcast Service object"""
+# go migrated
 
 from typing import Any
 

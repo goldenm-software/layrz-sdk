@@ -6,11 +6,15 @@ run:
 tidy:
 	go mod tidy
 
+.PHONY: format
+format:
+	golangci-lint-v2 fmt ./...
+
 .PHONY: checks
 checks:
 	@echo "Running pre-commit checks..."
 	@# 1. Checking code formatting
-	golangci-lint-v2 fmt ./...
+	$(MAKE) format
 	@# 2. Running linter
 	golangci-lint-v2 run ./...
 	@# 3. Running tidy

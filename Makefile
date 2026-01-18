@@ -13,3 +13,7 @@ install-hooks:
 checks:
 	$(MAKE) -C python checks
 	$(MAKE) -C go checks
+
+.PHONY: prepare
+prepare:
+	$(MAKE) -C go tidy
