@@ -1,4 +1,4 @@
-module github.com/goldenm-software/layrz-sdk/go
+module github.com/goldenm-software/layrz-sdk/go/v4
 
 go 1.25.5
 

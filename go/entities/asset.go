@@ -1,6 +1,6 @@
 package entities
 
-import "github.com/goldenm-software/layrz-sdk/go/enums"
+import "github.com/goldenm-software/layrz-sdk/go/v4/enums"
 
 // Asset represents an asset entity.
 type Asset struct {

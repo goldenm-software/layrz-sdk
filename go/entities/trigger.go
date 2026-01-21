@@ -1,8 +1,8 @@
 package entities
 
 import (
-	"github.com/goldenm-software/layrz-sdk/go/enums"
-	"github.com/goldenm-software/layrz-sdk/go/types"
+	"github.com/goldenm-software/layrz-sdk/go/v4/enums"
+	"github.com/goldenm-software/layrz-sdk/go/v4/types"
 )
 
 // Trigger is the event or condition that causes a broadcast to be sent.

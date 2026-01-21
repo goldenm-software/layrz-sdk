@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/goldenm-software/layrz-sdk/go/types"
+	"github.com/goldenm-software/layrz-sdk/go/v4/types"
 )
 
 // ParamData represents the updated value and last updated timestamp for a parameter.
