@@ -1,6 +1,6 @@
 package entities
 
-import "github.com/goldenm-software/layrz-sdk/types"
+import "github.com/goldenm-software/layrz-sdk/go/types"
 
 // Timezone represents a timezone with its name and offset.
 type Timezone struct {

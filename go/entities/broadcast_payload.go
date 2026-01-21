@@ -1,6 +1,6 @@
 package entities
 
-import "github.com/goldenm-software/layrz-sdk/types"
+import "github.com/goldenm-software/layrz-sdk/go/types"
 
 // BroadcastPayload represents the payload data for broadcasting.
 type BroadcastPayload struct {
