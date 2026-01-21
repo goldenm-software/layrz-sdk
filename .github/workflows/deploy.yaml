@@ -30,7 +30,29 @@ jobs:
             echo "Tag ${GITHUB_REF} is not based on the latest main branch"
             exit 1
           fi
+  
+  replicate-tags:
+    needs: prechecks
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required to access tags
+
+      - name: Create and push mirror tags
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          # Add other tag namespaces here
+          for prefix in go python; do
+            git tag "$prefix/$TAG"
+            git push origin "$prefix/$TAG"
+          done
   deploy-python:
     needs: prechecks
     runs-on: ubuntu-latest
