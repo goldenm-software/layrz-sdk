@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/goldenm-software/layrz-sdk/go/types"
+	"github.com/goldenm-software/layrz-sdk/go/v4/types"
 )
 
 func main() {

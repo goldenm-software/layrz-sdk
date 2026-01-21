@@ -3,7 +3,7 @@ package entities
 import (
 	"fmt"
 
-	"github.com/goldenm-software/layrz-sdk/go/types"
+	"github.com/goldenm-software/layrz-sdk/go/v4/types"
 	"github.com/umahmood/haversine"
 )
 

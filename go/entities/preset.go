@@ -1,6 +1,6 @@
 package entities
 
-import "github.com/goldenm-software/layrz-sdk/go/types"
+import "github.com/goldenm-software/layrz-sdk/go/v4/types"
 
 // Preset is the programmed response under some conditions on triggers and assets for cases
 type Preset struct {
