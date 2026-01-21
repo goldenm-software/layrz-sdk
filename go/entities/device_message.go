@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/goldenm-software/layrz-sdk/types"
+	"github.com/goldenm-software/layrz-sdk/go/types"
 )
 
 // DeviceMessage represents a message sent from or to a device.
