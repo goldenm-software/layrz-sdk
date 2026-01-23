@@ -62,10 +62,11 @@ class ModbusWait(BaseModel):
     if isinstance(value, str):
       try:
         return int(value)
-      except ValueError as e:
-        raise ValueError(f'Invalid Modbus split_each value: {value}') from e
-
-    raise ValueError(f'Invalid Modbus split_each type: {type(value)}')
+      except ValueError:
+        # raise ValueError(f'Invalid Modbus split_each value: {value}') from e
+        return 0
+    # raise ValueError(f'Invalid Modbus split_each type: {type(value)}')
+    return 0
 
   data_length: int = Field(
     ...,
