@@ -17,8 +17,8 @@ class Event(BaseModel):
     serialize_by_alias=True,
   )
 
-  pk: int = Field(
-    description='Event ID',
+  pk: str = Field(
+    description='Event ID. On UUIDv7 format',
     alias='id',
   )
   trigger: Trigger = Field(description='Event trigger')
