@@ -1,7 +1,8 @@
 from datetime import datetime
 from typing import Any, Self
+from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, field_serializer, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator, model_validator
 
 from .case_ignored_status import CaseIgnoredStatus
 from .case_status import CaseStatus
@@ -22,6 +23,19 @@ class Case(BaseModel):
     description='Defines the primary key of the case. Depending of the state, can be an integer or a UUIDv7',
     alias='id',
   )
+
+  @field_validator('pk', mode='before')
+  def validate_pk(cls: Self, v: Any) -> int | str:
+    """Validate pk field to accept both int and str"""
+    if isinstance(v, int):
+      return v
+    if isinstance(v, str):
+      return v
+    if isinstance(v, UUID):
+      return str(v)
+
+    raise TypeError('pk must be an integer or a string')
+
   trigger: Trigger = Field(description='Defines the trigger of the case')
   asset_id: int = Field(description='Defines the asset ID of the case')
   comments: list[Comment] = Field(default_factory=list, description='Defines the comments of the case')
