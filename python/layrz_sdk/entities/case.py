@@ -18,8 +18,8 @@ class Case(BaseModel):
     serialize_by_alias=True,
   )
 
-  pk: int = Field(
-    description='Defines the primary key of the case',
+  pk: int | str = Field(
+    description='Defines the primary key of the case. Depending of the state, can be an integer or a UUIDv7',
     alias='id',
   )
   trigger: Trigger = Field(description='Defines the trigger of the case')
