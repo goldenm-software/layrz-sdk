@@ -12,26 +12,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.1
 
-      - name: Cache UV dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/uv
-            python/.venv
-          key: ${{ runner.os }}-${{ runner.arch }}-uv-${{ hashFiles('python/uv.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ runner.arch }}-uv-
-
       - name: Setup UV
         uses: astral-sh/setup-uv@v7
         with:
           working-directory: ./python
-          enable-cache: false
           cache-python: true
+          enable-cache: true
+          cache-dependency-glob: "python/uv.lock"
 
       - name: Install dependencies
         working-directory: ./python
-        run: uv sync
+        run: uv sync --frozen
 
       - name: Run lint checks
         working-directory: ./python  
@@ -61,4 +52,4 @@ jobs:
         uses: golangci/golangci-lint-action@v8
         with:
           working-directory: ./go
-          version: v2.5.0
+          version: v2.8
