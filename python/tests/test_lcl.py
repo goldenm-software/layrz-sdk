@@ -1,4 +1,5 @@
 import json
+from contextlib import suppress
 from datetime import datetime
 from typing import Any
 
@@ -791,17 +792,17 @@ def test_if() -> None:
 
 
 def test_regex() -> None:
-  formula = 'REGEX("1. Hello world", "^[0-9]+\\.\\s")'
+  formula = 'REGEX("1. Hello world", "^[0-9]+\\.\\ \\w+")'
   lcl = LclCore(script=formula)
   result = _process_and_convert(lcl)
   assert result
 
-  formula = 'REGEX("1. Hello world", "^[0-9]+\\s")'
+  formula = 'REGEX("1. Hello world", "^[0-9]+\\.\\w+")'
   lcl = LclCore(script=formula)
   result = _process_and_convert(lcl)
   assert not result
 
-  formula = 'REGEX("Hello world", "^[0-9]+\\s")'
+  formula = 'REGEX("Hello world", "^[0-9]+\\w+")'
   lcl = LclCore(script=formula)
   result = _process_and_convert(lcl)
   assert not result

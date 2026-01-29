@@ -85,7 +85,9 @@ class OperationPayload(BaseModel):
         id=value.pk,  # ty: ignore
         name=value.name,
         operation_type=value.kind,
-        timezone=value.timezone,
+        timezone_name=value.timezone_name,
+        date_time_format=value.date_time_format,
+        layrz_template=value.layrz_template,
       )
 
     if isinstance(value, dict):

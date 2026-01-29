@@ -1,5 +1,6 @@
 """Layrz Compute Language SDK"""
 
+from contextlib import suppress
 from typing import Any, Optional, Self, cast
 
 PATTERN_INVALID = 'Pattern should be string, received {received}'
