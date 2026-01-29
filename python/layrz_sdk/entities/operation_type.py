@@ -28,6 +28,15 @@ class OperationType(StrEnum):
   BHS_PUSH = 'BHS_PUSH'
   """ Send notifications using Firebase Push Notifications of Brickhouse Tracking Platform """
 
+  SMS = 'SMS'
+  """ Send notifications using SMS from Layrz Notification engine """
+
+  VOICE_CALL = 'VOICE_CALL'
+  """ Make voice calls using Layrz Notification engine """
+
+  WHATSAPP_MESSAGE = 'WHATSAPP_MESSAGE'
+  """ Send WhatsApp™ messages using Layrz Notification engine """
+
   def __str__(self: Self) -> str:
     """Readable property"""
     return self.name
