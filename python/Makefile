@@ -3,4 +3,4 @@
 checks:
 	uv run ruff check
 	uv run ty check
-	uv run pytest ./tests/
+	uv run pytest ./tests/ --disable-warnings

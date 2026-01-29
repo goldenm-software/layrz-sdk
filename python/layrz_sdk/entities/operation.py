@@ -15,11 +15,7 @@ from .timezone import Timezone
 class Operation(BaseModel):
   """Operation entity"""
 
-  model_config = ConfigDict(
-    validate_by_name=False,
-    validate_by_alias=True,
-    serialize_by_alias=True,
-  )
+  model_config = ConfigDict(validate_by_name=False, validate_by_alias=True, serialize_by_alias=True)
 
   pk: int = Field(
     description='Defines the primary key of the trigger',
@@ -103,9 +99,19 @@ class Operation(BaseModel):
     description='Defines the payload of the operation',
   )
 
-  timezone_id: int | None = Field(
-    default=None,
-    description='Defines the timezone ID of the operation',
+  timezone_name: str = Field(
+    default='UTC',
+    description='Defines the IANA timezone name of the operation',
+  )
+
+  date_time_format: str = Field(
+    default='%Y-%m-%d %I:%M %p',
+    description='Defines the date time format of the operation',
+  )
+
+  layrz_template: str = Field(
+    default='',
+    description='Defines the Layrz template of the operation',
   )
 
   email_subject: str = Field(
@@ -245,11 +251,6 @@ class Operation(BaseModel):
   credentials: dict[str, Any] = Field(
     default_factory=dict,
     description='Defines the credentials for the operation',
-  )
-
-  timezone: Timezone | None = Field(
-    default=None,
-    description='Defines the timezone of the operation',
   )
 
   icon: str | None = Field(
