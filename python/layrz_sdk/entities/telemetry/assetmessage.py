@@ -24,9 +24,9 @@ class AssetMessage(BaseModel):
     serialize_by_alias=True,
   )
 
-  pk: int | None = Field(
+  pk: str | None = Field(
     default=None,
-    description='Message ID',
+    description='Message ID. On UUIDv7 format.',
     alias='id',
   )
   asset_id: int = Field(..., description='Asset ID')

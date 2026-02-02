@@ -17,9 +17,9 @@ class Message(BaseModel):
     serialize_by_alias=True,
   )
 
-  pk: int = Field(
+  pk: int | str = Field(
     ...,
-    description='Message ID',
+    description='Message ID. Can be integer or UUIDv7 string.',
     alias='id',
   )
   asset_id: int = Field(..., description='Asset ID')

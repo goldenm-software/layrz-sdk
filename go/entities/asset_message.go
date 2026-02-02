@@ -10,7 +10,7 @@ import (
 // AssetMessage represents a message sent from or to an asset.
 type AssetMessage struct {
 	// ID of the asset message, can be nil if not stored yet.
-	Id *int64 `json:"id"`
+	Id *string `json:"id"`
 	// ID of the associated asset.
 	AssetId int64 `json:"asset_id"`
 	// Position data including latitude and longitude.

@@ -11,7 +11,7 @@ import (
 
 // DeviceMessage represents a message sent from or to a device.
 type DeviceMessage struct {
-	Id         int64          `json:"id"`
+	Id         string         `json:"id"`
 	DeviceId   int64          `json:"device_id"`
 	Ident      string         `json:"ident"`
 	ProtocolId int64          `json:"protocol_id"`
