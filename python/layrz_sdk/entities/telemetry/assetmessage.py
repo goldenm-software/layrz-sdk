@@ -24,11 +24,7 @@ class AssetMessage(BaseModel):
     serialize_by_alias=True,
   )
 
-  pk: str | None = Field(
-    default=None,
-    description='Message ID. On UUIDv7 format.',
-    alias='id',
-  )
+  pk: int | None = Field(default=None, description='Message ID.', alias='id')
   asset_id: int = Field(..., description='Asset ID')
 
   position: dict[str, float | int] = Field(
