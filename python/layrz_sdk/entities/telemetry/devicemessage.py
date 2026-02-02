@@ -10,7 +10,7 @@ from layrz_sdk.constants import REJECTED_KEYS, UTC
 from layrz_sdk.entities.device import Device
 from layrz_sdk.entities.message import Message
 from layrz_sdk.entities.position import Position
-from layrz_sdk.helpers import compose_uuid
+from layrz_sdk.helpers import compose_uuid, extract_timestamp_from_uuidv7
 
 
 class DeviceMessage(BaseModel):
@@ -109,9 +109,4 @@ class DeviceMessage(BaseModel):
 
   @property
   def received_at(self: Self) -> datetime:
-    u = uuid.UUID(str(self.pk))
-    if u.version != 7:
-      raise ValueError('Cannot extract timestamp from non-UUIDv7 message ID')
-
-    ts = u.int >> 80
-    return datetime.fromtimestamp(ts / 1000, tz=UTC)
+    return extract_timestamp_from_uuidv7(uuid.UUID(self.pk))
