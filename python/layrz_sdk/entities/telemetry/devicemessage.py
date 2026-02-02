@@ -19,9 +19,9 @@ class DeviceMessage(BaseModel):
     validate_by_alias=True,
     serialize_by_alias=True,
   )
-  pk: int | None = Field(
+  pk: str | None = Field(
     default=None,
-    description='Device message ID',
+    description='Device message ID. On UUIDv7 format.',
     alias='id',
   )
   ident: str = Field(..., description='Device identifier')
