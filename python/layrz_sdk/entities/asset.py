@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, Self
 
 from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator, model_validator
@@ -41,7 +43,7 @@ class Asset(BaseModel):
     default_factory=list, description='Defines the list of custom fields of the asset'
   )
   devices: list[Device] = Field(default_factory=list, description='Defines the list of devices of the asset')
-  children: list[Self] = Field(default_factory=list, description='Defines the list of children of the asset')
+  children: list[Asset] = Field(default_factory=list, description='Defines the list of children of the asset')
 
   static_position: StaticPosition | None = Field(
     default=None,

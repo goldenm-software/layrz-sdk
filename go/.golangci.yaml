@@ -32,10 +32,17 @@ linters:
           - dupl
           - lll
         path: internal/*
+      - linters:
+          - gocyclo
+          - dupl
+          - lll
+          - goconst
+        path: tests/*
     paths:
       - third_party$
       - builtin$
       - examples$
+      - tests$
 formatters:
   enable:
     - gofmt
@@ -46,3 +53,4 @@ formatters:
       - third_party$
       - builtin$
       - examples$
+      - tests$

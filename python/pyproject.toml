@@ -49,6 +49,7 @@ build-backend = "setuptools.build_meta"
 dev = [
   "build>=1.2.2.post1",
   "pytest>=8.3.5",
+  "pytest-cov>=6.0",
   "python-dotenv>=1.0.1",
   "ruff>=0.14.9",
   "twine>=6.1.0",

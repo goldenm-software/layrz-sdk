@@ -10,13 +10,21 @@ tidy:
 format:
 	golangci-lint-v2 fmt ./...
 
+.PHONY: tests
+tests:
+	go test ./tests/ -v -cover -coverpkg=./entities/,./types/,./enums/
+
+.PHONY: lint
+lint:
+	golangci-lint-v2 run ./...
+
 .PHONY: checks
 checks:
 	@echo "Running pre-commit checks..."
 	@# 1. Checking code formatting
 	$(MAKE) format
 	@# 2. Running linter
-	golangci-lint-v2 run ./...
+	$(MAKE) lint
 	@# 3. Running tidy
 	@echo "Checking if go.mod is tidy..."
 	@cp go.mod go.mod.tmp
@@ -29,4 +37,6 @@ checks:
 		exit 1; \
 	fi
 	@rm go.mod.tmp go.sum.tmp
+	@# 4. Running tests
+	$(MAKE) tests
 	@echo "All pre-commit checks passed."
