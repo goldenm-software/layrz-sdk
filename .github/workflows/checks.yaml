@@ -22,7 +22,7 @@ jobs:
           working-directory: ./python
           cache-python: true
           enable-cache: true
-          cache-dependency-glob: "python/uv.lock"
+          cache-dependency-glob: "uv.lock"
 
       - name: Install dependencies
         working-directory: ./python
