@@ -1,10 +1,8 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 )
 
 func TestTimezone(t *testing.T) {
@@ -15,7 +13,7 @@ func TestTimezone(t *testing.T) {
 		"offset": -18000
 	}`
 
-	var tz entities.Timezone
+	var tz Timezone
 	err := json.Unmarshal([]byte(jsonData), &tz)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Timezone: %v", err)

@@ -17,3 +17,8 @@ checks:
 .PHONY: prepare
 prepare:
 	$(MAKE) -C go tidy
+
+.PHONY: tests
+tests:
+	$(MAKE) -C python tests
+	$(MAKE) -C go tests

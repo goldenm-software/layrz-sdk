@@ -1,11 +1,9 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"math"
 	"testing"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 )
 
 func TestPreset(t *testing.T) {
@@ -18,7 +16,7 @@ func TestPreset(t *testing.T) {
 		"owner_id": 3
 	}`
 
-	var preset entities.Preset
+	var preset Preset
 	err := json.Unmarshal([]byte(jsonData), &preset)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Preset: %v", err)

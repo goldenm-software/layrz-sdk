@@ -1,10 +1,9 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"testing"
 
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 	"github.com/goldenm-software/layrz-sdk/go/v4/enums"
 )
 
@@ -65,7 +64,7 @@ func TestAsset(t *testing.T) {
 		]
 	}`
 
-	var asset entities.Asset
+	var asset Asset
 	err := json.Unmarshal([]byte(jsonData), &asset)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Asset: %v", err)
@@ -196,7 +195,7 @@ func TestAssetWithChildren(t *testing.T) {
 		"points": []
 	}`
 
-	var asset entities.Asset
+	var asset Asset
 	err := json.Unmarshal([]byte(jsonData), &asset)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Asset: %v", err)
@@ -219,7 +218,7 @@ func TestAssetMethods(t *testing.T) {
 	t.Log("Running tests for Asset methods")
 
 	kindId := int64(5)
-	asset := entities.Asset{
+	asset := Asset{
 		Id:     1,
 		Name:   "Test",
 		KindId: &kindId,

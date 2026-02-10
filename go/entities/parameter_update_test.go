@@ -1,11 +1,9 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"math"
 	"testing"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 )
 
 func TestParameterUpdate(t *testing.T) {
@@ -24,7 +22,7 @@ func TestParameterUpdate(t *testing.T) {
 		}
 	}`
 
-	var pu entities.ParameterUpdate
+	var pu ParameterUpdate
 	err := json.Unmarshal([]byte(jsonData), &pu)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal ParameterUpdate: %v", err)
@@ -82,7 +80,7 @@ func TestParameterUpdateKeySanitization(t *testing.T) {
 		}
 	}`
 
-	var pu entities.ParameterUpdate
+	var pu ParameterUpdate
 	err := json.Unmarshal([]byte(jsonData), &pu)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal ParameterUpdate: %v", err)
@@ -122,7 +120,7 @@ func TestParameterUpdateNullValue(t *testing.T) {
 		}
 	}`
 
-	var pu entities.ParameterUpdate
+	var pu ParameterUpdate
 	err := json.Unmarshal([]byte(jsonData), &pu)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal ParameterUpdate: %v", err)

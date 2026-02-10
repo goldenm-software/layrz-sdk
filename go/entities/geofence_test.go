@@ -1,10 +1,8 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 )
 
 func TestGeofence(t *testing.T) {
@@ -24,7 +22,7 @@ func TestGeofence(t *testing.T) {
 		"owner_id": 5
 	}`
 
-	var gf entities.Geofence
+	var gf Geofence
 	err := json.Unmarshal([]byte(jsonData), &gf)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Geofence: %v", err)
@@ -69,7 +67,7 @@ func TestGeofenceWithoutOwner(t *testing.T) {
 		"geom_web_mercator": {}
 	}`
 
-	var gf entities.Geofence
+	var gf Geofence
 	err := json.Unmarshal([]byte(jsonData), &gf)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Geofence: %v", err)

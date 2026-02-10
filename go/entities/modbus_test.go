@@ -1,10 +1,9 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"testing"
 
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 	"github.com/goldenm-software/layrz-sdk/go/v4/enums"
 )
 
@@ -25,7 +24,7 @@ func TestModbusConfig(t *testing.T) {
 		]
 	}`
 
-	var mc entities.ModbusConfig
+	var mc ModbusConfig
 	err := json.Unmarshal([]byte(jsonData), &mc)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal ModbusConfig: %v", err)

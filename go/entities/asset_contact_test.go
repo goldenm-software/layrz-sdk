@@ -1,17 +1,15 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 )
 
 func TestAssetContact(t *testing.T) {
 	t.Log("Running tests for AssetContact entity")
 	jsonData := `{"name": "Jane", "phone": "+1234567890", "email": "jane@example.com"}`
 
-	var ac entities.AssetContact
+	var ac AssetContact
 	err := json.Unmarshal([]byte(jsonData), &ac)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal AssetContact: %v", err)

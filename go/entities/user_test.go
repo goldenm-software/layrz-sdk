@@ -1,17 +1,15 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 )
 
 func TestUser(t *testing.T) {
 	t.Log("Running tests for User entity")
 	jsonData := `{"id": 42, "name": "John Doe"}`
 
-	var user entities.User
+	var user User
 	err := json.Unmarshal([]byte(jsonData), &user)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal User: %v", err)
@@ -30,7 +28,7 @@ func TestUser(t *testing.T) {
 		t.Fatalf("Failed to marshal User: %v", err)
 	}
 
-	var roundtrip entities.User
+	var roundtrip User
 	err = json.Unmarshal(marshaled, &roundtrip)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal roundtrip: %v", err)

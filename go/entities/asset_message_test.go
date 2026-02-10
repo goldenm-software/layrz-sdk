@@ -1,4 +1,4 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
@@ -7,7 +7,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 	"github.com/goldenm-software/layrz-sdk/go/v4/types"
 )
 
@@ -36,7 +35,7 @@ func TestAssetMessage(t *testing.T) {
 		"elapsed_time": 120.5
 	}`
 
-	var msg entities.AssetMessage
+	var msg AssetMessage
 	err := json.Unmarshal([]byte(jsonData), &msg)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal AssetMessage: %v", err)
@@ -96,7 +95,7 @@ func TestAssetMessageMethods(t *testing.T) {
 		"elapsed_time": 0
 	}`
 
-	var msg entities.AssetMessage
+	var msg AssetMessage
 	err := json.Unmarshal([]byte(jsonData), &msg)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal AssetMessage: %v", err)
@@ -136,7 +135,7 @@ func TestAssetMessageNoPosition(t *testing.T) {
 		"elapsed_time": 0
 	}`
 
-	var msg entities.AssetMessage
+	var msg AssetMessage
 	err := json.Unmarshal([]byte(jsonData), &msg)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal AssetMessage: %v", err)
@@ -154,12 +153,12 @@ func TestAssetMessageNoPosition(t *testing.T) {
 func TestAssetMessageComputeElapsedTime(t *testing.T) {
 	t.Log("Running tests for AssetMessage ComputeElapsedTime")
 
-	current := &entities.AssetMessage{
+	current := &AssetMessage{
 		AssetId:    1,
 		ReceivedAt: types.UnixTime{Time: time.Unix(1770466000, 0)},
 	}
 
-	previous := &entities.AssetMessage{
+	previous := &AssetMessage{
 		AssetId:    1,
 		ReceivedAt: types.UnixTime{Time: time.Unix(1770465900, 0)},
 	}
@@ -179,7 +178,7 @@ func TestAssetMessageComputeElapsedTime(t *testing.T) {
 func TestAssetMessageComputeElapsedTimeNilPrevious(t *testing.T) {
 	t.Log("Running tests for AssetMessage ComputeElapsedTime with nil previous")
 
-	current := &entities.AssetMessage{
+	current := &AssetMessage{
 		AssetId:    1,
 		ReceivedAt: types.UnixTime{Time: time.Unix(1770466000, 0)},
 	}
@@ -197,7 +196,7 @@ func TestAssetMessageComputeElapsedTimeNilPrevious(t *testing.T) {
 func TestAssetMessageComputeDistanceTraveled(t *testing.T) {
 	t.Log("Running tests for AssetMessage ComputeDistanceTraveled")
 
-	current := &entities.AssetMessage{
+	current := &AssetMessage{
 		AssetId: 1,
 		Position: map[string]any{
 			"latitude":  10.4806,
@@ -205,7 +204,7 @@ func TestAssetMessageComputeDistanceTraveled(t *testing.T) {
 		},
 	}
 
-	previous := &entities.AssetMessage{
+	previous := &AssetMessage{
 		AssetId: 1,
 		Position: map[string]any{
 			"latitude":  10.4900,
@@ -227,7 +226,7 @@ func TestAssetMessageComputeDistanceTraveled(t *testing.T) {
 func TestAssetMessageComputeDistanceNilPrevious(t *testing.T) {
 	t.Log("Running tests for AssetMessage ComputeDistanceTraveled with nil previous")
 
-	current := &entities.AssetMessage{
+	current := &AssetMessage{
 		Position: map[string]any{"latitude": 10.0, "longitude": -66.0},
 	}
 
@@ -240,7 +239,7 @@ func TestAssetMessageComputeDistanceNilPrevious(t *testing.T) {
 func TestAssetMessageFromDeviceMessage(t *testing.T) {
 	t.Log("Running tests for AssetMessageFromDeviceMessage")
 
-	deviceMsg := &entities.DeviceMessage{
+	deviceMsg := &DeviceMessage{
 		Id:         "test-id",
 		DeviceId:   1,
 		Ident:      "dev1",
@@ -250,12 +249,12 @@ func TestAssetMessageFromDeviceMessage(t *testing.T) {
 		ReceivedAt: types.UnixTime{Time: time.Unix(1770465935, 0)},
 	}
 
-	asset := &entities.Asset{
+	asset := &Asset{
 		Id:   100,
 		Name: "Test Asset",
 	}
 
-	assetMsg := entities.AssetMessageFromDeviceMessage(deviceMsg, asset)
+	assetMsg := AssetMessageFromDeviceMessage(deviceMsg, asset)
 	if assetMsg == nil {
 		t.Fatal("Expected non-nil AssetMessage")
 	}
@@ -276,15 +275,15 @@ func TestAssetMessageFromDeviceMessage(t *testing.T) {
 func TestAssetMessageFromDeviceMessageNil(t *testing.T) {
 	t.Log("Running tests for AssetMessageFromDeviceMessage with nil inputs")
 
-	asset := &entities.Asset{Id: 1, Name: "Test"}
+	asset := &Asset{Id: 1, Name: "Test"}
 
-	if entities.AssetMessageFromDeviceMessage(nil, asset) != nil {
+	if AssetMessageFromDeviceMessage(nil, asset) != nil {
 		t.Error("Expected nil for nil DeviceMessage")
 	}
 
-	deviceMsg := &entities.DeviceMessage{Id: "test"}
+	deviceMsg := &DeviceMessage{Id: "test"}
 
-	if entities.AssetMessageFromDeviceMessage(deviceMsg, nil) != nil {
+	if AssetMessageFromDeviceMessage(deviceMsg, nil) != nil {
 		t.Error("Expected nil for nil Asset")
 	}
 }

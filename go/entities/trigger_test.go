@@ -1,10 +1,9 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"testing"
 
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 	"github.com/goldenm-software/layrz-sdk/go/v4/enums"
 )
 
@@ -27,7 +26,7 @@ func TestTriggerFormula(t *testing.T) {
 		"owner_id": 10
 	}`
 
-	var trigger entities.Trigger
+	var trigger Trigger
 	err := json.Unmarshal([]byte(jsonData), &trigger)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Trigger: %v", err)
@@ -94,7 +93,7 @@ func TestTriggerPresence(t *testing.T) {
 		"locator_customization_id": 1
 	}`
 
-	var trigger entities.Trigger
+	var trigger Trigger
 	err := json.Unmarshal([]byte(jsonData), &trigger)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Trigger: %v", err)
@@ -144,7 +143,7 @@ func TestTriggerScheduled(t *testing.T) {
 		"should_generate_locator": false
 	}`
 
-	var trigger entities.Trigger
+	var trigger Trigger
 	err := json.Unmarshal([]byte(jsonData), &trigger)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Trigger: %v", err)
@@ -196,7 +195,7 @@ func TestTriggerCaseChanges(t *testing.T) {
 		"should_generate_locator": false
 	}`
 
-	var trigger entities.Trigger
+	var trigger Trigger
 	err := json.Unmarshal([]byte(jsonData), &trigger)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Trigger: %v", err)

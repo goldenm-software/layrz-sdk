@@ -1,12 +1,10 @@
-package tests
+package types
 
 import (
 	"encoding/json"
 	"math"
 	"testing"
 	"time"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/types"
 )
 
 func TestUnixTime(t *testing.T) {
@@ -14,7 +12,7 @@ func TestUnixTime(t *testing.T) {
 
 	jsonData := `1770465935.123`
 
-	var ut types.UnixTime
+	var ut UnixTime
 	err := json.Unmarshal([]byte(jsonData), &ut)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal UnixTime: %v", err)
@@ -30,7 +28,7 @@ func TestUnixTime(t *testing.T) {
 		t.Fatalf("Failed to marshal UnixTime: %v", err)
 	}
 
-	var roundtrip types.UnixTime
+	var roundtrip UnixTime
 	err = json.Unmarshal(marshaled, &roundtrip)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal roundtrip UnixTime: %v", err)
@@ -47,7 +45,7 @@ func TestUnixTimeInteger(t *testing.T) {
 
 	jsonData := `1770465935`
 
-	var ut types.UnixTime
+	var ut UnixTime
 	err := json.Unmarshal([]byte(jsonData), &ut)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal UnixTime: %v", err)
@@ -64,7 +62,7 @@ func TestDuration(t *testing.T) {
 
 	jsonData := `300.5`
 
-	var d types.Duration
+	var d Duration
 	err := json.Unmarshal([]byte(jsonData), &d)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Duration: %v", err)
@@ -80,7 +78,7 @@ func TestDuration(t *testing.T) {
 		t.Fatalf("Failed to marshal Duration: %v", err)
 	}
 
-	var roundtrip types.Duration
+	var roundtrip Duration
 	err = json.Unmarshal(marshaled, &roundtrip)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal roundtrip Duration: %v", err)
@@ -96,13 +94,13 @@ func TestDurationZero(t *testing.T) {
 
 	jsonData := `0`
 
-	var d types.Duration
+	var d Duration
 	err := json.Unmarshal([]byte(jsonData), &d)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Duration: %v", err)
 	}
 
-	if d != types.Duration(0) {
+	if d != Duration(0) {
 		t.Errorf("Expected zero duration, got %v", d)
 	}
 }
@@ -112,7 +110,7 @@ func TestTime(t *testing.T) {
 
 	jsonData := `"14:30:45"`
 
-	var tm types.Time
+	var tm Time
 	err := json.Unmarshal([]byte(jsonData), &tm)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Time: %v", err)
@@ -133,7 +131,7 @@ func TestTimeNull(t *testing.T) {
 
 	jsonData := `"null"`
 
-	var tm types.Time
+	var tm Time
 	err := json.Unmarshal([]byte(jsonData), &tm)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal null Time: %v", err)
@@ -145,7 +143,7 @@ func TestUuid(t *testing.T) {
 
 	jsonData := `"550e8400-e29b-41d4-a716-446655440000"`
 
-	var u types.Uuid
+	var u Uuid
 	err := json.Unmarshal([]byte(jsonData), &u)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Uuid: %v", err)
@@ -161,7 +159,7 @@ func TestUuid(t *testing.T) {
 		t.Errorf("Expected %s, got %s", expected, string(marshaled))
 	}
 
-	var roundtrip types.Uuid
+	var roundtrip Uuid
 	err = roundtrip.UnmarshalJSON(marshaled)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal roundtrip Uuid: %v", err)
@@ -184,7 +182,7 @@ func TestUuidInStruct(t *testing.T) {
 	}`
 
 	type UuidHolder struct {
-		Id types.Uuid `json:"id"`
+		Id Uuid `json:"id"`
 	}
 
 	var holder UuidHolder
@@ -207,7 +205,7 @@ func TestUuidTimestampFromV7(t *testing.T) {
 	// bytes: 01 9C 35 65 F4 00, version=7, variant=10
 	jsonData := `"019c3565-f400-7000-8000-000000000000"`
 
-	var u types.Uuid
+	var u Uuid
 	err := json.Unmarshal([]byte(jsonData), &u)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Uuid: %v", err)
@@ -231,7 +229,7 @@ func TestUuidTimestampFromV7NonV7(t *testing.T) {
 	// UUIDv4
 	jsonData := `"550e8400-e29b-41d4-a716-446655440000"`
 
-	var u types.Uuid
+	var u Uuid
 	err := json.Unmarshal([]byte(jsonData), &u)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Uuid: %v", err)

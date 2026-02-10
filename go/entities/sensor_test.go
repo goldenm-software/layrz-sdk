@@ -1,10 +1,8 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 )
 
 func TestSensor(t *testing.T) {
@@ -31,7 +29,7 @@ func TestSensor(t *testing.T) {
 		]
 	}`
 
-	var sensor entities.Sensor
+	var sensor Sensor
 	err := json.Unmarshal([]byte(jsonData), &sensor)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Sensor: %v", err)
@@ -77,7 +75,7 @@ func TestSensorMinimal(t *testing.T) {
 		"name": "Basic Sensor"
 	}`
 
-	var sensor entities.Sensor
+	var sensor Sensor
 	err := json.Unmarshal([]byte(jsonData), &sensor)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Sensor: %v", err)

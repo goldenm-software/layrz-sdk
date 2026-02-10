@@ -28,8 +28,8 @@ cd python && uv run pytest ./tests/test_lcl.py -k "test_name"  # single test
 # Go
 cd go && golangci-lint-v2 run ./...        # lint
 cd go && golangci-lint-v2 fmt ./...        # format
-cd go && go test ./tests/ -v               # tests
-cd go && go test ./tests/ -v -run TestName # single test
+cd go && go test ./... -v                  # tests
+cd go && go test ./entities/ -v -run TestName # single test
 cd go && go mod tidy                       # tidy deps
 ```
 
@@ -53,9 +53,9 @@ Setup: `make install-hooks` to enable pre-commit hooks. Python uses `uv` for pac
 
 ### Go SDK (`go/`)
 
-- **`entities/`** — Go struct equivalents of Python entities with JSON struct tags.
+- **`entities/`** — Go struct equivalents of Python entities with JSON struct tags. Tests are co-located as `*_test.go` files.
 - **`enums/`** — String-based enum types (asset operation modes, broadcast status, trigger kinds, etc.).
-- **`types/`** — Custom marshaling wrappers for Time, Duration, Unix timestamps, UUID.
+- **`types/`** — Custom marshaling wrappers for Time, Duration, Unix timestamps, UUID. Tests are co-located as `*_test.go` files.
 
 ### Cross-Language Patterns
 
