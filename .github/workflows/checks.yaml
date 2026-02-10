@@ -28,17 +28,12 @@ jobs:
         working-directory: ./python
         run: uv sync --frozen
 
-      - name: Run lint checks
+      - name: Run Python checks and tests with coverage
         working-directory: ./python
-        run: uv run ruff check
-
-      - name: Run Type checking
-        working-directory: ./python
-        run: uv run ty check
-
-      - name: Run tests with coverage
-        working-directory: ./python
-        run: uv run pytest ./tests/ --cov=layrz_sdk --cov-report=term --cov-report=json:coverage.json
+        run: |
+          uv run ruff check
+          uv run ty check
+          uv run pytest ./tests/ --cov=layrz_sdk --cov-report=term --cov-report=json:coverage.json
 
       - name: Upload Python coverage
         if: always()
@@ -69,7 +64,7 @@ jobs:
       - name: Run tests with coverage
         working-directory: ./go
         run: |
-          go test ./tests/ -v -coverprofile=coverage.out -coverpkg=./entities/,./types/,./enums/
+          go test ./... -v -coverprofile=coverage.out
           go tool cover -func=coverage.out > coverage-summary.txt
 
       - name: Upload Go coverage

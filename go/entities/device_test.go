@@ -1,10 +1,8 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 )
 
 func TestDevice(t *testing.T) {
@@ -32,7 +30,7 @@ func TestDevice(t *testing.T) {
 		}
 	}`
 
-	var device entities.Device
+	var device Device
 	err := json.Unmarshal([]byte(jsonData), &device)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Device: %v", err)
@@ -89,7 +87,7 @@ func TestDeviceMinimal(t *testing.T) {
 		"is_primary": false
 	}`
 
-	var device entities.Device
+	var device Device
 	err := json.Unmarshal([]byte(jsonData), &device)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Device: %v", err)
@@ -127,7 +125,7 @@ func TestDeviceMarshal(t *testing.T) {
 		"is_primary": true
 	}`
 
-	var device entities.Device
+	var device Device
 	err := json.Unmarshal([]byte(jsonData), &device)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Device: %v", err)
@@ -138,7 +136,7 @@ func TestDeviceMarshal(t *testing.T) {
 		t.Fatalf("Failed to marshal Device: %v", err)
 	}
 
-	var roundtrip entities.Device
+	var roundtrip Device
 	err = json.Unmarshal(marshaled, &roundtrip)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal roundtrip: %v", err)

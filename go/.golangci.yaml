@@ -37,12 +37,11 @@ linters:
           - dupl
           - lll
           - goconst
-        path: tests/*
+        path: _test\.go
     paths:
       - third_party$
       - builtin$
       - examples$
-      - tests$
 formatters:
   enable:
     - gofmt
@@ -53,4 +52,3 @@ formatters:
       - third_party$
       - builtin$
       - examples$
-      - tests$

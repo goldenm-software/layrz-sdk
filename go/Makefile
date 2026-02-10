@@ -12,7 +12,7 @@ format:
 
 .PHONY: tests
 tests:
-	go test ./tests/ -v -cover -coverpkg=./entities/,./types/,./enums/
+	go test ./... -v -cover
 
 .PHONY: lint
 lint:

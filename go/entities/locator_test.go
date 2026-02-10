@@ -1,11 +1,9 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"math"
 	"testing"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 )
 
 func TestLocator(t *testing.T) {
@@ -50,7 +48,7 @@ func TestLocator(t *testing.T) {
 		"customization_id": 3
 	}`
 
-	var locator entities.Locator
+	var locator Locator
 	err := json.Unmarshal([]byte(jsonData), &locator)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Locator: %v", err)
@@ -125,7 +123,7 @@ func TestLocatorExpired(t *testing.T) {
 		"is_expired": true
 	}`
 
-	var locator entities.Locator
+	var locator Locator
 	err := json.Unmarshal([]byte(jsonData), &locator)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Locator: %v", err)

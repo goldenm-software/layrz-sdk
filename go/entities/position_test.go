@@ -1,11 +1,9 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"math"
 	"testing"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 )
 
 func TestPosition(t *testing.T) {
@@ -20,7 +18,7 @@ func TestPosition(t *testing.T) {
 		"hdop": 0.8
 	}`
 
-	var pos entities.Position
+	var pos Position
 	err := json.Unmarshal([]byte(jsonData), &pos)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Position: %v", err)
@@ -59,7 +57,7 @@ func TestPositionMinimal(t *testing.T) {
 	t.Log("Running tests for Position with no fields")
 	jsonData := `{}`
 
-	var pos entities.Position
+	var pos Position
 	err := json.Unmarshal([]byte(jsonData), &pos)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal Position: %v", err)
@@ -82,7 +80,7 @@ func TestStaticPosition(t *testing.T) {
 		"altitude": 10.0
 	}`
 
-	var sp entities.StaticPosition
+	var sp StaticPosition
 	err := json.Unmarshal([]byte(jsonData), &sp)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal StaticPosition: %v", err)
@@ -105,7 +103,7 @@ func TestStaticPositionWithoutAltitude(t *testing.T) {
 	t.Log("Running tests for StaticPosition without altitude")
 	jsonData := `{"latitude": 0.0, "longitude": 0.0}`
 
-	var sp entities.StaticPosition
+	var sp StaticPosition
 	err := json.Unmarshal([]byte(jsonData), &sp)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal StaticPosition: %v", err)

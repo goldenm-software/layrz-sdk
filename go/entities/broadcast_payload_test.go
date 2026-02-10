@@ -1,11 +1,9 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"math"
 	"testing"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 )
 
 func TestBroadcastPayload(t *testing.T) {
@@ -86,7 +84,7 @@ func TestBroadcastPayload(t *testing.T) {
       "locator": null
   }`
 
-	var payload entities.BroadcastPayload
+	var payload BroadcastPayload
 	err := json.Unmarshal([]byte(jsonData), &payload)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal JSON: %v", err)
@@ -300,7 +298,7 @@ func TestBroadcastPayloadWithTrigger(t *testing.T) {
       "locator": null
   }`
 
-	var payload entities.BroadcastPayload
+	var payload BroadcastPayload
 	err := json.Unmarshal([]byte(jsonData), &payload)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal JSON: %v", err)
@@ -401,7 +399,7 @@ func TestBroadcastPayloadMarshal(t *testing.T) {
       "received_at": 1770465935
   }`
 
-	var payload entities.BroadcastPayload
+	var payload BroadcastPayload
 	err := json.Unmarshal([]byte(jsonData), &payload)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal JSON: %v", err)
@@ -412,7 +410,7 @@ func TestBroadcastPayloadMarshal(t *testing.T) {
 		t.Fatalf("Failed to marshal JSON: %v", err)
 	}
 
-	var roundtrip entities.BroadcastPayload
+	var roundtrip BroadcastPayload
 	err = json.Unmarshal(marshaled, &roundtrip)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal roundtrip JSON: %v", err)

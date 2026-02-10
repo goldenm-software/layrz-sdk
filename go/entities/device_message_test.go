@@ -1,12 +1,10 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"math"
 	"strings"
 	"testing"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 )
 
 func TestDeviceMessage(t *testing.T) {
@@ -31,7 +29,7 @@ func TestDeviceMessage(t *testing.T) {
 		"received_at": 1770465935
 	}`
 
-	var msg entities.DeviceMessage
+	var msg DeviceMessage
 	err := json.Unmarshal([]byte(jsonData), &msg)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal DeviceMessage: %v", err)
@@ -82,7 +80,7 @@ func TestDeviceMessageMethods(t *testing.T) {
 		"received_at": 1770465935
 	}`
 
-	var msg entities.DeviceMessage
+	var msg DeviceMessage
 	err := json.Unmarshal([]byte(jsonData), &msg)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal DeviceMessage: %v", err)
@@ -121,7 +119,7 @@ func TestDeviceMessageNoPosition(t *testing.T) {
 		"received_at": 1770465935
 	}`
 
-	var msg entities.DeviceMessage
+	var msg DeviceMessage
 	err := json.Unmarshal([]byte(jsonData), &msg)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal DeviceMessage: %v", err)
@@ -139,7 +137,7 @@ func TestDeviceMessageNoPosition(t *testing.T) {
 func TestDeviceMessageFromMap(t *testing.T) {
 	t.Log("Running tests for DeviceMessageFromMap constructor")
 	protocolId := int64(5)
-	device := &entities.Device{
+	device := &Device{
 		Id:         1,
 		Name:       "GPS-01",
 		Ident:      "860000000000001",
@@ -155,7 +153,7 @@ func TestDeviceMessageFromMap(t *testing.T) {
 		"received_at":        1770465935.0,
 	}
 
-	msg, err := entities.DeviceMessageFromMap(&data, device)
+	msg, err := DeviceMessageFromMap(&data, device)
 	if err != nil {
 		t.Fatalf("Failed to create DeviceMessage from map: %v", err)
 	}
@@ -190,13 +188,13 @@ func TestDeviceMessageFromMap(t *testing.T) {
 func TestDeviceMessageFromMapNilData(t *testing.T) {
 	t.Log("Running tests for DeviceMessageFromMap with nil data")
 	protocolId := int64(5)
-	device := &entities.Device{
+	device := &Device{
 		Id:         1,
 		Ident:      "test",
 		ProtocolId: &protocolId,
 	}
 
-	_, err := entities.DeviceMessageFromMap(nil, device)
+	_, err := DeviceMessageFromMap(nil, device)
 	if err == nil {
 		t.Error("Expected error for nil data")
 	}
@@ -206,7 +204,7 @@ func TestDeviceMessageFromMapNilDevice(t *testing.T) {
 	t.Log("Running tests for DeviceMessageFromMap with nil device")
 	data := map[string]any{"received_at": 1770465935.0}
 
-	_, err := entities.DeviceMessageFromMap(&data, nil)
+	_, err := DeviceMessageFromMap(&data, nil)
 	if err == nil {
 		t.Error("Expected error for nil device")
 	}

@@ -1,11 +1,9 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"math"
 	"testing"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 )
 
 func TestSensorMask(t *testing.T) {
@@ -17,7 +15,7 @@ func TestSensorMask(t *testing.T) {
 		"value": 95.5
 	}`
 
-	var sm entities.SensorMask
+	var sm SensorMask
 	err := json.Unmarshal([]byte(jsonData), &sm)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal SensorMask: %v", err)

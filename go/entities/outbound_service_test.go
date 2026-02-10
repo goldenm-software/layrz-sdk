@@ -1,10 +1,8 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 )
 
 func TestOutboundService(t *testing.T) {
@@ -18,7 +16,7 @@ func TestOutboundService(t *testing.T) {
 		"credentials": {"host": "broker.example.com", "port": 1883}
 	}`
 
-	var os entities.OutboundService
+	var os OutboundService
 	err := json.Unmarshal([]byte(jsonData), &os)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal OutboundService: %v", err)
@@ -58,7 +56,7 @@ func TestOutboundServiceMinimal(t *testing.T) {
 		"credentials": {}
 	}`
 
-	var os entities.OutboundService
+	var os OutboundService
 	err := json.Unmarshal([]byte(jsonData), &os)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal OutboundService: %v", err)

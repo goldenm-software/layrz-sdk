@@ -1,10 +1,8 @@
-package tests
+package entities
 
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/goldenm-software/layrz-sdk/go/v4/entities"
 )
 
 func TestBroadcastService(t *testing.T) {
@@ -19,7 +17,7 @@ func TestBroadcastService(t *testing.T) {
 		}
 	}`
 
-	var svc entities.BroadcastService
+	var svc BroadcastService
 	err := json.Unmarshal([]byte(jsonData), &svc)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal BroadcastService: %v", err)
@@ -47,7 +45,7 @@ func TestBroadcastService(t *testing.T) {
 		t.Fatalf("Failed to marshal BroadcastService: %v", err)
 	}
 
-	var roundtrip entities.BroadcastService
+	var roundtrip BroadcastService
 	err = json.Unmarshal(marshaled, &roundtrip)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal roundtrip: %v", err)
@@ -65,7 +63,7 @@ func TestBroadcastRequest(t *testing.T) {
 		"raw": "{\"key\":\"value\",\"count\":42}"
 	}`
 
-	var req entities.BroadcastRequest
+	var req BroadcastRequest
 	err := json.Unmarshal([]byte(jsonData), &req)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal BroadcastRequest: %v", err)
@@ -96,7 +94,7 @@ func TestBroadcastRequestWithArrayParsed(t *testing.T) {
 		"raw": "[1,2,3]"
 	}`
 
-	var req entities.BroadcastRequest
+	var req BroadcastRequest
 	err := json.Unmarshal([]byte(jsonData), &req)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal BroadcastRequest: %v", err)
@@ -119,7 +117,7 @@ func TestBroadcastResponse(t *testing.T) {
 		"raw": "{\"status\":\"ok\",\"code\":200}"
 	}`
 
-	var resp entities.BroadcastResponse
+	var resp BroadcastResponse
 	err := json.Unmarshal([]byte(jsonData), &resp)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal BroadcastResponse: %v", err)
