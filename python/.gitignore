@@ -16,3 +16,4 @@ tests.py
 .pytest_cache/
 
 .env
+.coverage
