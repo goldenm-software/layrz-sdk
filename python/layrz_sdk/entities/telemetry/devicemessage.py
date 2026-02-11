@@ -5,7 +5,7 @@ from datetime import datetime
 from typing import Any, Self
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
 
 from layrz_sdk.constants import REJECTED_KEYS, UTC
 from layrz_sdk.entities.device import Device
@@ -45,6 +45,12 @@ class DeviceMessage(BaseModel):
       pass
 
     raise ValueError('pk must be a valid UUIDv7 or None')
+
+  @field_serializer('pk', when_used='always')
+  def serialize_pk(self, v: UUID | None) -> str | None:
+    if v is None:
+      return None
+    return str(v)
 
   ident: str = Field(..., description='Device identifier')
   device_id: int = Field(..., description='Device ID')
@@ -120,7 +126,7 @@ class DeviceMessage(BaseModel):
   def to_message(self: Self) -> Message:
     """Convert the asset message to a Message object."""
     return Message(
-      id=self.pk if self.pk is not None else 0,  # type: ignore
+      id=int(self.received_at.timestamp()) if self.pk is not None else 0,  # type: ignore
       asset_id=self.device_id if self.device_id is not None else 0,
       position=Position.model_validate(self.position),
       payload=self.payload,

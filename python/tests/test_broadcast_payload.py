@@ -96,6 +96,9 @@ def test_broadcast_payload_roundtrip() -> None:
 
   assert dumped['asset']['id'] == 1
   assert dumped['asset']['name'] == 'Vehicle'
+  assert isinstance(dumped['message_id'], str)
 
   roundtrip = BroadcastPayload.model_validate(dumped)
   assert roundtrip.asset.pk == bp.asset.pk
+  assert roundtrip.asset.name == bp.asset.name
+  assert roundtrip.message_id == bp.message_id

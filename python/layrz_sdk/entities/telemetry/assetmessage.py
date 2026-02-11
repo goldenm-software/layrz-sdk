@@ -45,6 +45,12 @@ class AssetMessage(BaseModel):
 
     raise ValueError('pk must be a valid UUIDv7 or None')
 
+  @field_serializer('pk', when_used='always')
+  def serialize_pk(self, v: UUID | None) -> str | None:
+    if v is None:
+      return None
+    return str(v)
+
   asset_id: int = Field(..., description='Asset ID')
 
   position: dict[str, float | int] = Field(
@@ -168,7 +174,7 @@ class AssetMessage(BaseModel):
   def to_message(self: Self) -> Message:
     """Convert the asset message to a Message object."""
     return Message(
-      id=self.pk if self.pk is not None else 0,  # ty: ignore
+      id=int(self.received_at.timestamp()) if self.pk is not None else 0,  # ty: ignore
       asset_id=self.asset_id,
       position=Position.model_validate(self.position),
       payload=self.payload,
