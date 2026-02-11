@@ -119,14 +119,16 @@ def test_asset_message_compute_distance_nil_previous() -> None:
 
 
 def test_asset_message_from_device_message() -> None:
-  device = Device.model_validate({
-    'id': 1,
-    'name': 'GPS-01',
-    'ident': '860000000000001',
-    'protocol_id': 5,
-    'protocol': 'teltonika',
-    'is_primary': True,
-  })
+  device = Device.model_validate(
+    {
+      'id': 1,
+      'name': 'GPS-01',
+      'ident': '860000000000001',
+      'protocol_id': 5,
+      'protocol': 'teltonika',
+      'is_primary': True,
+    }
+  )
 
   raw_payload = {
     'position.latitude': 10.0,
@@ -137,14 +139,16 @@ def test_asset_message_from_device_message() -> None:
 
   device_msg = DeviceMessage.parse_from_dict(raw_payload=raw_payload, device=device)
 
-  asset = Asset.model_validate({
-    'id': 100,
-    'name': 'Test Asset',
-    'operation_mode': 'SINGLE',
-    'devices': [
-      {'id': 1, 'name': 'GPS-01', 'ident': '860000000000001', 'protocol': 'teltonika', 'is_primary': True},
-    ],
-  })
+  asset = Asset.model_validate(
+    {
+      'id': 100,
+      'name': 'Test Asset',
+      'operation_mode': 'SINGLE',
+      'devices': [
+        {'id': 1, 'name': 'GPS-01', 'ident': '860000000000001', 'protocol': 'teltonika', 'is_primary': True},
+      ],
+    }
+  )
 
   asset_msg = AssetMessage.parse_from_devicemessage(device_message=device_msg, asset=asset)
 

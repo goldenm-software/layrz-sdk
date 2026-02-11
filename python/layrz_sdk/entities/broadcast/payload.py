@@ -1,9 +1,11 @@
 # go migrated
+from __future__ import annotations
 
 from datetime import datetime
 from typing import Any
+from uuid import UUID
 
-from pydantic import BaseModel, Field, field_serializer
+from pydantic import BaseModel, Field, field_serializer, field_validator
 
 from layrz_sdk.constants import UTC
 from layrz_sdk.entities.asset import Asset
@@ -39,7 +41,26 @@ class BroadcastPayload(BaseModel):
       return None
     return v.model_dump(mode='json', by_alias=True)
 
-  message_id: int | str = Field(..., description='Message ID')
+  message_id: UUID = Field(..., description='Message ID')
+
+  @field_validator('message_id', mode='before')
+  def validate_message_id(cls: type[BroadcastPayload], value: Any) -> UUID | None:
+    """Validate the message_id field to ensure it is a valid UUIDv7 or None."""
+    if value is None:
+      return None
+
+    if isinstance(value, UUID):
+      return value
+
+    try:
+      uuid_obj = UUID(str(value))
+      if uuid_obj.version == 7:
+        return uuid_obj
+    except (ValueError, AttributeError):
+      pass
+
+    raise ValueError('pk must be a valid UUIDv7 or None')
+
   service: BroadcastService | None = Field(default=None, description='Broadcast service object')
 
   @field_serializer('service', when_used='always')
