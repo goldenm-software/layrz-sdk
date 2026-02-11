@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from layrz_sdk.entities import Device
 from layrz_sdk.entities.telemetry.devicemessage import DeviceMessage
 
@@ -23,7 +25,7 @@ def test_device_message() -> None:
   }
   msg = DeviceMessage.model_validate(data)
 
-  assert msg.pk == '019513f0-7c00-7000-8000-000000000001'
+  assert msg.pk == UUID('019513f0-7c00-7000-8000-000000000001')
   assert msg.device_id == 10
   assert msg.ident == '860000000000001'
   assert msg.protocol_id == 5
@@ -65,14 +67,16 @@ def test_device_message_no_position() -> None:
 
 def test_device_message_from_map() -> None:
   protocol_id = 5
-  device = Device.model_validate({
-    'id': 1,
-    'name': 'GPS-01',
-    'ident': '860000000000001',
-    'protocol_id': protocol_id,
-    'protocol': 'teltonika',
-    'is_primary': True,
-  })
+  device = Device.model_validate(
+    {
+      'id': 1,
+      'name': 'GPS-01',
+      'ident': '860000000000001',
+      'protocol_id': protocol_id,
+      'protocol': 'teltonika',
+      'is_primary': True,
+    }
+  )
 
   raw_payload = {
     'position.latitude': 10.4806,

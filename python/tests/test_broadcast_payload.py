@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from layrz_sdk.entities import Asset, BroadcastPayload
 from layrz_sdk.entities.broadcast import BroadcastService
 
@@ -25,7 +27,7 @@ def test_broadcast_payload() -> None:
       'protocol': 'teltonika',
       'is_primary': True,
     },
-    'message_id': 12345,
+    'message_id': '019c4e15-9438-7000-a9b0-267d78ee7c4d',
     'service': {
       'id': 5,
       'name': 'Webhook',
@@ -42,7 +44,7 @@ def test_broadcast_payload() -> None:
   assert bp.asset.name == 'Vehicle 1'
   assert bp.primary_device is not None
   assert bp.primary_device.pk == 1
-  assert bp.message_id == 12345
+  assert bp.message_id == UUID('019c4e15-9438-7000-a9b0-267d78ee7c4d')
   assert bp.service is not None
   assert bp.service.pk == 5
   assert bp.position['latitude'] == 10.4806
@@ -66,7 +68,7 @@ def test_broadcast_payload_with_trigger() -> None:
       'type': 'FORMULA',
       'cooldown_time': 0,
     },
-    'message_id': 1,
+    'message_id': '019c4e15-9438-7000-a9b0-267d78ee7c4d',
     'received_at': 1770465935,
   }
   bp = BroadcastPayload.model_validate(data)
@@ -86,7 +88,7 @@ def test_broadcast_payload_roundtrip() -> None:
         {'id': 1, 'name': 'GPS', 'ident': 'dev1', 'protocol': 'generic', 'is_primary': True},
       ],
     },
-    'message_id': 1,
+    'message_id': '019c4e15-9438-7000-a9b0-267d78ee7c4d',
     'received_at': 1770465935,
   }
   bp = BroadcastPayload.model_validate(data)

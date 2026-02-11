@@ -2,9 +2,10 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta
 from typing import Any, Self, cast
+from uuid import UUID
 
 from geopy.distance import geodesic
-from pydantic import BaseModel, ConfigDict, Field, field_serializer
+from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
 from shapely.geometry import MultiPoint
 
 from layrz_sdk.constants import UTC
@@ -24,7 +25,26 @@ class AssetMessage(BaseModel):
     serialize_by_alias=True,
   )
 
-  pk: int | None = Field(default=None, description='Message ID.', alias='id')
+  pk: UUID | None = Field(default=None, description='Message ID, on UUIDv7 format', alias='id')
+
+  @field_validator('pk', mode='before')
+  def validate_pk(cls: type[AssetMessage], value: Any) -> UUID | None:
+    """Validate the pk field to ensure it is a valid UUIDv7 or None."""
+    if value is None:
+      return None
+
+    if isinstance(value, UUID):
+      return value
+
+    try:
+      uuid_obj = UUID(str(value))
+      if uuid_obj.version == 7:
+        return uuid_obj
+    except (ValueError, AttributeError):
+      pass
+
+    raise ValueError('pk must be a valid UUIDv7 or None')
+
   asset_id: int = Field(..., description='Asset ID')
 
   position: dict[str, float | int] = Field(

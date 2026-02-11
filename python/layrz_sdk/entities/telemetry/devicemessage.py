@@ -3,8 +3,9 @@ from __future__ import annotations
 import uuid
 from datetime import datetime
 from typing import Any, Self
+from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from layrz_sdk.constants import REJECTED_KEYS, UTC
 from layrz_sdk.entities.device import Device
@@ -21,11 +22,30 @@ class DeviceMessage(BaseModel):
     validate_by_alias=True,
     serialize_by_alias=True,
   )
-  pk: str | None = Field(
+  pk: UUID | None = Field(
     default=None,
     description='Device message ID. On UUIDv7 format.',
     alias='id',
   )
+
+  @field_validator('pk', mode='before')
+  def validate_pk(cls: type[DeviceMessage], value: Any) -> UUID | None:
+    """Validate the pk field to ensure it is a valid UUIDv7 or None."""
+    if value is None:
+      return None
+
+    if isinstance(value, UUID):
+      return value
+
+    try:
+      uuid_obj = UUID(str(value))
+      if uuid_obj.version == 7:
+        return uuid_obj
+    except (ValueError, AttributeError):
+      pass
+
+    raise ValueError('pk must be a valid UUIDv7 or None')
+
   ident: str = Field(..., description='Device identifier')
   device_id: int = Field(..., description='Device ID')
   protocol_id: int = Field(..., description='Protocol ID')
@@ -89,7 +109,7 @@ class DeviceMessage(BaseModel):
 
     pk = compose_uuid(ts=received_at, bound='lower')
     return cls(
-      id=str(pk),  # type: ignore
+      id=pk,  # type: ignore
       ident=device.ident,
       device_id=device.pk,
       protocol_id=device.protocol_id,
@@ -109,4 +129,4 @@ class DeviceMessage(BaseModel):
 
   @property
   def received_at(self: Self) -> datetime:
-    return extract_timestamp_from_uuidv7(uuid.UUID(self.pk))
+    return extract_timestamp_from_uuidv7(self.pk) if self.pk is not None else datetime.now(UTC)
