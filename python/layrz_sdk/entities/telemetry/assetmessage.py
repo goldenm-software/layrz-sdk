@@ -174,7 +174,7 @@ class AssetMessage(BaseModel):
   def to_message(self: Self) -> Message:
     """Convert the asset message to a Message object."""
     return Message(
-      id=self.pk if self.pk is not None else 0,  # ty: ignore
+      id=int(self.received_at.timestamp()) if self.pk is not None else 0,  # ty: ignore
       asset_id=self.asset_id,
       position=Position.model_validate(self.position),
       payload=self.payload,
