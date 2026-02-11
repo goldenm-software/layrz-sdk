@@ -5,7 +5,7 @@ from datetime import datetime
 from typing import Any, Self
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
 
 from layrz_sdk.constants import REJECTED_KEYS, UTC
 from layrz_sdk.entities.device import Device
@@ -45,6 +45,12 @@ class DeviceMessage(BaseModel):
       pass
 
     raise ValueError('pk must be a valid UUIDv7 or None')
+
+  @field_serializer('pk', when_used='always')
+  def serialize_pk(self, v: UUID | None) -> str | None:
+    if v is None:
+      return None
+    return str(v)
 
   ident: str = Field(..., description='Device identifier')
   device_id: int = Field(..., description='Device ID')

@@ -61,6 +61,10 @@ class BroadcastPayload(BaseModel):
 
     raise ValueError('pk must be a valid UUIDv7 or None')
 
+  @field_serializer('message_id', when_used='always')
+  def serialize_message_id(self, v: UUID) -> str:
+    return str(v)
+
   service: BroadcastService | None = Field(default=None, description='Broadcast service object')
 
   @field_serializer('service', when_used='always')
