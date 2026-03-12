@@ -15,7 +15,7 @@ class CommandSeriesTicketStatus(StrEnum):
   PENDING = 'PND'
   IN_SERVICE = 'ISV'
   TO_JOB = 'TJB'
-  AT_JOB = 'ATJ'
+  AT_JOB = 'AJB'
   POURING = 'POU'
   TO_PLANT = 'TPL'
   IN_YARD = 'IYD'
