@@ -183,7 +183,7 @@ class LineChart(BaseModel):
     datasets = []
 
     for serie in self.y_axis:
-      dataset = {
+      dataset: dict[str, Any] = {
         'type': 'line',
         'name': serie.label,
         'connectNullData': True,
