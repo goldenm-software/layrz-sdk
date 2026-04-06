@@ -74,7 +74,7 @@ class OperationCasePayload(BaseModel):
     """Serialize trigger to a dictionary"""
     if isinstance(value, Trigger):
       return Trigger(
-        id=value.pk,  # ty: ignore
+        id=value.pk,
         name=value.name,
         code=value.code,
       )

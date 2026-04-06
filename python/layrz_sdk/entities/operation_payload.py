@@ -44,7 +44,7 @@ class OperationPayload(BaseModel):
     """Serialize asset to a dictionary"""
     if isinstance(value, Asset):
       return Asset(
-        id=value.pk,  # ty: ignore
+        id=value.pk,
         name=value.name,
         operation_mode=value.operation_mode,
         vin=value.vin,
@@ -65,7 +65,7 @@ class OperationPayload(BaseModel):
     """Serialize trigger to a dictionary"""
     if isinstance(value, Trigger):
       return Trigger(
-        id=value.pk,  # ty: ignore
+        id=value.pk,
         name=value.name,
         code=value.code,
       )
@@ -82,7 +82,7 @@ class OperationPayload(BaseModel):
     """Serialize operation to a dictionary"""
     if isinstance(value, Operation):
       return Operation(
-        id=value.pk,  # ty: ignore
+        id=value.pk,
         name=value.name,
         operation_type=value.kind,
         timezone_name=value.timezone_name,

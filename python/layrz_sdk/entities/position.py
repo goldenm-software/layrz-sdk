@@ -95,7 +95,7 @@ class Position(BaseModel):
     if isinstance(value, int):
       value = float(value)
 
-    return cast(float, abs(value))
+    return abs(value)
 
   @field_validator('direction', mode='before')
   def _validate_direction(cls: Self, value: Any) -> None | float:
