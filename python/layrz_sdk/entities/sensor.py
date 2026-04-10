@@ -1,9 +1,11 @@
 # go migrated
+from datetime import timedelta
 from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from .sensor_mask import SensorMask
+from .sensor_range import SensorRange
 from .sensor_type import SensorSubtype, SensorType
 
 
@@ -31,6 +33,11 @@ class Sensor(BaseModel):
     description='Defines the formula of the sensor, used for calculations',
   )
 
+  script: str = Field(
+    default='',
+    description='Defines the script of the sensor, used for data processing',
+  )
+
   mask: list[SensorMask] = Field(
     default_factory=list,
     description='Defines the mask of the sensor, used for filtering data',
@@ -47,4 +54,69 @@ class Sensor(BaseModel):
   measuring_unit: str | None = Field(
     default=None,
     description='Defines the measuring unit of the sensor, e.g., km/h, °C',
+  )
+
+  has_validator: bool = Field(
+    default=False,
+    description='Indicates whether the sensor has a validator, used for data validation',
+  )
+
+  min_value: float | int | None = Field(
+    default=None,
+    description='Defines the minimum value of the sensor, used for validation',
+  )
+
+  max_value: float | int | None = Field(
+    default=None,
+    description='Defines the maximum value of the sensor, used for validation',
+  )
+
+  is_instant: bool = Field(
+    default=False,
+    description='Indicates whether the sensor is instant, meaning it provides real-time data',
+  )
+
+  ranges: list[SensorRange] = Field(
+    default_factory=list,
+    description='Defines the ranges of the sensor, used for categorizing data',
+  )
+
+  has_headers: bool = Field(
+    default=False,
+    description='Indicates whether the sensor has headers, used for data representation',
+  )
+
+  headers: list[str] = Field(
+    default_factory=list,
+    description='Defines the headers of the sensor, used for data representation',
+  )
+
+  csv_separator: str = Field(
+    default=',',
+    description='Defines the CSV separator of the sensor, used for data representation',
+  )
+
+  parameter: str = Field(
+    default='',
+    description='Defines the parameter of the sensor, used for data mapping',
+  )
+
+  parent_id: int | None = Field(
+    default=None,
+    description='Defines the parent ID of the sensor, used for hierarchical relationships',
+  )
+
+  function_id: int | None = Field(
+    default=None,
+    description='Defines the function ID of the sensor, used for data processing',
+  )
+
+  is_legacy: bool = Field(
+    default=False,
+    description='Indicates whether the sensor is legacy, meaning it is an older version',
+  )
+
+  max_history_search: timedelta = Field(
+    default=timedelta(minutes=1),
+    description='Defines the maximum history search duration for the sensor, used for data retrieval',
   )
