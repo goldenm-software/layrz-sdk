@@ -20,7 +20,7 @@ def test_sensor() -> None:
   assert sensor.slug == 'speed'
   assert sensor.formula == 'GET_PARAM("position.speed", 0)'
   assert sensor.measuring_unit == 'km/h'
-  assert sensor.mask is not None
+  assert isinstance(sensor.mask, list)
   assert len(sensor.mask) == 2
   assert sensor.mask[0].text == 'Low'
 
@@ -30,5 +30,6 @@ def test_sensor_minimal() -> None:
   sensor = Sensor.model_validate(data)
 
   assert sensor.formula == ''
-  assert sensor.mask is None
+  assert isinstance(sensor.mask, list)
+  assert len(sensor.mask) == 0
   assert sensor.measuring_unit is None
