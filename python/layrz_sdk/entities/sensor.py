@@ -1,7 +1,10 @@
 # go migrated
-from pydantic import BaseModel, ConfigDict, Field
+from typing import Any
+
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from .sensor_mask import SensorMask
+from .sensor_type import SensorSubtype, SensorType
 
 
 class Sensor(BaseModel):
@@ -19,14 +22,27 @@ class Sensor(BaseModel):
   )
   name: str = Field(description='Defines the name of the sensor')
   slug: str = Field(description='Defines the slug of the sensor')
+
+  type: SensorType = Field(description='Defines the type of the sensor', default=SensorType.UNKNOWN)
+  subtype: SensorSubtype = Field(description='Defines the subtype of the sensor', default=SensorSubtype.UNKNOWN)
+
   formula: str = Field(
     default='',
     description='Defines the formula of the sensor, used for calculations',
   )
-  mask: list[SensorMask] | None = Field(
-    default=None,
+
+  mask: list[SensorMask] = Field(
+    default_factory=list,
     description='Defines the mask of the sensor, used for filtering data',
   )
+
+  @field_validator('mask', mode='before')
+  @classmethod
+  def validate_mask(cls, v: Any) -> list[SensorMask]:
+    """Validates the mask of the sensor, ensuring it is a list of SensorMask"""
+    if v is None:
+      return []
+    return v
 
   measuring_unit: str | None = Field(
     default=None,

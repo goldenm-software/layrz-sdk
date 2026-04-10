@@ -94,6 +94,7 @@ from .report_row import ReportRow
 from .request_type import HttpRequestType
 from .sensor import Sensor
 from .sensor_mask import SensorMask
+from .sensor_type import SensorSubtype, SensorType
 from .sound_effect import SoundEffect
 from .static_position import StaticPosition
 from .telemetry import AssetMessage, DeviceMessage
@@ -227,4 +228,6 @@ __all__ = [
   'AtsOperation',
   'ParameterUpdate',
   'PushNotification',
+  'SensorType',
+  'SensorSubtype',
 ]
