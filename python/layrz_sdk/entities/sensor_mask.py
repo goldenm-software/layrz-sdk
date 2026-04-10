@@ -1,7 +1,10 @@
 # go migrated
+import re
 from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
+
+FLOAT_REGEX = re.compile(r'^-?\d+(?:\.\d+)?$')
 
 
 class SensorMask(BaseModel):
@@ -35,7 +38,7 @@ class SensorMask(BaseModel):
   def validate_value(cls, v: Any) -> str | float | int | None:
     """Validates the value of the sensor mask, ensuring it is of the correct type"""
     if isinstance(v, str):
-      if v.isdigit():
+      if FLOAT_REGEX.match(v):
         try:
           return float(v)
         except ValueError:
