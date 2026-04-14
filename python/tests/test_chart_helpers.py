@@ -153,6 +153,13 @@ def test_scatter_type_eligible() -> None:
   assert len(result.y_axis[0].data) == 500
 
 
+def test_lttb_disabled_returns_original() -> None:
+  """enable_lttb=False skips downsampling entirely and returns the same object."""
+  chart = _make_chart(5000)
+  result = optimize_line_chart(chart, width_px=500, enable_lttb=False)
+  assert result is chart
+
+
 def test_non_number_data_type_passthrough() -> None:
   """A LINE series with data_type != NUMBER is not eligible and passes through unchanged."""
   chart = _make_chart(

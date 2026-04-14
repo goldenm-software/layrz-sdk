@@ -80,7 +80,7 @@ def _to_float_xs(serie: ChartDataSerie) -> list[float]:
   return result
 
 
-def optimize_line_chart(chart: LineChart, width_px: int | None = None) -> LineChart:
+def optimize_line_chart(chart: LineChart, width_px: int | None = None, enable_lttb: bool = True) -> LineChart:
   """
   Downsample a LineChart using the LTTB (Largest Triangle Three Buckets) algorithm.
 
@@ -92,8 +92,12 @@ def optimize_line_chart(chart: LineChart, width_px: int | None = None) -> LineCh
 
   :param chart: The LineChart to downsample.
   :param width_px: Target number of data points (physical pixels). Defaults to 1000.
+  :param enable_lttb: When False, skips downsampling entirely and returns the original chart.
   :return: A new LineChart instance with downsampled data (or the original if no downsampling needed).
   """
+  if not enable_lttb:
+    return chart
+
   target = width_px if width_px is not None else DEFAULT_TARGET
 
   eligible_indices = [
