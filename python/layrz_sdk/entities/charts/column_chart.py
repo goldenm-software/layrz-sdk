@@ -4,8 +4,6 @@ from typing import Any, Self
 
 from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
-from layrz_sdk.helpers import convert_to_rgba
-
 from .axis_config import AxisConfig
 from .chart_alignment import ChartAlignment
 from .chart_data_serie import ChartDataSerie
@@ -143,6 +141,7 @@ class ColumnChart(BaseModel):
     """
     Converts the configuration of the chart to Javascript library ApexCharts.
     """
+    from layrz_sdk.helpers import convert_to_rgba
 
     series = []
     colors = []
