@@ -27,6 +27,10 @@ from .broadcast import (
 from .case import Case
 from .case_ignored_status import CaseIgnoredStatus
 from .case_status import CaseStatus
+from .chart import Chart
+from .chart_algorithm import ChartAlgorithm
+from .chart_data_source import ChartDataSource
+from .chart_type import ChartType
 from .charts.axis_config import AxisConfig
 from .charts.bar_chart import BarChart
 from .charts.chart_alignment import ChartAlignment
@@ -134,6 +138,10 @@ __all__ = [
   'Case',
   'CaseIgnoredStatus',
   'CaseStatus',
+  'Chart',
+  'ChartAlgorithm',
+  'ChartDataSource',
+  'ChartType',
   'ChartAlignment',
   'ChartColor',
   'ChartConfiguration',
