@@ -13,7 +13,7 @@ if TYPE_CHECKING:
   from layrz_sdk.entities.charts.chart_data_serie import ChartDataSerie
   from layrz_sdk.entities.charts.line_chart import LineChart
 
-DEFAULT_TARGET = 1000
+DEFAULT_TARGET = 2000
 
 _ELIGIBLE_SERIE_TYPES = {ChartDataSerieType.LINE, ChartDataSerieType.AREA, ChartDataSerieType.SCATTER}
 
@@ -114,7 +114,7 @@ def optimize_line_chart(chart: LineChart, width_px: int | None = None, enable_lt
     return chart
 
   xs_float = _to_float_xs(chart.x_axis)
-  ys_float = [float(v) for v in first_eligible.data]
+  ys_float = [float(v) if v is not None else 0.0 for v in first_eligible.data]
 
   selected = _lttb(xs_float, ys_float, target)
 
