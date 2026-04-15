@@ -11,7 +11,6 @@ from layrz_sdk.constants import REJECTED_KEYS, UTC
 from layrz_sdk.entities.device import Device
 from layrz_sdk.entities.message import Message
 from layrz_sdk.entities.position import Position
-from layrz_sdk.helpers import compose_uuid, extract_timestamp_from_uuidv7
 
 
 class DeviceMessage(BaseModel):
@@ -113,6 +112,7 @@ class DeviceMessage(BaseModel):
       if key not in REJECTED_KEYS:
         payload[key] = value
 
+    from layrz_sdk.helpers import compose_uuid
     pk = compose_uuid(ts=received_at, bound='lower')
     return cls(
       id=pk,  # type: ignore
@@ -135,4 +135,5 @@ class DeviceMessage(BaseModel):
 
   @property
   def received_at(self: Self) -> datetime:
+    from layrz_sdk.helpers import extract_timestamp_from_uuidv7
     return extract_timestamp_from_uuidv7(self.pk) if self.pk is not None else datetime.now(UTC)

@@ -88,7 +88,8 @@ class ColumnChart(BaseModel):
       values = []
       for i, value in enumerate(serie.data):
         x_axis = self.x_axis.data[i]
-        values.append({'xAxis': x_axis, 'yAxis': value})
+        y_value = round(float(value), serie.decimals) if isinstance(value, (int, float)) else value
+        values.append({'xAxis': x_axis, 'yAxis': y_value})
 
       series.append(
         {

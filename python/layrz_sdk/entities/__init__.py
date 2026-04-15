@@ -34,7 +34,7 @@ from .chart_type import ChartType
 from .charts.axis_config import AxisConfig
 from .charts.bar_chart import BarChart
 from .charts.chart_alignment import ChartAlignment
-from .charts.chart_color import ChartColor
+from .charts.chart_color import ChartColor, get_color_list
 from .charts.chart_configuration import ChartConfiguration
 from .charts.chart_data_serie import ChartDataSerie
 from .charts.chart_data_serie_type import ChartDataSerieType
@@ -144,6 +144,7 @@ __all__ = [
   'ChartType',
   'ChartAlignment',
   'ChartColor',
+  'get_color_list',
   'ChartConfiguration',
   'ChartDataSerie',
   'ChartDataSerieType',

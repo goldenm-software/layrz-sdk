@@ -17,6 +17,7 @@ class NumberChart(BaseModel):
   value: float = Field(description='Value of the number')
   color: str = Field(description='Color of the number')
   label: str = Field(description='Label of the number')
+  decimals: int = Field(description='Number of decimal places to round the value to', default=3)
 
   def render(self: Self, technology: ChartRenderTechnology = ChartRenderTechnology.FLUTTER) -> dict[str, Any]:
     """
@@ -46,7 +47,7 @@ class NumberChart(BaseModel):
     Converts the configuration of the chart to a Flutter native components.
     """
     return {
-      'value': self.value,
+      'value': round(self.value, self.decimals),
       'color': self.color,
       'label': self.label,
     }
