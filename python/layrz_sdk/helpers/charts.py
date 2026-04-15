@@ -114,7 +114,12 @@ def optimize_line_chart(chart: LineChart, width_px: int | None = None, enable_lt
     return chart
 
   xs_float = _to_float_xs(chart.x_axis)
-  ys_float = [float(v) if v is not None else 0.0 for v in first_eligible.data]
+  last_y = 0.0
+  ys_float: list[float] = []
+  for v in first_eligible.data:
+    if v is not None:
+      last_y = float(v)
+    ys_float.append(last_y)
 
   selected = _lttb(xs_float, ys_float, target)
 
