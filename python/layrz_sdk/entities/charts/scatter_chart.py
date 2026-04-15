@@ -101,8 +101,8 @@ class ScatterChart(BaseModel):
 
         data.append(
           {
-            'xAxis': item.x,
-            'yAxis': item.y,
+            'xAxis': round(float(item.x), serie.decimals),
+            'yAxis': round(float(item.y), serie.decimals),
           }
         )
 

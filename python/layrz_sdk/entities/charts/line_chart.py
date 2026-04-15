@@ -98,10 +98,7 @@ class LineChart(BaseModel):
 
         y_value = serie.data[i]
         if isinstance(y_value, bool):
-          if y_value:
-            y_value = 1
-          else:
-            y_value = 0
+          y_value = 1 if y_value else 0
 
         if not isinstance(y_value, (int, float)):
           log.debug("Value isn't a number: %s", y_value)
@@ -110,7 +107,7 @@ class LineChart(BaseModel):
         points.append(
           {
             'xAxis': x_value,
-            'yAxis': y_value,
+            'yAxis': round(float(y_value), serie.decimals),
           }
         )
 

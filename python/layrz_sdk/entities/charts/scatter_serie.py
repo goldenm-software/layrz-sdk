@@ -17,6 +17,7 @@ class ScatterSerie(BaseModel):
   color: str = Field(description='Color of the serie', default='')
   label: str = Field(description='Label of the serie', default='')
   serie_type: ChartDataSerieType = Field(description='Type of the serie', default=ChartDataSerieType.SCATTER)
+  decimals: int = Field(description='Number of decimal places to round numeric values to', default=3)
 
   @field_serializer('serie_type', when_used='always')
   def serialize_serie_type(self, serie_type: ChartDataSerieType) -> str:

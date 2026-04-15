@@ -71,11 +71,14 @@ class PieChart(BaseModel):
     series = []
 
     for serie in self.series:
+      value = serie.data[0]
+      if isinstance(value, (int, float)):
+        value = round(float(value), serie.decimals)
       series.append(
         {
           'label': serie.label,
           'color': serie.color,
-          'value': serie.data[0],
+          'value': value,
         }
       )
 
@@ -88,11 +91,14 @@ class PieChart(BaseModel):
     series = []
 
     for serie in self.series:
+      value = serie.data[0]
+      if isinstance(value, (int, float)):
+        value = round(float(value), serie.decimals)
       series.append(
         {
           'group': serie.label,
           'color': serie.color,
-          'value': serie.data[0],
+          'value': value,
         }
       )
 
@@ -108,7 +114,10 @@ class PieChart(BaseModel):
     labels = []
 
     for serie in self.series:
-      series.append(serie.data[0])
+      value = serie.data[0]
+      if isinstance(value, (int, float)):
+        value = round(float(value), serie.decimals)
+      series.append(value)
       colors.append(serie.color)
       labels.append(serie.label)
 

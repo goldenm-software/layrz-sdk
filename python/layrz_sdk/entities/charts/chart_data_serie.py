@@ -33,3 +33,4 @@ class ChartDataSerie(BaseModel):
     return data_type.value
 
   dashed: bool = Field(description='If the serie should be dashed', default=False)
+  decimals: int = Field(description='Number of decimal places to round numeric values to', default=3)
