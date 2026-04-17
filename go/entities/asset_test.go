@@ -90,7 +90,7 @@ func TestAsset(t *testing.T) {
 		t.Error("Expected KindId 5")
 	}
 
-	if asset.OperationMode == nil || *asset.OperationMode != enums.AssetOperationModeSingle {
+	if asset.OperationMode != enums.AssetOperationModeSingle {
 		t.Error("Expected OperationMode 'SINGLE'")
 	}
 
@@ -201,8 +201,8 @@ func TestAssetWithChildren(t *testing.T) {
 		t.Fatalf("Failed to unmarshal Asset: %v", err)
 	}
 
-	if *asset.OperationMode != enums.AssetOperationModeAssetMultiple {
-		t.Errorf("Expected OperationMode 'ASSETMULTIPLE', got '%s'", *asset.OperationMode)
+	if asset.OperationMode != enums.AssetOperationModeAssetMultiple {
+		t.Errorf("Expected OperationMode 'ASSETMULTIPLE', got '%s'", asset.OperationMode)
 	}
 
 	if len(asset.Children) != 1 {

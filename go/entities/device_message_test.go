@@ -2,7 +2,6 @@ package entities
 
 import (
 	"encoding/json"
-	"math"
 	"strings"
 	"testing"
 )
@@ -35,8 +34,12 @@ func TestDeviceMessage(t *testing.T) {
 		t.Fatalf("Failed to unmarshal DeviceMessage: %v", err)
 	}
 
-	if msg.Id != "019513f0-7c00-7000-8000-000000000001" {
-		t.Errorf("Expected Id '019513f0-7c00-7000-8000-000000000001', got '%s'", msg.Id)
+	if msg.Id == nil || *msg.Id != "019513f0-7c00-7000-8000-000000000001" {
+		id := "<nil>"
+		if msg.Id != nil {
+			id = *msg.Id
+		}
+		t.Errorf("Expected Id '019513f0-7c00-7000-8000-000000000001', got '%s'", id)
 	}
 
 	if msg.DeviceId != 10 {
@@ -59,9 +62,13 @@ func TestDeviceMessage(t *testing.T) {
 		t.Errorf("Expected 4 payload keys, got %d", len(msg.Payload))
 	}
 
-	receivedAtUnix := float64(msg.ReceivedAt.UnixMicro()) / 1e6
-	if math.Abs(receivedAtUnix-1770465935) > 0.001 {
-		t.Errorf("Expected ReceivedAt ~1770465935, got %f", receivedAtUnix)
+	// ReceivedAt is derived from the UUIDv7 id "019513f0-7c00-...", which encodes ~1739796282s
+	receivedAt := msg.ReceivedAt()
+	if receivedAt.IsZero() {
+		t.Error("Expected non-zero ReceivedAt")
+	}
+	if receivedAt.Unix() < 1739796282 || receivedAt.Unix() > 1739796283 {
+		t.Errorf("Expected ReceivedAt ~1739796282, got %d", receivedAt.Unix())
 	}
 }
 
@@ -182,6 +189,20 @@ func TestDeviceMessageFromMap(t *testing.T) {
 	// Payload should contain all keys (including position. prefixed)
 	if _, ok := msg.Payload["ignition"]; !ok {
 		t.Error("Expected 'ignition' key in Payload")
+	}
+
+	// Id should be set (UUIDv7 composed from received_at)
+	if msg.Id == nil {
+		t.Fatal("Expected Id to be non-nil after DeviceMessageFromMap")
+	}
+
+	// ReceivedAt() should recover a timestamp close to the input (ms precision)
+	receivedAt := msg.ReceivedAt()
+	if receivedAt.IsZero() {
+		t.Error("Expected non-zero ReceivedAt")
+	}
+	if receivedAt.Unix() < 1770465934 || receivedAt.Unix() > 1770465936 {
+		t.Errorf("Expected ReceivedAt ~1770465935, got %d", receivedAt.Unix())
 	}
 }
 
