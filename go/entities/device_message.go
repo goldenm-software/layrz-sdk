@@ -97,7 +97,13 @@ func DeviceMessageFromMap(data *map[string]any, device *Device) (*DeviceMessage,
 
 	rawTimestamp, ok := (*data)["received_at"]
 	if !ok {
-		return nil, fmt.Errorf("received_at not found in data")
+		if v, ok := (*data)["server.timestamp"]; ok {
+			rawTimestamp = v
+		} else if v, ok := (*data)["timestamp"]; ok {
+			rawTimestamp = v
+		} else {
+			return nil, fmt.Errorf("received_at not found in data")
+		}
 	}
 
 	var timestamp float64
