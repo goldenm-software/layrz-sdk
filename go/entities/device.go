@@ -10,8 +10,8 @@ type Device struct {
 	Ident string `json:"ident"`
 	// Optional protocol ID associated with the device. Can be nil depending of the context.
 	ProtocolId *int64 `json:"protocol_id,omitempty"`
-	// Optional protocol name associated with the device. Can be nil depending of the context.
-	Protocol *string `json:"protocol,omitempty"`
+	// Protocol name associated with the device.
+	Protocol string `json:"protocol"`
 	// Indicates if the device is the primary device for the asset.
 	IsPrimary bool `json:"is_primary"`
 	// Optional Modbus configuration for the device. Can be nil if not applicable.

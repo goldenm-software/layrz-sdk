@@ -114,6 +114,6 @@ func AssetMessageFromDeviceMessage(deviceMessage *DeviceMessage, asset *Asset) *
 		GeofencesIds:     make([]int64, 0),
 		DistanceTraveled: 0,
 		ElapsedTime:      zero,
-		ReceivedAt:       deviceMessage.ReceivedAt,
+		ReceivedAt:       types.UnixTime{Time: deviceMessage.ReceivedAt()},
 	}
 }

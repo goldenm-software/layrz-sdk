@@ -239,14 +239,14 @@ func TestAssetMessageComputeDistanceNilPrevious(t *testing.T) {
 func TestAssetMessageFromDeviceMessage(t *testing.T) {
 	t.Log("Running tests for AssetMessageFromDeviceMessage")
 
+	testId := "019513f0-7c00-7000-8000-000000000001"
 	deviceMsg := &DeviceMessage{
-		Id:         "test-id",
+		Id:         &testId,
 		DeviceId:   1,
 		Ident:      "dev1",
 		ProtocolId: 5,
 		Position:   map[string]any{"latitude": 10.0, "longitude": -66.0},
 		Payload:    map[string]any{"ignition": true},
-		ReceivedAt: types.UnixTime{Time: time.Unix(1770465935, 0)},
 	}
 
 	asset := &Asset{
@@ -281,7 +281,8 @@ func TestAssetMessageFromDeviceMessageNil(t *testing.T) {
 		t.Error("Expected nil for nil DeviceMessage")
 	}
 
-	deviceMsg := &DeviceMessage{Id: "test"}
+	testId2 := "test"
+	deviceMsg := &DeviceMessage{Id: &testId2}
 
 	if AssetMessageFromDeviceMessage(deviceMsg, nil) != nil {
 		t.Error("Expected nil for nil Asset")

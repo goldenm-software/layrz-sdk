@@ -52,8 +52,8 @@ func TestDevice(t *testing.T) {
 		t.Error("Expected ProtocolId 5")
 	}
 
-	if device.Protocol == nil || *device.Protocol != "teltonika" {
-		t.Error("Expected Protocol 'teltonika'")
+	if device.Protocol != "teltonika" {
+		t.Errorf("Expected Protocol 'teltonika', got '%s'", device.Protocol)
 	}
 
 	if !device.IsPrimary {
@@ -105,8 +105,8 @@ func TestDeviceMinimal(t *testing.T) {
 		t.Error("Expected ProtocolId to be nil")
 	}
 
-	if device.Protocol != nil {
-		t.Error("Expected Protocol to be nil")
+	if device.Protocol != "" {
+		t.Errorf("Expected Protocol to be empty, got '%s'", device.Protocol)
 	}
 
 	if device.Modbus != nil {
