@@ -23,7 +23,15 @@ func (u *Uuid) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaler interface.
 func (u Uuid) MarshalJSON() ([]byte, error) {
 	libUUID := uuid.UUID(u)
-	return libUUID.MarshalText()
+	text, err := libUUID.MarshalText()
+	if err != nil {
+		return nil, err
+	}
+	out := make([]byte, len(text)+2)
+	out[0] = '"'
+	copy(out[1:], text)
+	out[len(out)-1] = '"'
+	return out, nil
 }
 
 // TimestampFromV7 extracts the timestamp from a UUIDv7.

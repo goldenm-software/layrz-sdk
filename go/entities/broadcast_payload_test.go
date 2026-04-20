@@ -4,6 +4,9 @@ import (
 	"encoding/json"
 	"math"
 	"testing"
+
+	"github.com/goldenm-software/layrz-sdk/go/v4/types"
+	"github.com/google/uuid"
 )
 
 func TestBroadcastPayload(t *testing.T) {
@@ -54,7 +57,7 @@ func TestBroadcastPayload(t *testing.T) {
           "modbus": null
       },
       "trigger": null,
-      "message_id": 8029712957,
+      "message_id": "019513f0-7c00-7000-8000-000000000001",
       "service": {
           "id": 1,
           "name": "[REDACTED]",
@@ -91,10 +94,6 @@ func TestBroadcastPayload(t *testing.T) {
 	}
 
 	// Asset assertions
-	if payload.Asset == nil {
-		t.Fatal("Expected Asset to be non-nil")
-	}
-
 	if payload.Asset.Id != 1 {
 		t.Errorf("Expected Asset ID to be 1, got %d", payload.Asset.Id)
 	}
@@ -172,12 +171,9 @@ func TestBroadcastPayload(t *testing.T) {
 	}
 
 	// MessageId assertion
-	if payload.MessageId == nil {
-		t.Fatal("Expected MessageId to be non-nil")
-	}
-
-	if *payload.MessageId != 8029712957 {
-		t.Errorf("Expected MessageId to be 8029712957, got %d", *payload.MessageId)
+	expectedMsgId := types.Uuid(uuid.MustParse("019513f0-7c00-7000-8000-000000000001"))
+	if payload.MessageId != expectedMsgId {
+		t.Errorf("Expected MessageId to be %s, got %s", uuid.UUID(expectedMsgId), uuid.UUID(payload.MessageId))
 	}
 
 	// Service assertions
@@ -198,37 +194,21 @@ func TestBroadcastPayload(t *testing.T) {
 	}
 
 	// Position assertions
-	if payload.Position == nil {
-		t.Fatal("Expected Position to be non-nil")
-	}
-
 	if len(payload.Position) != 4 {
 		t.Errorf("Expected 4 position keys, got %d", len(payload.Position))
 	}
 
 	// Payload assertions
-	if payload.Payload == nil {
-		t.Fatal("Expected Payload to be non-nil")
-	}
-
 	if len(payload.Payload) != 4 {
 		t.Errorf("Expected 4 payload keys, got %d", len(payload.Payload))
 	}
 
 	// Sensors assertions
-	if payload.Sensors == nil {
-		t.Fatal("Expected Sensors to be non-nil")
-	}
-
 	if len(payload.Sensors) != 0 {
 		t.Errorf("Expected 0 sensor keys, got %d", len(payload.Sensors))
 	}
 
 	// ReceivedAt assertion
-	if payload.ReceivedAt == nil {
-		t.Fatal("Expected ReceivedAt to be non-nil")
-	}
-
 	receivedAtUnix := float64(payload.ReceivedAt.UnixMicro()) / 1e6
 	if math.Abs(receivedAtUnix-1770465935) > 0.001 {
 		t.Errorf("Expected ReceivedAt unix to be ~1770465935, got %f", receivedAtUnix)
@@ -275,7 +255,7 @@ func TestBroadcastPayloadWithTrigger(t *testing.T) {
           "is_paused": false,
           "should_generate_locator": false
       },
-      "message_id": 9000000001,
+      "message_id": "019513f0-7c00-7000-8000-000000000002",
       "service": {
           "id": 2,
           "name": "Webhook",
@@ -387,7 +367,7 @@ func TestBroadcastPayloadMarshal(t *testing.T) {
           "ident": "ABC123",
           "is_primary": true
       },
-      "message_id": 100,
+      "message_id": "019513f0-7c00-7000-8000-000000000003",
       "service": {
           "id": 1,
           "name": "Svc",
@@ -416,7 +396,7 @@ func TestBroadcastPayloadMarshal(t *testing.T) {
 		t.Fatalf("Failed to unmarshal roundtrip JSON: %v", err)
 	}
 
-	if roundtrip.Asset == nil || roundtrip.Asset.Id != 1 {
+	if roundtrip.Asset.Id != 1 {
 		t.Error("Roundtrip Asset mismatch")
 	}
 
@@ -424,8 +404,9 @@ func TestBroadcastPayloadMarshal(t *testing.T) {
 		t.Error("Roundtrip PrimaryDevice mismatch")
 	}
 
-	if roundtrip.MessageId == nil || *roundtrip.MessageId != 100 {
-		t.Error("Roundtrip MessageId mismatch")
+	expectedMsgId := types.Uuid(uuid.MustParse("019513f0-7c00-7000-8000-000000000003"))
+	if roundtrip.MessageId != expectedMsgId {
+		t.Errorf("Roundtrip MessageId mismatch: got %s", uuid.UUID(roundtrip.MessageId))
 	}
 
 	if roundtrip.Service == nil || roundtrip.Service.Name != "Svc" {
