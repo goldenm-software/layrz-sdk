@@ -75,7 +75,7 @@ func TestDeviceMessage(t *testing.T) {
 func TestDeviceMessageMethods(t *testing.T) {
 	t.Log("Running tests for DeviceMessage methods")
 	jsonData := `{
-		"id": "test-id",
+		"id": "019513f0-7c00-7000-8000-000000000001",
 		"device_id": 1,
 		"ident": "dev1",
 		"protocol_id": 1,
@@ -83,8 +83,7 @@ func TestDeviceMessageMethods(t *testing.T) {
 			"latitude": 10.4806,
 			"longitude": -66.9036
 		},
-		"payload": {},
-		"received_at": 1770465935
+		"payload": {}
 	}`
 
 	var msg DeviceMessage
@@ -117,13 +116,12 @@ func TestDeviceMessageMethods(t *testing.T) {
 func TestDeviceMessageNoPosition(t *testing.T) {
 	t.Log("Running tests for DeviceMessage without valid position")
 	jsonData := `{
-		"id": "test-id",
+		"id": "019513f0-7c00-7000-8000-000000000001",
 		"device_id": 1,
 		"ident": "dev1",
 		"protocol_id": 1,
 		"position": {},
-		"payload": {},
-		"received_at": 1770465935
+		"payload": {}
 	}`
 
 	var msg DeviceMessage
@@ -157,7 +155,7 @@ func TestDeviceMessageFromMap(t *testing.T) {
 		"position.longitude": -66.9036,
 		"position.speed":     55.0,
 		"ignition":           true,
-		"received_at":        1770465935.0,
+		"timestamp":          1770465935.0,
 	}
 
 	msg, err := DeviceMessageFromMap(&data, device)
@@ -223,10 +221,120 @@ func TestDeviceMessageFromMapNilData(t *testing.T) {
 
 func TestDeviceMessageFromMapNilDevice(t *testing.T) {
 	t.Log("Running tests for DeviceMessageFromMap with nil device")
-	data := map[string]any{"received_at": 1770465935.0}
+	data := map[string]any{"timestamp": 1770465935.0}
 
 	_, err := DeviceMessageFromMap(&data, nil)
 	if err == nil {
 		t.Error("Expected error for nil device")
+	}
+}
+
+func TestDeviceMessageFromMapRejectedKeys(t *testing.T) {
+	t.Log("RejectedKeys must not appear in payload")
+
+	protocolId := int64(5)
+	device := &Device{
+		Id:         1,
+		Ident:      "dev1",
+		ProtocolId: &protocolId,
+	}
+
+	data := map[string]any{
+		"timestamp":        1770465935.0,
+		"ident":            "dev1",    // rejected
+		"protocol.id":      5,         // rejected
+		"device.id":        1,         // rejected
+		"server.timestamp": 1234567.0, // rejected
+		"ignition":         true,      // not rejected
+		"fuel_level":       75.5,      // not rejected
+	}
+
+	msg, err := DeviceMessageFromMap(&data, device)
+	if err != nil {
+		t.Fatalf("DeviceMessageFromMap failed: %v", err)
+	}
+
+	for key := range RejectedKeys {
+		if _, ok := msg.Payload[key]; ok {
+			t.Errorf("Expected rejected key %q to not be in payload", key)
+		}
+	}
+
+	if _, ok := msg.Payload["ignition"]; !ok {
+		t.Error("Expected 'ignition' in payload")
+	}
+	if _, ok := msg.Payload["fuel_level"]; !ok {
+		t.Error("Expected 'fuel_level' in payload")
+	}
+}
+
+func TestDeviceMessageFromMapFallbackTimestamp(t *testing.T) {
+	t.Log("DeviceMessageFromMap must fall back to now when timestamp key is missing")
+
+	protocolId := int64(5)
+	device := &Device{Id: 1, Ident: "dev1", ProtocolId: &protocolId}
+	data := map[string]any{"ignition": true}
+
+	msg, err := DeviceMessageFromMap(&data, device)
+	if err != nil {
+		t.Fatalf("Expected no error with missing timestamp, got: %v", err)
+	}
+	if msg.Id == nil {
+		t.Error("Expected Id to be set")
+	}
+}
+
+func TestDeviceMessageNilMapMarshal(t *testing.T) {
+	t.Log("Nil maps must serialize as {} not null")
+
+	msg := DeviceMessage{DeviceId: 1, Ident: "dev1"}
+	data, err := json.Marshal(&msg)
+	if err != nil {
+		t.Fatalf("Marshal failed: %v", err)
+	}
+	s := string(data)
+	for _, want := range []string{`"position":{}`, `"payload":{}`, `"id":null`} {
+		if !strings.Contains(s, want) {
+			t.Errorf("Expected %s in JSON, got: %s", want, s)
+		}
+	}
+}
+
+func TestDeviceMessageInvalidUUID(t *testing.T) {
+	t.Log("UnmarshalJSON must reject non-UUIDv7 id")
+
+	jsonData := `{"id": "not-a-uuid", "device_id": 1, "ident": "dev1", "protocol_id": 1, "position": {}, "payload": {}}`
+	var msg DeviceMessage
+	if err := json.Unmarshal([]byte(jsonData), &msg); err == nil {
+		t.Error("Expected error for invalid UUIDv7 id")
+	}
+}
+
+func TestDeviceMessagePositionNumericGuard(t *testing.T) {
+	t.Log("Non-numeric position.* values must not be inserted into position")
+
+	protocolId := int64(5)
+	device := &Device{Id: 1, Ident: "dev1", ProtocolId: &protocolId}
+	data := map[string]any{
+		"timestamp":          1770465935.0,
+		"position.latitude":  10.5,
+		"position.longitude": -66.9,
+		"position.label":     "home", // string — must not go into position
+		"position.active":    true,   // bool — must not go into position
+	}
+
+	msg, err := DeviceMessageFromMap(&data, device)
+	if err != nil {
+		t.Fatalf("DeviceMessageFromMap failed: %v", err)
+	}
+
+	if _, ok := msg.Position["label"]; ok {
+		t.Error("String value 'label' must not be in position")
+	}
+	if _, ok := msg.Position["active"]; ok {
+		t.Error("Bool value 'active' must not be in position")
+	}
+	if _, ok := msg.Position["latitude"]; !ok {
+		t.Error("Expected 'latitude' in position")
 	}
 }

@@ -7,6 +7,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/goldenm-software/layrz-sdk/go/v4/enums"
 	"github.com/goldenm-software/layrz-sdk/go/v4/types"
 )
 
@@ -270,6 +271,14 @@ func TestAssetMessageFromDeviceMessage(t *testing.T) {
 	if assetMsg.DistanceTraveled != 0 {
 		t.Error("Expected DistanceTraveled to be 0")
 	}
+
+	// Payload keys must be prefixed with ident
+	if _, ok := assetMsg.Payload["dev1.ignition"]; !ok {
+		t.Error("Expected 'dev1.ignition' key in Payload (ident prefix)")
+	}
+	if _, ok := assetMsg.Payload["ignition"]; ok {
+		t.Error("Did not expect unprefixed 'ignition' key in Payload")
+	}
 }
 
 func TestAssetMessageFromDeviceMessageNil(t *testing.T) {
@@ -282,9 +291,167 @@ func TestAssetMessageFromDeviceMessageNil(t *testing.T) {
 	}
 
 	testId2 := "test"
-	deviceMsg := &DeviceMessage{Id: &testId2}
+	deviceMsg2 := &DeviceMessage{Id: &testId2}
 
-	if AssetMessageFromDeviceMessage(deviceMsg, nil) != nil {
+	if AssetMessageFromDeviceMessage(deviceMsg2, nil) != nil {
 		t.Error("Expected nil for nil Asset")
+	}
+}
+
+func TestAssetMessageFromDeviceMessageOperationModes(t *testing.T) {
+	t.Log("Running tests for AssetMessageFromDeviceMessage operation mode position derivation")
+
+	testId := "019513f0-7c00-7000-8000-000000000001"
+	deviceMsg := &DeviceMessage{
+		Id:       &testId,
+		Ident:    "dev1",
+		Position: map[string]any{"latitude": 10.0, "longitude": -66.0},
+		Payload:  map[string]any{},
+	}
+
+	altitude := 100.0
+
+	tests := []struct {
+		name        string
+		asset       *Asset
+		expectLat   *float64
+		expectLon   *float64
+		expectEmpty bool
+	}{
+		{
+			name:        "DISCONNECTED gives empty position",
+			asset:       &Asset{Id: 1, OperationMode: enums.AssetOperationModeDisconnected},
+			expectEmpty: true,
+		},
+		{
+			name: "STATIC gives static position",
+			asset: &Asset{
+				Id:             1,
+				OperationMode:  enums.AssetOperationModeStatic,
+				StaticPosition: &StaticPosition{Latitude: 5.0, Longitude: -70.0, Altitude: &altitude},
+			},
+			expectLat: floatPtr(5.0),
+			expectLon: floatPtr(-70.0),
+		},
+		{
+			name: "STATIC with nil StaticPosition gives empty",
+			asset: &Asset{
+				Id:            1,
+				OperationMode: enums.AssetOperationModeStatic,
+			},
+			expectEmpty: true,
+		},
+		{
+			name: "ZONE computes centroid",
+			asset: &Asset{
+				Id:            1,
+				OperationMode: enums.AssetOperationModeZone,
+				Points: []StaticPosition{
+					{Latitude: 10.0, Longitude: -66.0},
+					{Latitude: 12.0, Longitude: -68.0},
+				},
+			},
+			expectLat: floatPtr(11.0),
+			expectLon: floatPtr(-67.0),
+		},
+		{
+			name: "ZONE with no points gives empty",
+			asset: &Asset{
+				Id:            1,
+				OperationMode: enums.AssetOperationModeZone,
+			},
+			expectEmpty: true,
+		},
+		{
+			name:      "SINGLE uses device position",
+			asset:     &Asset{Id: 1, OperationMode: enums.AssetOperationModeSingle},
+			expectLat: floatPtr(10.0),
+			expectLon: floatPtr(-66.0),
+		},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			msg := AssetMessageFromDeviceMessage(deviceMsg, tc.asset)
+			if msg == nil {
+				t.Fatal("Expected non-nil AssetMessage")
+			}
+			if tc.expectEmpty {
+				if len(msg.Position) != 0 {
+					t.Errorf("Expected empty position, got %v", msg.Position)
+				}
+				return
+			}
+			lat := toFloat64(msg.Position["latitude"])
+			lon := toFloat64(msg.Position["longitude"])
+			if lat == nil || math.Abs(*lat-*tc.expectLat) > 1e-9 {
+				t.Errorf("Expected latitude %v, got %v", tc.expectLat, lat)
+			}
+			if lon == nil || math.Abs(*lon-*tc.expectLon) > 1e-9 {
+				t.Errorf("Expected longitude %v, got %v", tc.expectLon, lon)
+			}
+		})
+	}
+}
+
+func floatPtr(f float64) *float64 { return &f }
+
+func TestAssetMessageNilMapMarshal(t *testing.T) {
+	t.Log("Nil maps/slices must serialize as {}/{} not null")
+
+	msg := AssetMessage{AssetId: 1}
+	data, err := json.Marshal(&msg)
+	if err != nil {
+		t.Fatalf("Marshal failed: %v", err)
+	}
+	s := string(data)
+	for _, want := range []string{`"position":{}`, `"payload":{}`, `"sensors":{}`, `"geofences_ids":[]`} {
+		if !strings.Contains(s, want) {
+			t.Errorf("Expected %s in JSON, got: %s", want, s)
+		}
+	}
+}
+
+func TestAssetMessageInvalidUUID(t *testing.T) {
+	t.Log("UnmarshalJSON must reject non-UUIDv7 id")
+
+	jsonData := `{"id": "not-a-uuid", "asset_id": 1, "position": {}, "payload": {}, "sensors": {}, "geofences_ids": [], "distance_traveled": 0, "received_at": 1770465935, "elapsed_time": 0}`
+	var msg AssetMessage
+	if err := json.Unmarshal([]byte(jsonData), &msg); err == nil {
+		t.Error("Expected error for invalid UUIDv7 id")
+	}
+}
+
+func TestAssetMessageGeodesicDistance(t *testing.T) {
+	t.Log("ComputeDistanceTraveled must match geopy.distance.geodesic reference values")
+
+	type testCase struct {
+		label                  string
+		lat1, lon1, lat2, lon2 float64
+		want                   float64
+		tol                    float64
+	}
+
+	tests := []testCase{
+		{"Caracas small", 10.4806, -66.9036, 10.4900, -66.9100, 1253.771872, 0.01},
+		{"equator 1deg", 0.0, 0.0, 0.0, 1.0, 111319.490793, 0.01},
+		{"NYC to London", 40.7128, -74.0060, 51.5074, -0.1278, 5585233.578931, 1.0},
+		{"pole to pole", 90.0, 0.0, -90.0, 0.0, 20003931.458625, 1.0},
+		{"same point", 10.4806, -66.9036, 10.4806, -66.9036, 0.0, 1e-6},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.label, func(t *testing.T) {
+			current := &AssetMessage{
+				Position: map[string]any{"latitude": tc.lat1, "longitude": tc.lon1},
+			}
+			previous := &AssetMessage{
+				Position: map[string]any{"latitude": tc.lat2, "longitude": tc.lon2},
+			}
+			got := current.ComputeDistanceTraveled(previous)
+			if math.Abs(got-tc.want) > tc.tol {
+				t.Errorf("%s: want %.6f m, got %.6f m (diff %.6f > tol %.6f)", tc.label, tc.want, got, math.Abs(got-tc.want), tc.tol)
+			}
+		})
 	}
 }
