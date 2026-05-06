@@ -39,6 +39,23 @@ func TestUnixTime(t *testing.T) {
 	}
 }
 
+func TestUnixTimeString(t *testing.T) {
+	t.Log("Running tests for UnixTime with string input")
+
+	jsonData := `"1770465935.123"`
+
+	var ut UnixTime
+	err := json.Unmarshal([]byte(jsonData), &ut)
+	if err != nil {
+		t.Fatalf("Failed to unmarshal UnixTime from string: %v", err)
+	}
+
+	gotSeconds := float64(ut.UnixMicro()) / 1e6
+	if math.Abs(gotSeconds-1770465935.123) > 0.001 {
+		t.Errorf("Expected ~1770465935.123, got %f", gotSeconds)
+	}
+}
+
 func TestUnixTimeInteger(t *testing.T) {
 	t.Log("Running tests for UnixTime with integer input")
 
