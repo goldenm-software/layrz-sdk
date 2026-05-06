@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.3.10
+
+- Fixed `types.UnixTime` JSON unmarshaling to accept string-encoded timestamps (e.g. `"1746518400.123"`) in addition to bare numbers, preventing message drops in Go consumers when producers emit quoted floats.
+
 ## 4.3.9
 
 - Fixed `DeviceMessage.Id` JSON tag: removed `omitempty` so null id serializes as `"id": null` matching Python.
