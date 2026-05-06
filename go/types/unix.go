@@ -25,8 +25,9 @@ func (u UnixTime) MarshalJSON() ([]byte, error) {
 	return json.Marshal(float64(u.UnixMicro()) / MicrosecondsToSeconds)
 }
 
-// UnmarshalJSON parses a JSON number or string representing seconds since epoch into a UnixTime.
-// Accepts both numeric (1234567890.123) and string ("1234567890.123") forms for cross-language compatibility.
+// UnmarshalJSON parses a JSON number or string into a UnixTime.
+// Accepts: bare number (1234567890.123), quoted float string ("1234567890.123"),
+// and ISO 8601 string ("2026-05-06T03:24:51.099415Z") for cross-language compatibility.
 func (u *UnixTime) UnmarshalJSON(data []byte) error {
 	var seconds float64
 	if err := json.Unmarshal(data, &seconds); err != nil {
@@ -34,11 +35,14 @@ func (u *UnixTime) UnmarshalJSON(data []byte) error {
 		if err2 := json.Unmarshal(data, &s); err2 != nil {
 			return err
 		}
-		f, err3 := strconv.ParseFloat(s, 64)
-		if err3 != nil {
+		if f, err3 := strconv.ParseFloat(s, 64); err3 == nil {
+			seconds = f
+		} else if t, err4 := time.Parse(time.RFC3339Nano, s); err4 == nil {
+			u.Time = t
+			return nil
+		} else {
 			return err3
 		}
-		seconds = f
 	}
 
 	u.Time = time.UnixMicro(int64(seconds * MicrosecondsToSeconds))

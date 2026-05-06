@@ -56,6 +56,22 @@ func TestUnixTimeString(t *testing.T) {
 	}
 }
 
+func TestUnixTimeISO8601(t *testing.T) {
+	t.Log("Running tests for UnixTime with ISO 8601 string input")
+
+	jsonData := `"2026-05-06T03:24:51.099415Z"`
+
+	var ut UnixTime
+	err := json.Unmarshal([]byte(jsonData), &ut)
+	if err != nil {
+		t.Fatalf("Failed to unmarshal UnixTime from ISO 8601 string: %v", err)
+	}
+
+	if ut.Year() != 2026 || ut.Month() != 5 || ut.Day() != 6 {
+		t.Errorf("Expected 2026-05-06, got %v", ut.Time)
+	}
+}
+
 func TestUnixTimeInteger(t *testing.T) {
 	t.Log("Running tests for UnixTime with integer input")
 
