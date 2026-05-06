@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.3.11
+
+- Fixed `types.UnixTime` JSON unmarshaling to also accept ISO 8601 datetime strings (e.g. `"2026-05-06T03:24:51.099415Z"`); `MarshalJSON` always emits a float regardless of input format.
+
 ## 4.3.10
 
 - Fixed `types.UnixTime` JSON unmarshaling to accept string-encoded timestamps (e.g. `"1746518400.123"`) in addition to bare numbers, preventing message drops in Go consumers when producers emit quoted floats.
