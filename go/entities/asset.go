@@ -36,6 +36,10 @@ type Asset struct {
 	CustomFields []CustomField `json:"custom_fields,omitempty"`
 	// Sensors associated with the asset
 	Sensors []Sensor `json:"sensors,omitempty"`
+	// AuthenticatedUsers is the list of users authenticated to operate this asset
+	AuthenticatedUsers []User `json:"authenticated_users,omitempty"`
+	// AuthenticatedAssets is the list of assets authenticated to interact with this asset
+	AuthenticatedAssets []AuthenticatedAsset `json:"authenticated_assets,omitempty"`
 }
 
 // Primary returns the Device of the primary device associated with the asset

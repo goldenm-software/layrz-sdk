@@ -15,6 +15,7 @@ from .ats_possible_entry import AtsPossibleEntry
 from .ats_possible_exit import AtsPossibleExit
 from .ats_purchaseorder import AtsPurchaseOrder, DeliveryCategories, OrderCategories, OrderStatus
 from .ats_reception import AtsReception
+from .authenticated_asset import AuthenticatedAsset
 from .broadcast import (
   BroadcastPayload,
   BroadcastRequest,
@@ -121,6 +122,7 @@ __all__ = [
   'AssetContact',
   'AssetMessage',
   'AssetOperationMode',
+  'AuthenticatedAsset',
   'AtsExitExecutionHistory',
   'AtsPossibleExit',
   'AtsReception',

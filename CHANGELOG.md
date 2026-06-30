@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.3.12
+
+- Added `AuthenticatedAsset` entity (Python and Go) with `pk`/`id` and `name` fields.
+- Added `authenticated_users` (list of `User`) and `authenticated_assets` (list of `AuthenticatedAsset`) fields to the `Asset` entity in both Python and Go, defaulting to an empty list.
+
 ## 4.3.11
 
 - Fixed `types.UnixTime` JSON unmarshaling to also accept ISO 8601 datetime strings (e.g. `"2026-05-06T03:24:51.099415Z"`); `MarshalJSON` always emits a float regardless of input format.

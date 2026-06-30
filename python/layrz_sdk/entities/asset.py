@@ -6,10 +6,12 @@ from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_valid
 
 from .asset_contact import AssetContact
 from .asset_operation_mode import AssetOperationMode
+from .authenticated_asset import AuthenticatedAsset
 from .custom_field import CustomField
 from .device import Device
 from .sensor import Sensor
 from .static_position import StaticPosition
+from .user import User
 
 
 class Asset(BaseModel):
@@ -116,4 +118,13 @@ class Asset(BaseModel):
   partition_number: int | None = Field(
     default=None,
     description='Partition number assigned for this Asset, if is None, will be auto-assigned by the system',
+  )
+
+  authenticated_users: list[User] = Field(
+    default_factory=list,
+    description='Defines the list of users authenticated to operate this asset',
+  )
+  authenticated_assets: list[AuthenticatedAsset] = Field(
+    default_factory=list,
+    description='Defines the list of assets authenticated to interact with this asset',
   )
