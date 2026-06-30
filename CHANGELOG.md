@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.3.12
+## 4.3.14
 
 - Added `AuthenticatedAsset` entity (Python and Go) with `pk`/`id` and `name` fields.
 - Added `authenticated_users` (list of `User`) and `authenticated_assets` (list of `AuthenticatedAsset`) fields to the `Asset` entity in both Python and Go, defaulting to an empty list.
