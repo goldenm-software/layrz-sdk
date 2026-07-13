@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.3.15
+
+- Added `ActionKind.ZIGBEE_CHANGE` (Python) for actions that send a command to a Zigbee device.
+- Added `zigbee_device_id` and `zigbee_settings` fields to the `Action` entity (Python), carrying the bound connectivity Device ID and the `{device_id, settings: [{key, value}]}` payload for ZIGBEE_CHANGE actions.
+
 ## 4.3.14
 
 - Added `AuthenticatedAsset` entity (Python and Go) with `pk`/`id` and `name` fields.

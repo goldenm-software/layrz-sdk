@@ -37,6 +37,9 @@ class ActionKind(StrEnum):
   EXCHANGE = 'EXCHANGE'
   """ Sends the activation to the exchange service """
 
+  ZIGBEE_CHANGE = 'ZIGBEE_CHANGE'
+  """ Sends a command to a Zigbee device """
+
   def __str__(self: Self) -> str:
     """Readable property"""
     return self.name

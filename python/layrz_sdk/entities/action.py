@@ -1,3 +1,5 @@
+from typing import Any
+
 from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
 from .action_geofence_ownership import ActionGeofenceOwnership
@@ -80,3 +82,13 @@ class Action(BaseModel):
     return ownership.value
 
   owner_id: int | None = Field(default=None, description='Owner ID')
+
+  zigbee_device_id: int | None = Field(
+    default=None,
+    description='Connectivity Device ID bound to the target Zigbee device (only for ZIGBEE_CHANGE)',
+  )
+
+  zigbee_settings: dict[str, Any] | None = Field(
+    default=None,
+    description='Zigbee settings payload: {"device_id": <id>, "settings": [{"key": <expose name>, "value": <typed>}]}',
+  )
