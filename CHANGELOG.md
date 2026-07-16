@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.3.16
+
+- Fixed `BroadcastStatus.INTERNAL_ERROR` (Go and Python) value to `INTERNALERROR`, matching the platform's actual API response.
+- Added validation to `BroadcastResult.status` and `RawBroadcastResult.status` (Python) that accepts the legacy `INTERNAL_ERROR` string and coerces it to `INTERNALERROR`.
+
 ## 4.3.15
 
 - Added `ActionKind.ZIGBEE_CHANGE` (Python) for actions that send a command to a Zigbee device.
