@@ -1,9 +1,11 @@
 """Broadcast result"""
 
+from __future__ import annotations
+
 from datetime import datetime
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, Field, field_serializer
+from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
 
 from .request import BroadcastRequest
 from .response import BroadcastResponse
@@ -19,6 +21,17 @@ class BroadcastResult(BaseModel):
   request: BroadcastRequest = Field(description='Broadcast request')
   response: BroadcastResponse = Field(description='Broadcast response')
   submitted_at: datetime = Field(description='Broadcast submission date')
+
+  @field_validator('status', mode='before')
+  def validate_status(cls: type[BroadcastResult], value: Any) -> BroadcastStatus:
+    """Validate the status field to ensure it is a valid BroadcastStatus."""
+    if isinstance(value, str) and value == 'INTERNAL_ERROR':
+      value = 'INTERNALERROR'
+    try:
+      return BroadcastStatus(value)
+    except ValueError:
+      pass
+    raise ValueError('Invalid status value. Must be one of: "PENDING", "SUCCESS", "FAILURE", "INTERNALERROR".')
 
 
 class RawBroadcastResult(BaseModel):
@@ -41,6 +54,17 @@ class RawBroadcastResult(BaseModel):
   asset_id: int | None = Field(description='Asset ID')
 
   status: BroadcastStatus = Field(description='Broadcast status')
+
+  @field_validator('status', mode='before')
+  def validate_status(cls: type[RawBroadcastResult], value: Any) -> BroadcastStatus:
+    """Validate the status field to ensure it is a valid BroadcastStatus."""
+    if isinstance(value, str) and value == 'INTERNAL_ERROR':
+      value = 'INTERNALERROR'
+    try:
+      return BroadcastStatus(value)
+    except ValueError:
+      pass
+    raise ValueError('Invalid status value. Must be one of: "PENDING", "SUCCESS", "FAILURE", "INTERNALERROR".')
 
   @field_serializer('status', when_used='always')
   def serialize_status(self, status: BroadcastStatus) -> str:
