@@ -28,6 +28,9 @@ class OperationType(StrEnum):
   BHS_PUSH = 'BHS_PUSH'
   """ Send notifications using Firebase Push Notifications of Brickhouse Tracking Platform """
 
+  PUSH_NOTIFICATION = 'PUSH_NOTIFICATION'
+  """ Send notifications using Layrz Push (Firebase) to registered devices """
+
   SMS = 'SMS'
   """ Send notifications using SMS from Layrz Notification engine """
 
