@@ -2,6 +2,8 @@
 
 ## 4.3.16
 
+- Added `PUSH_NOTIFICATION` value to `OperationType` for Layrz Push (Firebase) operations.
+- Added `push_service_account` (`pushServiceAccount`), `push_devices` (`pushDevices`), and `push_app_id` (`pushAppId`) fields to `OperationPayload` carrying decrypted FCM credentials, bound device UUIDs, and the owning RegisteredApp ID.
 - Fixed `BroadcastStatus.INTERNAL_ERROR` (Go and Python) value to `INTERNALERROR`, matching the platform's actual API response.
 - Added validation to `BroadcastResult.status` and `RawBroadcastResult.status` (Python) that accepts the legacy `INTERNAL_ERROR` string and coerces it to `INTERNALERROR`.
 
