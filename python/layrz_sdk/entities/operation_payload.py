@@ -288,6 +288,24 @@ class OperationPayload(BaseModel):
   def serialize_push_platforms(self, value: list[Platform]) -> list[str]:
     return [platform.value for platform in value]
 
+  push_service_account: dict[str, Any] | None = Field(
+    default=None,
+    description='Defines the decrypted Firebase service-account JSON used to send Layrz Push notifications',
+    alias='pushServiceAccount',
+  )
+
+  push_devices: list[str] = Field(
+    default_factory=list,
+    description='Defines the PushDevice UUIDs bound to the operation',
+    alias='pushDevices',
+  )
+
+  push_app_id: int | None = Field(
+    default=None,
+    description='Defines the RegisteredApp ID owning the push credentials',
+    alias='pushAppId',
+  )
+
   ## For usage of In-app notifications operations
   destinations_ids: list[int] = Field(
     default_factory=list,
