@@ -1,9 +1,13 @@
 # Changelog
 
-## 4.3.16
+## 4.4.0
 
 - Added `PUSH_NOTIFICATION` value to `OperationType` for Layrz Push (Firebase) operations.
 - Added `push_service_account` (`pushServiceAccount`), `push_devices` (`pushDevices`), and `push_app_id` (`pushAppId`) fields to `OperationPayload` carrying decrypted FCM credentials, bound device UUIDs, and the owning RegisteredApp ID.
+- Go module now provides the shared `OperationPayload` and `OperationType` Kafka wire-contract entities used across Python and Go consumers.
+
+## 4.3.16
+
 - Fixed `BroadcastStatus.INTERNAL_ERROR` (Go and Python) value to `INTERNALERROR`, matching the platform's actual API response.
 - Added validation to `BroadcastResult.status` and `RawBroadcastResult.status` (Python) that accepts the legacy `INTERNAL_ERROR` string and coerces it to `INTERNALERROR`.
 
