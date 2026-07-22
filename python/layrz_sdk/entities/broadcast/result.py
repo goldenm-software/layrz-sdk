@@ -27,11 +27,18 @@ class BroadcastResult(BaseModel):
     """Validate the status field to ensure it is a valid BroadcastStatus."""
     if isinstance(value, str) and value == 'INTERNAL_ERROR':
       value = 'INTERNALERROR'
+    if isinstance(value, str) and value == 'BADREQUEST':
+      value = 'BAD_REQUEST'
     try:
       return BroadcastStatus(value)
     except ValueError:
       pass
-    raise ValueError('Invalid status value. Must be one of: "PENDING", "SUCCESS", "FAILURE", "INTERNALERROR".')
+    raise ValueError(
+      """
+      Invalid status value. Must be one of: "BAD_REQUEST", "INTERNALERROR",
+      "UNAUTHORIZED", "UNPROCESSABLE", "DISCONNECTED".
+      """
+    )
 
 
 class RawBroadcastResult(BaseModel):

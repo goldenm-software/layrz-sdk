@@ -8,7 +8,7 @@ class BroadcastStatus(StrEnum):
   """Broadcast result status"""
 
   OK = 'OK'
-  BAD_REQUEST = 'BADREQUEST'
+  BAD_REQUEST = 'BAD_REQUEST'
   INTERNAL_ERROR = 'INTERNALERROR'
   UNAUTHORIZED = 'UNAUTHORIZED'
   UNPROCESSABLE = 'UNPROCESSABLE'
