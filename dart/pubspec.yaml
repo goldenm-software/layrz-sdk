@@ -1,7 +1,15 @@
 name: layrz_sdk
 description: "A Flutter SDK for Layrz, providing tools and utilities for integrating Layrz services into your Flutter applications."
-version: 1.0.0
+version: 4.4.1
 homepage: https://github.com/goldenm-software/layrz-sdk
+repository: https://github.com/goldenm-software/layrz-sdk/tree/main/dart
+
+topics:
+  - layrz
+  - sdk
+  - models
+  - iot
+  - telemetry
 
 platforms:
   android:

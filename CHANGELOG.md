@@ -4,6 +4,7 @@
 
 - Fixed `BroadcastStatus.BAD_REQUEST` (Go and Python) value to `BAD_REQUEST`, matching the platform's actual API response (was incorrectly `BADREQUEST`).
 - Added validation to `BroadcastResult.status` (Python) that accepts the legacy `BADREQUEST` string and coerces it to `BAD_REQUEST`.
+- Initial version on Dart implementation
 
 ## 4.4.0
 
