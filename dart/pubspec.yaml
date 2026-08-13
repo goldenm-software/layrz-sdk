@@ -1,0 +1,27 @@
+name: layrz_sdk
+description: "A Flutter SDK for Layrz, providing tools and utilities for integrating Layrz services into your Flutter applications."
+version: 1.0.0
+homepage: https://github.com/goldenm-software/layrz-sdk
+
+platforms:
+  android:
+  ios:
+  linux:
+  macos:
+  windows:
+  web:
+
+environment:
+  sdk: ">=3.13.0 <4.0.0"
+  flutter: ">=3.47.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
