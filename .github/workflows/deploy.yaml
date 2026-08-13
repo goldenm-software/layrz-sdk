@@ -65,8 +65,10 @@ jobs:
         working-directory: ./python
         run: uv sync
 
-      - name: Copy changelog
-        run: cp CHANGELOG.md python/CHANGELOG.md
+      - name: Copy files
+        run: |
+          cp CHANGELOG.md python/CHANGELOG.md
+          cp LICENSE python/LICENSE
 
       - name: Build
         working-directory: ./python
@@ -95,8 +97,10 @@ jobs:
           cache-sdk: true
           cache-key: ${{ runner.os }}-flutter-${{ hashFiles('dart/pubspec.yaml') }}
 
-      - name: Copy changelog
-        run: cp CHANGELOG.md dart/CHANGELOG.md
+      - name: Copy files
+        run: |
+          cp CHANGELOG.md python/CHANGELOG.md
+          cp LICENSE python/LICENSE
 
       - name: Install dependencies
         working-directory: dart
