@@ -91,6 +91,7 @@ jobs:
           go-coverage-path: go-coverage/lcov.info
           enable-dart: true
           dart-coverage-path: dart-coverage/lcov.info
+          threshold: 70
 
   changelog:
     runs-on: ubuntu-latest
