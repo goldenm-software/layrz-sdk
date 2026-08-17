@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.4.3
+
+- Fixes on CI that prevented the rollout
+
 ## 4.4.2
 
 ### Dart
