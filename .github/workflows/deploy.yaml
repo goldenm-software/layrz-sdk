@@ -99,8 +99,8 @@ jobs:
 
       - name: Copy files
         run: |
-          cp CHANGELOG.md python/CHANGELOG.md
-          cp LICENSE python/LICENSE
+          cp CHANGELOG.md dart/CHANGELOG.md
+          cp LICENSE dart/LICENSE
 
       - name: Install dependencies
         working-directory: dart
