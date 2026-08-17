@@ -13,107 +13,93 @@ jobs:
   lint-python:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v6
 
-      - name: Setup UV
-        uses: astral-sh/setup-uv@v7
+      - uses: goldenm-software/layrz-actions/.github/actions/check-python@v1
+        id: check-python
         with:
           working-directory: ./python
-          cache-python: true
-          enable-cache: true
-          cache-dependency-glob: "uv.lock"
-
-      - name: Install dependencies
-        working-directory: ./python
-        run: uv sync --frozen
-
-      - name: Run Python checks and tests with coverage
-        working-directory: ./python
-        run: |
-          uv run ruff check
-          uv run ty check
-          uv run pytest ./tests/ --cov=layrz_sdk --cov-report=term --cov-report=json:coverage.json
-
-      - name: Upload Python coverage
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: python-coverage
-          path: python/coverage.json
-          retention-days: 1
-
-  lint-go:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Clone the code
-        uses: actions/checkout@v4
-
-      - name: Setup Go
-        uses: actions/setup-go@v6
-        with:
-          go-version: '1.25.5'
-          cache-dependency-path: go/go.sum
-
-      - name: Run linter
-        uses: golangci/golangci-lint-action@v8
-        with:
-          working-directory: ./go
-          version: v2.8
-
-      - name: Run tests with coverage
-        working-directory: ./go
-        run: |
-          go test ./... -v -coverprofile=coverage.out
-          go tool cover -func=coverage.out > coverage-summary.txt
-
-      - name: Upload Go coverage
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: go-coverage
-          path: |
-            go/coverage.out
-            go/coverage-summary.txt
-          retention-days: 1
-
-  coverage-comment:
-    needs: [lint-python, lint-go]
-    if: always() && github.event_name == 'pull_request'
+          run-type-check: true
+          run-tests: true
+          coverage-library: 'layrz_sdk'
+          artifact-name: 'python-coverage-${{ github.run_id }}'
+  
+  lint-dart:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
 
-      - name: Download Python coverage
-        uses: actions/download-artifact@v4
+      - uses: goldenm-software/layrz-actions/.github/actions/check-dart@v1
+        id: check-dart
         with:
-          name: python-coverage
+          working-directory: ./dart
+          flutter-version: 3.47.0
+          run-checks: true
+          run-tests: true
+          artifact-name: 'dart-coverage-${{ github.run_id }}'
+
+  lint-go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: goldenm-software/layrz-actions/.github/actions/check-go@v1
+        id: check-go
+        with:
+          working-directory: ./go
+          go-version: '1.26.2'
+          run-tests: true
+          artifact-name: 'go-coverage-${{ github.run_id }}'
+
+  coverage:
+    needs: [lint-python, lint-go, lint-dart]
+    if: always() && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Python coverage artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: python-coverage-${{ github.run_id }}
           path: python-coverage
-        continue-on-error: true
 
-      - name: Download Go coverage
-        uses: actions/download-artifact@v4
+      - name: Download Go coverage artifacts
+        uses: actions/download-artifact@v8
         with:
-          name: go-coverage
+          name: go-coverage-${{ github.run_id }}
           path: go-coverage
-        continue-on-error: true
 
-      - uses: ./.github/actions/coverage-comment
+      - name: Download Dart coverage artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: dart-coverage-${{ github.run_id }}
+          path: dart-coverage
+
+      - uses: goldenm-software/layrz-actions/.github/actions/coverage-comment@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           enable-python: true
-          python-coverage-path: python-coverage/coverage.json
+          python-coverage-path: python-coverage/lcov.info
           enable-go: true
-          go-coverage-path: go-coverage/coverage-summary.txt
+          go-coverage-path: go-coverage/lcov.info
+          enable-dart: true
+          dart-coverage-path: dart-coverage/lcov.info
+
+      - uses: goldenm-software/layrz-actions/.github/actions/coverage-check@v1
+        with:
+          enable-python: true
+          python-coverage-path: python-coverage/lcov.info
+          enable-go: true
+          go-coverage-path: go-coverage/lcov.info
+          enable-dart: true
+          dart-coverage-path: dart-coverage/lcov.info
+          threshold: 70
 
   changelog:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
+        with: { fetch-depth: 0 }
 
-      - uses: ./.github/actions/changelog
+      - uses: goldenm-software/layrz-actions/.github/actions/changelog@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           post-comment: true
