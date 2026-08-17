@@ -73,12 +73,6 @@ jobs:
           name: dart-coverage-${{ github.run_id }}
           path: dart-coverage
 
-      - name: Download C++ coverage artifacts
-        uses: actions/download-artifact@v8
-        with:
-          name: cpp-coverage-${{ github.run_id }}
-          path: cpp-coverage
-
       - uses: goldenm-software/layrz-actions/.github/actions/coverage-comment@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -88,8 +82,6 @@ jobs:
           go-coverage-path: go-coverage/lcov.info
           enable-dart: true
           dart-coverage-path: dart-coverage/lcov.info
-          enable-cpp: true
-          cpp-coverage-path: cpp-coverage/lcov.info
 
       - uses: goldenm-software/layrz-actions/.github/actions/coverage-check@v1
         with:
