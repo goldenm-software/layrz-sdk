@@ -1,5 +1,23 @@
 # Changelog
 
+## 4.4.2
+
+### Dart
+
+* Ported 13 modules from `layrz_models`: `a11y`, `api`, `app`, `avatar`, `converters`, `department`, `employee`, `i18n`, `mfa`, `permissions`, `time_of_day`, `token`, `utils` — all exported from `package:layrz_sdk/layrz_sdk.dart`.
+* Includes key types: `LayrzConnector`, `ApiResponse`, `ApiStatus`, GraphQL builders (`Gql`, `GqlQuery`, `GqlMutation`, `GqlSubscription`, `GqlField`, `GqlFragment`, `GqlUnion`, `GqlVariable`), `UserPreferences`, `ColorblindMode`, `Employee`, `Token`, and more.
+* Framework-independent `TimeOfDay` class — JSON-serializable and intentionally shadows Flutter's `TimeOfDay`.
+* Full dartdoc documentation across all public declarations.
+* Added comprehensive test suite: 797 tests with 99.73% line coverage; new `make test` and `make coverage` targets in `dart/Makefile`.
+
+### Python
+
+* No changes made to the Python module in this release.
+
+### Go
+
+* No changes made to the Go module in this release.
+
 ## 4.4.1
 
 - Fixed `BroadcastStatus.BAD_REQUEST` (Go and Python) value to `BAD_REQUEST`, matching the platform's actual API response (was incorrectly `BADREQUEST`).
