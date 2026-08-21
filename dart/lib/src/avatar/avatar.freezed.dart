@@ -18,16 +18,16 @@ mixin _$Avatar {
 /// Represents the type of avatar.
  AvatarType get type;/// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
+/// And [icon] is [MdiRemapIcon].
  String? get emoji;/// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
-@IconOrNullConverter() LayrzIcon? get icon;/// [emoji], [icon], [url] or [base64] depending on the [type].
+/// And [icon] is [MdiRemapIcon].
+@IconOrNullConverter() MdiRemapIcon? get icon;/// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
+/// And [icon] is [MdiRemapIcon].
  String? get url;/// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
+/// And [icon] is [MdiRemapIcon].
  String? get base64;
 /// Create a copy of Avatar
 /// with the given fields replaced by the non-null parameter values.
@@ -61,7 +61,7 @@ abstract mixin class $AvatarCopyWith<$Res>  {
   factory $AvatarCopyWith(Avatar value, $Res Function(Avatar) _then) = _$AvatarCopyWithImpl;
 @useResult
 $Res call({
- AvatarType type, String? emoji,@IconOrNullConverter() LayrzIcon? icon, String? url, String? base64
+ AvatarType type, String? emoji,@IconOrNullConverter() MdiRemapIcon? icon, String? url, String? base64
 });
 
 
@@ -83,7 +83,7 @@ class _$AvatarCopyWithImpl<$Res>
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as AvatarType,emoji: freezed == emoji ? _self.emoji : emoji // ignore: cast_nullable_to_non_nullable
 as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
-as LayrzIcon?,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as MdiRemapIcon?,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String?,base64: freezed == base64 ? _self.base64 : base64 // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -170,7 +170,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AvatarType type,  String? emoji, @IconOrNullConverter()  LayrzIcon? icon,  String? url,  String? base64)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AvatarType type,  String? emoji, @IconOrNullConverter()  MdiRemapIcon? icon,  String? url,  String? base64)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Avatar() when $default != null:
 return $default(_that.type,_that.emoji,_that.icon,_that.url,_that.base64);case _:
@@ -191,7 +191,7 @@ return $default(_that.type,_that.emoji,_that.icon,_that.url,_that.base64);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AvatarType type,  String? emoji, @IconOrNullConverter()  LayrzIcon? icon,  String? url,  String? base64)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AvatarType type,  String? emoji, @IconOrNullConverter()  MdiRemapIcon? icon,  String? url,  String? base64)  $default,) {final _that = this;
 switch (_that) {
 case _Avatar():
 return $default(_that.type,_that.emoji,_that.icon,_that.url,_that.base64);case _:
@@ -211,7 +211,7 @@ return $default(_that.type,_that.emoji,_that.icon,_that.url,_that.base64);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AvatarType type,  String? emoji, @IconOrNullConverter()  LayrzIcon? icon,  String? url,  String? base64)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AvatarType type,  String? emoji, @IconOrNullConverter()  MdiRemapIcon? icon,  String? url,  String? base64)?  $default,) {final _that = this;
 switch (_that) {
 case _Avatar() when $default != null:
 return $default(_that.type,_that.emoji,_that.icon,_that.url,_that.base64);case _:
@@ -233,19 +233,19 @@ class _Avatar implements Avatar {
 @override final  AvatarType type;
 /// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
+/// And [icon] is [MdiRemapIcon].
 @override final  String? emoji;
 /// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
-@override@IconOrNullConverter() final  LayrzIcon? icon;
+/// And [icon] is [MdiRemapIcon].
+@override@IconOrNullConverter() final  MdiRemapIcon? icon;
 /// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
+/// And [icon] is [MdiRemapIcon].
 @override final  String? url;
 /// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
+/// And [icon] is [MdiRemapIcon].
 @override final  String? base64;
 
 /// Create a copy of Avatar
@@ -281,7 +281,7 @@ abstract mixin class _$AvatarCopyWith<$Res> implements $AvatarCopyWith<$Res> {
   factory _$AvatarCopyWith(_Avatar value, $Res Function(_Avatar) _then) = __$AvatarCopyWithImpl;
 @override @useResult
 $Res call({
- AvatarType type, String? emoji,@IconOrNullConverter() LayrzIcon? icon, String? url, String? base64
+ AvatarType type, String? emoji,@IconOrNullConverter() MdiRemapIcon? icon, String? url, String? base64
 });
 
 
@@ -303,7 +303,7 @@ class __$AvatarCopyWithImpl<$Res>
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as AvatarType,emoji: freezed == emoji ? _self.emoji : emoji // ignore: cast_nullable_to_non_nullable
 as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
-as LayrzIcon?,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as MdiRemapIcon?,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String?,base64: freezed == base64 ? _self.base64 : base64 // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -320,28 +320,28 @@ mixin _$AvatarInput {
  AvatarType get type;/// Represents the type of avatarInput.
  set type(AvatarType value);/// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
+/// And [icon] is [MdiRemapIcon].
  String? get emoji;/// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
+/// And [icon] is [MdiRemapIcon].
  set emoji(String? value);/// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
-@IconOrNullConverter() LayrzIcon? get icon;/// [emoji], [icon], [url] or [base64] depending on the [type].
+/// And [icon] is [MdiRemapIcon].
+@IconOrNullConverter() MdiRemapIcon? get icon;/// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
-@IconOrNullConverter() set icon(LayrzIcon? value);/// [emoji], [icon], [url] or [base64] depending on the [type].
+/// And [icon] is [MdiRemapIcon].
+@IconOrNullConverter() set icon(MdiRemapIcon? value);/// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
+/// And [icon] is [MdiRemapIcon].
  String? get url;/// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
+/// And [icon] is [MdiRemapIcon].
  set url(String? value);/// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
+/// And [icon] is [MdiRemapIcon].
  String? get base64;/// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
+/// And [icon] is [MdiRemapIcon].
  set base64(String? value);
 /// Create a copy of AvatarInput
 /// with the given fields replaced by the non-null parameter values.
@@ -368,7 +368,7 @@ abstract mixin class $AvatarInputCopyWith<$Res>  {
   factory $AvatarInputCopyWith(AvatarInput value, $Res Function(AvatarInput) _then) = _$AvatarInputCopyWithImpl;
 @useResult
 $Res call({
- AvatarType type, String? emoji,@IconOrNullConverter() LayrzIcon? icon, String? url, String? base64
+ AvatarType type, String? emoji,@IconOrNullConverter() MdiRemapIcon? icon, String? url, String? base64
 });
 
 
@@ -390,7 +390,7 @@ class _$AvatarInputCopyWithImpl<$Res>
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as AvatarType,emoji: freezed == emoji ? _self.emoji : emoji // ignore: cast_nullable_to_non_nullable
 as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
-as LayrzIcon?,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as MdiRemapIcon?,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String?,base64: freezed == base64 ? _self.base64 : base64 // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -477,7 +477,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AvatarType type,  String? emoji, @IconOrNullConverter()  LayrzIcon? icon,  String? url,  String? base64)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AvatarType type,  String? emoji, @IconOrNullConverter()  MdiRemapIcon? icon,  String? url,  String? base64)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AvatarInput() when $default != null:
 return $default(_that.type,_that.emoji,_that.icon,_that.url,_that.base64);case _:
@@ -498,7 +498,7 @@ return $default(_that.type,_that.emoji,_that.icon,_that.url,_that.base64);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AvatarType type,  String? emoji, @IconOrNullConverter()  LayrzIcon? icon,  String? url,  String? base64)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AvatarType type,  String? emoji, @IconOrNullConverter()  MdiRemapIcon? icon,  String? url,  String? base64)  $default,) {final _that = this;
 switch (_that) {
 case _AvatarInput():
 return $default(_that.type,_that.emoji,_that.icon,_that.url,_that.base64);case _:
@@ -518,7 +518,7 @@ return $default(_that.type,_that.emoji,_that.icon,_that.url,_that.base64);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AvatarType type,  String? emoji, @IconOrNullConverter()  LayrzIcon? icon,  String? url,  String? base64)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AvatarType type,  String? emoji, @IconOrNullConverter()  MdiRemapIcon? icon,  String? url,  String? base64)?  $default,) {final _that = this;
 switch (_that) {
 case _AvatarInput() when $default != null:
 return $default(_that.type,_that.emoji,_that.icon,_that.url,_that.base64);case _:
@@ -540,19 +540,19 @@ class _AvatarInput implements AvatarInput {
 @override@JsonKey()  AvatarType type;
 /// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
+/// And [icon] is [MdiRemapIcon].
 @override  String? emoji;
 /// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
-@override@IconOrNullConverter()  LayrzIcon? icon;
+/// And [icon] is [MdiRemapIcon].
+@override@IconOrNullConverter()  MdiRemapIcon? icon;
 /// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
+/// And [icon] is [MdiRemapIcon].
 @override  String? url;
 /// [emoji], [icon], [url] or [base64] depending on the [type].
 /// [emoji], [url] and [base64] are [String].
-/// And [icon] is [LayrzIcon].
+/// And [icon] is [MdiRemapIcon].
 @override  String? base64;
 
 /// Create a copy of AvatarInput
@@ -581,7 +581,7 @@ abstract mixin class _$AvatarInputCopyWith<$Res> implements $AvatarInputCopyWith
   factory _$AvatarInputCopyWith(_AvatarInput value, $Res Function(_AvatarInput) _then) = __$AvatarInputCopyWithImpl;
 @override @useResult
 $Res call({
- AvatarType type, String? emoji,@IconOrNullConverter() LayrzIcon? icon, String? url, String? base64
+ AvatarType type, String? emoji,@IconOrNullConverter() MdiRemapIcon? icon, String? url, String? base64
 });
 
 
@@ -603,7 +603,7 @@ class __$AvatarInputCopyWithImpl<$Res>
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as AvatarType,emoji: freezed == emoji ? _self.emoji : emoji // ignore: cast_nullable_to_non_nullable
 as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
-as LayrzIcon?,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+as MdiRemapIcon?,url: freezed == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String?,base64: freezed == base64 ? _self.base64 : base64 // ignore: cast_nullable_to_non_nullable
 as String?,
   ));

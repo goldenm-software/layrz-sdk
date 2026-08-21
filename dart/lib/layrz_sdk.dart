@@ -9,6 +9,7 @@
 /// - [department] — Department model for organizational structure.
 /// - [employee] — Employee and employee input models for personnel management.
 /// - [i18n] — Internationalization models: languages, translation keys, and messages.
+/// - [icons] — Material Design Icons registry with name-based lookup.
 /// - [mfa] — Multi-factor authentication models: MFA methods and passkeys.
 /// - [permissions] — Generic permission models for access control.
 /// - [time_of_day] — A framework-independent [TimeOfDay] class for time-of-day values.
@@ -25,6 +26,7 @@ export 'src/converters/converters.dart';
 export 'src/department/department.dart';
 export 'src/employee/employee.dart';
 export 'src/i18n/i18n.dart';
+export 'src/icons/icons.dart';
 export 'src/mfa/mfa.dart';
 export 'src/permissions/permissions.dart';
 export 'src/time_of_day/time_of_day.dart';

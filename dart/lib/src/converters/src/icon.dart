@@ -1,41 +1,43 @@
 part of '../converters.dart';
 
-/// A [JsonConverter] that converts between nullable [LayrzIcon] and [String?].
+/// A [JsonConverter] that converts between nullable [MdiRemapIcon] and [String?].
 ///
-/// Converts from JSON icon name strings to Dart [LayrzIcon?] objects using the
+/// Converts from JSON icon name strings to Dart [MdiRemapIcon?] objects using the
 /// [iconMapping] registry, and back to icon name strings. Returns `null` when
 /// the input is `null` or the icon name is not found in the mapping.
-class IconOrNullConverter implements JsonConverter<LayrzIcon?, String?> {
+class IconOrNullConverter implements JsonConverter<MdiRemapIcon?, String?> {
   /// Creates an [IconOrNullConverter].
   const IconOrNullConverter();
 
   @override
-  String? toJson(LayrzIcon? object) => object?.name;
+  String? toJson(MdiRemapIcon? object) => object?.name;
 
   @override
-  LayrzIcon? fromJson(String? json) {
+  MdiRemapIcon? fromJson(String? json) {
     if (json == null) return null;
     return iconMapping[json];
   }
 }
 
-/// A [JsonConverter] that converts between [LayrzIcon] and [String].
+/// A [JsonConverter] that converts between [MdiRemapIcon] and [String].
 ///
-/// Converts from JSON icon name strings to Dart [LayrzIcon] objects using the
+/// Converts from JSON icon name strings to Dart [MdiRemapIcon] objects using the
 /// [iconMapping] registry, and back to icon name strings. Falls back to
-/// [LayrzIconsClasses.solarOutlineQuestionSquare] if the icon name is not found
+/// [MdiRemapIconsClasses.helpCircleOutline] if the icon name is not found
 /// or the input is `null`.
-class IconConverter implements JsonConverter<LayrzIcon, String> {
+class IconConverter implements JsonConverter<MdiRemapIcon, String> {
   /// Creates an [IconConverter].
   const IconConverter();
 
   @override
-  LayrzIcon fromJson(String json) {
-    return const IconOrNullConverter().fromJson(json) ?? LayrzIconsClasses.solarOutlineQuestionSquare;
+  MdiRemapIcon fromJson(String json) {
+    return const IconOrNullConverter().fromJson(json) ??
+        MdiRemapIconsClasses.helpCircleOutline;
   }
 
   @override
-  String toJson(LayrzIcon object) {
-    return const IconOrNullConverter().toJson(object) ?? LayrzIconsClasses.solarOutlineQuestionSquare.name;
+  String toJson(MdiRemapIcon object) {
+    return const IconOrNullConverter().toJson(object) ??
+        MdiRemapIconsClasses.helpCircleOutline.name;
   }
 }

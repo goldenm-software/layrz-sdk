@@ -4,7 +4,7 @@ part of '../avatar.dart';
 ///
 /// Represents an avatar in one of four formats determined by [type]:
 /// - [AvatarType.emoji]: a Unicode emoji string stored in [emoji]
-/// - [AvatarType.icon]: a [LayrzIcon] stored in [icon]
+/// - [AvatarType.icon]: a [MdiRemapIcon] stored in [icon]
 /// - [AvatarType.url]: a URL string stored in [url]
 /// - [AvatarType.base64]: a base64-encoded image string stored in [base64]
 /// - [AvatarType.none]: a null/empty avatar (all fields null)
@@ -22,22 +22,22 @@ abstract class Avatar with _$Avatar {
 
     /// [emoji], [icon], [url] or [base64] depending on the [type].
     /// [emoji], [url] and [base64] are [String].
-    /// And [icon] is [LayrzIcon].
+    /// And [icon] is [MdiRemapIcon].
     String? emoji,
 
     /// [emoji], [icon], [url] or [base64] depending on the [type].
     /// [emoji], [url] and [base64] are [String].
-    /// And [icon] is [LayrzIcon].
-    @IconOrNullConverter() LayrzIcon? icon,
+    /// And [icon] is [MdiRemapIcon].
+    @IconOrNullConverter() MdiRemapIcon? icon,
 
     /// [emoji], [icon], [url] or [base64] depending on the [type].
     /// [emoji], [url] and [base64] are [String].
-    /// And [icon] is [LayrzIcon].
+    /// And [icon] is [MdiRemapIcon].
     String? url,
 
     /// [emoji], [icon], [url] or [base64] depending on the [type].
     /// [emoji], [url] and [base64] are [String].
-    /// And [icon] is [LayrzIcon].
+    /// And [icon] is [MdiRemapIcon].
     String? base64,
   }) = _Avatar;
 
