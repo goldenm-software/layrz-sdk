@@ -30,3 +30,4 @@ migrate_working_dir/
 
 # Build tooling (not part of published package)
 Makefile
+tool/
