@@ -35,6 +35,16 @@ cd go && go mod tidy                       # tidy deps
 
 Setup: `make install-hooks` to enable pre-commit hooks. Python uses `uv` for package management (`uv sync` to install deps).
 
+### Generated Code (Dart)
+
+The Dart icon registry (`dart/lib/src/icons/{classes,mapping}.g.dart`) is generated from Material Design Icons. Regenerate when MDI updates:
+
+```bash
+make -C dart icons
+```
+
+These generated files are produced by `dart/tool/generate_icons.dart` and must never be hand-edited. They are exempt from the repository's ~400-line file size limit.
+
 ## Architecture
 
 ### Repository Layout
