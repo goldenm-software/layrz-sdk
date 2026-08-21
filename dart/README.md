@@ -45,3 +45,23 @@ This project is maintained by [Golden M](https://goldenm.com) with authorization
 ## Who are you? / Want to work with us?
 
 <b>Golden M</b> is a software and hardware development company what is working on a new, innovative and disruptive technologies. For more information, contact us at [sales@goldenm.com](mailto:sales@goldenm.com) or via WhatsApp at [+(507)-6979-3073](https://wa.me/50769793073?text="From%20layrz_sdk%20flutter%20library.%20Hello").
+
+## Icon Registry
+
+The `lib/src/icons/` module provides a runtime registry mapping icon names to `MdiRemapIcon` objects for use in SDK models (e.g., `Avatar.icon`, `AvatarInput.icon`). It is **not** an icon library for apps; applications should depend on `flutter_material_design_icons` directly.
+
+### Regenerating the Registry
+
+When Material Design Icons updates, regenerate the registry:
+
+```bash
+make -C dart icons
+```
+
+This runs `dart run dart/tool/generate_icons.dart` and formats output. The generator parses `flutter_material_design_icons` source to extract icon names, codepoints, and tags.
+
+### Icon Tree-Shaking
+
+The `iconMapping` const map references all 7447 MDI icons. Because it is part of the SDK's public API and is pulled in by `Avatar` models, any app depending on `layrz_sdk` **cannot tree-shake icon glyphs** — all 7447 are included in the app binary. This is not a regression (the same applied when using the separate `layrz_icons` package) but should be noted when budgeting app size.
+
+To use only specific icons, depend directly on `flutter_material_design_icons` instead of `layrz_sdk`.

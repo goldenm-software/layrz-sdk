@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.4.4
+### Dart
+* Removed the `layrz_icons` dependency; icons are now generated directly from `flutter_material_design_icons`.
+* Added `MdiRemapIcon`, exposing each icon's `name`, searchable `tags` and `data`.
+* Added the `MdiRemapIconsClasses` registry and the `iconMapping` name lookup, covering 7447 Material Design Icons.
+* Icon `tags` are now available for search and categorisation, which `layrz_icons` did not provide.
+* **Breaking:** `LayrzIcon`, `LayrzIcons` and `LayrzIconsClasses` are replaced by `MdiRemapIcon` and `MdiRemapIconsClasses`.
+* **Breaking:** `solar-*` and `fa-*` icon names no longer resolve. Unknown names now fall back to `mdi-help-circle-outline`, previously `solar-outline-question-square`.
+* Apps consuming this package must build with `--no-tree-shake-icons`.
+
+### Python
+* No changes made to the Python module in this release.
+
+### Go
+* No changes made to the Go module in this release.
+
 ## 4.4.3
 
 - Fixes on CI that prevented the rollout

@@ -17,25 +17,26 @@ abstract class AvatarInput with _$AvatarInput {
 
     /// [emoji], [icon], [url] or [base64] depending on the [type].
     /// [emoji], [url] and [base64] are [String].
-    /// And [icon] is [LayrzIcon].
+    /// And [icon] is [MdiRemapIcon].
     String? emoji,
 
     /// [emoji], [icon], [url] or [base64] depending on the [type].
     /// [emoji], [url] and [base64] are [String].
-    /// And [icon] is [LayrzIcon].
-    @IconOrNullConverter() LayrzIcon? icon,
+    /// And [icon] is [MdiRemapIcon].
+    @IconOrNullConverter() MdiRemapIcon? icon,
 
     /// [emoji], [icon], [url] or [base64] depending on the [type].
     /// [emoji], [url] and [base64] are [String].
-    /// And [icon] is [LayrzIcon].
+    /// And [icon] is [MdiRemapIcon].
     String? url,
 
     /// [emoji], [icon], [url] or [base64] depending on the [type].
     /// [emoji], [url] and [base64] are [String].
-    /// And [icon] is [LayrzIcon].
+    /// And [icon] is [MdiRemapIcon].
     String? base64,
   }) = _AvatarInput;
 
   /// Deserializes an [AvatarInput] from a JSON map.
-  factory AvatarInput.fromJson(Map<String, dynamic> json) => _$AvatarInputFromJson(json);
+  factory AvatarInput.fromJson(Map<String, dynamic> json) =>
+      _$AvatarInputFromJson(json);
 }
