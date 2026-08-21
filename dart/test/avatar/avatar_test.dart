@@ -22,7 +22,8 @@ void main() {
     test('Avatar with BASE64 type', () {
       final json = <String, dynamic>{
         'type': 'BASE64',
-        'base64': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
+        'base64':
+            'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
       };
 
       final avatar = Avatar.fromJson(json);
@@ -112,17 +113,17 @@ void main() {
     test('Avatar IconOrNullConverter roundtrip', () {
       final json = <String, dynamic>{
         'type': 'ICON',
-        'icon': 'solar-bold-filters',
+        'icon': 'mdi-alert-circle',
       };
 
       final avatar = Avatar.fromJson(json);
       final newJson = avatar.toJson();
 
-      expect(newJson['icon'], 'solar-bold-filters');
+      expect(newJson['icon'], 'mdi-alert-circle');
 
       final restored = Avatar.fromJson(newJson);
       expect(restored.icon, isNotNull);
-      expect(restored.icon!.name, 'solar-bold-filters');
+      expect(restored.icon!.name, 'mdi-alert-circle');
     });
 
     test('Avatar with null icon is handled gracefully', () {
@@ -169,10 +170,9 @@ void main() {
 
     test('Avatar serialization with multiple icon variants', () {
       final testIcons = [
-        'mdi-help',
-        'mdi-wifi-strength4',
-        'fa-brands-amazon',
-        'solar-bold-filters',
+        'mdi-account',
+        'mdi-wifi-strength-4',
+        'mdi-alert-circle',
       ];
 
       for (final iconName in testIcons) {
