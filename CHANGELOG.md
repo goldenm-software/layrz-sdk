@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.4.5
+
+### Dart
+* Added `iconData` as a getter to `MdiRemapIcon`.
+
+### Python
+* No changes made to the Python module in this release.
+
+### Go
+* No changes made to the Go module in this release.
+
 ## 4.4.4
 ### Dart
 * Removed the `layrz_icons` dependency; icons are now generated directly from `flutter_material_design_icons`.
