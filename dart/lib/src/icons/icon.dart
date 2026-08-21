@@ -33,9 +33,10 @@ final class MdiRemapIcon {
   /// Has a codepoint and font metadata set by the MDI package.
   final IconData data;
 
+  IconData get iconData => data;
+
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) || other is MdiRemapIcon && name == other.name;
+  bool operator ==(Object other) => identical(this, other) || other is MdiRemapIcon && name == other.name;
 
   @override
   int get hashCode => name.hashCode;
