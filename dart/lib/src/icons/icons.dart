@@ -6,9 +6,4 @@
 /// for runtime lookup ([iconMapping]).
 library;
 
-import 'package:flutter/widgets.dart';
-import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
-
-part 'classes.g.dart';
-part 'icon.dart';
-part 'mapping.g.dart';
+export 'package:flutter_mdi_remap/flutter_mdi_remap.dart';
