@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.4.6
+
+### Dart
+* Replaced the remap icon registry with a new `flutter_mdi_remap` package, which is now a dependency of this package.
+
+### Python
+* No changes made to the Python module in this release.
+
+### Go
+* No changes made to the Go module in this release.
+
 ## 4.4.5
 
 ### Dart
