@@ -46,7 +46,7 @@ jobs:
         id: check-go
         with:
           working-directory: ./go
-          go-version: '1.26.2'
+          go-version: '1.27.0'
           run-tests: true
           artifact-name: 'go-coverage-${{ github.run_id }}'
 
