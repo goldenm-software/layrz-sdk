@@ -769,7 +769,7 @@ return $default(_that.id,_that.code,_that.progress,_that.translations,_that.crea
 @JsonSerializable()
 
 class _I18nKey extends I18nKey {
-  const _I18nKey({required this.id, required this.code, this.progress, final  List<I18nTranslation> translations = const [], @TimestampConverter() required this.createdAt, required this.createdBy, @TimestampConverter() required this.updatedAt, required this.updatedBy}): _translations = translations,super._();
+  const _I18nKey({required this.id, required this.code, this.progress, this.translations = const [], @TimestampConverter() required this.createdAt, required this.createdBy, @TimestampConverter() required this.updatedAt, required this.updatedBy}): super._();
   factory _I18nKey.fromJson(Map<String, dynamic> json) => _$I18nKeyFromJson(json);
 
 /// Unique identifier in UUIDv4 format.
@@ -779,14 +779,7 @@ class _I18nKey extends I18nKey {
 /// Translation completion progress as a value between 0.0 and 1.0.
 @override final  double? progress;
 /// List of translations for this key across different languages.
- final  List<I18nTranslation> _translations;
-/// List of translations for this key across different languages.
-@override@JsonKey() List<I18nTranslation> get translations {
-  if (_translations is EqualUnmodifiableListView) return _translations;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_translations);
-}
-
+@override@JsonKey() final  List<I18nTranslation> translations;
 /// Timestamp indicating when the key was created.
 @override@TimestampConverter() final  DateTime createdAt;
 /// [Employee] who created the key.
@@ -809,12 +802,12 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _I18nKey&&(identical(other.id, id) || other.id == id)&&(identical(other.code, code) || other.code == code)&&(identical(other.progress, progress) || other.progress == progress)&&const DeepCollectionEquality().equals(other._translations, _translations)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.createdBy, createdBy) || other.createdBy == createdBy)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.updatedBy, updatedBy) || other.updatedBy == updatedBy));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _I18nKey&&(identical(other.id, id) || other.id == id)&&(identical(other.code, code) || other.code == code)&&(identical(other.progress, progress) || other.progress == progress)&&const DeepCollectionEquality().equals(other.translations, translations)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.createdBy, createdBy) || other.createdBy == createdBy)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.updatedBy, updatedBy) || other.updatedBy == updatedBy));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,code,progress,const DeepCollectionEquality().hash(_translations),createdAt,createdBy,updatedAt,updatedBy);
+int get hashCode => Object.hash(runtimeType,id,code,progress,const DeepCollectionEquality().hash(translations),createdAt,createdBy,updatedAt,updatedBy);
 
 @override
 String toString() {
@@ -851,7 +844,7 @@ class __$I18nKeyCopyWithImpl<$Res>
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,progress: freezed == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
-as double?,translations: null == translations ? _self._translations : translations // ignore: cast_nullable_to_non_nullable
+as double?,translations: null == translations ? _self.translations : translations // ignore: cast_nullable_to_non_nullable
 as List<I18nTranslation>,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,createdBy: null == createdBy ? _self.createdBy : createdBy // ignore: cast_nullable_to_non_nullable
 as Employee,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable

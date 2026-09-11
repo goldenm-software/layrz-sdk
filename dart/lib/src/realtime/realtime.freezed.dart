@@ -212,20 +212,13 @@ return $default(_that.topic,_that.payload);case _:
 @JsonSerializable()
 
 class _RealtimeMessage extends RealtimeMessage {
-  const _RealtimeMessage({required this.topic, required final  Map<String, dynamic> payload}): _payload = payload,super._();
+  const _RealtimeMessage({required this.topic, required this.payload}): super._();
   factory _RealtimeMessage.fromJson(Map<String, dynamic> json) => _$RealtimeMessageFromJson(json);
 
 /// The topic/channel this message belongs to.
 @override final  String topic;
 /// The message payload, whose shape depends on [topic].
- final  Map<String, dynamic> _payload;
-/// The message payload, whose shape depends on [topic].
-@override Map<String, dynamic> get payload {
-  if (_payload is EqualUnmodifiableMapView) return _payload;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableMapView(_payload);
-}
-
+@override final  Map<String, dynamic> payload;
 
 /// Create a copy of RealtimeMessage
 /// with the given fields replaced by the non-null parameter values.
@@ -240,12 +233,12 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RealtimeMessage&&(identical(other.topic, topic) || other.topic == topic)&&const DeepCollectionEquality().equals(other._payload, _payload));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RealtimeMessage&&(identical(other.topic, topic) || other.topic == topic)&&const DeepCollectionEquality().equals(other.payload, payload));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,topic,const DeepCollectionEquality().hash(_payload));
+int get hashCode => Object.hash(runtimeType,topic,const DeepCollectionEquality().hash(payload));
 
 @override
 String toString() {
@@ -280,7 +273,7 @@ class __$RealtimeMessageCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? topic = null,Object? payload = null,}) {
   return _then(_RealtimeMessage(
 topic: null == topic ? _self.topic : topic // ignore: cast_nullable_to_non_nullable
-as String,payload: null == payload ? _self._payload : payload // ignore: cast_nullable_to_non_nullable
+as String,payload: null == payload ? _self.payload : payload // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
   ));
 }
