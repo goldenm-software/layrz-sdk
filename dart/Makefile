@@ -38,3 +38,7 @@ coverage:
 .PHONY: icons
 icons:
 	dart run tool/generate_icons.dart
+
+.PHONY: pub-publish 
+pub-publish:
+	flutter pub publish

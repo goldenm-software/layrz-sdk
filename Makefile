@@ -22,3 +22,12 @@ prepare:
 tests:
 	$(MAKE) -C python tests
 	$(MAKE) -C go tests
+	$(MAKE) -C dart tests
+
+.PHONY: dart-manual-release
+dart-manual-release:
+	cp LICENSE dart/LICENSE
+	cp CHANGELOG.md dart/CHANGELOG.md
+	$(MAKE) -C dart pub-publish 
+	@rm -rf dart/LICENSE
+	@rm -rf dart/CHANGELOG.md
