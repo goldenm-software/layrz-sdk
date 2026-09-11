@@ -314,7 +314,7 @@ return $default(_that.id,_that.name,_that.email,_that.username,_that.department,
 @JsonSerializable()
 
 class _Employee implements Employee {
-  const _Employee({required this.id, required this.name, this.email, this.username, this.department, this.departmentId, this.dynamicAvatar, this.token, this.permissions, this.customPermissions, this.mfaEnabled = false, final  List<MfaMethod> mfaMethods = const [], this.preferences, final  List<Passkey> passkeys = const []}): _mfaMethods = mfaMethods,_passkeys = passkeys;
+  const _Employee({required this.id, required this.name, this.email, this.username, this.department, this.departmentId, this.dynamicAvatar, this.token, this.permissions, this.customPermissions, this.mfaEnabled = false, this.mfaMethods = const [], this.preferences, this.passkeys = const []});
   factory _Employee.fromJson(Map<String, dynamic> json) => _$EmployeeFromJson(json);
 
 /// The unique identifier for this user.
@@ -344,29 +344,13 @@ class _Employee implements Employee {
 @override@JsonKey() final  bool mfaEnabled;
 /// List of [MfaMethod] instances registered for this user.
 /// Defaults to an empty list.
- final  List<MfaMethod> _mfaMethods;
-/// List of [MfaMethod] instances registered for this user.
-/// Defaults to an empty list.
-@override@JsonKey() List<MfaMethod> get mfaMethods {
-  if (_mfaMethods is EqualUnmodifiableListView) return _mfaMethods;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_mfaMethods);
-}
-
+@override@JsonKey() final  List<MfaMethod> mfaMethods;
 /// User-specific preferences (theme, language, accessibility settings) via
 /// [UserPreferences], or null if not configured.
 @override final  UserPreferences? preferences;
 /// List of [Passkey] (WebAuthn/FIDO2) credentials registered for this user.
 /// Defaults to an empty list.
- final  List<Passkey> _passkeys;
-/// List of [Passkey] (WebAuthn/FIDO2) credentials registered for this user.
-/// Defaults to an empty list.
-@override@JsonKey() List<Passkey> get passkeys {
-  if (_passkeys is EqualUnmodifiableListView) return _passkeys;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_passkeys);
-}
-
+@override@JsonKey() final  List<Passkey> passkeys;
 
 /// Create a copy of Employee
 /// with the given fields replaced by the non-null parameter values.
@@ -381,12 +365,12 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Employee&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.username, username) || other.username == username)&&(identical(other.department, department) || other.department == department)&&(identical(other.departmentId, departmentId) || other.departmentId == departmentId)&&(identical(other.dynamicAvatar, dynamicAvatar) || other.dynamicAvatar == dynamicAvatar)&&(identical(other.token, token) || other.token == token)&&(identical(other.permissions, permissions) || other.permissions == permissions)&&(identical(other.customPermissions, customPermissions) || other.customPermissions == customPermissions)&&(identical(other.mfaEnabled, mfaEnabled) || other.mfaEnabled == mfaEnabled)&&const DeepCollectionEquality().equals(other._mfaMethods, _mfaMethods)&&(identical(other.preferences, preferences) || other.preferences == preferences)&&const DeepCollectionEquality().equals(other._passkeys, _passkeys));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Employee&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.username, username) || other.username == username)&&(identical(other.department, department) || other.department == department)&&(identical(other.departmentId, departmentId) || other.departmentId == departmentId)&&(identical(other.dynamicAvatar, dynamicAvatar) || other.dynamicAvatar == dynamicAvatar)&&(identical(other.token, token) || other.token == token)&&(identical(other.permissions, permissions) || other.permissions == permissions)&&(identical(other.customPermissions, customPermissions) || other.customPermissions == customPermissions)&&(identical(other.mfaEnabled, mfaEnabled) || other.mfaEnabled == mfaEnabled)&&const DeepCollectionEquality().equals(other.mfaMethods, mfaMethods)&&(identical(other.preferences, preferences) || other.preferences == preferences)&&const DeepCollectionEquality().equals(other.passkeys, passkeys));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,email,username,department,departmentId,dynamicAvatar,token,permissions,customPermissions,mfaEnabled,const DeepCollectionEquality().hash(_mfaMethods),preferences,const DeepCollectionEquality().hash(_passkeys));
+int get hashCode => Object.hash(runtimeType,id,name,email,username,department,departmentId,dynamicAvatar,token,permissions,customPermissions,mfaEnabled,const DeepCollectionEquality().hash(mfaMethods),preferences,const DeepCollectionEquality().hash(passkeys));
 
 @override
 String toString() {
@@ -431,9 +415,9 @@ as Avatar?,token: freezed == token ? _self.token : token // ignore: cast_nullabl
 as Token?,permissions: freezed == permissions ? _self.permissions : permissions // ignore: cast_nullable_to_non_nullable
 as GenericPermission?,customPermissions: freezed == customPermissions ? _self.customPermissions : customPermissions // ignore: cast_nullable_to_non_nullable
 as GenericPermission?,mfaEnabled: null == mfaEnabled ? _self.mfaEnabled : mfaEnabled // ignore: cast_nullable_to_non_nullable
-as bool,mfaMethods: null == mfaMethods ? _self._mfaMethods : mfaMethods // ignore: cast_nullable_to_non_nullable
+as bool,mfaMethods: null == mfaMethods ? _self.mfaMethods : mfaMethods // ignore: cast_nullable_to_non_nullable
 as List<MfaMethod>,preferences: freezed == preferences ? _self.preferences : preferences // ignore: cast_nullable_to_non_nullable
-as UserPreferences?,passkeys: null == passkeys ? _self._passkeys : passkeys // ignore: cast_nullable_to_non_nullable
+as UserPreferences?,passkeys: null == passkeys ? _self.passkeys : passkeys // ignore: cast_nullable_to_non_nullable
 as List<Passkey>,
   ));
 }
