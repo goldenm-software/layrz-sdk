@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.4.7-dev.2
+
+### Dart
+* Add RealtimeMessage model (moved from layrz_models): a plain data envelope for realtime/websocket messages, with `topic` and `payload` fields, exported from `package:layrz_sdk/layrz_sdk.dart`.
+
+### Python
+* No changes made to the Python module in this release.
+
+### Go
+* No changes made to the Go module in this release.
+
 ## 4.4.7-dev.1
 
 ### Dart
