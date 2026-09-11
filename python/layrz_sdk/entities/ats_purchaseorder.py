@@ -96,6 +96,12 @@ class AtsPurchaseOrder(BaseModel):
   def serialize_delivered_at(self, delivered_at: datetime | None) -> float | None:
     return delivered_at.timestamp() if delivered_at else None
 
+  validated_at: datetime | None = Field(description='Timestamp when the operation was validated', default=None)
+
+  @field_serializer('validated_at', when_used='always')
+  def serialize_validated_at(self, validated_at: datetime | None) -> float | None:
+    return validated_at.timestamp() if validated_at else None
+
   eta: datetime | None = Field(description='Estimated time of arrival to the destination', default=None)
 
   @field_serializer('eta', when_used='always')
