@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.4.7-dev.1
+
+### Dart
+* Added the `category` module: the `Category` model (`id`, `name`, `kind`, `assetKind`), the `CategoryKind` and `AssetKind` enums, and the mutable `CategoryInput` DTO, all exported from `package:layrz_sdk/layrz_sdk.dart`.
+* `Category` exposes `fetchAll`/`fetch` API callers and `CategoryInput` exposes a `save` method for creating or updating categories against the Layrz GraphQL API.
+
+### Python
+* No changes made to the Python module in this release.
+
+### Go
+* No changes made to the Go module in this release.
+
 ## 4.4.6
 
 ### Dart
