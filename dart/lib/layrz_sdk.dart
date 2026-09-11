@@ -12,6 +12,7 @@
 /// - [icons] — Material Design Icons registry with name-based lookup.
 /// - [mfa] — Multi-factor authentication models: MFA methods and passkeys.
 /// - [permissions] — Generic permission models for access control.
+/// - [realtime] — Typed envelope for realtime/websocket messages.
 /// - [time_of_day] — A framework-independent [TimeOfDay] class for time-of-day values.
 /// - [token] — Authentication token models and token audience types.
 /// - [utils] — Utility classes including [LayrzNumber] (base-36 encoding) and [ParamData]
@@ -30,6 +31,7 @@ export 'src/i18n/i18n.dart';
 export 'src/icons/icons.dart';
 export 'src/mfa/mfa.dart';
 export 'src/permissions/permissions.dart';
+export 'src/realtime/realtime.dart';
 export 'src/time_of_day/time_of_day.dart';
 export 'src/token/token.dart';
 export 'src/utils/utils.dart';
