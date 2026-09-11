@@ -22,6 +22,7 @@ export 'src/a11y/a11y.dart';
 export 'src/api/api.dart';
 export 'src/app/app.dart';
 export 'src/avatar/avatar.dart';
+export 'src/category/category.dart';
 export 'src/converters/converters.dart';
 export 'src/department/department.dart';
 export 'src/employee/employee.dart';
