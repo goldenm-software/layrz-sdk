@@ -83,5 +83,11 @@ class AtsOperation(BaseModel):
   def serialize_finished_at(self, finished_at: datetime | None) -> float | None:
     return finished_at.timestamp() if finished_at else None
 
+  validated_at: datetime | None = Field(description='Timestamp when the operation was validated', default=None)
+
+  @field_serializer('validated_at', when_used='always')
+  def serialize_validated_at(self, validated_at: datetime | None) -> float | None:
+    return validated_at.timestamp() if validated_at else None
+
   history: list[AtsOperationMovement] = Field(description='List of operation movements')
   purchase_orders: list[AtsPurchaseOrder] = Field(description='List of purchase orders')
