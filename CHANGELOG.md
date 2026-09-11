@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.4.8
+
+### Dart
+* Fixed freezed code generation to emit valid collection constructor parameters (disabled make_collections_unmodifiable), so generated code compiles under a real build.
+
+### Python
+* Added a `validated_at` field to `AtsOperation` and `AtsPurchaseOrder`.
+
+### Go
+* No changes in this release.
+
 ## 4.4.7
 
 ### Dart
