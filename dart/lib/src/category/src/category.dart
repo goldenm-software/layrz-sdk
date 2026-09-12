@@ -165,7 +165,8 @@ abstract class Category with _$Category {
   /// Fetches all categories available to the authenticated user.
   ///
   /// Makes an authenticated GraphQL query (`categories`) to retrieve every
-  /// [Category] visible to the user identified by [apiToken].
+  /// [Category] visible to the user. Authentication is carried solely via the
+  /// connector's `Authorization` header, built from [apiToken].
   ///
   /// The [onResponse] callback, if provided, is invoked with the [ApiStatus]
   /// response code as a JSON string. This allows the caller to observe success
@@ -189,18 +190,8 @@ abstract class Category with _$Category {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
     try {
       final response = await connector.query(
-        GqlQuery(
-          variables: [
-            GqlVariable(
-              name: 'apiToken',
-              type: .string,
-              isRequired: true,
-              value: apiToken,
-            ),
-          ],
-          name: 'categories',
-        )..add(
-          GqlField(name: 'categories', args: {'apiToken': 'apiToken'})
+        GqlQuery(name: 'categories')..add(
+          GqlField(name: 'categories')
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(GqlField(name: 'result', fragment: fragment)),
@@ -229,6 +220,8 @@ abstract class Category with _$Category {
   /// Makes an authenticated GraphQL query (`categories`) filtered by [id].
   /// The backend always returns `result` as a list, even when filtered down to
   /// a single entity, so the first element (if any) is returned.
+  /// Authentication is carried solely via the connector's `Authorization`
+  /// header, built from [apiToken].
   ///
   /// The [onResponse] callback, if provided, is invoked with the [ApiStatus]
   /// response code as a JSON string.
@@ -256,19 +249,13 @@ abstract class Category with _$Category {
       final response = await connector.query(
         GqlQuery(
           variables: [
-            GqlVariable(
-              name: 'apiToken',
-              type: .string,
-              isRequired: true,
-              value: apiToken,
-            ),
             GqlVariable(name: 'id', type: .id, isRequired: true, value: id),
           ],
           name: 'categories',
         )..add(
           GqlField(
               name: 'categories',
-              args: {'apiToken': 'apiToken', 'id': 'id'},
+              args: {'id': 'id'},
             )
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))

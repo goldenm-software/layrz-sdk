@@ -37,7 +37,8 @@ abstract class CategoryInput with _$CategoryInput {
   ///
   /// Sends `addCategory` when [id] is null, or `editCategory` when [id] is
   /// set, both with this input serialized as the `CategoryInput` GraphQL
-  /// input type.
+  /// input type. Authentication is carried solely via the connector's
+  /// `Authorization` header, built from [apiToken].
   ///
   /// The [onResponse] callback, if provided, is invoked with the [ApiStatus]
   /// response code as a JSON string.
@@ -66,12 +67,6 @@ abstract class CategoryInput with _$CategoryInput {
         GqlMutation(
           variables: [
             GqlVariable(
-              name: 'apiToken',
-              type: .string,
-              isRequired: true,
-              value: apiToken,
-            ),
-            GqlVariable(
               name: 'data',
               type: GqlVariableType.input(of: 'CategoryInput'),
               isRequired: true,
@@ -82,7 +77,7 @@ abstract class CategoryInput with _$CategoryInput {
         )..add(
           GqlField(
               name: operation,
-              args: {'apiToken': 'apiToken', 'data': 'data'},
+              args: {'data': 'data'},
             )
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))

@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.4.8+1
+
+### Dart
+* Category callers (`fetchAll`, `fetch`, `CategoryInput.save`) no longer send `apiToken` as a GraphQL argument, the token is carried only via the connector's `Authorization` header.
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
 ## 4.4.8
 
 ### Dart
