@@ -40,8 +40,8 @@ abstract class CategoryInput with _$CategoryInput {
   /// input type. Authentication is carried solely via the connector's
   /// `Authorization` header, built from [apiToken].
   ///
-  /// The [onResponse] callback, if provided, is invoked with the [ApiStatus]
-  /// response code as a JSON string.
+  /// Optional callback invoked with the [ApiStatus] of the response. Called
+  /// once per invocation, regardless of success or failure.
   ///
   /// Returns a [StandardResponse] tuple of `(ApiStatus, errors, Category?)`:
   /// on an internal error, `(ApiStatus.internalError, null, null)`; on any
@@ -56,9 +56,9 @@ abstract class CategoryInput with _$CategoryInput {
     /// `https://api.example.com/graphql`).
     required Uri uri,
 
-    /// Optional callback invoked with the [ApiStatus] response code as a JSON
-    /// string. Called once per invocation, regardless of success or failure.
-    void Function(String statusCode)? onResponse,
+    /// Optional callback invoked with the [ApiStatus] of the response. Called
+    /// once per invocation, regardless of success or failure.
+    void Function(ApiStatus status)? onResponse,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
     final operation = id == null ? 'addCategory' : 'editCategory';
@@ -87,12 +87,12 @@ abstract class CategoryInput with _$CategoryInput {
       );
 
       if (response.status == .internalError) {
-        onResponse?.call(response.status.toJson());
+        onResponse?.call(response.status);
         return (ApiStatus.internalError, null, null);
       }
 
       if (response.status != .ok) {
-        onResponse?.call(response.status.toJson());
+        onResponse?.call(response.status);
         return (response.status, response.errors, null);
       }
 

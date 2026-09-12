@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.4.8+2
+
+### Dart
+* Category caller `onResponse` callbacks (`fetchAll`, `fetch`, `CategoryInput.save`) now receive an `ApiStatus` value directly instead of a JSON string.
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
 ## 4.4.8+1
 
 ### Dart
