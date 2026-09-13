@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'dart:ui';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:layrz_sdk/layrz_sdk.dart';
 
@@ -243,7 +244,7 @@ void main() {
       final original = InboundProtocol(
         id: 'proto-roundtrip',
         name: 'roundtrip-protocol',
-        color: Colors.blue,
+        color: const Color(0xFF0000FF),
         isEnabled: true,
         operationMode: OperationMode.mqtt,
         host: 'mqtt.test.com',
@@ -268,7 +269,7 @@ void main() {
       final protocol = InboundProtocol(
         id: 'proto-defaults',
         name: 'default-protocol',
-        color: Colors.red,
+        color: const Color(0xFF000000),
         isEnabled: false,
         operationMode: OperationMode.webhook,
       );

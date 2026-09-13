@@ -8,7 +8,7 @@
 library;
 
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart' show Color;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:layrz_logging/layrz_logging.dart';
 import 'package:layrz_sdk/src/api/api.dart';
