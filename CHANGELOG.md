@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.4.8+3
+
+### Dart
+* Moved the `Model` / `HwModel` / `InboundProtocol` type graph (`Model`, `HwModel`, `HwModelInput`, `InboundProtocol`, and their supporting command/config/credential-field/flespi/webhook/simulation/zigbee/firmware types) from `layrz_models` into `layrz_sdk`, all exported from `package:layrz_sdk/layrz_sdk.dart`.
+* Added `HwModel.fetch` and `HwModelInput.save` API callers, alongside the existing `HwModel.fetchAll`.
+* `HwModel.fragment` now fetches nested models: `HwModel.models` is `List<Model>` (the full device model type), and the fragment selects each model's reduced field set.
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
 ## 4.4.8+2
 
 ### Dart
