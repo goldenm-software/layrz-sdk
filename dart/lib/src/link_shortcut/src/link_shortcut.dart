@@ -36,13 +36,13 @@ abstract class LinkShortcut with _$LinkShortcut {
   /// GraphQL fragment definition for querying link shortcut fields.
   static GqlFragment get fragment => GqlFragment(
     name: 'linkShortcutFragment',
-    onType: 'LinkShortcut',
+    onType: 'GoldenmLinkShortcut',
     fields: [
       GqlField(name: 'id'),
       GqlField(name: 'code'),
       GqlField(name: 'redirectTo'),
       GqlField(name: 'creatorId'),
-      GqlField(name: 'creator', fragment: Employee.fragment),
+      GqlField(name: 'creator', fragment: Employee.reducedFragment),
     ],
   );
   // coverage:ignore-end

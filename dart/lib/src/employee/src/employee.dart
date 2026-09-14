@@ -69,7 +69,7 @@ abstract class Employee with _$Employee {
   /// [fragment] is the GqlFragment for an employee.
   static GqlFragment get fragment => GqlFragment(
     name: 'employeeFragment',
-    onType: 'Employee',
+    onType: 'GoldenmEmployee',
     fields: [
       GqlField(name: 'id'),
       GqlField(name: 'name'),
@@ -77,6 +77,21 @@ abstract class Employee with _$Employee {
       GqlField(name: 'username'),
       GqlField(name: 'department', fragment: Department.fragment),
       GqlField(name: 'departmentId'),
+      GqlField(name: 'dynamicAvatar', fragment: Avatar.fragment),
+    ],
+  );
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// [reducedFragment] is the GqlFragment for an employee.
+  static GqlFragment get reducedFragment => GqlFragment(
+    name: 'employeeFragment',
+    onType: 'GoldenmEmployee',
+    fields: [
+      GqlField(name: 'id'),
+      GqlField(name: 'name'),
+      GqlField(name: 'email'),
+      GqlField(name: 'username'),
       GqlField(name: 'dynamicAvatar', fragment: Avatar.fragment),
     ],
   );

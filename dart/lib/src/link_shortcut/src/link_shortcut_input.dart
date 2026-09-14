@@ -64,7 +64,7 @@ abstract class LinkShortcutInput with _$LinkShortcutInput {
           variables: [
             GqlVariable(
               name: 'data',
-              type: GqlVariableType.input(of: 'LinkShortcutInput'),
+              type: GqlVariableType.input(of: 'GoldenmLinkShortcutInput'),
               isRequired: true,
               value: toJson(),
             ),
