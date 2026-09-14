@@ -1,0 +1,202 @@
+part of '../access.dart';
+
+/// The platform module an [Access] grant applies to.
+///
+/// [AccessModule] identifies which part of the Layrz data model an [Access]
+/// record grants permissions over (assets, devices, users, and so on).
+///
+/// If deserialization encounters an unknown module value, it defaults to
+/// [unknown].
+@JsonEnum(alwaysCreate: true)
+enum AccessModule {
+  /// Access to actions module.
+  /// Layrz API Definition: `ACTIONS`
+  @JsonValue('ACTIONS')
+  actions,
+
+  /// Access to assets module.
+  /// Layrz API Definition: `ASSETS`
+  @JsonValue('ASSETS')
+  assets,
+
+  /// Access to care protocols module.
+  /// Layrz API Definition: `CAREPROTOCOLS`
+  @JsonValue('CAREPROTOCOLS')
+  careprotocols,
+
+  /// Access to checkpoints module.
+  /// Layrz API Definition: `CHECKPOINTS`
+  @JsonValue('CHECKPOINTS')
+  checkpoints,
+
+  /// Access to concierge forms module.
+  /// Layrz API Definition: `CONCIERGE_FORMS`
+  @JsonValue('CONCIERGE_FORMS')
+  conciergeForms,
+
+  /// Access to core process module.
+  /// Layrz API Definition: `COREPROCESS`
+  @JsonValue('COREPROCESS')
+  coreprocess,
+
+  /// Access to devices module.
+  /// Layrz API Definition: `DEVICES`
+  @JsonValue('DEVICES')
+  devices,
+
+  /// Access to functions module.
+  /// Layrz API Definition: `FUNCTIONS`
+  @JsonValue('FUNCTIONS')
+  functions,
+
+  /// Access to geofences module.
+  /// Layrz API Definition: `GEOFENCES`
+  @JsonValue('GEOFENCES')
+  geofences,
+
+  /// Access to inbound services module.
+  /// Layrz API Definition: `INBOUND_SERVICES`
+  @JsonValue('INBOUND_SERVICES')
+  inboundServices,
+
+  /// Access to operations module.
+  /// Layrz API Definition: `OPERATIONS`
+  @JsonValue('OPERATIONS')
+  operations,
+
+  /// Access to outbound services module.
+  /// Layrz API Definition: `OUTBOUND_SERVICES`
+  @JsonValue('OUTBOUND_SERVICES')
+  outboundServices,
+
+  /// Access to presets module.
+  /// Layrz API Definition: `PRESETS`
+  @JsonValue('PRESETS')
+  presets,
+
+  /// Access to references module.
+  /// Layrz API Definition: `REFERENCES`
+  @JsonValue('REFERENCES')
+  references,
+
+  /// Access to external accounts module.
+  /// Layrz API Definition: `EXTERNAL_ACCOUNTS`
+  @JsonValue('EXTERNAL_ACCOUNTS')
+  externalAccounts,
+
+  /// Access to tags module.
+  /// Layrz API Definition: `TAGS`
+  @JsonValue('TAGS')
+  tags,
+
+  /// Access to triggers module.
+  /// Layrz API Definition: `TRIGGERS`
+  @JsonValue('TRIGGERS')
+  triggers,
+
+  /// Access to users module.
+  /// Layrz API Definition: `USERS`
+  @JsonValue('USERS')
+  users,
+
+  /// Access to report templates module.
+  /// Layrz API Definition: `REPORTTEMPLATES`
+  @JsonValue('REPORTTEMPLATES')
+  reporttemplates,
+
+  /// Access to charts module.
+  /// Layrz API Definition: `CHARTS`
+  @JsonValue('CHARTS')
+  charts,
+
+  /// Access to vision profiles module.
+  /// Layrz API Definition: `VISION_PROFILES`
+  @JsonValue('VISION_PROFILES')
+  visionProfiles,
+
+  /// Access to cloud file module.
+  /// Layrz API Definition: `CLOUD_FILE`
+  @JsonValue('CLOUD_FILE')
+  cloudFile,
+
+  /// Access to cloud folder module.
+  /// Layrz API Definition: `CLOUD_FOLDER`
+  @JsonValue('CLOUD_FOLDER')
+  cloudFolder,
+
+  /// Access to commands module.
+  /// Layrz API Definition: `COMMANDS`
+  @JsonValue('COMMANDS')
+  commands,
+
+  /// Access to workspaces module.
+  /// Layrz API Definition: `WORKSPACES`
+  @JsonValue('WORKSPACES')
+  workspaces,
+
+  /// Access to email templates module.
+  /// Layrz API Definition: `EMAIL_TEMPLATES`
+  @JsonValue('EMAIL_TEMPLATES')
+  emailTemplates,
+
+  /// Access to brickhouse alert module (Brickhouse app).
+  /// Layrz API Definition: `BRICKHOUSE_ALERT`
+  @JsonValue('BRICKHOUSE_ALERT')
+  brickhouseAlert,
+
+  /// Access to brickhouse unit module (Brickhouse app).
+  /// Layrz API Definition: `BRICKHOUSE_UNIT`
+  @JsonValue('BRICKHOUSE_UNIT')
+  brickhouseUnit,
+
+  /// Access to sensors module.
+  /// Layrz API Definition: `SENSORS`
+  @JsonValue('SENSORS')
+  sensors,
+
+  /// Access to bus routes module (Tagon app).
+  /// Layrz API Definition: `TAGON_BUS_ROUTES`
+  @JsonValue('TAGON_BUS_ROUTES')
+  tagonBusRoutes,
+
+  /// Access to exchange services module.
+  /// Layrz API Definition: `EXCHANGE_SERVICES`
+  @JsonValue('EXCHANGE_SERVICES')
+  exchangeServices,
+
+  /// Access to reports scheduler module.
+  /// Layrz API Definition: `REPORTS_SCHEDULER`
+  @JsonValue('REPORT_SCHEDULERS')
+  reportSchedulers,
+
+  /// Access to ATS monitors module.
+  /// Layrz API Definition: `ATS_MONITORS`
+  @JsonValue('ATS_MONITORS')
+  atsMonitors,
+
+  /// Access to POIs module.
+  /// Layrz API Definition: `POIS`
+  @JsonValue('POIS')
+  pois,
+
+  /// Unknown access module. Fallback value used when an unrecognized module
+  /// value is received.
+  @JsonValue('UNKNOWN')
+  unknown,
+  ;
+
+  /// Returns the JSON representation of this module value.
+  @override
+  String toString() => toJson();
+
+  /// Converts this [AccessModule] to its wire JSON string.
+  String toJson() => _$AccessModuleEnumMap[this] ?? 'UNKNOWN';
+
+  /// Converts a JSON string to an [AccessModule].
+  ///
+  /// Returns [unknown] when the input does not match any known module.
+  static AccessModule fromJson(String json) {
+    final found = _$AccessModuleEnumMap.entries.firstWhereOrNull((e) => e.value == json);
+    return found?.key ?? AccessModule.unknown;
+  }
+}

@@ -3,6 +3,9 @@ import 'package:layrz_logging/layrz_logging.dart';
 import 'package:layrz_sdk/layrz_sdk.dart';
 
 void main() {
+  LayrzApiExtras.name = 'layrz-sdk-dart-tests';
+  LayrzApiExtras.version = '1.0.0';
+
   group('LayrzConnector Constructor Tests', () {
     test('Constructor with minimal parameters', () {
       final uri = Uri.parse('https://api.example.com/graphql');

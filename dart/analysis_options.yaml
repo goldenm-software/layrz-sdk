@@ -12,6 +12,15 @@ analyzer:
     - macos/**
     - linux/**
 
+  # Deprecated converters and JsonKey usages carried over verbatim from the moved
+  # Model/HwModel/InboundProtocol type graph rely on these being ignored, matching
+  # layrz_models' own analysis_options.yaml.
+  errors:
+    invalid_annotation_target: ignore
+    deprecated_member_use: ignore
+    deprecated_member_use_from_same_package: ignore
+    unreachable_switch_default: ignore
+
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
 
