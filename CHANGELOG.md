@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.5.0+1
+
+### Dart
+* Added `ExchangeProtocolInput.save` for the exchange protocol module, with `addExchangeProtocol`/`editExchangeProtocol` GraphQL callers.
+* Added `OutboundProtocolInput.save` for the outbound protocol module, with `addOutboundProtocol`/`editOutboundProtocol` GraphQL callers.
+* Added `AlgorithmInput.save` for the function module, with `addAlgorithm`/`editAlgorithm` GraphQL callers.
+* Added `SimulationCycleInput.save` for the simulation module, with `addSimulationCycle`/`editSimulationCycle` GraphQL callers.
+* Added `InboundProtocolInput.save` for the inbound module, with `addInboundProtocol`/`editInboundProtocol` GraphQL callers.
+* Added `AvailableApp.fetch` and `AvailableAppInput.save` GraphQL callers alongside the existing `AvailableApp.fetchAll`.
+* All added callers preserve the established `onResponse` callback conventions of their module, and none of the new input types introduce a Material or Cupertino dependency.
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
 ## 4.5.0
 
 ### Dart
