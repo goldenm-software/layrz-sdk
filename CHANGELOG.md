@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.5.0
+
+### Dart
+* Moved the `RegisteredApp`, `Tag`, and `CustomReport` model graphs from `layrz_models` into `layrz_sdk`, including their transitive closure: `User`, `Asset`, `Device`, `Workspace`, `Trigger`, `Action`, `Operation`, `Sensor`, `Geofence`, `Checkpoint`, `CareProtocol`, `CareTask`, `InboundService`, `OutboundService`, `MapLayer`, `Access`, `Reference`, `CustomField`, `ExternalAccount`, `ReportTemplate`, `Preset`, `LayrzFunction`, `ExchangeService`, and their supporting models, enums, inputs, and GraphQL callers.
+* Added `LinkShortcut` model and `LinkShortcutInput` with GraphQL callers (`fetchAll`, `fetch`, `LinkShortcutInput.save`, `delete`) for managing link shortcuts (short redirecting URLs), moved from `layrz_models`.
+* Added the `latlong2` dependency and bumped `flutter_mdi_remap` to `^1.0.1`, required by the moved models.
+* All moved code preserves its existing API surface and `onResponse` callback signatures; no Material or Cupertino imports were introduced.
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
 ## 4.4.8+3
 
 ### Dart
