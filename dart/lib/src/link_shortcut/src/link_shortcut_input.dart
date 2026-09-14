@@ -31,7 +31,7 @@ abstract class LinkShortcutInput with _$LinkShortcutInput {
   // coverage:ignore-start
   /// Creates or updates this link shortcut on the server.
   ///
-  /// Sends `addShortcut` when [id] is null, or `editShortcut` when [id] is
+  /// Sends `addGoldenmShortcut` when [id] is null, or `editGoldenmShortcut` when [id] is
   /// set, both with this input serialized as the `LinkShortcutInput` GraphQL
   /// input type. Authentication is carried solely via the connector's
   /// `Authorization` header, built from [apiToken].
@@ -57,7 +57,7 @@ abstract class LinkShortcutInput with _$LinkShortcutInput {
     void Function(ApiStatus status)? onResponse,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
-    final operation = id == null ? 'addShortcut' : 'editShortcut';
+    final operation = id == null ? 'addGoldenmShortcut' : 'editGoldenmShortcut';
     try {
       final response = await connector.mutate(
         GqlMutation(

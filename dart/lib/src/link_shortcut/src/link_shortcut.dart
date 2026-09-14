@@ -50,7 +50,7 @@ abstract class LinkShortcut with _$LinkShortcut {
   // coverage:ignore-start
   /// Fetches all link shortcuts available to the authenticated user.
   ///
-  /// Makes an authenticated GraphQL query (`shortcuts`) to retrieve every
+  /// Makes an authenticated GraphQL query (`goldenmShortcuts`) to retrieve every
   /// [LinkShortcut] visible to the user. Authentication is carried solely via
   /// the connector's `Authorization` header, built from [apiToken].
   ///
@@ -77,8 +77,8 @@ abstract class LinkShortcut with _$LinkShortcut {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
     try {
       final response = await connector.query(
-        GqlQuery(name: 'shortcuts')..add(
-          GqlField(name: 'shortcuts')
+        GqlQuery(name: 'goldenmShortcuts')..add(
+          GqlField(name: 'goldenmShortcuts')
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(GqlField(name: 'result', fragment: fragment)),
@@ -104,7 +104,7 @@ abstract class LinkShortcut with _$LinkShortcut {
   // coverage:ignore-start
   /// Fetches a single link shortcut by its [id].
   ///
-  /// Makes an authenticated GraphQL query (`shortcuts`) filtered by [id]. The
+  /// Makes an authenticated GraphQL query (`goldenmShortcuts`) filtered by [id]. The
   /// backend always returns `result` as a list, even when filtered down to a
   /// single entity, so the first element (if any) is returned. Authentication
   /// is carried solely via the connector's `Authorization` header, built from
@@ -139,10 +139,10 @@ abstract class LinkShortcut with _$LinkShortcut {
           variables: [
             GqlVariable(name: 'id', type: .id, isRequired: true, value: id),
           ],
-          name: 'shortcuts',
+          name: 'goldenmShortcuts',
         )..add(
           GqlField(
-              name: 'shortcuts',
+              name: 'goldenmShortcuts',
               args: {'id': 'id'},
             )
             ..add(GqlField(name: 'status'))
@@ -179,7 +179,7 @@ abstract class LinkShortcut with _$LinkShortcut {
   // coverage:ignore-start
   /// Deletes the link shortcuts identified by [ids] from the server.
   ///
-  /// Makes an authenticated GraphQL mutation (`deleteShortcuts`). Authentication
+  /// Makes an authenticated GraphQL mutation (`deleteGoldenmShortcuts`). Authentication
   /// is carried solely via the connector's `Authorization` header, built from
   /// [apiToken]. The mutation returns only `status` and `errors` on the wire
   /// (no per-item result payload), so the [StandardResponse] result slot is a
@@ -219,10 +219,10 @@ abstract class LinkShortcut with _$LinkShortcut {
               value: ids,
             ),
           ],
-          name: 'deleteShortcuts',
+          name: 'deleteGoldenmShortcuts',
         )..add(
           GqlField(
-              name: 'deleteShortcuts',
+              name: 'deleteGoldenmShortcuts',
               args: {'ids': 'ids'},
             )
             ..add(GqlField(name: 'status'))
