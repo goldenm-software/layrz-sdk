@@ -136,6 +136,124 @@ const _$OperationModeEnumMap = {
   OperationMode.unknown: 'UNKNOWN',
 };
 
+_InboundProtocolInput _$InboundProtocolInputFromJson(
+  Map<String, dynamic> json,
+) => _InboundProtocolInput(
+  id: json['id'] as String?,
+  name: json['name'] as String? ?? '',
+  color: json['color'] == null
+      ? const Color(0xFF2196F3)
+      : const ColorConverter().fromJson(json['color'] as String),
+  isEnabled: json['isEnabled'] as bool? ?? true,
+  categoriesIds:
+      (json['categoriesIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  operationMode:
+      $enumDecodeNullable(
+        _$OperationModeEnumMap,
+        json['operationMode'],
+        unknownValue: OperationMode.unknown,
+      ) ??
+      OperationMode.realtime,
+  hasNativeCommands: json['hasNativeCommands'] as bool? ?? false,
+  hasSmsCommands: json['hasSmsCommands'] as bool? ?? false,
+  hasCommandsResult: json['hasCommandsResult'] as bool? ?? false,
+  channelId: (json['channelId'] as num?)?.toInt(),
+  isFlespi: json['isFlespi'] as bool? ?? false,
+  flespiId: json['flespiId'] as String?,
+  hasAck: json['hasAck'] as bool? ?? false,
+  ackTopicFormat: json['ackTopicFormat'] as String? ?? '',
+  isImported: json['isImported'] as bool? ?? false,
+  requiredFields:
+      (json['requiredFields'] as List<dynamic>?)
+          ?.map((e) => CredentialField.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  canFota: json['canFota'] as bool? ?? false,
+  host: json['host'] as String?,
+  port: (json['port'] as num?)?.toInt(),
+  mqttTopic: json['mqttTopic'] as String?,
+  dynamicIcon: AvatarInput.fromJson(
+    json['dynamicIcon'] as Map<String, dynamic>,
+  ),
+  cycleId: json['cycleId'] as String?,
+  hasModbus: json['hasModbus'] as bool? ?? false,
+  modbusPorts:
+      (json['modbusPorts'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  requiresFlespiToken: json['requiresFlespiToken'] as bool? ?? false,
+  flespiAcl:
+      (json['flespiAcl'] as List<dynamic>?)
+          ?.map((e) => FlespiAcl.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  webhookStructure: json['webhookStructure'] == null
+      ? null
+      : WebhookStructure.fromJson(
+          json['webhookStructure'] as Map<String, dynamic>,
+        ),
+  requiresExternalAccount: json['requiresExternalAccount'] as bool? ?? false,
+  requiresStructure: json['requiresStructure'] as bool? ?? false,
+  commandsStructure:
+      (json['commandsStructure'] as List<dynamic>?)
+          ?.map((e) => CommandDefinition.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  configStructure:
+      (json['configStructure'] as List<dynamic>?)
+          ?.map((e) => ConfigGrouping.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  confiotCapable: json['confiotCapable'] as bool? ?? false,
+  peripheralIdentifier: json['peripheralIdentifier'] as String?,
+  peripheralParserSpec: json['peripheralParserSpec'] as Map<String, dynamic>?,
+);
+
+Map<String, dynamic> _$InboundProtocolInputToJson(
+  _InboundProtocolInput instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'color': const ColorConverter().toJson(instance.color),
+  'isEnabled': instance.isEnabled,
+  'categoriesIds': instance.categoriesIds,
+  'operationMode': instance.operationMode.toJson(),
+  'hasNativeCommands': instance.hasNativeCommands,
+  'hasSmsCommands': instance.hasSmsCommands,
+  'hasCommandsResult': instance.hasCommandsResult,
+  'channelId': instance.channelId,
+  'isFlespi': instance.isFlespi,
+  'flespiId': instance.flespiId,
+  'hasAck': instance.hasAck,
+  'ackTopicFormat': instance.ackTopicFormat,
+  'isImported': instance.isImported,
+  'requiredFields': instance.requiredFields.map((e) => e.toJson()).toList(),
+  'canFota': instance.canFota,
+  'host': instance.host,
+  'port': instance.port,
+  'mqttTopic': instance.mqttTopic,
+  'dynamicIcon': instance.dynamicIcon.toJson(),
+  'cycleId': instance.cycleId,
+  'hasModbus': instance.hasModbus,
+  'modbusPorts': instance.modbusPorts,
+  'requiresFlespiToken': instance.requiresFlespiToken,
+  'flespiAcl': instance.flespiAcl.map((e) => e.toJson()).toList(),
+  'webhookStructure': instance.webhookStructure?.toJson(),
+  'requiresExternalAccount': instance.requiresExternalAccount,
+  'requiresStructure': instance.requiresStructure,
+  'commandsStructure': instance.commandsStructure
+      .map((e) => e.toJson())
+      .toList(),
+  'configStructure': instance.configStructure.map((e) => e.toJson()).toList(),
+  'confiotCapable': instance.confiotCapable,
+  'peripheralIdentifier': instance.peripheralIdentifier,
+  'peripheralParserSpec': instance.peripheralParserSpec,
+};
+
 _InboundService _$InboundServiceFromJson(Map<String, dynamic> json) =>
     _InboundService(
       id: json['id'] as String,

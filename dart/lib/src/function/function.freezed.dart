@@ -511,8 +511,8 @@ return $default(_that.id,_that.name,_that.color,_that.icon,_that.isEnabled,_that
 /// @nodoc
 @JsonSerializable()
 
-class _Algorithm implements Algorithm {
-  const _Algorithm({required this.id, required this.name, @ColorConverter() required this.color, @IconOrNullConverter() this.icon, required this.isEnabled, this.categoriesIds = const [], this.canBeInSensors = false, this.hasHttp = false, this.hasFtp = false, this.requiredFields = const [], this.usage});
+class _Algorithm extends Algorithm {
+  const _Algorithm({required this.id, required this.name, @ColorConverter() required this.color, @IconOrNullConverter() this.icon, required this.isEnabled, this.categoriesIds = const [], this.canBeInSensors = false, this.hasHttp = false, this.hasFtp = false, this.requiredFields = const [], this.usage}): super._();
   factory _Algorithm.fromJson(Map<String, dynamic> json) => _$AlgorithmFromJson(json);
 
 /// Is the unique identifier of the algorithm.
@@ -604,6 +604,315 @@ as bool,hasFtp: null == hasFtp ? _self.hasFtp : hasFtp // ignore: cast_nullable_
 as bool,requiredFields: null == requiredFields ? _self.requiredFields : requiredFields // ignore: cast_nullable_to_non_nullable
 as List<CredentialField>,usage: freezed == usage ? _self.usage : usage // ignore: cast_nullable_to_non_nullable
 as int?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$AlgorithmInput {
+
+/// Unique identifier for this algorithm, or null when creating a new one.
+ String? get id;/// Unique identifier for this algorithm, or null when creating a new one.
+ set id(String? value);/// Human-readable name of the algorithm. Defaults to an empty string.
+ String get name;/// Human-readable name of the algorithm. Defaults to an empty string.
+ set name(String value);/// Is the color assigned to the algorithm. Defaults to opaque black.
+@ColorConverter() Color get color;/// Is the color assigned to the algorithm. Defaults to opaque black.
+@ColorConverter() set color(Color value);/// Is the icon assigned to the algorithm.
+@IconOrNullConverter() MdiRemapIcon? get icon;/// Is the icon assigned to the algorithm.
+@IconOrNullConverter() set icon(MdiRemapIcon? value);/// Indicates if the algorithm is enabled and available for use, or disabled and not available
+/// for use. Defaults to `false`.
+ bool get isEnabled;/// Indicates if the algorithm is enabled and available for use, or disabled and not available
+/// for use. Defaults to `false`.
+ set isEnabled(bool value);/// Is the list of category IDs the algorithm belongs to. Defaults to an empty list.
+ List<String> get categoriesIds;/// Is the list of category IDs the algorithm belongs to. Defaults to an empty list.
+ set categoriesIds(List<String> value);/// Indicates if the algorithm can be used in sensors. Defaults to `false`.
+ bool get canBeInSensors;/// Indicates if the algorithm can be used in sensors. Defaults to `false`.
+ set canBeInSensors(bool value);/// Indicates if the algorithm supports HTTP. Defaults to `false`.
+ bool get hasHttp;/// Indicates if the algorithm supports HTTP. Defaults to `false`.
+ set hasHttp(bool value);/// Indicates if the algorithm supports FTP. Defaults to `false`.
+ bool get hasFtp;/// Indicates if the algorithm supports FTP. Defaults to `false`.
+ set hasFtp(bool value);/// Is the list of required fields for the algorithm. Defaults to an empty list.
+ List<CredentialField> get requiredFields;/// Is the list of required fields for the algorithm. Defaults to an empty list.
+ set requiredFields(List<CredentialField> value);
+/// Create a copy of AlgorithmInput
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AlgorithmInputCopyWith<AlgorithmInput> get copyWith => _$AlgorithmInputCopyWithImpl<AlgorithmInput>(this as AlgorithmInput, _$identity);
+
+  /// Serializes this AlgorithmInput to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'AlgorithmInput(id: $id, name: $name, color: $color, icon: $icon, isEnabled: $isEnabled, categoriesIds: $categoriesIds, canBeInSensors: $canBeInSensors, hasHttp: $hasHttp, hasFtp: $hasFtp, requiredFields: $requiredFields)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AlgorithmInputCopyWith<$Res>  {
+  factory $AlgorithmInputCopyWith(AlgorithmInput value, $Res Function(AlgorithmInput) _then) = _$AlgorithmInputCopyWithImpl;
+@useResult
+$Res call({
+ String? id, String name,@ColorConverter() Color color,@IconOrNullConverter() MdiRemapIcon? icon, bool isEnabled, List<String> categoriesIds, bool canBeInSensors, bool hasHttp, bool hasFtp, List<CredentialField> requiredFields
+});
+
+
+
+
+}
+/// @nodoc
+class _$AlgorithmInputCopyWithImpl<$Res>
+    implements $AlgorithmInputCopyWith<$Res> {
+  _$AlgorithmInputCopyWithImpl(this._self, this._then);
+
+  final AlgorithmInput _self;
+  final $Res Function(AlgorithmInput) _then;
+
+/// Create a copy of AlgorithmInput
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? color = null,Object? icon = freezed,Object? isEnabled = null,Object? categoriesIds = null,Object? canBeInSensors = null,Object? hasHttp = null,Object? hasFtp = null,Object? requiredFields = null,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as Color,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as MdiRemapIcon?,isEnabled: null == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
+as bool,categoriesIds: null == categoriesIds ? _self.categoriesIds : categoriesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,canBeInSensors: null == canBeInSensors ? _self.canBeInSensors : canBeInSensors // ignore: cast_nullable_to_non_nullable
+as bool,hasHttp: null == hasHttp ? _self.hasHttp : hasHttp // ignore: cast_nullable_to_non_nullable
+as bool,hasFtp: null == hasFtp ? _self.hasFtp : hasFtp // ignore: cast_nullable_to_non_nullable
+as bool,requiredFields: null == requiredFields ? _self.requiredFields : requiredFields // ignore: cast_nullable_to_non_nullable
+as List<CredentialField>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [AlgorithmInput].
+extension AlgorithmInputPatterns on AlgorithmInput {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AlgorithmInput value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AlgorithmInput() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AlgorithmInput value)  $default,){
+final _that = this;
+switch (_that) {
+case _AlgorithmInput():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AlgorithmInput value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AlgorithmInput() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name, @ColorConverter()  Color color, @IconOrNullConverter()  MdiRemapIcon? icon,  bool isEnabled,  List<String> categoriesIds,  bool canBeInSensors,  bool hasHttp,  bool hasFtp,  List<CredentialField> requiredFields)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AlgorithmInput() when $default != null:
+return $default(_that.id,_that.name,_that.color,_that.icon,_that.isEnabled,_that.categoriesIds,_that.canBeInSensors,_that.hasHttp,_that.hasFtp,_that.requiredFields);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name, @ColorConverter()  Color color, @IconOrNullConverter()  MdiRemapIcon? icon,  bool isEnabled,  List<String> categoriesIds,  bool canBeInSensors,  bool hasHttp,  bool hasFtp,  List<CredentialField> requiredFields)  $default,) {final _that = this;
+switch (_that) {
+case _AlgorithmInput():
+return $default(_that.id,_that.name,_that.color,_that.icon,_that.isEnabled,_that.categoriesIds,_that.canBeInSensors,_that.hasHttp,_that.hasFtp,_that.requiredFields);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name, @ColorConverter()  Color color, @IconOrNullConverter()  MdiRemapIcon? icon,  bool isEnabled,  List<String> categoriesIds,  bool canBeInSensors,  bool hasHttp,  bool hasFtp,  List<CredentialField> requiredFields)?  $default,) {final _that = this;
+switch (_that) {
+case _AlgorithmInput() when $default != null:
+return $default(_that.id,_that.name,_that.color,_that.icon,_that.isEnabled,_that.categoriesIds,_that.canBeInSensors,_that.hasHttp,_that.hasFtp,_that.requiredFields);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _AlgorithmInput extends AlgorithmInput {
+   _AlgorithmInput({this.id, this.name = '', @ColorConverter() this.color = const Color(0xFF000000), @IconOrNullConverter() this.icon, this.isEnabled = false, this.categoriesIds = const [], this.canBeInSensors = false, this.hasHttp = false, this.hasFtp = false, this.requiredFields = const []}): super._();
+  factory _AlgorithmInput.fromJson(Map<String, dynamic> json) => _$AlgorithmInputFromJson(json);
+
+/// Unique identifier for this algorithm, or null when creating a new one.
+@override  String? id;
+/// Human-readable name of the algorithm. Defaults to an empty string.
+@override@JsonKey()  String name;
+/// Is the color assigned to the algorithm. Defaults to opaque black.
+@override@JsonKey()@ColorConverter()  Color color;
+/// Is the icon assigned to the algorithm.
+@override@IconOrNullConverter()  MdiRemapIcon? icon;
+/// Indicates if the algorithm is enabled and available for use, or disabled and not available
+/// for use. Defaults to `false`.
+@override@JsonKey()  bool isEnabled;
+/// Is the list of category IDs the algorithm belongs to. Defaults to an empty list.
+@override@JsonKey()  List<String> categoriesIds;
+/// Indicates if the algorithm can be used in sensors. Defaults to `false`.
+@override@JsonKey()  bool canBeInSensors;
+/// Indicates if the algorithm supports HTTP. Defaults to `false`.
+@override@JsonKey()  bool hasHttp;
+/// Indicates if the algorithm supports FTP. Defaults to `false`.
+@override@JsonKey()  bool hasFtp;
+/// Is the list of required fields for the algorithm. Defaults to an empty list.
+@override@JsonKey()  List<CredentialField> requiredFields;
+
+/// Create a copy of AlgorithmInput
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AlgorithmInputCopyWith<_AlgorithmInput> get copyWith => __$AlgorithmInputCopyWithImpl<_AlgorithmInput>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$AlgorithmInputToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'AlgorithmInput(id: $id, name: $name, color: $color, icon: $icon, isEnabled: $isEnabled, categoriesIds: $categoriesIds, canBeInSensors: $canBeInSensors, hasHttp: $hasHttp, hasFtp: $hasFtp, requiredFields: $requiredFields)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AlgorithmInputCopyWith<$Res> implements $AlgorithmInputCopyWith<$Res> {
+  factory _$AlgorithmInputCopyWith(_AlgorithmInput value, $Res Function(_AlgorithmInput) _then) = __$AlgorithmInputCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id, String name,@ColorConverter() Color color,@IconOrNullConverter() MdiRemapIcon? icon, bool isEnabled, List<String> categoriesIds, bool canBeInSensors, bool hasHttp, bool hasFtp, List<CredentialField> requiredFields
+});
+
+
+
+
+}
+/// @nodoc
+class __$AlgorithmInputCopyWithImpl<$Res>
+    implements _$AlgorithmInputCopyWith<$Res> {
+  __$AlgorithmInputCopyWithImpl(this._self, this._then);
+
+  final _AlgorithmInput _self;
+  final $Res Function(_AlgorithmInput) _then;
+
+/// Create a copy of AlgorithmInput
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? color = null,Object? icon = freezed,Object? isEnabled = null,Object? categoriesIds = null,Object? canBeInSensors = null,Object? hasHttp = null,Object? hasFtp = null,Object? requiredFields = null,}) {
+  return _then(_AlgorithmInput(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as Color,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as MdiRemapIcon?,isEnabled: null == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
+as bool,categoriesIds: null == categoriesIds ? _self.categoriesIds : categoriesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,canBeInSensors: null == canBeInSensors ? _self.canBeInSensors : canBeInSensors // ignore: cast_nullable_to_non_nullable
+as bool,hasHttp: null == hasHttp ? _self.hasHttp : hasHttp // ignore: cast_nullable_to_non_nullable
+as bool,hasFtp: null == hasFtp ? _self.hasFtp : hasFtp // ignore: cast_nullable_to_non_nullable
+as bool,requiredFields: null == requiredFields ? _self.requiredFields : requiredFields // ignore: cast_nullable_to_non_nullable
+as List<CredentialField>,
   ));
 }
 

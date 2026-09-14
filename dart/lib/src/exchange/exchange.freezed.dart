@@ -244,8 +244,8 @@ return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.required
 /// @nodoc
 @JsonSerializable()
 
-class _ExchangeProtocol implements ExchangeProtocol {
-  const _ExchangeProtocol({required this.id, required this.name, @ColorConverter() required this.color, this.dynamicIcon, this.requiredFields = const [], required this.isEnabled, this.requiresFlespiToken, this.flespiAcl, this.usage, this.requiresAssets, this.requiresGeofences});
+class _ExchangeProtocol extends ExchangeProtocol {
+  const _ExchangeProtocol({required this.id, required this.name, @ColorConverter() required this.color, this.dynamicIcon, this.requiredFields = const [], required this.isEnabled, this.requiresFlespiToken, this.flespiAcl, this.usage, this.requiresAssets, this.requiresGeofences}): super._();
   factory _ExchangeProtocol.fromJson(Map<String, dynamic> json) => _$ExchangeProtocolFromJson(json);
 
 /// Is the protocol ID, unique for each protocol.
@@ -351,6 +351,354 @@ $AvatarCopyWith<$Res>? get dynamicIcon {
   }
 
   return $AvatarCopyWith<$Res>(_self.dynamicIcon!, (value) {
+    return _then(_self.copyWith(dynamicIcon: value));
+  });
+}
+}
+
+
+/// @nodoc
+mixin _$ExchangeProtocolInput {
+
+/// Unique identifier for this protocol, or null when creating a new one.
+ String? get id;/// Unique identifier for this protocol, or null when creating a new one.
+ set id(String? value);/// Name of the protocol. This name is a translation key, so check the
+/// translation messages to get the display name. Defaults to an empty
+/// string.
+ String get name;/// Name of the protocol. This name is a translation key, so check the
+/// translation messages to get the display name. Defaults to an empty
+/// string.
+ set name(String value);/// Color assigned to the protocol, either a hex color or a named color
+/// token. Defaults to `'primary'`.
+ String get color;/// Color assigned to the protocol, either a hex color or a named color
+/// token. Defaults to `'primary'`.
+ set color(String value);/// Dynamic icon of the protocol, in its new schema.
+ AvatarInput? get dynamicIcon;/// Dynamic icon of the protocol, in its new schema.
+ set dynamicIcon(AvatarInput? value);/// List of required configuration fields for the protocol. Defaults to
+/// an empty list.
+ List<CredentialField> get requiredFields;/// List of required configuration fields for the protocol. Defaults to
+/// an empty list.
+ set requiredFields(List<CredentialField> value);/// Indicates if the protocol is enabled and available for use, or
+/// disabled and not available for use.
+ bool? get isEnabled;/// Indicates if the protocol is enabled and available for use, or
+/// disabled and not available for use.
+ set isEnabled(bool? value);/// Indicates if the protocol requires a Flespi token to work.
+ bool? get requiresFlespiToken;/// Indicates if the protocol requires a Flespi token to work.
+ set requiresFlespiToken(bool? value);/// Flespi ACLs for the protocol.
+ List<FlespiAcl>? get flespiAcl;/// Flespi ACLs for the protocol.
+ set flespiAcl(List<FlespiAcl>? value);/// Indicates if the protocol requires assets to work. Defaults to false.
+ bool get requiresAssets;/// Indicates if the protocol requires assets to work. Defaults to false.
+ set requiresAssets(bool value);/// Indicates if the protocol requires geofences to work. Defaults to
+/// false.
+ bool get requiresGeofences;/// Indicates if the protocol requires geofences to work. Defaults to
+/// false.
+ set requiresGeofences(bool value);
+/// Create a copy of ExchangeProtocolInput
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ExchangeProtocolInputCopyWith<ExchangeProtocolInput> get copyWith => _$ExchangeProtocolInputCopyWithImpl<ExchangeProtocolInput>(this as ExchangeProtocolInput, _$identity);
+
+  /// Serializes this ExchangeProtocolInput to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'ExchangeProtocolInput(id: $id, name: $name, color: $color, dynamicIcon: $dynamicIcon, requiredFields: $requiredFields, isEnabled: $isEnabled, requiresFlespiToken: $requiresFlespiToken, flespiAcl: $flespiAcl, requiresAssets: $requiresAssets, requiresGeofences: $requiresGeofences)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ExchangeProtocolInputCopyWith<$Res>  {
+  factory $ExchangeProtocolInputCopyWith(ExchangeProtocolInput value, $Res Function(ExchangeProtocolInput) _then) = _$ExchangeProtocolInputCopyWithImpl;
+@useResult
+$Res call({
+ String? id, String name, String color, AvatarInput? dynamicIcon, List<CredentialField> requiredFields, bool? isEnabled, bool? requiresFlespiToken, List<FlespiAcl>? flespiAcl, bool requiresAssets, bool requiresGeofences
+});
+
+
+$AvatarInputCopyWith<$Res>? get dynamicIcon;
+
+}
+/// @nodoc
+class _$ExchangeProtocolInputCopyWithImpl<$Res>
+    implements $ExchangeProtocolInputCopyWith<$Res> {
+  _$ExchangeProtocolInputCopyWithImpl(this._self, this._then);
+
+  final ExchangeProtocolInput _self;
+  final $Res Function(ExchangeProtocolInput) _then;
+
+/// Create a copy of ExchangeProtocolInput
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? color = null,Object? dynamicIcon = freezed,Object? requiredFields = null,Object? isEnabled = freezed,Object? requiresFlespiToken = freezed,Object? flespiAcl = freezed,Object? requiresAssets = null,Object? requiresGeofences = null,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as String,dynamicIcon: freezed == dynamicIcon ? _self.dynamicIcon : dynamicIcon // ignore: cast_nullable_to_non_nullable
+as AvatarInput?,requiredFields: null == requiredFields ? _self.requiredFields : requiredFields // ignore: cast_nullable_to_non_nullable
+as List<CredentialField>,isEnabled: freezed == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
+as bool?,requiresFlespiToken: freezed == requiresFlespiToken ? _self.requiresFlespiToken : requiresFlespiToken // ignore: cast_nullable_to_non_nullable
+as bool?,flespiAcl: freezed == flespiAcl ? _self.flespiAcl : flespiAcl // ignore: cast_nullable_to_non_nullable
+as List<FlespiAcl>?,requiresAssets: null == requiresAssets ? _self.requiresAssets : requiresAssets // ignore: cast_nullable_to_non_nullable
+as bool,requiresGeofences: null == requiresGeofences ? _self.requiresGeofences : requiresGeofences // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+/// Create a copy of ExchangeProtocolInput
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AvatarInputCopyWith<$Res>? get dynamicIcon {
+    if (_self.dynamicIcon == null) {
+    return null;
+  }
+
+  return $AvatarInputCopyWith<$Res>(_self.dynamicIcon!, (value) {
+    return _then(_self.copyWith(dynamicIcon: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [ExchangeProtocolInput].
+extension ExchangeProtocolInputPatterns on ExchangeProtocolInput {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ExchangeProtocolInput value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ExchangeProtocolInput() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ExchangeProtocolInput value)  $default,){
+final _that = this;
+switch (_that) {
+case _ExchangeProtocolInput():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ExchangeProtocolInput value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ExchangeProtocolInput() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name,  String color,  AvatarInput? dynamicIcon,  List<CredentialField> requiredFields,  bool? isEnabled,  bool? requiresFlespiToken,  List<FlespiAcl>? flespiAcl,  bool requiresAssets,  bool requiresGeofences)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ExchangeProtocolInput() when $default != null:
+return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.requiredFields,_that.isEnabled,_that.requiresFlespiToken,_that.flespiAcl,_that.requiresAssets,_that.requiresGeofences);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name,  String color,  AvatarInput? dynamicIcon,  List<CredentialField> requiredFields,  bool? isEnabled,  bool? requiresFlespiToken,  List<FlespiAcl>? flespiAcl,  bool requiresAssets,  bool requiresGeofences)  $default,) {final _that = this;
+switch (_that) {
+case _ExchangeProtocolInput():
+return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.requiredFields,_that.isEnabled,_that.requiresFlespiToken,_that.flespiAcl,_that.requiresAssets,_that.requiresGeofences);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name,  String color,  AvatarInput? dynamicIcon,  List<CredentialField> requiredFields,  bool? isEnabled,  bool? requiresFlespiToken,  List<FlespiAcl>? flespiAcl,  bool requiresAssets,  bool requiresGeofences)?  $default,) {final _that = this;
+switch (_that) {
+case _ExchangeProtocolInput() when $default != null:
+return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.requiredFields,_that.isEnabled,_that.requiresFlespiToken,_that.flespiAcl,_that.requiresAssets,_that.requiresGeofences);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ExchangeProtocolInput extends ExchangeProtocolInput {
+   _ExchangeProtocolInput({this.id, this.name = '', this.color = 'primary', this.dynamicIcon, this.requiredFields = const [], this.isEnabled, this.requiresFlespiToken, this.flespiAcl, this.requiresAssets = false, this.requiresGeofences = false}): super._();
+  factory _ExchangeProtocolInput.fromJson(Map<String, dynamic> json) => _$ExchangeProtocolInputFromJson(json);
+
+/// Unique identifier for this protocol, or null when creating a new one.
+@override  String? id;
+/// Name of the protocol. This name is a translation key, so check the
+/// translation messages to get the display name. Defaults to an empty
+/// string.
+@override@JsonKey()  String name;
+/// Color assigned to the protocol, either a hex color or a named color
+/// token. Defaults to `'primary'`.
+@override@JsonKey()  String color;
+/// Dynamic icon of the protocol, in its new schema.
+@override  AvatarInput? dynamicIcon;
+/// List of required configuration fields for the protocol. Defaults to
+/// an empty list.
+@override@JsonKey()  List<CredentialField> requiredFields;
+/// Indicates if the protocol is enabled and available for use, or
+/// disabled and not available for use.
+@override  bool? isEnabled;
+/// Indicates if the protocol requires a Flespi token to work.
+@override  bool? requiresFlespiToken;
+/// Flespi ACLs for the protocol.
+@override  List<FlespiAcl>? flespiAcl;
+/// Indicates if the protocol requires assets to work. Defaults to false.
+@override@JsonKey()  bool requiresAssets;
+/// Indicates if the protocol requires geofences to work. Defaults to
+/// false.
+@override@JsonKey()  bool requiresGeofences;
+
+/// Create a copy of ExchangeProtocolInput
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ExchangeProtocolInputCopyWith<_ExchangeProtocolInput> get copyWith => __$ExchangeProtocolInputCopyWithImpl<_ExchangeProtocolInput>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ExchangeProtocolInputToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'ExchangeProtocolInput(id: $id, name: $name, color: $color, dynamicIcon: $dynamicIcon, requiredFields: $requiredFields, isEnabled: $isEnabled, requiresFlespiToken: $requiresFlespiToken, flespiAcl: $flespiAcl, requiresAssets: $requiresAssets, requiresGeofences: $requiresGeofences)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ExchangeProtocolInputCopyWith<$Res> implements $ExchangeProtocolInputCopyWith<$Res> {
+  factory _$ExchangeProtocolInputCopyWith(_ExchangeProtocolInput value, $Res Function(_ExchangeProtocolInput) _then) = __$ExchangeProtocolInputCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id, String name, String color, AvatarInput? dynamicIcon, List<CredentialField> requiredFields, bool? isEnabled, bool? requiresFlespiToken, List<FlespiAcl>? flespiAcl, bool requiresAssets, bool requiresGeofences
+});
+
+
+@override $AvatarInputCopyWith<$Res>? get dynamicIcon;
+
+}
+/// @nodoc
+class __$ExchangeProtocolInputCopyWithImpl<$Res>
+    implements _$ExchangeProtocolInputCopyWith<$Res> {
+  __$ExchangeProtocolInputCopyWithImpl(this._self, this._then);
+
+  final _ExchangeProtocolInput _self;
+  final $Res Function(_ExchangeProtocolInput) _then;
+
+/// Create a copy of ExchangeProtocolInput
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? color = null,Object? dynamicIcon = freezed,Object? requiredFields = null,Object? isEnabled = freezed,Object? requiresFlespiToken = freezed,Object? flespiAcl = freezed,Object? requiresAssets = null,Object? requiresGeofences = null,}) {
+  return _then(_ExchangeProtocolInput(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as String,dynamicIcon: freezed == dynamicIcon ? _self.dynamicIcon : dynamicIcon // ignore: cast_nullable_to_non_nullable
+as AvatarInput?,requiredFields: null == requiredFields ? _self.requiredFields : requiredFields // ignore: cast_nullable_to_non_nullable
+as List<CredentialField>,isEnabled: freezed == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
+as bool?,requiresFlespiToken: freezed == requiresFlespiToken ? _self.requiresFlespiToken : requiresFlespiToken // ignore: cast_nullable_to_non_nullable
+as bool?,flespiAcl: freezed == flespiAcl ? _self.flespiAcl : flespiAcl // ignore: cast_nullable_to_non_nullable
+as List<FlespiAcl>?,requiresAssets: null == requiresAssets ? _self.requiresAssets : requiresAssets // ignore: cast_nullable_to_non_nullable
+as bool,requiresGeofences: null == requiresGeofences ? _self.requiresGeofences : requiresGeofences // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+/// Create a copy of ExchangeProtocolInput
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AvatarInputCopyWith<$Res>? get dynamicIcon {
+    if (_self.dynamicIcon == null) {
+    return null;
+  }
+
+  return $AvatarInputCopyWith<$Res>(_self.dynamicIcon!, (value) {
     return _then(_self.copyWith(dynamicIcon: value));
   });
 }

@@ -58,6 +58,44 @@ Map<String, dynamic> _$AlgorithmToJson(_Algorithm instance) =>
       'usage': instance.usage,
     };
 
+_AlgorithmInput _$AlgorithmInputFromJson(Map<String, dynamic> json) =>
+    _AlgorithmInput(
+      id: json['id'] as String?,
+      name: json['name'] as String? ?? '',
+      color: json['color'] == null
+          ? const Color(0xFF000000)
+          : const ColorConverter().fromJson(json['color'] as String),
+      icon: const IconOrNullConverter().fromJson(json['icon'] as String?),
+      isEnabled: json['isEnabled'] as bool? ?? false,
+      categoriesIds:
+          (json['categoriesIds'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      canBeInSensors: json['canBeInSensors'] as bool? ?? false,
+      hasHttp: json['hasHttp'] as bool? ?? false,
+      hasFtp: json['hasFtp'] as bool? ?? false,
+      requiredFields:
+          (json['requiredFields'] as List<dynamic>?)
+              ?.map((e) => CredentialField.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+    );
+
+Map<String, dynamic> _$AlgorithmInputToJson(_AlgorithmInput instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'color': const ColorConverter().toJson(instance.color),
+      'icon': const IconOrNullConverter().toJson(instance.icon),
+      'isEnabled': instance.isEnabled,
+      'categoriesIds': instance.categoriesIds,
+      'canBeInSensors': instance.canBeInSensors,
+      'hasHttp': instance.hasHttp,
+      'hasFtp': instance.hasFtp,
+      'requiredFields': instance.requiredFields.map((e) => e.toJson()).toList(),
+    };
+
 _LayrzFunction _$LayrzFunctionFromJson(Map<String, dynamic> json) =>
     _LayrzFunction(
       id: json['id'] as String,

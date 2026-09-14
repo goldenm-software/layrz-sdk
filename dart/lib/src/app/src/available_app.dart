@@ -63,66 +63,62 @@ abstract class AvailableApp with _$AvailableApp {
       _$AvailableAppFromJson(json);
 
   // coverage:ignore-start
-  /// [fetchAll] fetches all available apps from the server
-  /// It returns a list of [AvailableApp] with the required contextual information
+  /// GraphQL fragment definition for querying the full set of available-app
+  /// fields, shared by [fetchAll], [fetch], and [AvailableAppInput.save].
+  static GqlFragment get fragment =>
+      GqlFragment(name: 'availableAppFragment', onType: 'AvailableApp')
+        ..add(GqlField(name: 'id'))
+        ..add(GqlField(name: 'name'))
+        ..add(GqlField(name: 'appId'))
+        ..add(GqlField(name: 'appType'))
+        ..add(GqlField(name: 'technology'))
+        ..add(GqlField(name: 'onlyCustomized'))
+        ..add(GqlField(name: 'supportedPlatforms'))
+        ..add(GqlField(name: 'supportedCustomizationPlatforms'))
+        ..add(GqlField(name: 'hasImport'))
+        ..add(GqlField(name: 'hasKeychain'))
+        ..add(GqlField(name: 'canMapLayers'))
+        ..add(GqlField(name: 'legalInformation', fragment: AppLegal.fragment))
+        ..add(
+          GqlField(name: 'designInformation', fragment: AppDesign.fragment),
+        );
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Fetches all available apps from the server.
+  ///
+  /// Makes an authenticated GraphQL query (`availableApps`) to retrieve
+  /// every [AvailableApp] in the catalog. Authentication is carried solely
+  /// via the connector's `Authorization` header, built from [apiToken].
+  ///
+  /// Optional callback invoked with the [ApiStatus] of the response. Called
+  /// once per invocation, regardless of success or failure.
+  ///
+  /// Returns an empty list on any error (network failure, authentication
+  /// failure, or server error). Errors are logged internally.
   static Future<List<AvailableApp>> fetchAll({
-    /// [apiToken] is the API token to use for authentication. You can get one using the `login` mutation
+    /// The API token for authentication. Obtain via the `login` mutation
     /// on the GraphQL API.
     required String apiToken,
 
-    /// [uri] is the GraphQL endpoint to use
+    /// The Layrz GraphQL API endpoint (e.g.,
+    /// `https://api.example.com/graphql`).
     required Uri uri,
 
-    /// [onResponse] is the callback to call when the response is received
+    /// Optional callback invoked with the status code of the response. Called
+    /// once per invocation, regardless of success or failure.
     void Function(String statusCode)? onResponse,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
     try {
       final response = await connector.query(
-        GqlQuery(
-          variables: [
-            GqlVariable(
-              name: 'apiToken',
-              value: apiToken,
-              type: .string,
-              isRequired: true,
-            ),
-          ],
-        )..add(
-          GqlField(name: 'availableApps', args: {'apiToken': 'apiToken'})
+        GqlQuery(name: 'availableApps')..add(
+          GqlField(name: 'availableApps', args: {})
             ..add(GqlField(name: 'status'))
-            ..add(
-              GqlField(name: 'result')
-                ..add(GqlField(name: 'id'))
-                ..add(GqlField(name: 'name'))
-                ..add(GqlField(name: 'appId'))
-                ..add(GqlField(name: 'appType'))
-                ..add(GqlField(name: 'technology'))
-                ..add(GqlField(name: 'onlyCustomized'))
-                ..add(GqlField(name: 'supportedPlatforms'))
-                ..add(GqlField(name: 'supportedCustomizationPlatforms'))
-                ..add(GqlField(name: 'hasImport'))
-                ..add(GqlField(name: 'hasKeychain'))
-                ..add(GqlField(name: 'canMapLayers'))
-                ..add(
-                  GqlField(
-                    name: 'legalInformation',
-                    fragment: AppLegal.fragment,
-                  ),
-                )
-                ..add(
-                  GqlField(
-                    name: 'designInformation',
-                    fragment: AppDesign.fragment,
-                  ),
-                ),
-            ),
+            ..add(GqlField(name: 'errors'))
+            ..add(GqlField(name: 'result', fragment: fragment)),
         ),
-        (json) => List<AvailableApp>.from(
-          (json as List).map(
-            (e) => AvailableApp.fromJson(e as Map<String, dynamic>),
-          ),
-        ),
+        _availableAppListDecoder,
       );
 
       if (response.status != .ok) {
@@ -138,13 +134,102 @@ abstract class AvailableApp with _$AvailableApp {
       return [];
     }
   }
-
   // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Fetches a single available app by its [id].
+  ///
+  /// Makes an authenticated GraphQL query (`availableApps`) filtered by
+  /// [id]. The backend always returns `result` as a list, even when
+  /// filtered down to a single entity, so the first element (if any) is
+  /// returned. Authentication is carried solely via the connector's
+  /// `Authorization` header, built from [apiToken].
+  ///
+  /// Optional callback invoked with the [ApiStatus] of the response. Called
+  /// once per invocation, regardless of success or failure.
+  ///
+  /// Returns `null` on any error (network failure, authentication failure,
+  /// server error, or no matching app). Errors are logged internally.
+  static Future<AvailableApp?> fetch({
+    /// The ID of the [AvailableApp] to fetch.
+    required String id,
+
+    /// The API token for authentication. Obtain via the `login` mutation
+    /// on the GraphQL API.
+    required String apiToken,
+
+    /// The Layrz GraphQL API endpoint (e.g.,
+    /// `https://api.example.com/graphql`).
+    required Uri uri,
+
+    /// Optional callback invoked with the status code of the response. Called
+    /// once per invocation, regardless of success or failure.
+    void Function(String statusCode)? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.query(
+        GqlQuery(
+          variables: [
+            GqlVariable(name: 'id', type: .id, isRequired: true, value: id),
+          ],
+          name: 'availableApps',
+        )..add(
+          GqlField(name: 'availableApps', args: {'id': 'id'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(GqlField(name: 'result', fragment: fragment)),
+        ),
+        (json) {
+          final resultList = json as List<dynamic>?;
+          if (resultList == null || resultList.isEmpty) {
+            Log.warning("layrz_sdk/AvailableApp/fetch(): No result in list");
+            return null;
+          }
+          return AvailableApp.fromJson(
+            Map<String, dynamic>.from(resultList.first as Map),
+          );
+        },
+      );
+
+      if (response.status != .ok) {
+        onResponse?.call(response.status.toJson());
+        return null;
+      }
+
+      return response.result;
+    } catch (e, stack) {
+      Log.critical(
+        "layrz_sdk/AvailableApp/fetch(): General exception => $e\n$stack",
+      );
+      return null;
+    }
+  }
+  // coverage:ignore-end
+}
+
+/// [_availableAppDecoder] decodes a single-object `result` payload into an
+/// [AvailableApp]. Used by result-bearing mutations (add/edit-style).
+AvailableApp _availableAppDecoder(Object? json) {
+  return AvailableApp.fromJson(Map<String, dynamic>.from(json as Map));
+}
+
+/// [_availableAppListDecoder] decodes a raw listing `result` payload into a
+/// list of [AvailableApp]. Used by listing queries (fetchAll, fetch).
+List<AvailableApp> _availableAppListDecoder(Object? json) {
+  return List<AvailableApp>.from(
+    (json as List? ?? []).map(
+      (e) => AvailableApp.fromJson(Map<String, dynamic>.from(e as Map)),
+    ),
+  );
 }
 
 /// Mutable available-app input used to create or update an [AvailableApp].
 @unfreezed
 abstract class AvailableAppInput with _$AvailableAppInput {
+  /// Private constructor used by the code generator.
+  const AvailableAppInput._();
+
   /// Constructs a mutable [AvailableAppInput].
   factory AvailableAppInput({
     /// [id] is the unique identifier of the app.
@@ -185,4 +270,76 @@ abstract class AvailableAppInput with _$AvailableAppInput {
   /// Deserializes an [AvailableAppInput] from a JSON map.
   factory AvailableAppInput.fromJson(Map<String, dynamic> json) =>
       _$AvailableAppInputFromJson(json);
+
+  // coverage:ignore-start
+  /// Creates or updates this available app on the server.
+  ///
+  /// Sends `addAvailableApp` when [id] is null, or `editAvailableApp` when
+  /// [id] is set, both with this input serialized as the
+  /// `AvailableAppInput` GraphQL input type. Authentication is carried
+  /// solely via the connector's `Authorization` header, built from
+  /// [apiToken].
+  ///
+  /// Optional callback invoked with the [ApiStatus] of the response. Called
+  /// once per invocation, regardless of success or failure.
+  ///
+  /// Returns a [StandardResponse] tuple of `(ApiStatus, errors,
+  /// AvailableApp?)`: on an internal error, `(ApiStatus.internalError,
+  /// null, null)`; on any other non-ok status, `(status, errors, null)`;
+  /// on success, `(status, errors, savedApp)`.
+  Future<StandardResponse<AvailableApp>> save({
+    /// The API token for authentication. Obtain via the `login` mutation
+    /// on the GraphQL API.
+    required String apiToken,
+
+    /// The Layrz GraphQL API endpoint (e.g.,
+    /// `https://api.example.com/graphql`).
+    required Uri uri,
+
+    /// Optional callback invoked with the status code of the response. Called
+    /// once per invocation, regardless of success or failure.
+    void Function(String statusCode)? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    final operation = id == null ? 'addAvailableApp' : 'editAvailableApp';
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          variables: [
+            GqlVariable(
+              name: 'data',
+              type: GqlVariableType.input(of: 'AvailableAppInput'),
+              isRequired: true,
+              value: toJson(),
+            ),
+          ],
+          name: operation,
+        )..add(
+          GqlField(name: operation, args: {'data': 'data'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(GqlField(name: 'result', fragment: AvailableApp.fragment)),
+        ),
+        _availableAppDecoder,
+      );
+
+      if (response.status == .internalError) {
+        onResponse?.call(response.status.toJson());
+        return (ApiStatus.internalError, null, null);
+      }
+
+      if (response.status != .ok) {
+        onResponse?.call(response.status.toJson());
+        return (response.status, response.errors, null);
+      }
+
+      return (response.status, response.errors, response.result);
+    } catch (e, stack) {
+      Log.critical(
+        "layrz_sdk/AvailableAppInput/save(): General exception => $e\n$stack",
+      );
+      return (ApiStatus.internalError, null, null);
+    }
+  }
+  // coverage:ignore-end
 }

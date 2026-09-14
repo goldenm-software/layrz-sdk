@@ -906,8 +906,8 @@ return $default(_that.id,_that.name,_that.appId,_that.technology,_that.legalInfo
 /// @nodoc
 @JsonSerializable()
 
-class _AvailableAppInput implements AvailableAppInput {
-   _AvailableAppInput({this.id, this.name = '', this.appId = '', @JsonKey(unknownEnumValue: AppTechnology.flutter) this.technology = AppTechnology.flutter, required this.legalInformation, required this.designInformation, @JsonKey(unknownEnumValue: AppPlatform.web) this.supportedPlatforms = const [], this.onlyCustomized = false, this.hasImport = true, this.hasKeychain = true});
+class _AvailableAppInput extends AvailableAppInput {
+   _AvailableAppInput({this.id, this.name = '', this.appId = '', @JsonKey(unknownEnumValue: AppTechnology.flutter) this.technology = AppTechnology.flutter, required this.legalInformation, required this.designInformation, @JsonKey(unknownEnumValue: AppPlatform.web) this.supportedPlatforms = const [], this.onlyCustomized = false, this.hasImport = true, this.hasKeychain = true}): super._();
   factory _AvailableAppInput.fromJson(Map<String, dynamic> json) => _$AvailableAppInputFromJson(json);
 
 /// [id] is the unique identifier of the app.

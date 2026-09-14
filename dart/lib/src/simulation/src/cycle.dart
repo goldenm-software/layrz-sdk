@@ -83,4 +83,147 @@ abstract class SimulationCycle with _$SimulationCycle {
   }
 
   // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// [fetch] fetches a single [SimulationCycle] from the server by its [id].
+  ///
+  /// Makes an authenticated GraphQL query (`simulationCycles`) filtered by
+  /// [id]. The backend always returns `result` as a list, even when filtered
+  /// down to a single entity, so the first element (if any) is returned.
+  /// Authentication is carried solely via the connector's `Authorization`
+  /// header, built from [apiToken].
+  ///
+  /// Returns `null` on any error (network failure, authentication failure,
+  /// server error, or no matching cycle). Errors are logged internally.
+  static Future<SimulationCycle?> fetch({
+    /// [id] is the unique identifier of the cycle to fetch.
+    required String id,
+
+    /// [apiToken] is the API token to use for authentication. You can get one
+    /// using the `login` mutation on the GraphQL API.
+    required String apiToken,
+
+    /// [uri] is the GraphQL endpoint to use.
+    required Uri uri,
+
+    /// [onResponse] is the callback to call when the response is received.
+    void Function(ApiStatus status)? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+
+    try {
+      final response = await connector.query(
+        GqlQuery(
+          variables: [
+            GqlVariable(name: 'id', type: .id, isRequired: true, value: id),
+          ],
+          name: 'simulationCycles',
+        )..add(
+          GqlField(name: 'simulationCycles', args: {'id': 'id'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(GqlField(name: 'result', fragment: fragment)),
+        ),
+        (json) {
+          final resultList = json as List<dynamic>?;
+          if (resultList == null || resultList.isEmpty) {
+            Log.warning('layrz_sdk/SimulationCycle/fetch(): No result in list');
+            return null;
+          }
+          return SimulationCycle.fromJson(Map<String, dynamic>.from(resultList.first as Map));
+        },
+      );
+
+      if (response.status != .ok) {
+        onResponse?.call(response.status);
+        return null;
+      }
+
+      return response.result;
+    } catch (err, stack) {
+      Log.critical('layrz_sdk/SimulationCycle/fetch(): General exception => $err\n$stack');
+      onResponse?.call(.internalError);
+      return null;
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// [delete] deletes one or more [SimulationCycle] entries identified by
+  /// [ids] from the server.
+  ///
+  /// Makes an authenticated GraphQL mutation (`deleteSimulationCycles`).
+  /// Authentication is carried solely via the connector's `Authorization`
+  /// header, built from [apiToken]. The mutation returns only `status` and
+  /// `errors` on the wire (no per-item result payload), so the
+  /// [StandardResponse] result slot is a plain `bool`: `true` on success,
+  /// `false` otherwise.
+  ///
+  /// Returns a [StandardResponse] tuple of `(ApiStatus, errors, bool)`: on an
+  /// internal error, `(ApiStatus.internalError, null, false)`; on any other
+  /// non-ok status, `(status, errors, false)`; on success, `(status, errors,
+  /// true)`.
+  static Future<StandardResponse<bool>> delete({
+    /// [ids] are the unique identifiers of the [SimulationCycle] entries to
+    /// delete.
+    required List<String> ids,
+
+    /// [appId] is the app ID the deletion is performed from, or null to use
+    /// the default scope.
+    String? appId,
+
+    /// [apiToken] is the API token to use for authentication. You can get one
+    /// using the `login` mutation on the GraphQL API.
+    required String apiToken,
+
+    /// [uri] is the GraphQL endpoint to use.
+    required Uri uri,
+
+    /// [onResponse] is the callback to call when the response is received.
+    void Function(ApiStatus status)? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+
+    try {
+      final variables = <GqlVariable>[
+        GqlVariable(name: 'ids', type: .list(of: .id), isRequired: true, value: ids),
+      ];
+      if (appId != null) {
+        variables.add(GqlVariable(name: 'appId', type: .id, isRequired: false, value: appId));
+      }
+
+      final response = await connector.mutate(
+        GqlMutation(
+          variables: variables,
+          name: 'deleteSimulationCycles',
+        )..add(
+          GqlField(
+              name: 'deleteSimulationCycles',
+              args: {
+                'ids': 'ids',
+                if (appId != null) 'appId': 'appId',
+              },
+            )
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors')),
+        ),
+      );
+
+      if (response.status == .internalError) {
+        onResponse?.call(response.status);
+        return (ApiStatus.internalError, null, false);
+      }
+
+      if (response.status != .ok) {
+        onResponse?.call(response.status);
+        return (response.status, response.errors, false);
+      }
+
+      return (response.status, response.errors, true);
+    } catch (err, stack) {
+      Log.critical('layrz_sdk/SimulationCycle/delete(): General exception => $err\n$stack');
+      return (ApiStatus.internalError, null, false);
+    }
+  }
+  // coverage:ignore-end
 }
