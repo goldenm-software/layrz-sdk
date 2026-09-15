@@ -333,6 +333,17 @@ abstract class User with _$User {
         GqlField(name: 'parentId'),
         GqlField(name: 'access', fragment: Access.idFragment),
         GqlField(name: 'tagsIds'),
+        GqlField(name: 'mfaEnabled'),
+        GqlField(name: 'hasPaymentWarning'),
+        GqlField(name: 'isLocked'),
+        GqlField(name: 'isSuspended'),
+        GqlField(name: 'planId'),
+        GqlField(
+          name: 'billingPlan',
+          fields: [
+            GqlField(name: 'id'),
+          ],
+        ),
         GqlField(
           name: 'tags',
           fields: [
@@ -416,7 +427,6 @@ abstract class User with _$User {
           GqlField(name: 'sdmCode'),
         ] else if (variant == .brickhouse) ...[
           GqlField(name: 'suspendedAt'),
-          GqlField(name: 'isSuspended'),
           GqlField(name: 'brickhouseRole'),
           GqlField(name: 'brickhousePermissionTierId'),
           GqlField(
