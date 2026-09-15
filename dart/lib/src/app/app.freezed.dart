@@ -304,8 +304,9 @@ mixin _$AvailableApp {
  bool? get hasKeychain;/// [serverFolder] is the server folder of the app.
  String? get serverFolder;/// [s3Folder] is the s3 folder of the app.
  String? get s3Folder;/// [versions] is the list of versions of the app.
- List<AppVersion>? get versions;/// [implementations] is the list of implementations of the app.
- List<RegisteredApp>? get implementations;
+ List<AppVersion>? get versions;/// [implementations] is the list of implementations of the app. Only
+/// populated when fetched via [fetchAll]/[fetch] with `isGoldenm: true`.
+ List<InternalRegisteredApp>? get implementations;
 /// Create a copy of AvailableApp
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -338,7 +339,7 @@ abstract mixin class $AvailableAppCopyWith<$Res>  {
   factory $AvailableAppCopyWith(AvailableApp value, $Res Function(AvailableApp) _then) = _$AvailableAppCopyWithImpl;
 @useResult
 $Res call({
- String id, String name,@JsonKey(unknownEnumValue: AppTechnology.flutter) AppTechnology technology, AppLegal? legalInformation, AppDesign? designInformation, String appId,@JsonKey(unknownEnumValue: AppType.public) AppType appType,@JsonKey(unknownEnumValue: AppPlatform.web) List<AppPlatform>? supportedPlatforms, bool onlyCustomized, bool? hasImport, bool? hasKeychain, String? serverFolder, String? s3Folder, List<AppVersion>? versions, List<RegisteredApp>? implementations
+ String id, String name,@JsonKey(unknownEnumValue: AppTechnology.flutter) AppTechnology technology, AppLegal? legalInformation, AppDesign? designInformation, String appId,@JsonKey(unknownEnumValue: AppType.public) AppType appType,@JsonKey(unknownEnumValue: AppPlatform.web) List<AppPlatform>? supportedPlatforms, bool onlyCustomized, bool? hasImport, bool? hasKeychain, String? serverFolder, String? s3Folder, List<AppVersion>? versions, List<InternalRegisteredApp>? implementations
 });
 
 
@@ -372,7 +373,7 @@ as bool?,serverFolder: freezed == serverFolder ? _self.serverFolder : serverFold
 as String?,s3Folder: freezed == s3Folder ? _self.s3Folder : s3Folder // ignore: cast_nullable_to_non_nullable
 as String?,versions: freezed == versions ? _self.versions : versions // ignore: cast_nullable_to_non_nullable
 as List<AppVersion>?,implementations: freezed == implementations ? _self.implementations : implementations // ignore: cast_nullable_to_non_nullable
-as List<RegisteredApp>?,
+as List<InternalRegisteredApp>?,
   ));
 }
 /// Create a copy of AvailableApp
@@ -481,7 +482,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(unknownEnumValue: AppTechnology.flutter)  AppTechnology technology,  AppLegal? legalInformation,  AppDesign? designInformation,  String appId, @JsonKey(unknownEnumValue: AppType.public)  AppType appType, @JsonKey(unknownEnumValue: AppPlatform.web)  List<AppPlatform>? supportedPlatforms,  bool onlyCustomized,  bool? hasImport,  bool? hasKeychain,  String? serverFolder,  String? s3Folder,  List<AppVersion>? versions,  List<RegisteredApp>? implementations)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(unknownEnumValue: AppTechnology.flutter)  AppTechnology technology,  AppLegal? legalInformation,  AppDesign? designInformation,  String appId, @JsonKey(unknownEnumValue: AppType.public)  AppType appType, @JsonKey(unknownEnumValue: AppPlatform.web)  List<AppPlatform>? supportedPlatforms,  bool onlyCustomized,  bool? hasImport,  bool? hasKeychain,  String? serverFolder,  String? s3Folder,  List<AppVersion>? versions,  List<InternalRegisteredApp>? implementations)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AvailableApp() when $default != null:
 return $default(_that.id,_that.name,_that.technology,_that.legalInformation,_that.designInformation,_that.appId,_that.appType,_that.supportedPlatforms,_that.onlyCustomized,_that.hasImport,_that.hasKeychain,_that.serverFolder,_that.s3Folder,_that.versions,_that.implementations);case _:
@@ -502,7 +503,7 @@ return $default(_that.id,_that.name,_that.technology,_that.legalInformation,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(unknownEnumValue: AppTechnology.flutter)  AppTechnology technology,  AppLegal? legalInformation,  AppDesign? designInformation,  String appId, @JsonKey(unknownEnumValue: AppType.public)  AppType appType, @JsonKey(unknownEnumValue: AppPlatform.web)  List<AppPlatform>? supportedPlatforms,  bool onlyCustomized,  bool? hasImport,  bool? hasKeychain,  String? serverFolder,  String? s3Folder,  List<AppVersion>? versions,  List<RegisteredApp>? implementations)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(unknownEnumValue: AppTechnology.flutter)  AppTechnology technology,  AppLegal? legalInformation,  AppDesign? designInformation,  String appId, @JsonKey(unknownEnumValue: AppType.public)  AppType appType, @JsonKey(unknownEnumValue: AppPlatform.web)  List<AppPlatform>? supportedPlatforms,  bool onlyCustomized,  bool? hasImport,  bool? hasKeychain,  String? serverFolder,  String? s3Folder,  List<AppVersion>? versions,  List<InternalRegisteredApp>? implementations)  $default,) {final _that = this;
 switch (_that) {
 case _AvailableApp():
 return $default(_that.id,_that.name,_that.technology,_that.legalInformation,_that.designInformation,_that.appId,_that.appType,_that.supportedPlatforms,_that.onlyCustomized,_that.hasImport,_that.hasKeychain,_that.serverFolder,_that.s3Folder,_that.versions,_that.implementations);case _:
@@ -522,7 +523,7 @@ return $default(_that.id,_that.name,_that.technology,_that.legalInformation,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name, @JsonKey(unknownEnumValue: AppTechnology.flutter)  AppTechnology technology,  AppLegal? legalInformation,  AppDesign? designInformation,  String appId, @JsonKey(unknownEnumValue: AppType.public)  AppType appType, @JsonKey(unknownEnumValue: AppPlatform.web)  List<AppPlatform>? supportedPlatforms,  bool onlyCustomized,  bool? hasImport,  bool? hasKeychain,  String? serverFolder,  String? s3Folder,  List<AppVersion>? versions,  List<RegisteredApp>? implementations)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name, @JsonKey(unknownEnumValue: AppTechnology.flutter)  AppTechnology technology,  AppLegal? legalInformation,  AppDesign? designInformation,  String appId, @JsonKey(unknownEnumValue: AppType.public)  AppType appType, @JsonKey(unknownEnumValue: AppPlatform.web)  List<AppPlatform>? supportedPlatforms,  bool onlyCustomized,  bool? hasImport,  bool? hasKeychain,  String? serverFolder,  String? s3Folder,  List<AppVersion>? versions,  List<InternalRegisteredApp>? implementations)?  $default,) {final _that = this;
 switch (_that) {
 case _AvailableApp() when $default != null:
 return $default(_that.id,_that.name,_that.technology,_that.legalInformation,_that.designInformation,_that.appId,_that.appType,_that.supportedPlatforms,_that.onlyCustomized,_that.hasImport,_that.hasKeychain,_that.serverFolder,_that.s3Folder,_that.versions,_that.implementations);case _:
@@ -568,8 +569,9 @@ class _AvailableApp extends AvailableApp {
 @override final  String? s3Folder;
 /// [versions] is the list of versions of the app.
 @override final  List<AppVersion>? versions;
-/// [implementations] is the list of implementations of the app.
-@override final  List<RegisteredApp>? implementations;
+/// [implementations] is the list of implementations of the app. Only
+/// populated when fetched via [fetchAll]/[fetch] with `isGoldenm: true`.
+@override final  List<InternalRegisteredApp>? implementations;
 
 /// Create a copy of AvailableApp
 /// with the given fields replaced by the non-null parameter values.
@@ -604,7 +606,7 @@ abstract mixin class _$AvailableAppCopyWith<$Res> implements $AvailableAppCopyWi
   factory _$AvailableAppCopyWith(_AvailableApp value, $Res Function(_AvailableApp) _then) = __$AvailableAppCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name,@JsonKey(unknownEnumValue: AppTechnology.flutter) AppTechnology technology, AppLegal? legalInformation, AppDesign? designInformation, String appId,@JsonKey(unknownEnumValue: AppType.public) AppType appType,@JsonKey(unknownEnumValue: AppPlatform.web) List<AppPlatform>? supportedPlatforms, bool onlyCustomized, bool? hasImport, bool? hasKeychain, String? serverFolder, String? s3Folder, List<AppVersion>? versions, List<RegisteredApp>? implementations
+ String id, String name,@JsonKey(unknownEnumValue: AppTechnology.flutter) AppTechnology technology, AppLegal? legalInformation, AppDesign? designInformation, String appId,@JsonKey(unknownEnumValue: AppType.public) AppType appType,@JsonKey(unknownEnumValue: AppPlatform.web) List<AppPlatform>? supportedPlatforms, bool onlyCustomized, bool? hasImport, bool? hasKeychain, String? serverFolder, String? s3Folder, List<AppVersion>? versions, List<InternalRegisteredApp>? implementations
 });
 
 
@@ -638,7 +640,7 @@ as bool?,serverFolder: freezed == serverFolder ? _self.serverFolder : serverFold
 as String?,s3Folder: freezed == s3Folder ? _self.s3Folder : s3Folder // ignore: cast_nullable_to_non_nullable
 as String?,versions: freezed == versions ? _self.versions : versions // ignore: cast_nullable_to_non_nullable
 as List<AppVersion>?,implementations: freezed == implementations ? _self.implementations : implementations // ignore: cast_nullable_to_non_nullable
-as List<RegisteredApp>?,
+as List<InternalRegisteredApp>?,
   ));
 }
 
@@ -1548,6 +1550,679 @@ as BackgroundMode,
 }
 
 
+}
+
+
+/// @nodoc
+mixin _$InternalAppInstance {
+
+/// The unique identifier of the instance.
+ String get id;/// The unique identifier of the app this instance belongs to.
+ String get appId;/// The host of the instance. Only used when [platform] is
+/// [AppPlatform.web].
+ String? get host;/// The identifier of the app in the store. Only used when [platform]
+/// is not [AppPlatform.web].
+ String? get appIdentifier;/// The platform of the instance.
+@JsonKey(unknownEnumValue: AppPlatform.web) AppPlatform? get platform;
+/// Create a copy of InternalAppInstance
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$InternalAppInstanceCopyWith<InternalAppInstance> get copyWith => _$InternalAppInstanceCopyWithImpl<InternalAppInstance>(this as InternalAppInstance, _$identity);
+
+  /// Serializes this InternalAppInstance to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InternalAppInstance&&(identical(other.id, id) || other.id == id)&&(identical(other.appId, appId) || other.appId == appId)&&(identical(other.host, host) || other.host == host)&&(identical(other.appIdentifier, appIdentifier) || other.appIdentifier == appIdentifier)&&(identical(other.platform, platform) || other.platform == platform));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,appId,host,appIdentifier,platform);
+
+@override
+String toString() {
+  return 'InternalAppInstance(id: $id, appId: $appId, host: $host, appIdentifier: $appIdentifier, platform: $platform)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $InternalAppInstanceCopyWith<$Res>  {
+  factory $InternalAppInstanceCopyWith(InternalAppInstance value, $Res Function(InternalAppInstance) _then) = _$InternalAppInstanceCopyWithImpl;
+@useResult
+$Res call({
+ String id, String appId, String? host, String? appIdentifier,@JsonKey(unknownEnumValue: AppPlatform.web) AppPlatform? platform
+});
+
+
+
+
+}
+/// @nodoc
+class _$InternalAppInstanceCopyWithImpl<$Res>
+    implements $InternalAppInstanceCopyWith<$Res> {
+  _$InternalAppInstanceCopyWithImpl(this._self, this._then);
+
+  final InternalAppInstance _self;
+  final $Res Function(InternalAppInstance) _then;
+
+/// Create a copy of InternalAppInstance
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? appId = null,Object? host = freezed,Object? appIdentifier = freezed,Object? platform = freezed,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,appId: null == appId ? _self.appId : appId // ignore: cast_nullable_to_non_nullable
+as String,host: freezed == host ? _self.host : host // ignore: cast_nullable_to_non_nullable
+as String?,appIdentifier: freezed == appIdentifier ? _self.appIdentifier : appIdentifier // ignore: cast_nullable_to_non_nullable
+as String?,platform: freezed == platform ? _self.platform : platform // ignore: cast_nullable_to_non_nullable
+as AppPlatform?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [InternalAppInstance].
+extension InternalAppInstancePatterns on InternalAppInstance {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _InternalAppInstance value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _InternalAppInstance() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _InternalAppInstance value)  $default,){
+final _that = this;
+switch (_that) {
+case _InternalAppInstance():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _InternalAppInstance value)?  $default,){
+final _that = this;
+switch (_that) {
+case _InternalAppInstance() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String appId,  String? host,  String? appIdentifier, @JsonKey(unknownEnumValue: AppPlatform.web)  AppPlatform? platform)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _InternalAppInstance() when $default != null:
+return $default(_that.id,_that.appId,_that.host,_that.appIdentifier,_that.platform);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String appId,  String? host,  String? appIdentifier, @JsonKey(unknownEnumValue: AppPlatform.web)  AppPlatform? platform)  $default,) {final _that = this;
+switch (_that) {
+case _InternalAppInstance():
+return $default(_that.id,_that.appId,_that.host,_that.appIdentifier,_that.platform);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String appId,  String? host,  String? appIdentifier, @JsonKey(unknownEnumValue: AppPlatform.web)  AppPlatform? platform)?  $default,) {final _that = this;
+switch (_that) {
+case _InternalAppInstance() when $default != null:
+return $default(_that.id,_that.appId,_that.host,_that.appIdentifier,_that.platform);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _InternalAppInstance implements InternalAppInstance {
+  const _InternalAppInstance({required this.id, required this.appId, this.host, this.appIdentifier, @JsonKey(unknownEnumValue: AppPlatform.web) this.platform});
+  factory _InternalAppInstance.fromJson(Map<String, dynamic> json) => _$InternalAppInstanceFromJson(json);
+
+/// The unique identifier of the instance.
+@override final  String id;
+/// The unique identifier of the app this instance belongs to.
+@override final  String appId;
+/// The host of the instance. Only used when [platform] is
+/// [AppPlatform.web].
+@override final  String? host;
+/// The identifier of the app in the store. Only used when [platform]
+/// is not [AppPlatform.web].
+@override final  String? appIdentifier;
+/// The platform of the instance.
+@override@JsonKey(unknownEnumValue: AppPlatform.web) final  AppPlatform? platform;
+
+/// Create a copy of InternalAppInstance
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$InternalAppInstanceCopyWith<_InternalAppInstance> get copyWith => __$InternalAppInstanceCopyWithImpl<_InternalAppInstance>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$InternalAppInstanceToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InternalAppInstance&&(identical(other.id, id) || other.id == id)&&(identical(other.appId, appId) || other.appId == appId)&&(identical(other.host, host) || other.host == host)&&(identical(other.appIdentifier, appIdentifier) || other.appIdentifier == appIdentifier)&&(identical(other.platform, platform) || other.platform == platform));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,appId,host,appIdentifier,platform);
+
+@override
+String toString() {
+  return 'InternalAppInstance(id: $id, appId: $appId, host: $host, appIdentifier: $appIdentifier, platform: $platform)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$InternalAppInstanceCopyWith<$Res> implements $InternalAppInstanceCopyWith<$Res> {
+  factory _$InternalAppInstanceCopyWith(_InternalAppInstance value, $Res Function(_InternalAppInstance) _then) = __$InternalAppInstanceCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, String appId, String? host, String? appIdentifier,@JsonKey(unknownEnumValue: AppPlatform.web) AppPlatform? platform
+});
+
+
+
+
+}
+/// @nodoc
+class __$InternalAppInstanceCopyWithImpl<$Res>
+    implements _$InternalAppInstanceCopyWith<$Res> {
+  __$InternalAppInstanceCopyWithImpl(this._self, this._then);
+
+  final _InternalAppInstance _self;
+  final $Res Function(_InternalAppInstance) _then;
+
+/// Create a copy of InternalAppInstance
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? appId = null,Object? host = freezed,Object? appIdentifier = freezed,Object? platform = freezed,}) {
+  return _then(_InternalAppInstance(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,appId: null == appId ? _self.appId : appId // ignore: cast_nullable_to_non_nullable
+as String,host: freezed == host ? _self.host : host // ignore: cast_nullable_to_non_nullable
+as String?,appIdentifier: freezed == appIdentifier ? _self.appIdentifier : appIdentifier // ignore: cast_nullable_to_non_nullable
+as String?,platform: freezed == platform ? _self.platform : platform // ignore: cast_nullable_to_non_nullable
+as AppPlatform?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$InternalRegisteredApp {
+
+/// The unique identifier of the app.
+ String get id;/// The name of the app. It is a fixed name, not a translation key.
+ String get name;/// The technology of the app.
+@JsonKey(unknownEnumValue: AppTechnology.flutter) AppTechnology get technology;/// The legal information of the app.
+ AppLegal? get legalInformation;/// The design information of the app.
+ AppDesign? get designInformation;/// The user-facing nickname of the app.
+ String? get nickname;/// The identifier of the source this app was created from.
+ String? get sourceId;/// Whether the app has been customized, or null when not applicable.
+ bool? get isCustomized;/// The owner of the app.
+ User? get owner;/// The list of deployed instances of the app, or null when not
+/// requested.
+ List<InternalAppInstance>? get instances;
+/// Create a copy of InternalRegisteredApp
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$InternalRegisteredAppCopyWith<InternalRegisteredApp> get copyWith => _$InternalRegisteredAppCopyWithImpl<InternalRegisteredApp>(this as InternalRegisteredApp, _$identity);
+
+  /// Serializes this InternalRegisteredApp to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InternalRegisteredApp&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.technology, technology) || other.technology == technology)&&(identical(other.legalInformation, legalInformation) || other.legalInformation == legalInformation)&&(identical(other.designInformation, designInformation) || other.designInformation == designInformation)&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.sourceId, sourceId) || other.sourceId == sourceId)&&(identical(other.isCustomized, isCustomized) || other.isCustomized == isCustomized)&&(identical(other.owner, owner) || other.owner == owner)&&const DeepCollectionEquality().equals(other.instances, instances));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,name,technology,legalInformation,designInformation,nickname,sourceId,isCustomized,owner,const DeepCollectionEquality().hash(instances));
+
+@override
+String toString() {
+  return 'InternalRegisteredApp(id: $id, name: $name, technology: $technology, legalInformation: $legalInformation, designInformation: $designInformation, nickname: $nickname, sourceId: $sourceId, isCustomized: $isCustomized, owner: $owner, instances: $instances)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $InternalRegisteredAppCopyWith<$Res>  {
+  factory $InternalRegisteredAppCopyWith(InternalRegisteredApp value, $Res Function(InternalRegisteredApp) _then) = _$InternalRegisteredAppCopyWithImpl;
+@useResult
+$Res call({
+ String id, String name,@JsonKey(unknownEnumValue: AppTechnology.flutter) AppTechnology technology, AppLegal? legalInformation, AppDesign? designInformation, String? nickname, String? sourceId, bool? isCustomized, User? owner, List<InternalAppInstance>? instances
+});
+
+
+$AppLegalCopyWith<$Res>? get legalInformation;$AppDesignCopyWith<$Res>? get designInformation;$UserCopyWith<$Res>? get owner;
+
+}
+/// @nodoc
+class _$InternalRegisteredAppCopyWithImpl<$Res>
+    implements $InternalRegisteredAppCopyWith<$Res> {
+  _$InternalRegisteredAppCopyWithImpl(this._self, this._then);
+
+  final InternalRegisteredApp _self;
+  final $Res Function(InternalRegisteredApp) _then;
+
+/// Create a copy of InternalRegisteredApp
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? technology = null,Object? legalInformation = freezed,Object? designInformation = freezed,Object? nickname = freezed,Object? sourceId = freezed,Object? isCustomized = freezed,Object? owner = freezed,Object? instances = freezed,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,technology: null == technology ? _self.technology : technology // ignore: cast_nullable_to_non_nullable
+as AppTechnology,legalInformation: freezed == legalInformation ? _self.legalInformation : legalInformation // ignore: cast_nullable_to_non_nullable
+as AppLegal?,designInformation: freezed == designInformation ? _self.designInformation : designInformation // ignore: cast_nullable_to_non_nullable
+as AppDesign?,nickname: freezed == nickname ? _self.nickname : nickname // ignore: cast_nullable_to_non_nullable
+as String?,sourceId: freezed == sourceId ? _self.sourceId : sourceId // ignore: cast_nullable_to_non_nullable
+as String?,isCustomized: freezed == isCustomized ? _self.isCustomized : isCustomized // ignore: cast_nullable_to_non_nullable
+as bool?,owner: freezed == owner ? _self.owner : owner // ignore: cast_nullable_to_non_nullable
+as User?,instances: freezed == instances ? _self.instances : instances // ignore: cast_nullable_to_non_nullable
+as List<InternalAppInstance>?,
+  ));
+}
+/// Create a copy of InternalRegisteredApp
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AppLegalCopyWith<$Res>? get legalInformation {
+    if (_self.legalInformation == null) {
+    return null;
+  }
+
+  return $AppLegalCopyWith<$Res>(_self.legalInformation!, (value) {
+    return _then(_self.copyWith(legalInformation: value));
+  });
+}/// Create a copy of InternalRegisteredApp
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AppDesignCopyWith<$Res>? get designInformation {
+    if (_self.designInformation == null) {
+    return null;
+  }
+
+  return $AppDesignCopyWith<$Res>(_self.designInformation!, (value) {
+    return _then(_self.copyWith(designInformation: value));
+  });
+}/// Create a copy of InternalRegisteredApp
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserCopyWith<$Res>? get owner {
+    if (_self.owner == null) {
+    return null;
+  }
+
+  return $UserCopyWith<$Res>(_self.owner!, (value) {
+    return _then(_self.copyWith(owner: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [InternalRegisteredApp].
+extension InternalRegisteredAppPatterns on InternalRegisteredApp {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _InternalRegisteredApp value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _InternalRegisteredApp() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _InternalRegisteredApp value)  $default,){
+final _that = this;
+switch (_that) {
+case _InternalRegisteredApp():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _InternalRegisteredApp value)?  $default,){
+final _that = this;
+switch (_that) {
+case _InternalRegisteredApp() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(unknownEnumValue: AppTechnology.flutter)  AppTechnology technology,  AppLegal? legalInformation,  AppDesign? designInformation,  String? nickname,  String? sourceId,  bool? isCustomized,  User? owner,  List<InternalAppInstance>? instances)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _InternalRegisteredApp() when $default != null:
+return $default(_that.id,_that.name,_that.technology,_that.legalInformation,_that.designInformation,_that.nickname,_that.sourceId,_that.isCustomized,_that.owner,_that.instances);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(unknownEnumValue: AppTechnology.flutter)  AppTechnology technology,  AppLegal? legalInformation,  AppDesign? designInformation,  String? nickname,  String? sourceId,  bool? isCustomized,  User? owner,  List<InternalAppInstance>? instances)  $default,) {final _that = this;
+switch (_that) {
+case _InternalRegisteredApp():
+return $default(_that.id,_that.name,_that.technology,_that.legalInformation,_that.designInformation,_that.nickname,_that.sourceId,_that.isCustomized,_that.owner,_that.instances);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name, @JsonKey(unknownEnumValue: AppTechnology.flutter)  AppTechnology technology,  AppLegal? legalInformation,  AppDesign? designInformation,  String? nickname,  String? sourceId,  bool? isCustomized,  User? owner,  List<InternalAppInstance>? instances)?  $default,) {final _that = this;
+switch (_that) {
+case _InternalRegisteredApp() when $default != null:
+return $default(_that.id,_that.name,_that.technology,_that.legalInformation,_that.designInformation,_that.nickname,_that.sourceId,_that.isCustomized,_that.owner,_that.instances);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _InternalRegisteredApp implements InternalRegisteredApp {
+  const _InternalRegisteredApp({required this.id, required this.name, @JsonKey(unknownEnumValue: AppTechnology.flutter) this.technology = AppTechnology.flutter, this.legalInformation, this.designInformation, this.nickname, this.sourceId, this.isCustomized, this.owner, this.instances});
+  factory _InternalRegisteredApp.fromJson(Map<String, dynamic> json) => _$InternalRegisteredAppFromJson(json);
+
+/// The unique identifier of the app.
+@override final  String id;
+/// The name of the app. It is a fixed name, not a translation key.
+@override final  String name;
+/// The technology of the app.
+@override@JsonKey(unknownEnumValue: AppTechnology.flutter) final  AppTechnology technology;
+/// The legal information of the app.
+@override final  AppLegal? legalInformation;
+/// The design information of the app.
+@override final  AppDesign? designInformation;
+/// The user-facing nickname of the app.
+@override final  String? nickname;
+/// The identifier of the source this app was created from.
+@override final  String? sourceId;
+/// Whether the app has been customized, or null when not applicable.
+@override final  bool? isCustomized;
+/// The owner of the app.
+@override final  User? owner;
+/// The list of deployed instances of the app, or null when not
+/// requested.
+@override final  List<InternalAppInstance>? instances;
+
+/// Create a copy of InternalRegisteredApp
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$InternalRegisteredAppCopyWith<_InternalRegisteredApp> get copyWith => __$InternalRegisteredAppCopyWithImpl<_InternalRegisteredApp>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$InternalRegisteredAppToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InternalRegisteredApp&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.technology, technology) || other.technology == technology)&&(identical(other.legalInformation, legalInformation) || other.legalInformation == legalInformation)&&(identical(other.designInformation, designInformation) || other.designInformation == designInformation)&&(identical(other.nickname, nickname) || other.nickname == nickname)&&(identical(other.sourceId, sourceId) || other.sourceId == sourceId)&&(identical(other.isCustomized, isCustomized) || other.isCustomized == isCustomized)&&(identical(other.owner, owner) || other.owner == owner)&&const DeepCollectionEquality().equals(other.instances, instances));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,name,technology,legalInformation,designInformation,nickname,sourceId,isCustomized,owner,const DeepCollectionEquality().hash(instances));
+
+@override
+String toString() {
+  return 'InternalRegisteredApp(id: $id, name: $name, technology: $technology, legalInformation: $legalInformation, designInformation: $designInformation, nickname: $nickname, sourceId: $sourceId, isCustomized: $isCustomized, owner: $owner, instances: $instances)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$InternalRegisteredAppCopyWith<$Res> implements $InternalRegisteredAppCopyWith<$Res> {
+  factory _$InternalRegisteredAppCopyWith(_InternalRegisteredApp value, $Res Function(_InternalRegisteredApp) _then) = __$InternalRegisteredAppCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, String name,@JsonKey(unknownEnumValue: AppTechnology.flutter) AppTechnology technology, AppLegal? legalInformation, AppDesign? designInformation, String? nickname, String? sourceId, bool? isCustomized, User? owner, List<InternalAppInstance>? instances
+});
+
+
+@override $AppLegalCopyWith<$Res>? get legalInformation;@override $AppDesignCopyWith<$Res>? get designInformation;@override $UserCopyWith<$Res>? get owner;
+
+}
+/// @nodoc
+class __$InternalRegisteredAppCopyWithImpl<$Res>
+    implements _$InternalRegisteredAppCopyWith<$Res> {
+  __$InternalRegisteredAppCopyWithImpl(this._self, this._then);
+
+  final _InternalRegisteredApp _self;
+  final $Res Function(_InternalRegisteredApp) _then;
+
+/// Create a copy of InternalRegisteredApp
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? technology = null,Object? legalInformation = freezed,Object? designInformation = freezed,Object? nickname = freezed,Object? sourceId = freezed,Object? isCustomized = freezed,Object? owner = freezed,Object? instances = freezed,}) {
+  return _then(_InternalRegisteredApp(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,technology: null == technology ? _self.technology : technology // ignore: cast_nullable_to_non_nullable
+as AppTechnology,legalInformation: freezed == legalInformation ? _self.legalInformation : legalInformation // ignore: cast_nullable_to_non_nullable
+as AppLegal?,designInformation: freezed == designInformation ? _self.designInformation : designInformation // ignore: cast_nullable_to_non_nullable
+as AppDesign?,nickname: freezed == nickname ? _self.nickname : nickname // ignore: cast_nullable_to_non_nullable
+as String?,sourceId: freezed == sourceId ? _self.sourceId : sourceId // ignore: cast_nullable_to_non_nullable
+as String?,isCustomized: freezed == isCustomized ? _self.isCustomized : isCustomized // ignore: cast_nullable_to_non_nullable
+as bool?,owner: freezed == owner ? _self.owner : owner // ignore: cast_nullable_to_non_nullable
+as User?,instances: freezed == instances ? _self.instances : instances // ignore: cast_nullable_to_non_nullable
+as List<InternalAppInstance>?,
+  ));
+}
+
+/// Create a copy of InternalRegisteredApp
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AppLegalCopyWith<$Res>? get legalInformation {
+    if (_self.legalInformation == null) {
+    return null;
+  }
+
+  return $AppLegalCopyWith<$Res>(_self.legalInformation!, (value) {
+    return _then(_self.copyWith(legalInformation: value));
+  });
+}/// Create a copy of InternalRegisteredApp
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AppDesignCopyWith<$Res>? get designInformation {
+    if (_self.designInformation == null) {
+    return null;
+  }
+
+  return $AppDesignCopyWith<$Res>(_self.designInformation!, (value) {
+    return _then(_self.copyWith(designInformation: value));
+  });
+}/// Create a copy of InternalRegisteredApp
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserCopyWith<$Res>? get owner {
+    if (_self.owner == null) {
+    return null;
+  }
+
+  return $UserCopyWith<$Res>(_self.owner!, (value) {
+    return _then(_self.copyWith(owner: value));
+  });
+}
 }
 
 

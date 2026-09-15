@@ -54,8 +54,9 @@ abstract class AvailableApp with _$AvailableApp {
     /// [versions] is the list of versions of the app.
     List<AppVersion>? versions,
 
-    /// [implementations] is the list of implementations of the app.
-    List<RegisteredApp>? implementations,
+    /// [implementations] is the list of implementations of the app. Only
+    /// populated when fetched via [fetchAll]/[fetch] with `isGoldenm: true`.
+    List<InternalRegisteredApp>? implementations,
   }) = _AvailableApp;
 
   /// Deserializes an [AvailableApp] from a JSON map.
@@ -85,6 +86,36 @@ abstract class AvailableApp with _$AvailableApp {
   // coverage:ignore-end
 
   // coverage:ignore-start
+  /// GraphQL fragment definition for querying available-app fields in the
+  /// goldenm/admin context, via the `internalAvailableApps` query.
+  ///
+  /// Extends [fragment] with [versions] and [implementations], which are
+  /// only exposed on the `InternalAvailableApp`-shaped response and would be
+  /// invalid to select against the plain `availableApps` query.
+  static GqlFragment get goldenmFragment =>
+      GqlFragment(name: 'internalAvailableAppFragment', onType: 'AvailableApp')
+        ..add(GqlField(name: 'id'))
+        ..add(GqlField(name: 'name'))
+        ..add(GqlField(name: 'appId'))
+        ..add(GqlField(name: 'appType'))
+        ..add(GqlField(name: 'technology'))
+        ..add(GqlField(name: 'onlyCustomized'))
+        ..add(GqlField(name: 'supportedPlatforms'))
+        ..add(GqlField(name: 'supportedCustomizationPlatforms'))
+        ..add(GqlField(name: 'hasImport'))
+        ..add(GqlField(name: 'hasKeychain'))
+        ..add(GqlField(name: 'canMapLayers'))
+        ..add(GqlField(name: 'legalInformation', fragment: AppLegal.fragment))
+        ..add(
+          GqlField(name: 'designInformation', fragment: AppDesign.fragment),
+        )
+        ..add(GqlField(name: 'versions', fragment: AppVersion.fragment))
+        ..add(
+          GqlField(name: 'implementations', fragment: InternalRegisteredApp.fragment),
+        );
+  // coverage:ignore-end
+
+  // coverage:ignore-start
   /// Fetches all available apps from the server.
   ///
   /// Makes an authenticated GraphQL query (`availableApps`) to retrieve
@@ -93,6 +124,12 @@ abstract class AvailableApp with _$AvailableApp {
   ///
   /// Optional callback invoked with the [ApiStatus] of the response. Called
   /// once per invocation, regardless of success or failure.
+  ///
+  /// When [isGoldenm] is `true`, queries `internalAvailableApps` instead of
+  /// `availableApps` (goldenm/admin context) using [goldenmFragment], which
+  /// additionally populates [versions] and [implementations].
+  /// [internalIdentifier] is then required, since the underlying query
+  /// filters by it; an [ArgumentError] is thrown when it is missing.
   ///
   /// Returns an empty list on any error (network failure, authentication
   /// failure, or server error). Errors are logged internally.
@@ -105,18 +142,52 @@ abstract class AvailableApp with _$AvailableApp {
     /// `https://api.example.com/graphql`).
     required Uri uri,
 
+    /// Whether to query `internalAvailableApps` (goldenm/admin context)
+    /// instead of the customer/public `availableApps` query. When `true`,
+    /// [internalIdentifier] is required.
+    bool isGoldenm = false,
+
+    /// The internal identifier to filter by when [isGoldenm] is `true`.
+    /// Required in that case; ignored otherwise.
+    AppInternalIdentifier? internalIdentifier,
+
     /// Optional callback invoked with the status code of the response. Called
     /// once per invocation, regardless of success or failure.
     void Function(String statusCode)? onResponse,
   }) async {
+    if (isGoldenm && internalIdentifier == null) {
+      throw ArgumentError.notNull('internalIdentifier');
+    }
+
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    final queryName = isGoldenm ? 'internalAvailableApps' : 'availableApps';
     try {
       final response = await connector.query(
-        GqlQuery(name: 'availableApps')..add(
-          GqlField(name: 'availableApps', args: {})
+        GqlQuery(
+          name: queryName,
+          variables: isGoldenm
+              ? [
+                  GqlVariable(
+                    name: 'internalIdentifier',
+                    type: .enum_(of: 'InternalIdentifier'),
+                    isRequired: true,
+                    value: internalIdentifier!.toJson(),
+                  ),
+                ]
+              : [],
+        )..add(
+          GqlField(
+            name: queryName,
+            args: isGoldenm ? {'internalIdentifier': 'internalIdentifier'} : {},
+          )
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
-            ..add(GqlField(name: 'result', fragment: fragment)),
+            ..add(
+              GqlField(
+                name: 'result',
+                fragment: isGoldenm ? goldenmFragment : fragment,
+              ),
+            ),
         ),
         _availableAppListDecoder,
       );
@@ -148,6 +219,12 @@ abstract class AvailableApp with _$AvailableApp {
   /// Optional callback invoked with the [ApiStatus] of the response. Called
   /// once per invocation, regardless of success or failure.
   ///
+  /// When [isGoldenm] is `true`, queries `internalAvailableApps` instead of
+  /// `availableApps` (goldenm/admin context) using [goldenmFragment], which
+  /// additionally populates [versions] and [implementations].
+  /// [internalIdentifier] is then required, since the underlying query
+  /// filters by it; an [ArgumentError] is thrown when it is missing.
+  ///
   /// Returns `null` on any error (network failure, authentication failure,
   /// server error, or no matching app). Errors are logged internally.
   static Future<AvailableApp?> fetch({
@@ -162,23 +239,55 @@ abstract class AvailableApp with _$AvailableApp {
     /// `https://api.example.com/graphql`).
     required Uri uri,
 
+    /// Whether to query `internalAvailableApps` (goldenm/admin context)
+    /// instead of the customer/public `availableApps` query. When `true`,
+    /// [internalIdentifier] is required.
+    bool isGoldenm = false,
+
+    /// The internal identifier to filter by when [isGoldenm] is `true`.
+    /// Required in that case; ignored otherwise.
+    AppInternalIdentifier? internalIdentifier,
+
     /// Optional callback invoked with the status code of the response. Called
     /// once per invocation, regardless of success or failure.
     void Function(String statusCode)? onResponse,
   }) async {
+    if (isGoldenm && internalIdentifier == null) {
+      throw ArgumentError.notNull('internalIdentifier');
+    }
+
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    final queryName = isGoldenm ? 'internalAvailableApps' : 'availableApps';
     try {
       final response = await connector.query(
         GqlQuery(
           variables: [
             GqlVariable(name: 'id', type: .id, isRequired: true, value: id),
+            if (isGoldenm)
+              GqlVariable(
+                name: 'internalIdentifier',
+                type: .enum_(of: 'InternalIdentifier'),
+                isRequired: true,
+                value: internalIdentifier!.toJson(),
+              ),
           ],
-          name: 'availableApps',
+          name: queryName,
         )..add(
-          GqlField(name: 'availableApps', args: {'id': 'id'})
+          GqlField(
+            name: queryName,
+            args: {
+              'id': 'id',
+              if (isGoldenm) 'internalIdentifier': 'internalIdentifier',
+            },
+          )
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
-            ..add(GqlField(name: 'result', fragment: fragment)),
+            ..add(
+              GqlField(
+                name: 'result',
+                fragment: isGoldenm ? goldenmFragment : fragment,
+              ),
+            ),
         ),
         (json) {
           final resultList = json as List<dynamic>?;

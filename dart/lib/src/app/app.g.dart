@@ -61,7 +61,7 @@ _AvailableApp _$AvailableAppFromJson(
       ?.map((e) => AppVersion.fromJson(e as Map<String, dynamic>))
       .toList(),
   implementations: (json['implementations'] as List<dynamic>?)
-      ?.map((e) => RegisteredApp.fromJson(e as Map<String, dynamic>))
+      ?.map((e) => InternalRegisteredApp.fromJson(e as Map<String, dynamic>))
       .toList(),
 );
 
@@ -204,6 +204,73 @@ Map<String, dynamic> _$AppBackgroundDesignInputToJson(
   'image': instance.image,
   'color': const ColorOrNullConverter().toJson(instance.color),
   'mode': instance.mode.toJson(),
+};
+
+_InternalAppInstance _$InternalAppInstanceFromJson(Map<String, dynamic> json) =>
+    _InternalAppInstance(
+      id: json['id'] as String,
+      appId: json['appId'] as String,
+      host: json['host'] as String?,
+      appIdentifier: json['appIdentifier'] as String?,
+      platform: $enumDecodeNullable(
+        _$AppPlatformEnumMap,
+        json['platform'],
+        unknownValue: AppPlatform.web,
+      ),
+    );
+
+Map<String, dynamic> _$InternalAppInstanceToJson(
+  _InternalAppInstance instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'appId': instance.appId,
+  'host': instance.host,
+  'appIdentifier': instance.appIdentifier,
+  'platform': instance.platform?.toJson(),
+};
+
+_InternalRegisteredApp _$InternalRegisteredAppFromJson(
+  Map<String, dynamic> json,
+) => _InternalRegisteredApp(
+  id: json['id'] as String,
+  name: json['name'] as String,
+  technology:
+      $enumDecodeNullable(
+        _$AppTechnologyEnumMap,
+        json['technology'],
+        unknownValue: AppTechnology.flutter,
+      ) ??
+      AppTechnology.flutter,
+  legalInformation: json['legalInformation'] == null
+      ? null
+      : AppLegal.fromJson(json['legalInformation'] as Map<String, dynamic>),
+  designInformation: json['designInformation'] == null
+      ? null
+      : AppDesign.fromJson(json['designInformation'] as Map<String, dynamic>),
+  nickname: json['nickname'] as String?,
+  sourceId: json['sourceId'] as String?,
+  isCustomized: json['isCustomized'] as bool?,
+  owner: json['owner'] == null
+      ? null
+      : User.fromJson(json['owner'] as Map<String, dynamic>),
+  instances: (json['instances'] as List<dynamic>?)
+      ?.map((e) => InternalAppInstance.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
+
+Map<String, dynamic> _$InternalRegisteredAppToJson(
+  _InternalRegisteredApp instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'technology': instance.technology.toJson(),
+  'legalInformation': instance.legalInformation?.toJson(),
+  'designInformation': instance.designInformation?.toJson(),
+  'nickname': instance.nickname,
+  'sourceId': instance.sourceId,
+  'isCustomized': instance.isCustomized,
+  'owner': instance.owner?.toJson(),
+  'instances': instance.instances?.map((e) => e.toJson()).toList(),
 };
 
 _PushDevice _$PushDeviceFromJson(Map<String, dynamic> json) => _PushDevice(

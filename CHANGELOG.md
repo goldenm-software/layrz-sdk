@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.5.0+7
+
+### Dart
+* Add an `isGoldenm` flag to `AvailableApp.fetchAll`/`fetch` that queries `internalAvailableApps` (with a caller-supplied `internalIdentifier`) and populates `versions` and `implementations`.
+* Add the `InternalRegisteredApp` and `InternalAppInstance` models and an `AppVersion` fragment; retype `AvailableApp.implementations` to `List<InternalRegisteredApp>`.
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
 ## 4.5.0+6
 
 ### Dart
