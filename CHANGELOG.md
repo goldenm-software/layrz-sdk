@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.5.1
+
+### Dart
+
+* Restore the `deprecateInstance`, `migrateInstance`, and `requestInstance` static methods on `AppInstance`, which were dropped during the `layrz_models` migration; each performs its GraphQL mutation and returns `true` on `ApiStatus.ok`.
+* Add an optional `second` field to `TimeOfDay` (defaults to `0`); `TimeOfDay.fromDateTime` now preserves `dateTime.second`, and the JSON serialization round-trips it.
+* Select `planId` in the remaining `User` fragment variant that was still missing it.
+
+### Python
+
+* No changes in this release.
+
+### Go
+
+* No changes in this release.
+
 ## 4.5.0+9
 
 ### Dart
