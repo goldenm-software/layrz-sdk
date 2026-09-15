@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.5.0+6
+
+### Dart
+* Fix the `ModelInput` create and edit mutations to pass the required `data` argument (`addModel`/`editModel` were missing `args: {'data': 'data'}`, so saving a `Model` failed with a GraphQL "argument data is required" error).
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
 ## 4.5.0+5
 
 ### Dart

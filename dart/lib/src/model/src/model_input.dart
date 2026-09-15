@@ -85,7 +85,6 @@ abstract class ModelInput with _$ModelInput {
     try {
       final response = await connector.mutate(
         GqlMutation(
-          name: operation,
           variables: [
             GqlVariable(
               name: 'data',
@@ -94,16 +93,12 @@ abstract class ModelInput with _$ModelInput {
               isRequired: true,
             ),
           ],
-          fields: [
-            GqlField(
-              name: operation,
-              fields: [
-                GqlField(name: 'status'),
-                GqlField(name: 'errors'),
-                GqlField(name: 'result', fragment: Model.fragment),
-              ],
-            ),
-          ],
+          name: operation,
+        )..add(
+          GqlField(name: operation, args: {'data': 'data'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(GqlField(name: 'result', fragment: Model.fragment)),
         ),
         _modelDecoder,
       );
