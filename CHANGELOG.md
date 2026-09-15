@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.5.0+3
+
+### Dart
+* Added the `flespi` module (`FlespiProtocol`, `FlespiChannel`, `FlespiModel`) with `fetchAll`/`fromFlespi` GraphQL callers, moved from `layrz_models`.
+* Added `ModelInput` and `ZigbeeParameterInput` to the `model` module, moved from `layrz_models`.
+* Added `CommandDefinitionInput` and `CommandPayloadDefinitionInput` to the `commands` module, moved from `layrz_models`.
+* Added `ConfigGroupingInput` and `ConfigDefinitionInput` to the `inbound` module, moved from `layrz_models`.
+* Added `ConfIoTFile` and `ConfIoTNamespace` (with supporting converters) to the `inbound` module, moved from `layrz_models`.
+* Added the report preview types (`ReportPreview`, `ReportPage`, `ReportRow`, `ReportHeader`, `ReportCell`, `ReportDataType`) to the `report_template` module, moved from `layrz_models`.
+* All moved types were relocated so Flutter components can drop their `layrz_models` dependency.
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
 ## 4.5.0+2
 
 ### Dart
