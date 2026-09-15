@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.5.0+2
+
+### Dart
+* Added the `VisionProtocol` write path: `VisionProtocolInput.save` (with `addVisionProtocol`/`editVisionProtocol` GraphQL callers) plus `VisionProtocol.fragment`, `VisionProtocol.fetchAll` and `VisionProtocol.fetch`.
+* Added the `account_launcher` module with `GeneratorTemplateInput` and `BusTemplateInput`.
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
 ## 4.5.0+1
 
 ### Dart
