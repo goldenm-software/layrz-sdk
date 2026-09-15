@@ -127,9 +127,9 @@ abstract class AvailableApp with _$AvailableApp {
   ///
   /// When [isGoldenm] is `true`, queries `internalAvailableApps` instead of
   /// `availableApps` (goldenm/admin context) using [goldenmFragment], which
-  /// additionally populates [versions] and [implementations].
-  /// [internalIdentifier] is then required, since the underlying query
-  /// filters by it; an [ArgumentError] is thrown when it is missing.
+  /// additionally populates [versions] and [implementations]. [internalIdentifier]
+  /// is optional in both contexts: when provided, it is sent as an additional
+  /// filter argument on the query; when omitted, the query runs without it.
   ///
   /// Returns an empty list on any error (network failure, authentication
   /// failure, or server error). Errors are logged internally.
@@ -143,42 +143,37 @@ abstract class AvailableApp with _$AvailableApp {
     required Uri uri,
 
     /// Whether to query `internalAvailableApps` (goldenm/admin context)
-    /// instead of the customer/public `availableApps` query. When `true`,
-    /// [internalIdentifier] is required.
+    /// instead of the customer/public `availableApps` query.
     bool isGoldenm = false,
 
-    /// The internal identifier to filter by when [isGoldenm] is `true`.
-    /// Required in that case; ignored otherwise.
+    /// The internal identifier to filter by, when provided. Optional in both
+    /// contexts: when `null`, the query runs without this filter argument.
     AppInternalIdentifier? internalIdentifier,
 
     /// Optional callback invoked with the status code of the response. Called
     /// once per invocation, regardless of success or failure.
     void Function(String statusCode)? onResponse,
   }) async {
-    if (isGoldenm && internalIdentifier == null) {
-      throw ArgumentError.notNull('internalIdentifier');
-    }
-
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
     final queryName = isGoldenm ? 'internalAvailableApps' : 'availableApps';
     try {
       final response = await connector.query(
         GqlQuery(
           name: queryName,
-          variables: isGoldenm
-              ? [
-                  GqlVariable(
-                    name: 'internalIdentifier',
-                    type: .enum_(of: 'InternalIdentifier'),
-                    isRequired: true,
-                    value: internalIdentifier!.toJson(),
-                  ),
-                ]
-              : [],
+          variables: [
+            if (internalIdentifier != null)
+              GqlVariable(
+                name: 'internalIdentifier',
+                type: .enum_(of: 'InternalIdentifier'),
+                value: internalIdentifier.toJson(),
+              ),
+          ],
         )..add(
           GqlField(
             name: queryName,
-            args: isGoldenm ? {'internalIdentifier': 'internalIdentifier'} : {},
+            args: {
+              if (internalIdentifier != null) 'internalIdentifier': 'internalIdentifier',
+            },
           )
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
@@ -221,9 +216,9 @@ abstract class AvailableApp with _$AvailableApp {
   ///
   /// When [isGoldenm] is `true`, queries `internalAvailableApps` instead of
   /// `availableApps` (goldenm/admin context) using [goldenmFragment], which
-  /// additionally populates [versions] and [implementations].
-  /// [internalIdentifier] is then required, since the underlying query
-  /// filters by it; an [ArgumentError] is thrown when it is missing.
+  /// additionally populates [versions] and [implementations]. [internalIdentifier]
+  /// is optional in both contexts: when provided, it is sent as an additional
+  /// filter argument on the query; when omitted, the query runs without it.
   ///
   /// Returns `null` on any error (network failure, authentication failure,
   /// server error, or no matching app). Errors are logged internally.
@@ -240,22 +235,17 @@ abstract class AvailableApp with _$AvailableApp {
     required Uri uri,
 
     /// Whether to query `internalAvailableApps` (goldenm/admin context)
-    /// instead of the customer/public `availableApps` query. When `true`,
-    /// [internalIdentifier] is required.
+    /// instead of the customer/public `availableApps` query.
     bool isGoldenm = false,
 
-    /// The internal identifier to filter by when [isGoldenm] is `true`.
-    /// Required in that case; ignored otherwise.
+    /// The internal identifier to filter by, when provided. Optional in both
+    /// contexts: when `null`, the query runs without this filter argument.
     AppInternalIdentifier? internalIdentifier,
 
     /// Optional callback invoked with the status code of the response. Called
     /// once per invocation, regardless of success or failure.
     void Function(String statusCode)? onResponse,
   }) async {
-    if (isGoldenm && internalIdentifier == null) {
-      throw ArgumentError.notNull('internalIdentifier');
-    }
-
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
     final queryName = isGoldenm ? 'internalAvailableApps' : 'availableApps';
     try {
@@ -263,12 +253,11 @@ abstract class AvailableApp with _$AvailableApp {
         GqlQuery(
           variables: [
             GqlVariable(name: 'id', type: .id, isRequired: true, value: id),
-            if (isGoldenm)
+            if (internalIdentifier != null)
               GqlVariable(
                 name: 'internalIdentifier',
                 type: .enum_(of: 'InternalIdentifier'),
-                isRequired: true,
-                value: internalIdentifier!.toJson(),
+                value: internalIdentifier.toJson(),
               ),
           ],
           name: queryName,
@@ -277,7 +266,7 @@ abstract class AvailableApp with _$AvailableApp {
             name: queryName,
             args: {
               'id': 'id',
-              if (isGoldenm) 'internalIdentifier': 'internalIdentifier',
+              if (internalIdentifier != null) 'internalIdentifier': 'internalIdentifier',
             },
           )
             ..add(GqlField(name: 'status'))

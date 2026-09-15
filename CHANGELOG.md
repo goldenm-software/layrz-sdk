@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.5.0+8
+
+### Dart
+
+* Make `internalIdentifier` optional on `AvailableApp.fetchAll`/`fetch` when `isGoldenm` is true (the `internalAvailableApps` query does not require it); it is now an optional filter rather than a required argument.
+
+### Python
+
+* No changes in this release.
+
+### Go
+
+* No changes in this release.
+
 ## 4.5.0+7
 
 ### Dart
