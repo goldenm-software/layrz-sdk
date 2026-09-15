@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.5.0+9
+
+### Dart
+
+* Add `MapLayerInput` with a `save` method (`addMapLayer`/`editMapLayer`) to the map module, so map layers can be created and edited through the SDK.
+
+### Python
+
+* No changes in this release.
+
+### Go
+
+* No changes in this release.
+
 ## 4.5.0+8
 
 ### Dart

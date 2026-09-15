@@ -303,3 +303,9 @@ List<MapLayer> _mapLayerListDecoder(Object? json) {
     (json as List? ?? []).map((e) => MapLayer.fromJson(Map<String, dynamic>.from(e as Map))),
   );
 }
+
+/// Decodes a single-object `result` payload into a [MapLayer].
+/// Used by [MapLayerInput.save].
+MapLayer _mapLayerDecoder(Object? json) {
+  return MapLayer.fromJson(Map<String, dynamic>.from(json as Map));
+}
