@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.5.0+5
+
+### Dart
+* Fetch the nested `protocol` object in the `Model` fragment so `model.protocol` is populated on `fetchAll` (id, name, color, isEnabled, operationMode, confiotCapable, dynamicIcon).
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
 ## 4.5.0+4
 
 ### Dart

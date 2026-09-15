@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart' show ValueChanged;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:layrz_logging/layrz_logging.dart';
 import 'package:layrz_sdk/src/api/api.dart';
+import 'package:layrz_sdk/src/avatar/avatar.dart';
 import 'package:layrz_sdk/src/commands/commands.dart';
 import 'package:layrz_sdk/src/converters/converters.dart';
 import 'package:layrz_sdk/src/icons/icons.dart';
