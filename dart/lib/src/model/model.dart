@@ -8,6 +8,7 @@
 library;
 
 import 'package:collection/collection.dart';
+import 'package:flutter/widgets.dart' show ValueChanged;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:layrz_logging/layrz_logging.dart';
 import 'package:layrz_sdk/src/api/api.dart';
@@ -25,5 +26,7 @@ part 'src/widget.dart';
 part 'src/firmware_build.dart';
 part 'src/firmware_branch.dart';
 part 'src/zigbee_parameter.dart';
+part 'src/zigbee_parameter_input.dart';
 part 'src/hw_model.dart';
 part 'src/hw_model_input.dart';
+part 'src/model_input.dart';

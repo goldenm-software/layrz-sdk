@@ -8,7 +8,9 @@
 library;
 
 import 'package:collection/collection.dart';
+import 'package:flutter/widgets.dart' show ValueChanged;
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:layrz_logging/layrz_logging.dart';
 import 'package:layrz_sdk/src/api/api.dart';
 import 'package:layrz_sdk/src/converters/converters.dart';
 
@@ -16,6 +18,9 @@ part 'commands.freezed.dart';
 part 'commands.g.dart';
 
 part 'src/command_definition.dart';
+part 'src/command_definition_input.dart';
 part 'src/command_definition_source.dart';
 part 'src/command_payload_definition.dart';
+part 'src/command_payload_definition_input.dart';
 part 'src/command_payload_data_type.dart';
+part 'src/decoders.dart';

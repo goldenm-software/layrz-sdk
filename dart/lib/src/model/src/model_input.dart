@@ -1,0 +1,130 @@
+part of '../model.dart';
+
+/// Mutable input data for creating or updating a [Model].
+///
+/// [ModelInput] mirrors the identifying fields of [Model] but is mutable and
+/// provides sensible defaults, making it suitable for form binding before
+/// submission via [save]. When [id] is null, [save] creates a new model;
+/// otherwise it updates the existing one.
+@unfreezed
+abstract class ModelInput with _$ModelInput {
+  /// Private constructor used by the code generator.
+  const ModelInput._();
+
+  /// [ModelInput] is the model of a device. It contains the information about the model of the device.
+  /// Does not contain information of connectivity or related, only the model information like the name, the
+  /// protocol and if is generic or not.
+  factory ModelInput({
+    /// [id] is the unique identifier of the model.
+    String? id,
+
+    /// [name] is the name of the model.
+    @Default('') String name,
+
+    /// [flespiId] is the ID of the device in the flespi platform.
+    /// Can be null if the model is not connected to a device or is a in-house protocol.
+    String? flespiId,
+
+    /// [protocolId] is the ID of the protocol
+    String? protocolId,
+
+    /// [isGeneric] is true if the model is generic. Only can be 1 generic model per protocol.
+    @Default(false) bool isGeneric,
+
+    /// [commandsStructure] is the structure of the commands for the protocol.
+    @Default([]) List<CommandDefinitionInput> commandsStructure,
+
+    /// [configStructure] is the structure of the configuration for the protocol.
+    @Default([]) List<ConfigGroupingInput> configStructure,
+
+    /// [confiotCapable] is the boolean that indicates if the protocol is capable of using the Confiot platform.
+    @Default(false) bool confiotCapable,
+
+    /// [confiotLayout] defines what kind of layout should be displayed in ConfIoT.
+    @JsonKey(unknownEnumValue: ConfIoTLayout.standard) @Default(ConfIoTLayout.standard) ConfIoTLayout confiotLayout,
+
+    /// [confiotName] is the name of the model in the ConfIoT.
+    String? confiotName,
+
+    /// [peripheralIdentifier] is the identifier of the peripheral device.
+    String? peripheralIdentifier,
+
+    /// [peripheralParserSpec] is the parser specification for the peripheral device.
+    Map<String, dynamic>? peripheralParserSpec,
+
+    /// [widget] is the list of render widgets for this model.
+    @JsonKey(name: 'widgetRender', unknownEnumValue: RenderWidget.unknown) @Default([]) List<RenderWidget> widget,
+
+    /// Whether the model is Zigbee-capable. Only meaningful for REALTIME protocols.
+    @Default(false) bool zigbeeCompatible,
+
+    /// [zigbeeParameters] list of Zigbee parameters defined for this model.
+    @Default([]) List<ZigbeeParameterInput> zigbeeParameters,
+  }) = _ModelInput;
+
+  /// Deserializes a [ModelInput] from a JSON map.
+  factory ModelInput.fromJson(Map<String, dynamic> json) => _$ModelInputFromJson(json);
+
+  // coverage:ignore-start
+  /// Creates or updates this model on the server.
+  ///
+  /// Sends `addModel` when [id] is null, or `editModel` when [id] is set,
+  /// both with this input serialized as the `ModelInput` GraphQL input type.
+  Future<StandardResponse<Model>> save({
+    /// [uri] is the URI of the API endpoint.
+    required Uri uri,
+
+    /// [apiToken] is the API token to authenticate the request.
+    required String apiToken,
+
+    /// [onResponse] is the callback function that will be called when the response is received.
+    ValueChanged<ApiStatus>? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    final operation = id == null ? 'addModel' : 'editModel';
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          name: operation,
+          variables: [
+            GqlVariable(
+              name: 'data',
+              type: GqlVariableType.input(of: 'ModelInput'),
+              value: toJson(),
+              isRequired: true,
+            ),
+          ],
+          fields: [
+            GqlField(
+              name: operation,
+              fields: [
+                GqlField(name: 'status'),
+                GqlField(name: 'errors'),
+                GqlField(name: 'result', fragment: Model.fragment),
+              ],
+            ),
+          ],
+        ),
+        _modelDecoder,
+      );
+
+      if (response.status != .ok) {
+        onResponse?.call(response.status);
+        return (response.status, response.errors, null);
+      }
+
+      return (response.status, response.errors, response.result);
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/ModelInput/save(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return (ApiStatus.internalError, null, null);
+    }
+  }
+  // coverage:ignore-end
+}
+
+/// [_modelDecoder] decodes a single-object `result` payload into a [Model].
+/// Used by result-bearing mutations (add/edit-style).
+Model _modelDecoder(Object? json) {
+  return Model.fromJson(Map<String, dynamic>.from(json as Map));
+}

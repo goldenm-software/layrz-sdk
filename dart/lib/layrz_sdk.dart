@@ -13,6 +13,7 @@
 /// - [credential_fields] — Credential field structure definitions for inbound protocols.
 /// - [department] — Department model for organizational structure.
 /// - [employee] — Employee and employee input models for personnel management.
+/// - [flespi] — Flespi platform models: protocols, channels, and device models.
 /// - [i18n] — Internationalization models: languages, translation keys, and messages.
 /// - [icons] — Material Design Icons registry with name-based lookup.
 /// - [inbound] — Inbound protocol definitions: connection, credentials, and configuration structures.
@@ -58,6 +59,7 @@ export 'src/device/device.dart';
 export 'src/employee/employee.dart';
 export 'src/exchange/exchange.dart';
 export 'src/external/external.dart';
+export 'src/flespi/flespi.dart';
 export 'src/function/function.dart';
 export 'src/general/general.dart';
 export 'src/geofences/geofences.dart';
