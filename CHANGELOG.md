@@ -5,6 +5,7 @@
 ### Dart
 
 * Add `MapLayerInput` with a `save` method (`addMapLayer`/`editMapLayer`) to the map module, so map layers can be created and edited through the SDK.
+* Add the `BleDevice`, `BleManufacturerData`, and `BleServiceData` models to a new `ble` module (moved from `layrz_models`).
 
 ### Python
 

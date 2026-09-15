@@ -39,6 +39,7 @@ export 'src/asset/asset.dart';
 export 'src/ats/ats.dart';
 export 'src/avatar/avatar.dart';
 export 'src/billing_plan/billing_plan.dart';
+export 'src/ble/ble.dart';
 export 'src/brickhouse_permission_tier/brickhouse_permission_tier.dart';
 export 'src/builder/flespi/flespi.dart';
 export 'src/builder/inbound_structure/inbound_structure.dart';
