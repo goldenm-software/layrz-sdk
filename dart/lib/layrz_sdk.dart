@@ -2,6 +2,7 @@
 ///
 /// This package exports core modules for working with the Layrz platform:
 /// - [a11y] — Accessibility models: user preferences and colorblind mode support.
+/// - [account_launcher] — Input models for the account launcher wizard templates.
 /// - [api] — API status codes and response structures.
 /// - [app] — Application platform enum for identifying client platforms.
 /// - [avatar] — Avatar utilities for managing user and resource images.
@@ -29,6 +30,7 @@ library;
 
 export 'src/a11y/a11y.dart';
 export 'src/access/access.dart';
+export 'src/account_launcher/account_launcher.dart';
 export 'src/actions/actions.dart';
 export 'src/api/api.dart';
 export 'src/app/app.dart';
