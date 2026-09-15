@@ -31,12 +31,6 @@ abstract class OutboundProtocol with _$OutboundProtocol {
     /// [isConsumpted] indicates if the protocol is consumpted.
     bool? isConsumpted,
 
-    /// [mqttTopic] is the MQTT topic of the protocol.
-    String? mqttTopic,
-
-    /// [isAsync] indicates if the protocol is asynchronous.
-    bool? isAsync,
-
     /// [requiredFields] is the list of required fields for the protocol.
     @Default([]) List<CredentialField> requiredFields,
 
@@ -65,8 +59,6 @@ abstract class OutboundProtocol with _$OutboundProtocol {
       GqlField(name: 'categoriesIds'),
       GqlField(name: 'hasFtp'),
       GqlField(name: 'isConsumpted'),
-      GqlField(name: 'mqttTopic'),
-      GqlField(name: 'isAsync'),
       GqlField(name: 'requiredFields', fragment: CredentialField.fragment),
       GqlField(name: 'dynamicIcon', fragment: Avatar.fragment),
       GqlField(name: 'usage'),
