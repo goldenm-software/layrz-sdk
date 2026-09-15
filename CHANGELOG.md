@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.5.0+4
+
+### Dart
+* Removed the `mqttTopic` and `isAsync` fields from `OutboundProtocol` and its GraphQL fragment; these fields are not exported by the API and caused "Cannot query field" errors on `OutboundProtocol.fetch`/`fetchAll`.
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
 ## 4.5.0+3
 
 ### Dart
