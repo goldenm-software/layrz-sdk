@@ -69,20 +69,126 @@ abstract class AppInstance with _$AppInstance {
 
   // coverage:ignore-start
   /// GraphQL fragment definition for querying app instance fields.
-  static GqlFragment get fragment =>
-      GqlFragment(name: 'instanceFragment', onType: 'AppInstance')
-        ..add(GqlField(name: 'id'))
-        ..add(GqlField(name: 'appId'))
-        ..add(GqlField(name: 'platform'))
-        ..add(GqlField(name: 'host'))
-        ..add(GqlField(name: 'appIdentifier'))
-        ..add(GqlField(name: 'developerName'))
-        ..add(GqlField(name: 'developerIdentifier'))
-        ..add(GqlField(name: 'builds', fragment: AppBuild.fragment))
-        ..add(GqlField(name: 'status'))
-        ..add(GqlField(name: 'cloudfront', fragment: DnsConfiguration.fragment))
-        ..add(GqlField(name: 'certificate', fragment: DnsConfiguration.fragment))
-        ..add(GqlField(name: 'migrationStatus'));
+  static GqlFragment get fragment => GqlFragment(name: 'instanceFragment', onType: 'AppInstance')
+    ..add(GqlField(name: 'id'))
+    ..add(GqlField(name: 'appId'))
+    ..add(GqlField(name: 'platform'))
+    ..add(GqlField(name: 'host'))
+    ..add(GqlField(name: 'appIdentifier'))
+    ..add(GqlField(name: 'developerName'))
+    ..add(GqlField(name: 'developerIdentifier'))
+    ..add(GqlField(name: 'builds', fragment: AppBuild.fragment))
+    ..add(GqlField(name: 'status'))
+    ..add(GqlField(name: 'cloudfront', fragment: DnsConfiguration.fragment))
+    ..add(GqlField(name: 'certificate', fragment: DnsConfiguration.fragment))
+    ..add(GqlField(name: 'migrationStatus'));
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// [deprecateInstance] marks an app instance as deprecated.
+  /// Returns true on success, false on error.
+  static Future<bool> deprecateInstance({
+    required String instanceId,
+    required String apiToken,
+    required Uri uri,
+    void Function(String statusCode)? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          variables: [
+            GqlVariable(
+              name: 'instanceId',
+              type: .id,
+              isRequired: true,
+              value: instanceId,
+            ),
+          ],
+          name: 'deprecateInstance',
+        )..add(
+          GqlField(
+            name: 'deprecateInstance',
+            args: {'instanceId': 'instanceId'},
+          )..add(GqlField(name: 'status')),
+        ),
+      );
+
+      onResponse?.call(response.status.toJson());
+      return response.status == ApiStatus.ok;
+    } catch (e, stack) {
+      Log.critical("layrz_models/AppInstance/deprecateInstance(): General exception => $e\n$stack");
+      return false;
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// [migrateInstance] migrates an app instance.
+  /// Returns true on success, false on error.
+  static Future<bool> migrateInstance({
+    required String instanceId,
+    required String apiToken,
+    required Uri uri,
+    void Function(String statusCode)? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          variables: [
+            GqlVariable(name: 'instanceId', type: .id, isRequired: true, value: instanceId),
+          ],
+          name: 'migrateInstance',
+        )..add(
+          GqlField(name: 'migrateInstance', args: {'instanceId': 'instanceId'})..add(GqlField(name: 'status')),
+        ),
+      );
+
+      onResponse?.call(response.status.toJson());
+      return response.status == ApiStatus.ok;
+    } catch (e, stack) {
+      Log.critical("layrz_models/AppInstance/migrateInstance(): General exception => $e\n$stack");
+      return false;
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// [requestInstance] requests creation of a new app instance.
+  /// Returns true on success, false on error.
+  static Future<bool> requestInstance({
+    required Map<String, dynamic> data,
+    required String apiToken,
+    required Uri uri,
+    void Function(String statusCode)? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          variables: [
+            GqlVariable(
+              name: 'data',
+              type: .input(of: 'AppInstanceInput'),
+              isRequired: true,
+              value: data,
+            ),
+          ],
+          name: 'requestInstance',
+        )..add(
+          GqlField(name: 'requestInstance', args: {'data': 'data'})..add(GqlField(name: 'status')),
+        ),
+      );
+
+      onResponse?.call(response.status.toJson());
+      return response.status == ApiStatus.ok;
+    } catch (e, stack) {
+      Log.critical("layrz_models/AppInstance/requestInstance(): General exception => $e\n$stack");
+      return false;
+    }
+  }
+
   // coverage:ignore-end
 }
 
@@ -107,9 +213,8 @@ abstract class DnsConfiguration with _$DnsConfiguration {
 
   // coverage:ignore-start
   /// GraphQL fragment definition for querying DNS configuration fields.
-  static GqlFragment get fragment =>
-      GqlFragment(name: 'dnsConfigurationFragment', onType: 'InstanceDns')
-        ..add(GqlField(name: 'name'))
-        ..add(GqlField(name: 'value'));
+  static GqlFragment get fragment => GqlFragment(name: 'dnsConfigurationFragment', onType: 'InstanceDns')
+    ..add(GqlField(name: 'name'))
+    ..add(GqlField(name: 'value'));
   // coverage:ignore-end
 }
