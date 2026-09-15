@@ -24,9 +24,7 @@ mixin _$OutboundProtocol {
  bool get isEnabled;/// [categoriesIds] is the list of categories IDs that the protocol belongs to.
  List<String> get categoriesIds;/// [hasFtp] indicates if the protocol has support for FTP.
  bool? get hasFtp;/// [isConsumpted] indicates if the protocol is consumpted.
- bool? get isConsumpted;/// [mqttTopic] is the MQTT topic of the protocol.
- String? get mqttTopic;/// [isAsync] indicates if the protocol is asynchronous.
- bool? get isAsync;/// [requiredFields] is the list of required fields for the protocol.
+ bool? get isConsumpted;/// [requiredFields] is the list of required fields for the protocol.
  List<CredentialField> get requiredFields;/// [dynamicIcon] is the icon of the inbound protocol.
 /// This is the new schema of the icon
  Avatar? get dynamicIcon;/// [usage] is the usage of the protocol. This field shuld be only used to show the popularity of the protocol.
@@ -44,16 +42,16 @@ $OutboundProtocolCopyWith<OutboundProtocol> get copyWith => _$OutboundProtocolCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OutboundProtocol&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.color, color) || other.color == color)&&(identical(other.isEnabled, isEnabled) || other.isEnabled == isEnabled)&&const DeepCollectionEquality().equals(other.categoriesIds, categoriesIds)&&(identical(other.hasFtp, hasFtp) || other.hasFtp == hasFtp)&&(identical(other.isConsumpted, isConsumpted) || other.isConsumpted == isConsumpted)&&(identical(other.mqttTopic, mqttTopic) || other.mqttTopic == mqttTopic)&&(identical(other.isAsync, isAsync) || other.isAsync == isAsync)&&const DeepCollectionEquality().equals(other.requiredFields, requiredFields)&&(identical(other.dynamicIcon, dynamicIcon) || other.dynamicIcon == dynamicIcon)&&(identical(other.usage, usage) || other.usage == usage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OutboundProtocol&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.color, color) || other.color == color)&&(identical(other.isEnabled, isEnabled) || other.isEnabled == isEnabled)&&const DeepCollectionEquality().equals(other.categoriesIds, categoriesIds)&&(identical(other.hasFtp, hasFtp) || other.hasFtp == hasFtp)&&(identical(other.isConsumpted, isConsumpted) || other.isConsumpted == isConsumpted)&&const DeepCollectionEquality().equals(other.requiredFields, requiredFields)&&(identical(other.dynamicIcon, dynamicIcon) || other.dynamicIcon == dynamicIcon)&&(identical(other.usage, usage) || other.usage == usage));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,color,isEnabled,const DeepCollectionEquality().hash(categoriesIds),hasFtp,isConsumpted,mqttTopic,isAsync,const DeepCollectionEquality().hash(requiredFields),dynamicIcon,usage);
+int get hashCode => Object.hash(runtimeType,id,name,color,isEnabled,const DeepCollectionEquality().hash(categoriesIds),hasFtp,isConsumpted,const DeepCollectionEquality().hash(requiredFields),dynamicIcon,usage);
 
 @override
 String toString() {
-  return 'OutboundProtocol(id: $id, name: $name, color: $color, isEnabled: $isEnabled, categoriesIds: $categoriesIds, hasFtp: $hasFtp, isConsumpted: $isConsumpted, mqttTopic: $mqttTopic, isAsync: $isAsync, requiredFields: $requiredFields, dynamicIcon: $dynamicIcon, usage: $usage)';
+  return 'OutboundProtocol(id: $id, name: $name, color: $color, isEnabled: $isEnabled, categoriesIds: $categoriesIds, hasFtp: $hasFtp, isConsumpted: $isConsumpted, requiredFields: $requiredFields, dynamicIcon: $dynamicIcon, usage: $usage)';
 }
 
 
@@ -64,7 +62,7 @@ abstract mixin class $OutboundProtocolCopyWith<$Res>  {
   factory $OutboundProtocolCopyWith(OutboundProtocol value, $Res Function(OutboundProtocol) _then) = _$OutboundProtocolCopyWithImpl;
 @useResult
 $Res call({
- String id, String name,@ColorConverter() Color color, bool isEnabled, List<String> categoriesIds, bool? hasFtp, bool? isConsumpted, String? mqttTopic, bool? isAsync, List<CredentialField> requiredFields, Avatar? dynamicIcon, int? usage
+ String id, String name,@ColorConverter() Color color, bool isEnabled, List<String> categoriesIds, bool? hasFtp, bool? isConsumpted, List<CredentialField> requiredFields, Avatar? dynamicIcon, int? usage
 });
 
 
@@ -81,7 +79,7 @@ class _$OutboundProtocolCopyWithImpl<$Res>
 
 /// Create a copy of OutboundProtocol
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? color = null,Object? isEnabled = null,Object? categoriesIds = null,Object? hasFtp = freezed,Object? isConsumpted = freezed,Object? mqttTopic = freezed,Object? isAsync = freezed,Object? requiredFields = null,Object? dynamicIcon = freezed,Object? usage = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? color = null,Object? isEnabled = null,Object? categoriesIds = null,Object? hasFtp = freezed,Object? isConsumpted = freezed,Object? requiredFields = null,Object? dynamicIcon = freezed,Object? usage = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -90,8 +88,6 @@ as Color,isEnabled: null == isEnabled ? _self.isEnabled : isEnabled // ignore: c
 as bool,categoriesIds: null == categoriesIds ? _self.categoriesIds : categoriesIds // ignore: cast_nullable_to_non_nullable
 as List<String>,hasFtp: freezed == hasFtp ? _self.hasFtp : hasFtp // ignore: cast_nullable_to_non_nullable
 as bool?,isConsumpted: freezed == isConsumpted ? _self.isConsumpted : isConsumpted // ignore: cast_nullable_to_non_nullable
-as bool?,mqttTopic: freezed == mqttTopic ? _self.mqttTopic : mqttTopic // ignore: cast_nullable_to_non_nullable
-as String?,isAsync: freezed == isAsync ? _self.isAsync : isAsync // ignore: cast_nullable_to_non_nullable
 as bool?,requiredFields: null == requiredFields ? _self.requiredFields : requiredFields // ignore: cast_nullable_to_non_nullable
 as List<CredentialField>,dynamicIcon: freezed == dynamicIcon ? _self.dynamicIcon : dynamicIcon // ignore: cast_nullable_to_non_nullable
 as Avatar?,usage: freezed == usage ? _self.usage : usage // ignore: cast_nullable_to_non_nullable
@@ -192,10 +188,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name, @ColorConverter()  Color color,  bool isEnabled,  List<String> categoriesIds,  bool? hasFtp,  bool? isConsumpted,  String? mqttTopic,  bool? isAsync,  List<CredentialField> requiredFields,  Avatar? dynamicIcon,  int? usage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name, @ColorConverter()  Color color,  bool isEnabled,  List<String> categoriesIds,  bool? hasFtp,  bool? isConsumpted,  List<CredentialField> requiredFields,  Avatar? dynamicIcon,  int? usage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OutboundProtocol() when $default != null:
-return $default(_that.id,_that.name,_that.color,_that.isEnabled,_that.categoriesIds,_that.hasFtp,_that.isConsumpted,_that.mqttTopic,_that.isAsync,_that.requiredFields,_that.dynamicIcon,_that.usage);case _:
+return $default(_that.id,_that.name,_that.color,_that.isEnabled,_that.categoriesIds,_that.hasFtp,_that.isConsumpted,_that.requiredFields,_that.dynamicIcon,_that.usage);case _:
   return orElse();
 
 }
@@ -213,10 +209,10 @@ return $default(_that.id,_that.name,_that.color,_that.isEnabled,_that.categories
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name, @ColorConverter()  Color color,  bool isEnabled,  List<String> categoriesIds,  bool? hasFtp,  bool? isConsumpted,  String? mqttTopic,  bool? isAsync,  List<CredentialField> requiredFields,  Avatar? dynamicIcon,  int? usage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name, @ColorConverter()  Color color,  bool isEnabled,  List<String> categoriesIds,  bool? hasFtp,  bool? isConsumpted,  List<CredentialField> requiredFields,  Avatar? dynamicIcon,  int? usage)  $default,) {final _that = this;
 switch (_that) {
 case _OutboundProtocol():
-return $default(_that.id,_that.name,_that.color,_that.isEnabled,_that.categoriesIds,_that.hasFtp,_that.isConsumpted,_that.mqttTopic,_that.isAsync,_that.requiredFields,_that.dynamicIcon,_that.usage);case _:
+return $default(_that.id,_that.name,_that.color,_that.isEnabled,_that.categoriesIds,_that.hasFtp,_that.isConsumpted,_that.requiredFields,_that.dynamicIcon,_that.usage);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -233,10 +229,10 @@ return $default(_that.id,_that.name,_that.color,_that.isEnabled,_that.categories
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name, @ColorConverter()  Color color,  bool isEnabled,  List<String> categoriesIds,  bool? hasFtp,  bool? isConsumpted,  String? mqttTopic,  bool? isAsync,  List<CredentialField> requiredFields,  Avatar? dynamicIcon,  int? usage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name, @ColorConverter()  Color color,  bool isEnabled,  List<String> categoriesIds,  bool? hasFtp,  bool? isConsumpted,  List<CredentialField> requiredFields,  Avatar? dynamicIcon,  int? usage)?  $default,) {final _that = this;
 switch (_that) {
 case _OutboundProtocol() when $default != null:
-return $default(_that.id,_that.name,_that.color,_that.isEnabled,_that.categoriesIds,_that.hasFtp,_that.isConsumpted,_that.mqttTopic,_that.isAsync,_that.requiredFields,_that.dynamicIcon,_that.usage);case _:
+return $default(_that.id,_that.name,_that.color,_that.isEnabled,_that.categoriesIds,_that.hasFtp,_that.isConsumpted,_that.requiredFields,_that.dynamicIcon,_that.usage);case _:
   return null;
 
 }
@@ -248,7 +244,7 @@ return $default(_that.id,_that.name,_that.color,_that.isEnabled,_that.categories
 @JsonSerializable()
 
 class _OutboundProtocol extends OutboundProtocol {
-  const _OutboundProtocol({required this.id, required this.name, @ColorConverter() required this.color, required this.isEnabled, this.categoriesIds = const [], this.hasFtp, this.isConsumpted, this.mqttTopic, this.isAsync, this.requiredFields = const [], this.dynamicIcon, this.usage}): super._();
+  const _OutboundProtocol({required this.id, required this.name, @ColorConverter() required this.color, required this.isEnabled, this.categoriesIds = const [], this.hasFtp, this.isConsumpted, this.requiredFields = const [], this.dynamicIcon, this.usage}): super._();
   factory _OutboundProtocol.fromJson(Map<String, dynamic> json) => _$OutboundProtocolFromJson(json);
 
 /// [id] is the protocol ID, this ID is unique for each protocol.
@@ -267,10 +263,6 @@ class _OutboundProtocol extends OutboundProtocol {
 @override final  bool? hasFtp;
 /// [isConsumpted] indicates if the protocol is consumpted.
 @override final  bool? isConsumpted;
-/// [mqttTopic] is the MQTT topic of the protocol.
-@override final  String? mqttTopic;
-/// [isAsync] indicates if the protocol is asynchronous.
-@override final  bool? isAsync;
 /// [requiredFields] is the list of required fields for the protocol.
 @override@JsonKey() final  List<CredentialField> requiredFields;
 /// [dynamicIcon] is the icon of the inbound protocol.
@@ -293,16 +285,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OutboundProtocol&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.color, color) || other.color == color)&&(identical(other.isEnabled, isEnabled) || other.isEnabled == isEnabled)&&const DeepCollectionEquality().equals(other.categoriesIds, categoriesIds)&&(identical(other.hasFtp, hasFtp) || other.hasFtp == hasFtp)&&(identical(other.isConsumpted, isConsumpted) || other.isConsumpted == isConsumpted)&&(identical(other.mqttTopic, mqttTopic) || other.mqttTopic == mqttTopic)&&(identical(other.isAsync, isAsync) || other.isAsync == isAsync)&&const DeepCollectionEquality().equals(other.requiredFields, requiredFields)&&(identical(other.dynamicIcon, dynamicIcon) || other.dynamicIcon == dynamicIcon)&&(identical(other.usage, usage) || other.usage == usage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OutboundProtocol&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.color, color) || other.color == color)&&(identical(other.isEnabled, isEnabled) || other.isEnabled == isEnabled)&&const DeepCollectionEquality().equals(other.categoriesIds, categoriesIds)&&(identical(other.hasFtp, hasFtp) || other.hasFtp == hasFtp)&&(identical(other.isConsumpted, isConsumpted) || other.isConsumpted == isConsumpted)&&const DeepCollectionEquality().equals(other.requiredFields, requiredFields)&&(identical(other.dynamicIcon, dynamicIcon) || other.dynamicIcon == dynamicIcon)&&(identical(other.usage, usage) || other.usage == usage));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,color,isEnabled,const DeepCollectionEquality().hash(categoriesIds),hasFtp,isConsumpted,mqttTopic,isAsync,const DeepCollectionEquality().hash(requiredFields),dynamicIcon,usage);
+int get hashCode => Object.hash(runtimeType,id,name,color,isEnabled,const DeepCollectionEquality().hash(categoriesIds),hasFtp,isConsumpted,const DeepCollectionEquality().hash(requiredFields),dynamicIcon,usage);
 
 @override
 String toString() {
-  return 'OutboundProtocol(id: $id, name: $name, color: $color, isEnabled: $isEnabled, categoriesIds: $categoriesIds, hasFtp: $hasFtp, isConsumpted: $isConsumpted, mqttTopic: $mqttTopic, isAsync: $isAsync, requiredFields: $requiredFields, dynamicIcon: $dynamicIcon, usage: $usage)';
+  return 'OutboundProtocol(id: $id, name: $name, color: $color, isEnabled: $isEnabled, categoriesIds: $categoriesIds, hasFtp: $hasFtp, isConsumpted: $isConsumpted, requiredFields: $requiredFields, dynamicIcon: $dynamicIcon, usage: $usage)';
 }
 
 
@@ -313,7 +305,7 @@ abstract mixin class _$OutboundProtocolCopyWith<$Res> implements $OutboundProtoc
   factory _$OutboundProtocolCopyWith(_OutboundProtocol value, $Res Function(_OutboundProtocol) _then) = __$OutboundProtocolCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name,@ColorConverter() Color color, bool isEnabled, List<String> categoriesIds, bool? hasFtp, bool? isConsumpted, String? mqttTopic, bool? isAsync, List<CredentialField> requiredFields, Avatar? dynamicIcon, int? usage
+ String id, String name,@ColorConverter() Color color, bool isEnabled, List<String> categoriesIds, bool? hasFtp, bool? isConsumpted, List<CredentialField> requiredFields, Avatar? dynamicIcon, int? usage
 });
 
 
@@ -330,7 +322,7 @@ class __$OutboundProtocolCopyWithImpl<$Res>
 
 /// Create a copy of OutboundProtocol
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? color = null,Object? isEnabled = null,Object? categoriesIds = null,Object? hasFtp = freezed,Object? isConsumpted = freezed,Object? mqttTopic = freezed,Object? isAsync = freezed,Object? requiredFields = null,Object? dynamicIcon = freezed,Object? usage = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? color = null,Object? isEnabled = null,Object? categoriesIds = null,Object? hasFtp = freezed,Object? isConsumpted = freezed,Object? requiredFields = null,Object? dynamicIcon = freezed,Object? usage = freezed,}) {
   return _then(_OutboundProtocol(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -339,8 +331,6 @@ as Color,isEnabled: null == isEnabled ? _self.isEnabled : isEnabled // ignore: c
 as bool,categoriesIds: null == categoriesIds ? _self.categoriesIds : categoriesIds // ignore: cast_nullable_to_non_nullable
 as List<String>,hasFtp: freezed == hasFtp ? _self.hasFtp : hasFtp // ignore: cast_nullable_to_non_nullable
 as bool?,isConsumpted: freezed == isConsumpted ? _self.isConsumpted : isConsumpted // ignore: cast_nullable_to_non_nullable
-as bool?,mqttTopic: freezed == mqttTopic ? _self.mqttTopic : mqttTopic // ignore: cast_nullable_to_non_nullable
-as String?,isAsync: freezed == isAsync ? _self.isAsync : isAsync // ignore: cast_nullable_to_non_nullable
 as bool?,requiredFields: null == requiredFields ? _self.requiredFields : requiredFields // ignore: cast_nullable_to_non_nullable
 as List<CredentialField>,dynamicIcon: freezed == dynamicIcon ? _self.dynamicIcon : dynamicIcon // ignore: cast_nullable_to_non_nullable
 as Avatar?,usage: freezed == usage ? _self.usage : usage // ignore: cast_nullable_to_non_nullable

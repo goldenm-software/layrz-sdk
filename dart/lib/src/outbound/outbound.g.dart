@@ -19,8 +19,6 @@ _OutboundProtocol _$OutboundProtocolFromJson(Map<String, dynamic> json) =>
           const [],
       hasFtp: json['hasFtp'] as bool?,
       isConsumpted: json['isConsumpted'] as bool?,
-      mqttTopic: json['mqttTopic'] as String?,
-      isAsync: json['isAsync'] as bool?,
       requiredFields:
           (json['requiredFields'] as List<dynamic>?)
               ?.map((e) => CredentialField.fromJson(e as Map<String, dynamic>))
@@ -41,8 +39,6 @@ Map<String, dynamic> _$OutboundProtocolToJson(_OutboundProtocol instance) =>
       'categoriesIds': instance.categoriesIds,
       'hasFtp': instance.hasFtp,
       'isConsumpted': instance.isConsumpted,
-      'mqttTopic': instance.mqttTopic,
-      'isAsync': instance.isAsync,
       'requiredFields': instance.requiredFields.map((e) => e.toJson()).toList(),
       'dynamicIcon': instance.dynamicIcon?.toJson(),
       'usage': instance.usage,
