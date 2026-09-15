@@ -14,9 +14,7 @@ abstract class AvailableApp with _$AvailableApp {
     required String name,
 
     /// [technology] is the technology of the app.
-    @JsonKey(unknownEnumValue: AppTechnology.flutter)
-    @Default(AppTechnology.flutter)
-    AppTechnology technology,
+    @JsonKey(unknownEnumValue: AppTechnology.flutter) @Default(AppTechnology.flutter) AppTechnology technology,
 
     /// [legalInformation] is the legal information of the app.
     AppLegal? legalInformation,
@@ -28,13 +26,10 @@ abstract class AvailableApp with _$AvailableApp {
     required String appId,
 
     /// [appType] is the type of the app.
-    @JsonKey(unknownEnumValue: AppType.public)
-    @Default(AppType.public)
-    AppType appType,
+    @JsonKey(unknownEnumValue: AppType.public) @Default(AppType.public) AppType appType,
 
     /// [supportedPlatforms] is the list of supported platforms of the App, depends of the technology.
-    @JsonKey(unknownEnumValue: AppPlatform.web)
-    List<AppPlatform>? supportedPlatforms,
+    @JsonKey(unknownEnumValue: AppPlatform.web) List<AppPlatform>? supportedPlatforms,
 
     /// [onlyCustomized] is true if the app only can be register with customization.
     required bool onlyCustomized,
@@ -60,29 +55,27 @@ abstract class AvailableApp with _$AvailableApp {
   }) = _AvailableApp;
 
   /// Deserializes an [AvailableApp] from a JSON map.
-  factory AvailableApp.fromJson(Map<String, dynamic> json) =>
-      _$AvailableAppFromJson(json);
+  factory AvailableApp.fromJson(Map<String, dynamic> json) => _$AvailableAppFromJson(json);
 
   // coverage:ignore-start
   /// GraphQL fragment definition for querying the full set of available-app
   /// fields, shared by [fetchAll], [fetch], and [AvailableAppInput.save].
-  static GqlFragment get fragment =>
-      GqlFragment(name: 'availableAppFragment', onType: 'AvailableApp')
-        ..add(GqlField(name: 'id'))
-        ..add(GqlField(name: 'name'))
-        ..add(GqlField(name: 'appId'))
-        ..add(GqlField(name: 'appType'))
-        ..add(GqlField(name: 'technology'))
-        ..add(GqlField(name: 'onlyCustomized'))
-        ..add(GqlField(name: 'supportedPlatforms'))
-        ..add(GqlField(name: 'supportedCustomizationPlatforms'))
-        ..add(GqlField(name: 'hasImport'))
-        ..add(GqlField(name: 'hasKeychain'))
-        ..add(GqlField(name: 'canMapLayers'))
-        ..add(GqlField(name: 'legalInformation', fragment: AppLegal.fragment))
-        ..add(
-          GqlField(name: 'designInformation', fragment: AppDesign.fragment),
-        );
+  static GqlFragment get fragment => GqlFragment(name: 'availableAppFragment', onType: 'AvailableApp')
+    ..add(GqlField(name: 'id'))
+    ..add(GqlField(name: 'name'))
+    ..add(GqlField(name: 'appId'))
+    ..add(GqlField(name: 'appType'))
+    ..add(GqlField(name: 'technology'))
+    ..add(GqlField(name: 'onlyCustomized'))
+    ..add(GqlField(name: 'supportedPlatforms'))
+    ..add(GqlField(name: 'supportedCustomizationPlatforms'))
+    ..add(GqlField(name: 'hasImport'))
+    ..add(GqlField(name: 'hasKeychain'))
+    ..add(GqlField(name: 'canMapLayers'))
+    ..add(GqlField(name: 'legalInformation', fragment: AppLegal.fragment))
+    ..add(
+      GqlField(name: 'designInformation', fragment: AppDesign.fragment),
+    );
   // coverage:ignore-end
 
   // coverage:ignore-start
@@ -93,7 +86,7 @@ abstract class AvailableApp with _$AvailableApp {
   /// only exposed on the `InternalAvailableApp`-shaped response and would be
   /// invalid to select against the plain `availableApps` query.
   static GqlFragment get goldenmFragment =>
-      GqlFragment(name: 'internalAvailableAppFragment', onType: 'AvailableApp')
+      GqlFragment(name: 'internalAvailableAppFragment', onType: 'InternalAvailableApp')
         ..add(GqlField(name: 'id'))
         ..add(GqlField(name: 'name'))
         ..add(GqlField(name: 'appId'))
@@ -170,11 +163,11 @@ abstract class AvailableApp with _$AvailableApp {
           ],
         )..add(
           GqlField(
-            name: queryName,
-            args: {
-              if (internalIdentifier != null) 'internalIdentifier': 'internalIdentifier',
-            },
-          )
+              name: queryName,
+              args: {
+                if (internalIdentifier != null) 'internalIdentifier': 'internalIdentifier',
+              },
+            )
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(
@@ -263,12 +256,12 @@ abstract class AvailableApp with _$AvailableApp {
           name: queryName,
         )..add(
           GqlField(
-            name: queryName,
-            args: {
-              'id': 'id',
-              if (internalIdentifier != null) 'internalIdentifier': 'internalIdentifier',
-            },
-          )
+              name: queryName,
+              args: {
+                'id': 'id',
+                if (internalIdentifier != null) 'internalIdentifier': 'internalIdentifier',
+              },
+            )
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(
@@ -340,9 +333,7 @@ abstract class AvailableAppInput with _$AvailableAppInput {
     @Default('') String appId,
 
     /// [technology] is the technology of the app.
-    @JsonKey(unknownEnumValue: AppTechnology.flutter)
-    @Default(AppTechnology.flutter)
-    AppTechnology technology,
+    @JsonKey(unknownEnumValue: AppTechnology.flutter) @Default(AppTechnology.flutter) AppTechnology technology,
 
     /// [legalInformation] is the legal information of the app.
     required AppLegalInput legalInformation,
@@ -351,9 +342,7 @@ abstract class AvailableAppInput with _$AvailableAppInput {
     required AppDesignInput designInformation,
 
     /// [supportedPlatforms] is the list of supported platforms of the App, depends of the technology.
-    @JsonKey(unknownEnumValue: AppPlatform.web)
-    @Default([])
-    List<AppPlatform> supportedPlatforms,
+    @JsonKey(unknownEnumValue: AppPlatform.web) @Default([]) List<AppPlatform> supportedPlatforms,
 
     /// [onlyCustomized] is true if the app only can be register with customization.
     @Default(false) bool onlyCustomized,
@@ -366,8 +355,7 @@ abstract class AvailableAppInput with _$AvailableAppInput {
   }) = _AvailableAppInput;
 
   /// Deserializes an [AvailableAppInput] from a JSON map.
-  factory AvailableAppInput.fromJson(Map<String, dynamic> json) =>
-      _$AvailableAppInputFromJson(json);
+  factory AvailableAppInput.fromJson(Map<String, dynamic> json) => _$AvailableAppInputFromJson(json);
 
   // coverage:ignore-start
   /// Creates or updates this available app on the server.
@@ -416,7 +404,7 @@ abstract class AvailableAppInput with _$AvailableAppInput {
           GqlField(name: operation, args: {'data': 'data'})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
-            ..add(GqlField(name: 'result', fragment: AvailableApp.fragment)),
+            ..add(GqlField(name: 'result', fragment: AvailableApp.goldenmFragment)),
         ),
         _availableAppDecoder,
       );
