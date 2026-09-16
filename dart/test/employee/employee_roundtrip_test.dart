@@ -58,7 +58,7 @@ void main() {
       expect(input.username, '');
       expect(input.departmentId, isNull);
       expect(input.dynamicAvatar, isNull);
-      expect(input.customPermissions.apps, isNotNull);
+      expect(input.customPermissions!.apps, isNotNull);
     });
 
     test('EmployeeInput.fromJson() with all fields', () {
@@ -194,8 +194,8 @@ void main() {
       expect(input.dynamicAvatar, isNotNull);
       expect(input.dynamicAvatar!.type, AvatarType.emoji);
       expect(input.customPermissions, isNotNull);
-      expect(input.customPermissions.apps.read, true);
-      expect(input.customPermissions.users.write, true);
+      expect(input.customPermissions!.apps.read, true);
+      expect(input.customPermissions!.users.write, true);
     });
 
     test('EmployeeInput.toJson() and fromJson() roundtrip', () {
@@ -397,14 +397,14 @@ void main() {
         ),
       );
 
-      expect(input.customPermissions.apps.read, true);
-      expect(input.customPermissions.users.write, true);
-      expect(input.customPermissions.firmwares.create, true);
-      expect(input.customPermissions.employees.delete, true);
-      expect(input.customPermissions.languages.plan, true);
-      expect(input.customPermissions.categories.loginas, true);
-      expect(input.customPermissions.departments.suspend, true);
-      expect(input.customPermissions.protocols.read, true);
+      expect(input.customPermissions!.apps.read, true);
+      expect(input.customPermissions!.users.write, true);
+      expect(input.customPermissions!.firmwares.create, true);
+      expect(input.customPermissions!.employees.delete, true);
+      expect(input.customPermissions!.languages.plan, true);
+      expect(input.customPermissions!.categories.loginas, true);
+      expect(input.customPermissions!.departments.suspend, true);
+      expect(input.customPermissions!.protocols.read, true);
     });
   });
 }

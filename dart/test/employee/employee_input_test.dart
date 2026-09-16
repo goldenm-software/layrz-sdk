@@ -225,5 +225,76 @@ void main() {
       expect(input.email, '');
       expect(input.username, '');
     });
+
+    test('EmployeeInput.fromJson() with null customPermissions', () {
+      final json = {
+        'name': 'Henry Irving',
+        'email': 'henry@example.com',
+        'username': 'henryi',
+        'customPermissions': null,
+      };
+
+      final input = EmployeeInput.fromJson(json);
+
+      expect(input.customPermissions, isNull);
+    });
+
+    test('EmployeeInput.fromJson() with customPermissions key omitted', () {
+      final json = {
+        'name': 'Ivy Jackson',
+        'email': 'ivy@example.com',
+        'username': 'ivyj',
+      };
+
+      final input = EmployeeInput.fromJson(json);
+
+      expect(input.customPermissions, isNull);
+    });
+
+    test('EmployeeInput.fromJson() from Employee.toJson() with null customPermissions', () {
+      final employee = Employee(id: 'e1', name: 'Bob');
+      final json = employee.toJson();
+
+      final result = EmployeeInput.fromJson(json);
+
+      expect(result.customPermissions, isNull);
+      expect(result.id, 'e1');
+      expect(result.name, 'Bob');
+    });
+
+    test('EmployeeInput.toJson() with null customPermissions', () {
+      final input = EmployeeInput(name: 'x');
+
+      final json = input.toJson();
+
+      expect(json['customPermissions'], isNull);
+    });
+
+    test('EmployeeInput roundtrip with non-null customPermissions', () {
+      final original = EmployeeInput(
+        name: 'Karen Lewis',
+        customPermissions: GenericPermissionInput(
+          apps: GenericPermissionItemInput(read: true, write: true),
+          users: _emptyItem(),
+          firmwares: _emptyItem(),
+          employees: _emptyItem(),
+          languages: _emptyItem(),
+          categories: _emptyItem(),
+          departments: _emptyItem(),
+          protocols: _emptyItem(),
+          billing: _emptyItem(),
+          cycles: _emptyItem(),
+          shortcuts: _emptyItem(),
+          layers: _emptyItem(),
+        ),
+      );
+
+      final json = original.toJson();
+      final restored = EmployeeInput.fromJson(json);
+
+      expect(restored.customPermissions, isA<GenericPermissionInput>());
+      expect(restored.customPermissions?.apps.read, true);
+      expect(restored.customPermissions?.apps.write, true);
+    });
   });
 }
