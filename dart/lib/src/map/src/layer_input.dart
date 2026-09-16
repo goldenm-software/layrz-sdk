@@ -94,36 +94,22 @@ abstract class MapLayerInput with _$MapLayerInput {
   /// Deserializes a [MapLayerInput] from a JSON map.
   factory MapLayerInput.fromJson(Map<String, dynamic> json) => _$MapLayerInputFromJson(json);
 
-  // coverage:ignore-start
-  /// Creates or updates this map layer on the server.
-  ///
-  /// Sends `addMapLayer` when [id] is null, or `editMapLayer` when [id] is
-  /// set, both with this input serialized as the `MapLayerInput` GraphQL
-  /// input type. Authentication is carried solely via the connector's
-  /// `Authorization` header, built from [apiToken].
-  ///
-  /// Optional callback invoked with the [ApiStatus] of the response. Called
-  /// once per invocation, regardless of success or failure.
-  ///
-  /// Returns a [StandardResponse] tuple of `(ApiStatus, errors, MapLayer?)`:
-  /// on an internal error, `(ApiStatus.internalError, null, null)`; on any
-  /// other non-ok status, `(status, errors, null)`; on success,
-  /// `(status, errors, savedMapLayer)`.
-  Future<StandardResponse<MapLayer>> save({
-    /// The API token for authentication. Obtain via the `login` mutation
+  /// [save] saves the [MapLayerInput] to the server
+  /// It returns an [ApiResponse] with the saved [MapLayer] on success, or errors on failure.
+  /// Returns `null` on a network/server error.
+  Future<ApiResponse<MapLayer, Map<String, dynamic>>?> save({
+    /// [apiToken] is the API token to use for authentication. You can get one using the `login` mutation
     /// on the GraphQL API.
     required String apiToken,
 
-    /// The Layrz GraphQL API endpoint (e.g.,
-    /// `https://api.example.com/graphql`).
+    /// [uri] is the GraphQL endpoint to use
     required Uri uri,
 
-    /// Optional callback invoked with the [ApiStatus] of the response. Called
-    /// once per invocation, regardless of success or failure.
-    void Function(ApiStatus status)? onResponse,
+    /// [onResponse] is the callback to call when the response is received
+    void Function(String statusCode)? onResponse,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
-    final operation = id == null ? 'addMapLayer' : 'editMapLayer';
+    final opName = id == null ? 'addMapLayer' : 'editMapLayer';
     try {
       final response = await connector.mutate(
         GqlMutation(
@@ -135,12 +121,9 @@ abstract class MapLayerInput with _$MapLayerInput {
               value: toJson(),
             ),
           ],
-          name: operation,
+          name: opName,
         )..add(
-          GqlField(
-              name: operation,
-              args: {'data': 'data'},
-            )
+          GqlField(name: opName, args: {'data': 'data'})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(GqlField(name: 'result', fragment: MapLayer.fragment)),
@@ -148,23 +131,24 @@ abstract class MapLayerInput with _$MapLayerInput {
         _mapLayerDecoder,
       );
 
-      if (response.status == .internalError) {
-        onResponse?.call(response.status);
-        return (ApiStatus.internalError, null, null);
+      if (response.status == ApiStatus.internalError) {
+        onResponse?.call(response.status.toJson());
+        Log.error("layrz_sdk/MapLayerInput/save(): No response from server");
+        return null;
       }
 
-      if (response.status != .ok) {
-        onResponse?.call(response.status);
-        return (response.status, response.errors, null);
+      if (response.status != ApiStatus.ok) {
+        onResponse?.call(response.status.toJson());
+        return ApiResponse(
+          status: response.status,
+          errors: response.errors,
+        );
       }
 
-      return (response.status, response.errors, response.result);
+      return ApiResponse(status: ApiStatus.ok, result: response.result);
     } catch (e, stack) {
-      Log.critical(
-        "layrz_sdk/MapLayerInput/save(): General exception => $e\n$stack",
-      );
-      return (ApiStatus.internalError, null, null);
+      Log.critical("layrz_sdk/MapLayerInput/save(): General exception => $e\n$stack");
+      return null;
     }
   }
-  // coverage:ignore-end
 }

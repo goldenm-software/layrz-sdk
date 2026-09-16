@@ -123,6 +123,12 @@ abstract class MapLayer with _$MapLayer {
   // coverage:ignore-end
 
   // coverage:ignore-start
+  /// [gqlFragment] is the GqlFragment for a map layer. Alias of [fragment],
+  /// kept for backwards compatibility.
+  static GqlFragment get gqlFragment => fragment;
+  // coverage:ignore-end
+
+  // coverage:ignore-start
   /// Fetches a single [MapLayer] by its [id].
   ///
   /// Makes an authenticated GraphQL query (`mapLayers`) filtered by [id].
