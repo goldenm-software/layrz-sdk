@@ -1,6 +1,8 @@
 # Changelog
 
-## 4.5.1
+## 4.5.2
+
+> Note: `4.5.1` was skipped. Its Dart package published to pub.dev, but the release run failed before the Python package was uploaded, so this version supersedes it across all three languages.
 
 ### Dart
 
