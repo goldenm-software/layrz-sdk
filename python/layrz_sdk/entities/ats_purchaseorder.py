@@ -116,4 +116,5 @@ class AtsPurchaseOrder(BaseModel):
 
   invoice_type: str = Field(description='Type of the invoice')
   operation_id: int | None = Field(description='ID of the operation', default=None)
+  operations_ids: list[int] = Field(description='List of operation IDs', default_factory=list)
   products_information: list[dict[str, Any]] = Field(description='List of products information', default_factory=list)
