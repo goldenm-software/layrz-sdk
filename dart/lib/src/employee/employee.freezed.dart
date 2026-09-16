@@ -313,8 +313,8 @@ return $default(_that.id,_that.name,_that.email,_that.username,_that.department,
 /// @nodoc
 @JsonSerializable()
 
-class _Employee implements Employee {
-  const _Employee({required this.id, required this.name, this.email, this.username, this.department, this.departmentId, this.dynamicAvatar, this.token, this.permissions, this.customPermissions, this.mfaEnabled = false, this.mfaMethods = const [], this.preferences, this.passkeys = const []});
+class _Employee extends Employee {
+  const _Employee({required this.id, required this.name, this.email, this.username, this.department, this.departmentId, this.dynamicAvatar, this.token, this.permissions, this.customPermissions, this.mfaEnabled = false, this.mfaMethods = const [], this.preferences, this.passkeys = const []}): super._();
   factory _Employee.fromJson(Map<String, dynamic> json) => _$EmployeeFromJson(json);
 
 /// The unique identifier for this user.

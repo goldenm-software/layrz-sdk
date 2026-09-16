@@ -15,6 +15,8 @@ List<Employee> _employeeListDecoder(Object? json) {
 /// This is an immutable model; use [EmployeeInput] for mutations.
 @freezed
 abstract class Employee with _$Employee {
+  const Employee._();
+
   /// Constructs an immutable [Employee] with required and optional fields.
   ///
   /// The [id] and [name] are required identifiers. MFA-related fields
