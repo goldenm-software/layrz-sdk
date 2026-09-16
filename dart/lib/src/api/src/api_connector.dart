@@ -1,4 +1,5 @@
 part of '../api.dart';
+
 // coverage:ignore-file
 
 /// HTTP connector for executing GraphQL queries, mutations, and subscriptions
@@ -60,6 +61,8 @@ class LayrzConnector {
 
     if (LayrzApiExtras.version.isNotEmpty) {
       localHeaders['Graphql-Client-Version'] = LayrzApiExtras.version;
+    } else if (kDebugMode) {
+      localHeaders['Graphql-Client-Version'] = 'indev';
     } else {
       Log.warning(
         '⚠️ Missing `LayrzApiExtras.version` ⚠️\n'

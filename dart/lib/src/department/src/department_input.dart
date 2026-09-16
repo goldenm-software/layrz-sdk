@@ -59,14 +59,14 @@ abstract class DepartmentInput with _$DepartmentInput {
     void Function(ApiStatus status)? onResponse,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
-    final operation = id == null ? 'addDepartment' : 'editDepartment';
+    final operation = id == null ? 'addGoldenmDepartment' : 'editGoldenmDepartment';
     try {
       final response = await connector.mutate(
         GqlMutation(
           variables: [
             GqlVariable(
               name: 'data',
-              type: GqlVariableType.input(of: 'DepartmentInput'),
+              type: GqlVariableType.input(of: 'GoldenmDepartmentInput'),
               isRequired: true,
               value: toJson(),
             ),

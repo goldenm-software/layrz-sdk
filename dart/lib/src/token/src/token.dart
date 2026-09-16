@@ -87,12 +87,10 @@ abstract class Token with _$Token {
     try {
       final response = await connector.perform(
         GqlQuery(
-          variables: [
-            GqlVariable(name: 'apiToken', type: .string, isRequired: true, value: apiToken),
-          ],
+          variables: [],
           name: 'fetchTokens',
         )..add(
-          GqlField(name: 'tokens', args: {'apiToken': 'apiToken'})
+          GqlField(name: 'tokens')
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(GqlField(name: 'result', fragment: gqlFragment)),
@@ -170,12 +168,11 @@ abstract class Token with _$Token {
       final response = await connector.perform(
         GqlMutation(
           variables: [
-            GqlVariable(name: 'apiToken', type: .string, isRequired: true, value: apiToken),
             GqlVariable(name: 'tokenToExpire', type: .string, isRequired: true, value: token),
           ],
           name: 'expireToken',
         )..add(
-          GqlField(name: 'expireToken', args: {'apiToken': 'apiToken', 'tokenToExpire': 'tokenToExpire'})
+          GqlField(name: 'expireToken', args: {'tokenToExpire': 'tokenToExpire'})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors')),
         ),
@@ -254,12 +251,11 @@ abstract class Token with _$Token {
       final response = await connector.perform(
         GqlMutation(
           variables: [
-            GqlVariable(name: 'apiToken', type: .string, isRequired: true, value: apiToken),
             GqlVariable(name: 'duration', type: .duration, value: duration?.inSeconds),
           ],
           name: 'createToken',
         )..add(
-          GqlField(name: 'createToken', args: {'apiToken': 'apiToken', 'duration': 'duration'})
+          GqlField(name: 'createToken', args: {'duration': 'duration'})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(GqlField(name: 'result', fragment: gqlFragment)),

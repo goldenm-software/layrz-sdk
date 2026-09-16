@@ -1,5 +1,31 @@
 # Changelog
 
+## 4.5.3
+
+### Dart
+
+* Add API connectors to the `Employee` module: `Employee.fetchAll`/`Employee.fetch` (`goldenmEmployees`), `EmployeeInput.save` (`addGoldenmEmployee`/`editGoldenmEmployee`, input type `GoldenmEmployeeInput`), `Employee.deleteMany` (`deleteGoldenmEmployees`), and `Employee.resetPassword` (`resetGoldenmEmployeePassword`), so employees can be listed and saved through the SDK. Authentication is header-only.
+
+## 4.5.2+2
+
+### Dart
+
+* Corrected issues with `Department` and `DepartmentInput` api connector
+
+### Python
+
+* No changes in this release.
+
+### Go
+
+* No changes in this release.
+
+## 4.5.2+1
+
+### Dart
+
+* Fixed `AccessInput.save`/`delete`, the `Token` queries/mutations (`tokens`, `expireToken`, `createToken`), and `ChartInput.save` to stop sending `apiToken` as a GraphQL variable/argument; authentication is carried solely via the connector's `Authorization` header.
+
 ## 4.5.2
 
 > Note: `4.5.1` was skipped. Its Dart package published to pub.dev, but the release run failed before the Python package was uploaded, so this version supersedes it across all three languages.

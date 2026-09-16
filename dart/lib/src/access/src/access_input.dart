@@ -70,7 +70,6 @@ abstract class AccessInput with _$AccessInput {
       final response = await connector.perform(
         GqlMutation(
           variables: [
-            GqlVariable(name: 'apiToken', type: .string, isRequired: true, value: apiToken),
             GqlVariable(
               name: 'data',
               type: .input(of: inputName),
@@ -80,7 +79,7 @@ abstract class AccessInput with _$AccessInput {
           ],
           name: opName,
         )..add(
-          GqlField(name: opName, args: {'apiToken': 'apiToken', 'data': 'data'})
+          GqlField(name: opName, args: {'data': 'data'})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors')),
         ),
@@ -142,7 +141,6 @@ abstract class AccessInput with _$AccessInput {
       final response = await connector.perform(
         GqlMutation(
           variables: [
-            GqlVariable(name: 'apiToken', type: .string, isRequired: true, value: apiToken),
             GqlVariable(
               name: 'data',
               type: .input(of: inputName),
@@ -152,7 +150,7 @@ abstract class AccessInput with _$AccessInput {
           ],
           name: opName,
         )..add(
-          GqlField(name: opName, args: {'apiToken': 'apiToken', 'data': 'data'})
+          GqlField(name: opName, args: {'data': 'data'})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors')),
         ),
