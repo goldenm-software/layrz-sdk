@@ -11,6 +11,10 @@
 /// registered in the Layrz platform, its customization, and its deployed
 /// instances, plus [CustomReport] (which forms a circular reference with
 /// [RegisteredApp] and therefore lives in this same library).
+///
+/// [InternalRegisteredApp] and [InternalAppInstance] are the goldenm/admin
+/// counterparts of [RegisteredApp]/[AppInstance], populated on
+/// [AvailableApp.implementations] when fetched with `isGoldenm: true`.
 library;
 
 import 'package:collection/collection.dart';
@@ -33,6 +37,8 @@ part 'src/accessibility.dart';
 part 'src/app_platform.dart';
 part 'src/available_app.dart';
 part 'src/background.dart';
+part 'src/internal_app_instance.dart';
+part 'src/internal_registered_app.dart';
 part 'src/push_device.dart';
 part 'src/registered_app.dart';
 part 'src/build.dart';

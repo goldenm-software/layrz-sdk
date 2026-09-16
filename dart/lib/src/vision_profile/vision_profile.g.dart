@@ -64,6 +64,35 @@ Map<String, dynamic> _$VisionProtocolToJson(_VisionProtocol instance) =>
       'dynamicIcon': instance.dynamicIcon?.toJson(),
     };
 
+_VisionProtocolInput _$VisionProtocolInputFromJson(Map<String, dynamic> json) =>
+    _VisionProtocolInput(
+      id: json['id'] as String?,
+      name: json['name'] as String? ?? '',
+      color: json['color'] == null
+          ? const Color(0xFF2196F3)
+          : const ColorConverter().fromJson(json['color'] as String),
+      dynamicIcon: json['dynamicIcon'] == null
+          ? null
+          : AvatarInput.fromJson(json['dynamicIcon'] as Map<String, dynamic>),
+      requiredFields:
+          (json['requiredFields'] as List<dynamic>?)
+              ?.map((e) => CredentialField.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      isEnabled: json['isEnabled'] as bool? ?? true,
+    );
+
+Map<String, dynamic> _$VisionProtocolInputToJson(
+  _VisionProtocolInput instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'color': const ColorConverter().toJson(instance.color),
+  'dynamicIcon': instance.dynamicIcon?.toJson(),
+  'requiredFields': instance.requiredFields.map((e) => e.toJson()).toList(),
+  'isEnabled': instance.isEnabled,
+};
+
 _VisionGaugeResult _$VisionGaugeResultFromJson(Map<String, dynamic> json) =>
     _VisionGaugeResult(
       id: json['id'] as String,

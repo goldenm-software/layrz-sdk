@@ -123,6 +123,12 @@ abstract class MapLayer with _$MapLayer {
   // coverage:ignore-end
 
   // coverage:ignore-start
+  /// [gqlFragment] is the GqlFragment for a map layer. Alias of [fragment],
+  /// kept for backwards compatibility.
+  static GqlFragment get gqlFragment => fragment;
+  // coverage:ignore-end
+
+  // coverage:ignore-start
   /// Fetches a single [MapLayer] by its [id].
   ///
   /// Makes an authenticated GraphQL query (`mapLayers`) filtered by [id].
@@ -302,4 +308,10 @@ List<MapLayer> _mapLayerListDecoder(Object? json) {
   return List<MapLayer>.from(
     (json as List? ?? []).map((e) => MapLayer.fromJson(Map<String, dynamic>.from(e as Map))),
   );
+}
+
+/// Decodes a single-object `result` payload into a [MapLayer].
+/// Used by [MapLayerInput.save].
+MapLayer _mapLayerDecoder(Object? json) {
+  return MapLayer.fromJson(Map<String, dynamic>.from(json as Map));
 }

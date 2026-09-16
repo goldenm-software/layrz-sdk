@@ -21,3 +21,19 @@ Map<String, dynamic> _$SimulationCycleToJson(_SimulationCycle instance) =>
       'steps': instance.steps,
       'fileUri': instance.fileUri,
     };
+
+_SimulationCycleInput _$SimulationCycleInputFromJson(
+  Map<String, dynamic> json,
+) => _SimulationCycleInput(
+  id: json['id'] as String?,
+  name: json['name'] as String? ?? '',
+  fileUri: json['fileUri'] as String?,
+);
+
+Map<String, dynamic> _$SimulationCycleInputToJson(
+  _SimulationCycleInput instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'fileUri': instance.fileUri,
+};

@@ -1,5 +1,146 @@
 # Changelog
 
+## 4.5.1
+
+### Dart
+
+* Restore the `deprecateInstance`, `migrateInstance`, and `requestInstance` static methods on `AppInstance`, which were dropped during the `layrz_models` migration; each performs its GraphQL mutation and returns `true` on `ApiStatus.ok`.
+* Add an optional `second` field to `TimeOfDay` (defaults to `0`); `TimeOfDay.fromDateTime` now preserves `dateTime.second`, and the JSON serialization round-trips it.
+* Select `planId` in the remaining `User` fragment variant that was still missing it.
+* Restore the pre-migration `Action` surface for backwards compatibility with `layrz_models`: `Action.fetch` is an instance method again (with `withDetails`), `ActionInput.save` returns `Future<ApiResponse<Action, Map<String, dynamic>>?>`, `ActionVariant` regains its public `queryName`/`addMutationName`/`editMutationName`/`deleteMutationName` getters, and `Action.gqlFragment` is restored.
+* Restore the pre-migration `MapLayer` surface: `MapLayerInput.save` returns `Future<ApiResponse<MapLayer, Map<String, dynamic>>?>` again, and `MapLayer.gqlFragment` is restored as an alias of `fragment`.
+* Restore the `SensorTypeConverter`, `SensorTypeOrNullConverter`, `SensorSubTypeConverter`, and `SensorSubTypeOrNullConverter` classes, which were dropped during the `layrz_models` migration.
+
+### Python
+
+* No changes in this release.
+
+### Go
+
+* No changes in this release.
+
+## 4.5.0+9
+
+### Dart
+
+* Add `MapLayerInput` with a `save` method (`addMapLayer`/`editMapLayer`) to the map module, so map layers can be created and edited through the SDK.
+* Add the `BleDevice`, `BleManufacturerData`, and `BleServiceData` models to a new `ble` module (moved from `layrz_models`).
+* Add `fetch`, `fetchAll`, and `save` methods to `Department`/`DepartmentInput` (`addDepartment`/`editDepartment`), so departments can be listed and saved through the SDK.
+* Select `mfaEnabled`, `hasPaymentWarning`, `isLocked`, `isSuspended`, `planId`, and `billingPlan` in the full `User` fragment so `User.fetch` returns the account-state fields (previously only `fetchAll` did).
+
+### Python
+
+* No changes in this release.
+
+### Go
+
+* No changes in this release.
+
+## 4.5.0+8
+
+### Dart
+
+* Make `internalIdentifier` optional on `AvailableApp.fetchAll`/`fetch` when `isGoldenm` is true (the `internalAvailableApps` query does not require it); it is now an optional filter rather than a required argument.
+
+### Python
+
+* No changes in this release.
+
+### Go
+
+* No changes in this release.
+
+## 4.5.0+7
+
+### Dart
+* Add an `isGoldenm` flag to `AvailableApp.fetchAll`/`fetch` that queries `internalAvailableApps` (with a caller-supplied `internalIdentifier`) and populates `versions` and `implementations`.
+* Add the `InternalRegisteredApp` and `InternalAppInstance` models and an `AppVersion` fragment; retype `AvailableApp.implementations` to `List<InternalRegisteredApp>`.
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
+## 4.5.0+6
+
+### Dart
+* Fix the `ModelInput` create and edit mutations to pass the required `data` argument (`addModel`/`editModel` were missing `args: {'data': 'data'}`, so saving a `Model` failed with a GraphQL "argument data is required" error).
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
+## 4.5.0+5
+
+### Dart
+* Fetch the nested `protocol` object in the `Model` fragment so `model.protocol` is populated on `fetchAll` (id, name, color, isEnabled, operationMode, confiotCapable, dynamicIcon).
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
+## 4.5.0+4
+
+### Dart
+* Removed the `mqttTopic` and `isAsync` fields from `OutboundProtocol` and its GraphQL fragment; these fields are not exported by the API and caused "Cannot query field" errors on `OutboundProtocol.fetch`/`fetchAll`.
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
+## 4.5.0+3
+
+### Dart
+* Added the `flespi` module (`FlespiProtocol`, `FlespiChannel`, `FlespiModel`) with `fetchAll`/`fromFlespi` GraphQL callers, moved from `layrz_models`.
+* Added `ModelInput` and `ZigbeeParameterInput` to the `model` module, moved from `layrz_models`.
+* Added `CommandDefinitionInput` and `CommandPayloadDefinitionInput` to the `commands` module, moved from `layrz_models`.
+* Added `ConfigGroupingInput` and `ConfigDefinitionInput` to the `inbound` module, moved from `layrz_models`.
+* Added `ConfIoTFile` and `ConfIoTNamespace` (with supporting converters) to the `inbound` module, moved from `layrz_models`.
+* Added the report preview types (`ReportPreview`, `ReportPage`, `ReportRow`, `ReportHeader`, `ReportCell`, `ReportDataType`) to the `report_template` module, moved from `layrz_models`.
+* All moved types were relocated so Flutter components can drop their `layrz_models` dependency.
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
+## 4.5.0+2
+
+### Dart
+* Added the `VisionProtocol` write path: `VisionProtocolInput.save` (with `addVisionProtocol`/`editVisionProtocol` GraphQL callers) plus `VisionProtocol.fragment`, `VisionProtocol.fetchAll` and `VisionProtocol.fetch`.
+* Added the `account_launcher` module with `GeneratorTemplateInput` and `BusTemplateInput`.
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
+## 4.5.0+1
+
+### Dart
+* Added `ExchangeProtocolInput.save` for the exchange protocol module, with `addExchangeProtocol`/`editExchangeProtocol` GraphQL callers.
+* Added `OutboundProtocolInput.save` for the outbound protocol module, with `addOutboundProtocol`/`editOutboundProtocol` GraphQL callers.
+* Added `AlgorithmInput.save` for the function module, with `addAlgorithm`/`editAlgorithm` GraphQL callers.
+* Added `SimulationCycleInput.save` for the simulation module, with `addSimulationCycle`/`editSimulationCycle` GraphQL callers.
+* Added `InboundProtocolInput.save` for the inbound module, with `addInboundProtocol`/`editInboundProtocol` GraphQL callers.
+* Added `AvailableApp.fetch` and `AvailableAppInput.save` GraphQL callers alongside the existing `AvailableApp.fetchAll`.
+* All added callers preserve the established `onResponse` callback conventions of their module, and none of the new input types introduce a Material or Cupertino dependency.
+
+### Python
+* No changes in this release.
+
+### Go
+* No changes in this release.
+
 ## 4.5.0
 
 ### Dart

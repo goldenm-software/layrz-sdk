@@ -44,6 +44,44 @@ Map<String, dynamic> _$ExchangeProtocolToJson(_ExchangeProtocol instance) =>
       'requiresGeofences': instance.requiresGeofences,
     };
 
+_ExchangeProtocolInput _$ExchangeProtocolInputFromJson(
+  Map<String, dynamic> json,
+) => _ExchangeProtocolInput(
+  id: json['id'] as String?,
+  name: json['name'] as String? ?? '',
+  color: json['color'] as String? ?? 'primary',
+  dynamicIcon: json['dynamicIcon'] == null
+      ? null
+      : AvatarInput.fromJson(json['dynamicIcon'] as Map<String, dynamic>),
+  requiredFields:
+      (json['requiredFields'] as List<dynamic>?)
+          ?.map((e) => CredentialField.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  isEnabled: json['isEnabled'] as bool?,
+  requiresFlespiToken: json['requiresFlespiToken'] as bool?,
+  flespiAcl: (json['flespiAcl'] as List<dynamic>?)
+      ?.map((e) => FlespiAcl.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  requiresAssets: json['requiresAssets'] as bool? ?? false,
+  requiresGeofences: json['requiresGeofences'] as bool? ?? false,
+);
+
+Map<String, dynamic> _$ExchangeProtocolInputToJson(
+  _ExchangeProtocolInput instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'color': instance.color,
+  'dynamicIcon': instance.dynamicIcon?.toJson(),
+  'requiredFields': instance.requiredFields.map((e) => e.toJson()).toList(),
+  'isEnabled': instance.isEnabled,
+  'requiresFlespiToken': instance.requiresFlespiToken,
+  'flespiAcl': instance.flespiAcl?.map((e) => e.toJson()).toList(),
+  'requiresAssets': instance.requiresAssets,
+  'requiresGeofences': instance.requiresGeofences,
+};
+
 _ExchangeService _$ExchangeServiceFromJson(Map<String, dynamic> json) =>
     _ExchangeService(
       id: json['id'] as String,

@@ -13,3 +13,4 @@ part 'simulation.freezed.dart';
 part 'simulation.g.dart';
 
 part 'src/cycle.dart';
+part 'src/cycle_input.dart';

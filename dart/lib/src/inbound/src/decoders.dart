@@ -7,3 +7,9 @@ List<InboundProtocol> _protocolListDecoder(Object? json) {
     (json as List? ?? []).map((e) => InboundProtocol.fromJson(Map<String, dynamic>.from(e as Map))),
   );
 }
+
+/// [_protocolDecoder] decodes a single-object `result` payload into an [InboundProtocol].
+/// Used by result-bearing mutations (add/edit-style), e.g. [InboundProtocolInput.save].
+InboundProtocol _protocolDecoder(Object? json) {
+  return InboundProtocol.fromJson(Map<String, dynamic>.from(json as Map));
+}

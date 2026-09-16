@@ -2,6 +2,7 @@
 ///
 /// This package exports core modules for working with the Layrz platform:
 /// - [a11y] — Accessibility models: user preferences and colorblind mode support.
+/// - [account_launcher] — Input models for the account launcher wizard templates.
 /// - [api] — API status codes and response structures.
 /// - [app] — Application platform enum for identifying client platforms.
 /// - [avatar] — Avatar utilities for managing user and resource images.
@@ -12,6 +13,7 @@
 /// - [credential_fields] — Credential field structure definitions for inbound protocols.
 /// - [department] — Department model for organizational structure.
 /// - [employee] — Employee and employee input models for personnel management.
+/// - [flespi] — Flespi platform models: protocols, channels, and device models.
 /// - [i18n] — Internationalization models: languages, translation keys, and messages.
 /// - [icons] — Material Design Icons registry with name-based lookup.
 /// - [inbound] — Inbound protocol definitions: connection, credentials, and configuration structures.
@@ -29,6 +31,7 @@ library;
 
 export 'src/a11y/a11y.dart';
 export 'src/access/access.dart';
+export 'src/account_launcher/account_launcher.dart';
 export 'src/actions/actions.dart';
 export 'src/api/api.dart';
 export 'src/app/app.dart';
@@ -36,6 +39,7 @@ export 'src/asset/asset.dart';
 export 'src/ats/ats.dart';
 export 'src/avatar/avatar.dart';
 export 'src/billing_plan/billing_plan.dart';
+export 'src/ble/ble.dart';
 export 'src/brickhouse_permission_tier/brickhouse_permission_tier.dart';
 export 'src/builder/flespi/flespi.dart';
 export 'src/builder/inbound_structure/inbound_structure.dart';
@@ -56,6 +60,7 @@ export 'src/device/device.dart';
 export 'src/employee/employee.dart';
 export 'src/exchange/exchange.dart';
 export 'src/external/external.dart';
+export 'src/flespi/flespi.dart';
 export 'src/function/function.dart';
 export 'src/general/general.dart';
 export 'src/geofences/geofences.dart';

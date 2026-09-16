@@ -34,9 +34,14 @@ abstract class TimeOfDay with _$TimeOfDay {
   /// Parameters:
   ///   - [hour]: The hour of the day (0–23).
   ///   - [minute]: The minute within the hour (0–59).
+  ///   - [second]: The second within the minute (0–59). Defaults to 0.
   ///
   /// Returns a new immutable [TimeOfDay] instance.
-  const factory TimeOfDay({required int hour, required int minute}) = _TimeOfDay;
+  const factory TimeOfDay({
+    required int hour,
+    required int minute,
+    @Default(0) int second,
+  }) = _TimeOfDay;
 
   /// Converts a JSON object to a [TimeOfDay].
   ///
@@ -59,6 +64,6 @@ abstract class TimeOfDay with _$TimeOfDay {
   ///
   /// Returns a new [TimeOfDay] with the same hour and minute as [dateTime].
   factory TimeOfDay.fromDateTime(DateTime dateTime) {
-    return TimeOfDay(hour: dateTime.hour, minute: dateTime.minute);
+    return TimeOfDay(hour: dateTime.hour, minute: dateTime.minute, second: dateTime.second);
   }
 }

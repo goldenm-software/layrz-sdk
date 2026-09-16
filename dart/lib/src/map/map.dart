@@ -16,6 +16,7 @@ part 'map.freezed.dart';
 part 'map.g.dart';
 
 part 'src/layer.dart';
+part 'src/layer_input.dart';
 part 'src/map_source.dart';
 part 'src/google_layer.dart';
 part 'src/here_styles.dart';

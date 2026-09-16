@@ -19,8 +19,6 @@ _OutboundProtocol _$OutboundProtocolFromJson(Map<String, dynamic> json) =>
           const [],
       hasFtp: json['hasFtp'] as bool?,
       isConsumpted: json['isConsumpted'] as bool?,
-      mqttTopic: json['mqttTopic'] as String?,
-      isAsync: json['isAsync'] as bool?,
       requiredFields:
           (json['requiredFields'] as List<dynamic>?)
               ?.map((e) => CredentialField.fromJson(e as Map<String, dynamic>))
@@ -41,12 +39,44 @@ Map<String, dynamic> _$OutboundProtocolToJson(_OutboundProtocol instance) =>
       'categoriesIds': instance.categoriesIds,
       'hasFtp': instance.hasFtp,
       'isConsumpted': instance.isConsumpted,
-      'mqttTopic': instance.mqttTopic,
-      'isAsync': instance.isAsync,
       'requiredFields': instance.requiredFields.map((e) => e.toJson()).toList(),
       'dynamicIcon': instance.dynamicIcon?.toJson(),
       'usage': instance.usage,
     };
+
+_OutboundProtocolInput _$OutboundProtocolInputFromJson(
+  Map<String, dynamic> json,
+) => _OutboundProtocolInput(
+  id: json['id'] as String?,
+  name: json['name'] as String?,
+  color: const ColorOrNullConverter().fromJson(json['color'] as String?),
+  isEnabled: json['isEnabled'] as bool?,
+  categoriesIds: (json['categoriesIds'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+  hasFtp: json['hasFtp'] as bool? ?? false,
+  isConsumpted: json['isConsumpted'] as bool? ?? false,
+  requiredFields: (json['requiredFields'] as List<dynamic>?)
+      ?.map((e) => CredentialField.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  dynamicIcon: json['dynamicIcon'] == null
+      ? null
+      : AvatarInput.fromJson(json['dynamicIcon'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$OutboundProtocolInputToJson(
+  _OutboundProtocolInput instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'color': const ColorOrNullConverter().toJson(instance.color),
+  'isEnabled': instance.isEnabled,
+  'categoriesIds': instance.categoriesIds,
+  'hasFtp': instance.hasFtp,
+  'isConsumpted': instance.isConsumpted,
+  'requiredFields': instance.requiredFields?.map((e) => e.toJson()).toList(),
+  'dynamicIcon': instance.dynamicIcon?.toJson(),
+};
 
 _OutboundService _$OutboundServiceFromJson(Map<String, dynamic> json) =>
     _OutboundService(

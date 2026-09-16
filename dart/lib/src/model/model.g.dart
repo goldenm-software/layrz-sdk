@@ -203,6 +203,42 @@ const _$ZigbeeDataTypeEnumMap = {
   ZigbeeDataType.enum_: 'ENUM',
 };
 
+_ZigbeeParameterInput _$ZigbeeParameterInputFromJson(
+  Map<String, dynamic> json,
+) => _ZigbeeParameterInput(
+  id: json['id'] as String?,
+  name: json['name'] as String? ?? '',
+  alias: json['alias'] as String?,
+  dataType:
+      $enumDecodeNullable(
+        _$ZigbeeDataTypeEnumMap,
+        json['dataType'],
+        unknownValue: ZigbeeDataType.string,
+      ) ??
+      ZigbeeDataType.string,
+  widget:
+      $enumDecodeNullable(
+        _$RenderWidgetEnumMap,
+        json['widget'],
+        unknownValue: RenderWidget.unknown,
+      ) ??
+      RenderWidget.unknown,
+  access: (json['access'] as num?)?.toInt(),
+  extra: json['extra'] as Map<String, dynamic>?,
+);
+
+Map<String, dynamic> _$ZigbeeParameterInputToJson(
+  _ZigbeeParameterInput instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'alias': instance.alias,
+  'dataType': instance.dataType.toJson(),
+  'widget': instance.widget.toJson(),
+  'access': instance.access,
+  'extra': instance.extra,
+};
+
 _HwModel _$HwModelFromJson(Map<String, dynamic> json) => _HwModel(
   id: json['id'] as String,
   name: json['name'] as String,
@@ -240,3 +276,73 @@ Map<String, dynamic> _$HwModelInputToJson(_HwModelInput instance) =>
       'name': instance.name,
       'modelsIds': instance.modelsIds,
     };
+
+_ModelInput _$ModelInputFromJson(Map<String, dynamic> json) => _ModelInput(
+  id: json['id'] as String?,
+  name: json['name'] as String? ?? '',
+  flespiId: json['flespiId'] as String?,
+  protocolId: json['protocolId'] as String?,
+  isGeneric: json['isGeneric'] as bool? ?? false,
+  commandsStructure:
+      (json['commandsStructure'] as List<dynamic>?)
+          ?.map(
+            (e) => CommandDefinitionInput.fromJson(e as Map<String, dynamic>),
+          )
+          .toList() ??
+      const [],
+  configStructure:
+      (json['configStructure'] as List<dynamic>?)
+          ?.map((e) => ConfigGroupingInput.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  confiotCapable: json['confiotCapable'] as bool? ?? false,
+  confiotLayout:
+      $enumDecodeNullable(
+        _$ConfIoTLayoutEnumMap,
+        json['confiotLayout'],
+        unknownValue: ConfIoTLayout.standard,
+      ) ??
+      ConfIoTLayout.standard,
+  confiotName: json['confiotName'] as String?,
+  peripheralIdentifier: json['peripheralIdentifier'] as String?,
+  peripheralParserSpec: json['peripheralParserSpec'] as Map<String, dynamic>?,
+  widget:
+      (json['widgetRender'] as List<dynamic>?)
+          ?.map(
+            (e) => $enumDecode(
+              _$RenderWidgetEnumMap,
+              e,
+              unknownValue: RenderWidget.unknown,
+            ),
+          )
+          .toList() ??
+      const [],
+  zigbeeCompatible: json['zigbeeCompatible'] as bool? ?? false,
+  zigbeeParameters:
+      (json['zigbeeParameters'] as List<dynamic>?)
+          ?.map((e) => ZigbeeParameterInput.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+);
+
+Map<String, dynamic> _$ModelInputToJson(
+  _ModelInput instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'flespiId': instance.flespiId,
+  'protocolId': instance.protocolId,
+  'isGeneric': instance.isGeneric,
+  'commandsStructure': instance.commandsStructure
+      .map((e) => e.toJson())
+      .toList(),
+  'configStructure': instance.configStructure.map((e) => e.toJson()).toList(),
+  'confiotCapable': instance.confiotCapable,
+  'confiotLayout': instance.confiotLayout.toJson(),
+  'confiotName': instance.confiotName,
+  'peripheralIdentifier': instance.peripheralIdentifier,
+  'peripheralParserSpec': instance.peripheralParserSpec,
+  'widgetRender': instance.widget.map((e) => e.toJson()).toList(),
+  'zigbeeCompatible': instance.zigbeeCompatible,
+  'zigbeeParameters': instance.zigbeeParameters.map((e) => e.toJson()).toList(),
+};

@@ -31,4 +31,17 @@ abstract class AppVersion with _$AppVersion {
   /// Deserializes an [AppVersion] from a JSON map.
   factory AppVersion.fromJson(Map<String, dynamic> json) =>
       _$AppVersionFromJson(json);
+
+  // coverage:ignore-start
+  /// GraphQL fragment definition for querying app version fields.
+  static GqlFragment get fragment =>
+      GqlFragment(name: 'appVersionFragment', onType: 'AppVersion')
+        ..add(GqlField(name: 'id'))
+        ..add(GqlField(name: 'app'))
+        ..add(GqlField(name: 'platform'))
+        ..add(GqlField(name: 'fileUri'))
+        ..add(GqlField(name: 'buildNumber'))
+        ..add(GqlField(name: 'buildName'))
+        ..add(GqlField(name: 'releasedAt'));
+  // coverage:ignore-end
 }

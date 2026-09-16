@@ -77,6 +77,22 @@ abstract class Model with _$Model {
       GqlField(name: 'flespiId'),
       GqlField(name: 'isGeneric'),
       GqlField(name: 'protocolId'),
+      GqlField(
+        name: 'protocol',
+        fragment: GqlFragment(
+          name: 'modelProtocolFragment',
+          onType: 'InboundProtocol',
+          fields: [
+            GqlField(name: 'id'),
+            GqlField(name: 'name'),
+            GqlField(name: 'color'),
+            GqlField(name: 'isEnabled'),
+            GqlField(name: 'operationMode'),
+            GqlField(name: 'confiotCapable'),
+            GqlField(name: 'dynamicIcon', fragment: Avatar.fragment),
+          ],
+        ),
+      ),
 
       GqlField(name: 'confiotCapable'),
       GqlField(name: 'confiotLayout'),

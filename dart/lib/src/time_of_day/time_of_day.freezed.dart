@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TimeOfDay {
 
- int get hour; int get minute;
+ int get hour; int get minute; int get second;
 /// Create a copy of TimeOfDay
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $TimeOfDayCopyWith<TimeOfDay> get copyWith => _$TimeOfDayCopyWithImpl<TimeOfDay>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimeOfDay&&(identical(other.hour, hour) || other.hour == hour)&&(identical(other.minute, minute) || other.minute == minute));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimeOfDay&&(identical(other.hour, hour) || other.hour == hour)&&(identical(other.minute, minute) || other.minute == minute)&&(identical(other.second, second) || other.second == second));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,hour,minute);
+int get hashCode => Object.hash(runtimeType,hour,minute,second);
 
 @override
 String toString() {
-  return 'TimeOfDay(hour: $hour, minute: $minute)';
+  return 'TimeOfDay(hour: $hour, minute: $minute, second: $second)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $TimeOfDayCopyWith<$Res>  {
   factory $TimeOfDayCopyWith(TimeOfDay value, $Res Function(TimeOfDay) _then) = _$TimeOfDayCopyWithImpl;
 @useResult
 $Res call({
- int hour, int minute
+ int hour, int minute, int second
 });
 
 
@@ -65,10 +65,11 @@ class _$TimeOfDayCopyWithImpl<$Res>
 
 /// Create a copy of TimeOfDay
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? hour = null,Object? minute = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? hour = null,Object? minute = null,Object? second = null,}) {
   return _then(_self.copyWith(
 hour: null == hour ? _self.hour : hour // ignore: cast_nullable_to_non_nullable
 as int,minute: null == minute ? _self.minute : minute // ignore: cast_nullable_to_non_nullable
+as int,second: null == second ? _self.second : second // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -154,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int hour,  int minute)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int hour,  int minute,  int second)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TimeOfDay() when $default != null:
-return $default(_that.hour,_that.minute);case _:
+return $default(_that.hour,_that.minute,_that.second);case _:
   return orElse();
 
 }
@@ -175,10 +176,10 @@ return $default(_that.hour,_that.minute);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int hour,  int minute)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int hour,  int minute,  int second)  $default,) {final _that = this;
 switch (_that) {
 case _TimeOfDay():
-return $default(_that.hour,_that.minute);case _:
+return $default(_that.hour,_that.minute,_that.second);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -195,10 +196,10 @@ return $default(_that.hour,_that.minute);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int hour,  int minute)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int hour,  int minute,  int second)?  $default,) {final _that = this;
 switch (_that) {
 case _TimeOfDay() when $default != null:
-return $default(_that.hour,_that.minute);case _:
+return $default(_that.hour,_that.minute,_that.second);case _:
   return null;
 
 }
@@ -210,11 +211,12 @@ return $default(_that.hour,_that.minute);case _:
 @JsonSerializable()
 
 class _TimeOfDay extends TimeOfDay {
-  const _TimeOfDay({required this.hour, required this.minute}): super._();
+  const _TimeOfDay({required this.hour, required this.minute, this.second = 0}): super._();
   factory _TimeOfDay.fromJson(Map<String, dynamic> json) => _$TimeOfDayFromJson(json);
 
 @override final  int hour;
 @override final  int minute;
+@override@JsonKey() final  int second;
 
 /// Create a copy of TimeOfDay
 /// with the given fields replaced by the non-null parameter values.
@@ -229,16 +231,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimeOfDay&&(identical(other.hour, hour) || other.hour == hour)&&(identical(other.minute, minute) || other.minute == minute));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimeOfDay&&(identical(other.hour, hour) || other.hour == hour)&&(identical(other.minute, minute) || other.minute == minute)&&(identical(other.second, second) || other.second == second));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,hour,minute);
+int get hashCode => Object.hash(runtimeType,hour,minute,second);
 
 @override
 String toString() {
-  return 'TimeOfDay(hour: $hour, minute: $minute)';
+  return 'TimeOfDay(hour: $hour, minute: $minute, second: $second)';
 }
 
 
@@ -249,7 +251,7 @@ abstract mixin class _$TimeOfDayCopyWith<$Res> implements $TimeOfDayCopyWith<$Re
   factory _$TimeOfDayCopyWith(_TimeOfDay value, $Res Function(_TimeOfDay) _then) = __$TimeOfDayCopyWithImpl;
 @override @useResult
 $Res call({
- int hour, int minute
+ int hour, int minute, int second
 });
 
 
@@ -266,10 +268,11 @@ class __$TimeOfDayCopyWithImpl<$Res>
 
 /// Create a copy of TimeOfDay
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? hour = null,Object? minute = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? hour = null,Object? minute = null,Object? second = null,}) {
   return _then(_TimeOfDay(
 hour: null == hour ? _self.hour : hour // ignore: cast_nullable_to_non_nullable
 as int,minute: null == minute ? _self.minute : minute // ignore: cast_nullable_to_non_nullable
+as int,second: null == second ? _self.second : second // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }

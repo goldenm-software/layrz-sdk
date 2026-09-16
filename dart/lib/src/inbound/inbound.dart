@@ -29,8 +29,13 @@ part 'inbound.g.dart';
 
 part 'src/decoders.dart';
 part 'src/protocol.dart';
+part 'src/protocol_input.dart';
 part 'src/service.dart';
 part 'src/enums.dart';
 part 'src/zigbee_data_type.dart';
 part 'src/config_grouping.dart';
 part 'src/config_definition.dart';
+part 'src/config_grouping_input.dart';
+part 'src/config_definition_input.dart';
+part 'src/confiot_namespace.dart';
+part 'src/confiot_file.dart';

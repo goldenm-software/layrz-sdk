@@ -679,6 +679,312 @@ $AvatarCopyWith<$Res>? get dynamicIcon {
 
 
 /// @nodoc
+mixin _$VisionProtocolInput {
+
+/// [id] ID of the protocol entity. This ID is unique.
+ String? get id;/// [id] ID of the protocol entity. This ID is unique.
+ set id(String? value);/// [name] Name of the protocol.
+ String get name;/// [name] Name of the protocol.
+ set name(String value);/// [color] Indicates the color assigned to the protocol.
+@ColorConverter() Color get color;/// [color] Indicates the color assigned to the protocol.
+@ColorConverter() set color(Color value);/// [dynamicIcon] is the icon of the protocol.
+ AvatarInput? get dynamicIcon;/// [dynamicIcon] is the icon of the protocol.
+ set dynamicIcon(AvatarInput? value);/// [requiredFields] is the list of required fields for the protocol.
+ List<CredentialField> get requiredFields;/// [requiredFields] is the list of required fields for the protocol.
+ set requiredFields(List<CredentialField> value);/// [isEnabled] is the current status of the protocol.
+ bool get isEnabled;/// [isEnabled] is the current status of the protocol.
+ set isEnabled(bool value);
+/// Create a copy of VisionProtocolInput
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$VisionProtocolInputCopyWith<VisionProtocolInput> get copyWith => _$VisionProtocolInputCopyWithImpl<VisionProtocolInput>(this as VisionProtocolInput, _$identity);
+
+  /// Serializes this VisionProtocolInput to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'VisionProtocolInput(id: $id, name: $name, color: $color, dynamicIcon: $dynamicIcon, requiredFields: $requiredFields, isEnabled: $isEnabled)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $VisionProtocolInputCopyWith<$Res>  {
+  factory $VisionProtocolInputCopyWith(VisionProtocolInput value, $Res Function(VisionProtocolInput) _then) = _$VisionProtocolInputCopyWithImpl;
+@useResult
+$Res call({
+ String? id, String name,@ColorConverter() Color color, AvatarInput? dynamicIcon, List<CredentialField> requiredFields, bool isEnabled
+});
+
+
+$AvatarInputCopyWith<$Res>? get dynamicIcon;
+
+}
+/// @nodoc
+class _$VisionProtocolInputCopyWithImpl<$Res>
+    implements $VisionProtocolInputCopyWith<$Res> {
+  _$VisionProtocolInputCopyWithImpl(this._self, this._then);
+
+  final VisionProtocolInput _self;
+  final $Res Function(VisionProtocolInput) _then;
+
+/// Create a copy of VisionProtocolInput
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? color = null,Object? dynamicIcon = freezed,Object? requiredFields = null,Object? isEnabled = null,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as Color,dynamicIcon: freezed == dynamicIcon ? _self.dynamicIcon : dynamicIcon // ignore: cast_nullable_to_non_nullable
+as AvatarInput?,requiredFields: null == requiredFields ? _self.requiredFields : requiredFields // ignore: cast_nullable_to_non_nullable
+as List<CredentialField>,isEnabled: null == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+/// Create a copy of VisionProtocolInput
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AvatarInputCopyWith<$Res>? get dynamicIcon {
+    if (_self.dynamicIcon == null) {
+    return null;
+  }
+
+  return $AvatarInputCopyWith<$Res>(_self.dynamicIcon!, (value) {
+    return _then(_self.copyWith(dynamicIcon: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [VisionProtocolInput].
+extension VisionProtocolInputPatterns on VisionProtocolInput {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _VisionProtocolInput value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _VisionProtocolInput() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _VisionProtocolInput value)  $default,){
+final _that = this;
+switch (_that) {
+case _VisionProtocolInput():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _VisionProtocolInput value)?  $default,){
+final _that = this;
+switch (_that) {
+case _VisionProtocolInput() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name, @ColorConverter()  Color color,  AvatarInput? dynamicIcon,  List<CredentialField> requiredFields,  bool isEnabled)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _VisionProtocolInput() when $default != null:
+return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.requiredFields,_that.isEnabled);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name, @ColorConverter()  Color color,  AvatarInput? dynamicIcon,  List<CredentialField> requiredFields,  bool isEnabled)  $default,) {final _that = this;
+switch (_that) {
+case _VisionProtocolInput():
+return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.requiredFields,_that.isEnabled);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name, @ColorConverter()  Color color,  AvatarInput? dynamicIcon,  List<CredentialField> requiredFields,  bool isEnabled)?  $default,) {final _that = this;
+switch (_that) {
+case _VisionProtocolInput() when $default != null:
+return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.requiredFields,_that.isEnabled);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _VisionProtocolInput extends VisionProtocolInput {
+   _VisionProtocolInput({this.id, this.name = '', @ColorConverter() this.color = const Color(0xFF2196F3), this.dynamicIcon, this.requiredFields = const [], this.isEnabled = true}): super._();
+  factory _VisionProtocolInput.fromJson(Map<String, dynamic> json) => _$VisionProtocolInputFromJson(json);
+
+/// [id] ID of the protocol entity. This ID is unique.
+@override  String? id;
+/// [name] Name of the protocol.
+@override@JsonKey()  String name;
+/// [color] Indicates the color assigned to the protocol.
+@override@JsonKey()@ColorConverter()  Color color;
+/// [dynamicIcon] is the icon of the protocol.
+@override  AvatarInput? dynamicIcon;
+/// [requiredFields] is the list of required fields for the protocol.
+@override@JsonKey()  List<CredentialField> requiredFields;
+/// [isEnabled] is the current status of the protocol.
+@override@JsonKey()  bool isEnabled;
+
+/// Create a copy of VisionProtocolInput
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$VisionProtocolInputCopyWith<_VisionProtocolInput> get copyWith => __$VisionProtocolInputCopyWithImpl<_VisionProtocolInput>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$VisionProtocolInputToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'VisionProtocolInput(id: $id, name: $name, color: $color, dynamicIcon: $dynamicIcon, requiredFields: $requiredFields, isEnabled: $isEnabled)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$VisionProtocolInputCopyWith<$Res> implements $VisionProtocolInputCopyWith<$Res> {
+  factory _$VisionProtocolInputCopyWith(_VisionProtocolInput value, $Res Function(_VisionProtocolInput) _then) = __$VisionProtocolInputCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id, String name,@ColorConverter() Color color, AvatarInput? dynamicIcon, List<CredentialField> requiredFields, bool isEnabled
+});
+
+
+@override $AvatarInputCopyWith<$Res>? get dynamicIcon;
+
+}
+/// @nodoc
+class __$VisionProtocolInputCopyWithImpl<$Res>
+    implements _$VisionProtocolInputCopyWith<$Res> {
+  __$VisionProtocolInputCopyWithImpl(this._self, this._then);
+
+  final _VisionProtocolInput _self;
+  final $Res Function(_VisionProtocolInput) _then;
+
+/// Create a copy of VisionProtocolInput
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? color = null,Object? dynamicIcon = freezed,Object? requiredFields = null,Object? isEnabled = null,}) {
+  return _then(_VisionProtocolInput(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as Color,dynamicIcon: freezed == dynamicIcon ? _self.dynamicIcon : dynamicIcon // ignore: cast_nullable_to_non_nullable
+as AvatarInput?,requiredFields: null == requiredFields ? _self.requiredFields : requiredFields // ignore: cast_nullable_to_non_nullable
+as List<CredentialField>,isEnabled: null == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+/// Create a copy of VisionProtocolInput
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AvatarInputCopyWith<$Res>? get dynamicIcon {
+    if (_self.dynamicIcon == null) {
+    return null;
+  }
+
+  return $AvatarInputCopyWith<$Res>(_self.dynamicIcon!, (value) {
+    return _then(_self.copyWith(dynamicIcon: value));
+  });
+}
+}
+
+
+/// @nodoc
 mixin _$VisionGaugeResult {
 
 /// [id] is the unique identifier of the measurement.

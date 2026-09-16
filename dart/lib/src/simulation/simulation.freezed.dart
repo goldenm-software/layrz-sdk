@@ -291,4 +291,271 @@ as String?,
 
 }
 
+
+/// @nodoc
+mixin _$SimulationCycleInput {
+
+/// Unique identifier for this cycle, or null when creating a new one.
+ String? get id;/// Unique identifier for this cycle, or null when creating a new one.
+ set id(String? value);/// Human-readable name of the cycle. Defaults to an empty string.
+ String get name;/// Human-readable name of the cycle. Defaults to an empty string.
+ set name(String value);/// The URI of the file that contains the cycle, or a Base64 payload to
+/// upload a new file.
+ String? get fileUri;/// The URI of the file that contains the cycle, or a Base64 payload to
+/// upload a new file.
+ set fileUri(String? value);
+/// Create a copy of SimulationCycleInput
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SimulationCycleInputCopyWith<SimulationCycleInput> get copyWith => _$SimulationCycleInputCopyWithImpl<SimulationCycleInput>(this as SimulationCycleInput, _$identity);
+
+  /// Serializes this SimulationCycleInput to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'SimulationCycleInput(id: $id, name: $name, fileUri: $fileUri)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SimulationCycleInputCopyWith<$Res>  {
+  factory $SimulationCycleInputCopyWith(SimulationCycleInput value, $Res Function(SimulationCycleInput) _then) = _$SimulationCycleInputCopyWithImpl;
+@useResult
+$Res call({
+ String? id, String name, String? fileUri
+});
+
+
+
+
+}
+/// @nodoc
+class _$SimulationCycleInputCopyWithImpl<$Res>
+    implements $SimulationCycleInputCopyWith<$Res> {
+  _$SimulationCycleInputCopyWithImpl(this._self, this._then);
+
+  final SimulationCycleInput _self;
+  final $Res Function(SimulationCycleInput) _then;
+
+/// Create a copy of SimulationCycleInput
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? fileUri = freezed,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,fileUri: freezed == fileUri ? _self.fileUri : fileUri // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SimulationCycleInput].
+extension SimulationCycleInputPatterns on SimulationCycleInput {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SimulationCycleInput value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SimulationCycleInput() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SimulationCycleInput value)  $default,){
+final _that = this;
+switch (_that) {
+case _SimulationCycleInput():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SimulationCycleInput value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SimulationCycleInput() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name,  String? fileUri)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SimulationCycleInput() when $default != null:
+return $default(_that.id,_that.name,_that.fileUri);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name,  String? fileUri)  $default,) {final _that = this;
+switch (_that) {
+case _SimulationCycleInput():
+return $default(_that.id,_that.name,_that.fileUri);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name,  String? fileUri)?  $default,) {final _that = this;
+switch (_that) {
+case _SimulationCycleInput() when $default != null:
+return $default(_that.id,_that.name,_that.fileUri);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SimulationCycleInput extends SimulationCycleInput {
+   _SimulationCycleInput({this.id, this.name = '', this.fileUri}): super._();
+  factory _SimulationCycleInput.fromJson(Map<String, dynamic> json) => _$SimulationCycleInputFromJson(json);
+
+/// Unique identifier for this cycle, or null when creating a new one.
+@override  String? id;
+/// Human-readable name of the cycle. Defaults to an empty string.
+@override@JsonKey()  String name;
+/// The URI of the file that contains the cycle, or a Base64 payload to
+/// upload a new file.
+@override  String? fileUri;
+
+/// Create a copy of SimulationCycleInput
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SimulationCycleInputCopyWith<_SimulationCycleInput> get copyWith => __$SimulationCycleInputCopyWithImpl<_SimulationCycleInput>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SimulationCycleInputToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'SimulationCycleInput(id: $id, name: $name, fileUri: $fileUri)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SimulationCycleInputCopyWith<$Res> implements $SimulationCycleInputCopyWith<$Res> {
+  factory _$SimulationCycleInputCopyWith(_SimulationCycleInput value, $Res Function(_SimulationCycleInput) _then) = __$SimulationCycleInputCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id, String name, String? fileUri
+});
+
+
+
+
+}
+/// @nodoc
+class __$SimulationCycleInputCopyWithImpl<$Res>
+    implements _$SimulationCycleInputCopyWith<$Res> {
+  __$SimulationCycleInputCopyWithImpl(this._self, this._then);
+
+  final _SimulationCycleInput _self;
+  final $Res Function(_SimulationCycleInput) _then;
+
+/// Create a copy of SimulationCycleInput
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? fileUri = freezed,}) {
+  return _then(_SimulationCycleInput(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,fileUri: freezed == fileUri ? _self.fileUri : fileUri // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
 // dart format on
