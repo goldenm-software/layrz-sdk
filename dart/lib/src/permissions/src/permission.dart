@@ -60,7 +60,7 @@ abstract class GenericPermission with _$GenericPermission {
   /// [fragment] is the GraphQL fragment string for [GenericPermission].
   static GqlFragment get fragment => GqlFragment(
     name: 'permissionFragment',
-    onType: 'Permission',
+    onType: 'GoldenmPermission',
     fields: [
       GqlField(
         name: 'apps',
@@ -76,7 +76,7 @@ abstract class GenericPermission with _$GenericPermission {
           GqlField(name: 'write'),
           GqlField(name: 'delete'),
           GqlField(name: 'plan'),
-          GqlField(name: 'loginAs'),
+          GqlField(name: 'loginas'),
         ],
       ),
       GqlField(

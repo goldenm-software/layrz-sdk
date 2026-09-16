@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.5.2+2
+
+### Dart
+
+* Corrected issues with `Department` and `DepartmentInput` api connector
+
+### Python
+
+* No changes in this release.
+
+### Go
+
+* No changes in this release.
+
 ## 4.5.2+1
 
 ### Dart

@@ -36,7 +36,7 @@ abstract class Department with _$Department {
   /// GraphQL fragment definition for querying department fields.
   static GqlFragment get fragment => GqlFragment(
     name: 'departmentFragment',
-    onType: 'Department',
+    onType: 'GoldenmDepartment',
     fields: [
       GqlField(name: 'id'),
       GqlField(name: 'name'),
@@ -67,7 +67,7 @@ abstract class Department with _$Department {
     try {
       final response = await connector.query(
         GqlQuery(variables: [])..add(
-          GqlField(name: 'departments', args: {})
+          GqlField(name: 'goldenmDepartments', args: {})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(GqlField(name: 'result', fragment: fragment)),
@@ -92,7 +92,7 @@ abstract class Department with _$Department {
   // coverage:ignore-start
   /// Fetches a single department from the server by its [id].
   ///
-  /// Sends the `departments` query with the `id` argument set, returning the
+  /// Sends the `goldenmDepartments` query with the `id` argument set, returning the
   /// matching [Department] with the fields covered by [fragment], or `null`
   /// when it cannot be found.
   static Future<Department?> fetch({
@@ -117,7 +117,7 @@ abstract class Department with _$Department {
         GqlQuery(
           variables: [GqlVariable(name: 'id', type: .id, isRequired: true, value: id)],
         )..add(
-          GqlField(name: 'departments', args: {'id': 'id'})
+          GqlField(name: 'goldenmDepartments', args: {'id': 'id'})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(GqlField(name: 'result', fragment: fragment)),
