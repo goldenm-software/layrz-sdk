@@ -734,8 +734,8 @@ return $default(_that.id,_that.name,_that.email,_that.username,_that.departmentI
 /// @nodoc
 @JsonSerializable()
 
-class _EmployeeInput implements EmployeeInput {
-   _EmployeeInput({this.id, this.name = '', this.email = '', this.username = '', this.departmentId, this.dynamicAvatar, required this.customPermissions});
+class _EmployeeInput extends EmployeeInput {
+   _EmployeeInput({this.id, this.name = '', this.email = '', this.username = '', this.departmentId, this.dynamicAvatar, required this.customPermissions}): super._();
   factory _EmployeeInput.fromJson(Map<String, dynamic> json) => _$EmployeeInputFromJson(json);
 
 /// The unique identifier for the user, optional (system-assigned on create).
