@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.5.2+1
+
+### Dart
+
+* Fixed `AccessInput.save`/`delete`, the `Token` queries/mutations (`tokens`, `expireToken`, `createToken`), and `ChartInput.save` to stop sending `apiToken` as a GraphQL variable/argument; authentication is carried solely via the connector's `Authorization` header.
+
 ## 4.5.2
 
 > Note: `4.5.1` was skipped. Its Dart package published to pub.dev, but the release run failed before the Python package was uploaded, so this version supersedes it across all three languages.

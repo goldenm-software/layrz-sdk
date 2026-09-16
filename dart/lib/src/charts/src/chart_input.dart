@@ -70,12 +70,6 @@ abstract class LayrzChartInput with _$LayrzChartInput {
         GqlMutation(
           variables: [
             GqlVariable(
-              name: 'apiToken',
-              type: .string,
-              isRequired: true,
-              value: apiToken,
-            ),
-            GqlVariable(
               name: 'data',
               type: .input(of: 'ChartInput'),
               isRequired: true,
@@ -86,7 +80,7 @@ abstract class LayrzChartInput with _$LayrzChartInput {
         )..add(
           GqlField(
               name: id == null ? 'addChart' : 'editChart',
-              args: {'apiToken': 'apiToken', 'data': 'data'},
+              args: {'data': 'data'},
             )
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
