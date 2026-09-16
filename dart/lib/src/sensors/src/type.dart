@@ -71,3 +71,42 @@ enum SensorType {
   static SensorType fromJson(String json) =>
       _$SensorTypeEnumMap.entries.firstWhereOrNull((element) => element.value == json)?.key ?? SensorType.constant;
 }
+
+/// Legacy [JsonConverter] for [SensorType]. Kept for backwards compatibility.
+@Deprecated('Now, uses the native converter from json_serializable and @JsonEnum decorator')
+class SensorTypeConverter implements JsonConverter<SensorType, String> {
+  /// Constructs a [SensorTypeConverter].
+  @Deprecated('Now, uses the native converter from json_serializable and @JsonEnum decorator')
+  const SensorTypeConverter();
+
+  @override
+  SensorType fromJson(String json) {
+    return SensorType.fromJson(json);
+  }
+
+  @override
+  String toJson(SensorType object) {
+    return object.toJson();
+  }
+}
+
+/// Legacy [JsonConverter] for a nullable [SensorType]. Kept for backwards compatibility.
+@Deprecated('Now, uses the native converter from json_serializable and @JsonEnum decorator')
+class SensorTypeOrNullConverter implements JsonConverter<SensorType?, String?> {
+  /// Constructs a [SensorTypeOrNullConverter].
+  @Deprecated('Now, uses the native converter from json_serializable and @JsonEnum decorator')
+  const SensorTypeOrNullConverter();
+
+  @override
+  SensorType? fromJson(String? json) {
+    if (json == null) {
+      return null;
+    }
+    return SensorType.fromJson(json);
+  }
+
+  @override
+  String? toJson(SensorType? object) {
+    return object?.toJson();
+  }
+}
