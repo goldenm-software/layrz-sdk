@@ -126,6 +126,38 @@ abstract class Action with _$Action {
   );
   // coverage:ignore-end
 
+  // coverage:ignore-start
+  /// [gqlFragment] is the GqlFragment for an action, including nested associations
+  static GqlFragment get gqlFragment => GqlFragment(name: 'actionFragment', onType: 'Action')
+    ..add(GqlField(name: 'id'))
+    ..add(GqlField(name: 'name'))
+    ..add(GqlField(name: 'kind'))
+    ..add(GqlField(name: 'subkind'))
+    ..add(GqlField(name: 'commandId'))
+    ..add(GqlField(name: 'watchImage'))
+    ..add(GqlField(name: 'triggersIds'))
+    ..add(GqlField(name: 'operationsIds'))
+    ..add(GqlField(name: 'outboundServicesIds'))
+    ..add(GqlField(name: 'access', fragment: Access.graphqlIdFragment))
+    ..add(
+      GqlField(name: 'geofenceSettings')
+        ..add(GqlField(name: 'name'))
+        ..add(GqlField(name: 'category'))
+        ..add(GqlField(name: 'radius'))
+        ..add(GqlField(name: 'whoOwner'))
+        ..add(GqlField(name: 'mappitRouteId')),
+    )
+    ..add(
+      GqlField(name: 'zigbeeSettings')
+        ..add(GqlField(name: 'deviceId'))
+        ..add(
+          GqlField(name: 'settings')
+            ..add(GqlField(name: 'key'))
+            ..add(GqlField(name: 'value')),
+        ),
+    );
+  // coverage:ignore-end
+
   /// [_getQueryNameFromVariant] returns the GraphQL query name for the given [ActionVariant].
   static String _getQueryNameFromVariant(ActionVariant variant) {
     switch (variant) {
@@ -225,48 +257,61 @@ abstract class Action with _$Action {
   // coverage:ignore-end
 
   // coverage:ignore-start
-  /// [fetch] fetches a single action from the server by its [id]. It returns the
-  /// [Action] with the fields covered by [fragment].
-  static Future<Action?> fetch({
-    /// [id] is the ID of the action to fetch
-    required String id,
-
+  /// [fetch] fetches a single action from the server by its ID
+  /// It returns the [Action] with the required contextual information
+  Future<Action?> fetch({
     /// [apiToken] is the API token to use for authentication
     required String apiToken,
 
     /// [uri] is the GraphQL endpoint to use
     required Uri uri,
 
+    /// [withDetails] if true, includes nested triggers and operations
+    bool withDetails = false,
+
     /// [onResponse] is the callback to call when the response is received
     void Function(String statusCode)? onResponse,
 
-    /// [variant] is the variant of the actions module to fetch, default is
-    /// [ActionVariant.standard].
+    /// [variant] is the variant of the actions module
     ActionVariant variant = ActionVariant.standard,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
     try {
       final queryName = _getQueryNameFromVariant(variant);
-      final response = await connector.query(
-        GqlQuery(
-          variables: [
-            GqlVariable(name: 'id', type: .id, isRequired: true, value: id),
-          ],
-        )..add(
-          GqlField(name: queryName, args: {'id': 'id'})
-            ..add(GqlField(name: 'status'))
-            ..add(GqlField(name: 'errors'))
-            ..add(GqlField(name: 'result', fragment: fragment)),
-        ),
-        (json) {
-          final resultList = json as List<dynamic>?;
-          if (resultList == null || resultList.isEmpty) {
-            Log.warning("layrz_sdk/Action/fetch(): No result in list");
-            return null;
-          }
-          return Action.fromJson(Map<String, dynamic>.from(resultList.first as Map));
-        },
+      final query = GqlQuery(
+        variables: [
+          GqlVariable(name: 'id', type: .id, value: id),
+        ],
+        name: 'fetchActions',
       );
+
+      final field = GqlField(name: queryName, args: {'id': 'id'})
+        ..add(GqlField(name: 'status'))
+        ..add(GqlField(name: 'errors'))
+        ..add(GqlField(name: 'result', fragment: fragment));
+
+      if (withDetails) {
+        field.add(
+          GqlField(name: 'result')
+            ..add(
+              GqlField(name: 'triggers')
+                ..add(GqlField(name: 'id'))
+                ..add(GqlField(name: 'name'))
+                ..add(GqlField(name: 'code'))
+                ..add(GqlField(name: 'kind')),
+            )
+            ..add(
+              GqlField(name: 'operations')
+                ..add(GqlField(name: 'id'))
+                ..add(GqlField(name: 'name'))
+                ..add(GqlField(name: 'operationType')),
+            ),
+        );
+      }
+
+      query.add(field);
+
+      final response = await connector.query(query, _actionListDecoder);
 
       if (response.status != .ok) {
         onResponse?.call(response.status.toJson());
@@ -274,7 +319,13 @@ abstract class Action with _$Action {
         return null;
       }
 
-      return response.result;
+      final result = response.result ?? [];
+      if (result.isEmpty) {
+        onResponse?.call(ApiStatus.notfound.toJson());
+        return null;
+      }
+
+      return result.first;
     } catch (e, stack) {
       Log.critical("layrz_sdk/Action/fetch(): General exception => $e\n$stack");
       return null;
@@ -392,16 +443,10 @@ abstract class ActionInput with _$ActionInput {
   factory ActionInput.fromJson(Map<String, dynamic> json) => _$ActionInputFromJson(json);
 
   // coverage:ignore-start
-  /// [save] creates or updates this action on the server.
-  ///
-  /// Sends the add mutation when [id] is null, or the edit mutation when [id] is set,
-  /// both selected via [variant] and with this input serialized as the `ActionInput`
-  /// GraphQL input type.
-  ///
-  /// Returns a [StandardResponse] tuple of `(ApiStatus, errors, Action?)`: on an
-  /// internal error, `(ApiStatus.internalError, null, null)`; on any other non-ok
-  /// status, `(status, errors, null)`; on success, `(status, errors, savedAction)`.
-  Future<StandardResponse<Action>> save({
+  /// [save] saves the action input to the server
+  /// It returns an [ApiResponse] with the saved [Action] on success, or errors on failure.
+  /// Returns `null` on a network/server error.
+  Future<ApiResponse<Action, Map<String, dynamic>>?> save({
     /// [apiToken] is the API token to use for authentication
     required String apiToken,
 
@@ -411,8 +456,7 @@ abstract class ActionInput with _$ActionInput {
     /// [onResponse] is the callback to call when the response is received
     void Function(String statusCode)? onResponse,
 
-    /// [variant] is the variant of the actions module to save to, default is
-    /// [ActionVariant.standard].
+    /// [variant] is the variant of the actions module
     ActionVariant variant = ActionVariant.standard,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
@@ -440,20 +484,19 @@ abstract class ActionInput with _$ActionInput {
         _actionDecoder,
       );
 
-      if (response.status == .internalError) {
-        onResponse?.call(response.status.toJson());
-        return (ApiStatus.internalError, null, null);
-      }
-
       if (response.status != .ok) {
         onResponse?.call(response.status.toJson());
-        return (response.status, response.errors, null);
+        Log.error("layrz_sdk/ActionInput/save(): ${response.status} => ${response.errors}");
+        return ApiResponse(
+          status: response.status,
+          errors: response.errors,
+        );
       }
 
-      return (response.status, response.errors, response.result);
+      return ApiResponse(status: ApiStatus.ok, result: response.result);
     } catch (e, stack) {
       Log.critical("layrz_sdk/ActionInput/save(): General exception => $e\n$stack");
-      return (ApiStatus.internalError, null, null);
+      return null;
     }
   }
   // coverage:ignore-end
