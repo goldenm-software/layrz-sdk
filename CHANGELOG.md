@@ -7,6 +7,9 @@
 * Restore the `deprecateInstance`, `migrateInstance`, and `requestInstance` static methods on `AppInstance`, which were dropped during the `layrz_models` migration; each performs its GraphQL mutation and returns `true` on `ApiStatus.ok`.
 * Add an optional `second` field to `TimeOfDay` (defaults to `0`); `TimeOfDay.fromDateTime` now preserves `dateTime.second`, and the JSON serialization round-trips it.
 * Select `planId` in the remaining `User` fragment variant that was still missing it.
+* Restore the pre-migration `Action` surface for backwards compatibility with `layrz_models`: `Action.fetch` is an instance method again (with `withDetails`), `ActionInput.save` returns `Future<ApiResponse<Action, Map<String, dynamic>>?>`, `ActionVariant` regains its public `queryName`/`addMutationName`/`editMutationName`/`deleteMutationName` getters, and `Action.gqlFragment` is restored.
+* Restore the pre-migration `MapLayer` surface: `MapLayerInput.save` returns `Future<ApiResponse<MapLayer, Map<String, dynamic>>?>` again, and `MapLayer.gqlFragment` is restored as an alias of `fragment`.
+* Restore the `SensorTypeConverter`, `SensorTypeOrNullConverter`, `SensorSubTypeConverter`, and `SensorSubTypeOrNullConverter` classes, which were dropped during the `layrz_models` migration.
 
 ### Python
 
