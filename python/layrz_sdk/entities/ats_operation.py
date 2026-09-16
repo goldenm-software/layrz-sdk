@@ -76,7 +76,7 @@ class AtsOperation(BaseModel):
     return deliver_category.value
 
   seller_asset_id: int = Field(description='ID of the seller asset')
-  transport_asset_id: int = Field(description='ID of the transport asset')
+  transport_asset_id: int | None = Field(description='ID of the transport asset', default=None)
   finished_at: datetime | None = Field(description='Timestamp when the operation was finished', default=None)
 
   @field_serializer('finished_at', when_used='always')
@@ -89,5 +89,5 @@ class AtsOperation(BaseModel):
   def serialize_validated_at(self, validated_at: datetime | None) -> float | None:
     return validated_at.timestamp() if validated_at else None
 
-  history: list[AtsOperationMovement] = Field(description='List of operation movements')
-  purchase_orders: list[AtsPurchaseOrder] = Field(description='List of purchase orders')
+  history: list[AtsOperationMovement] = Field(description='List of operation movements', default_factory=list)
+  purchase_orders: list[AtsPurchaseOrder] = Field(description='List of purchase orders', default_factory=list)
