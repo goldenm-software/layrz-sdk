@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.5.2+3
+
+### Dart
+
+* Add API connectors to the `Employee` module: `Employee.fetchAll`/`Employee.fetch` (`goldenmEmployees`), `EmployeeInput.save` (`addGoldenmEmployee`/`editGoldenmEmployee`, input type `GoldenmEmployeeInput`), `Employee.deleteMany` (`deleteGoldenmEmployees`), and `Employee.resetPassword` (`resetGoldenmEmployeePassword`), so employees can be listed and saved through the SDK. Authentication is header-only.
+
 ## 4.5.2+2
 
 ### Dart
