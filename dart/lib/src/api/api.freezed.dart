@@ -13,7 +13,7 @@ part of 'api.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$ApiResponse<T,Q> {
+mixin _$ApiResponse<T,Q> implements DiagnosticableTreeMixin {
 
 /// The status code of the API response (e.g., [ApiStatus.ok],
 /// [ApiStatus.unauthorized]).
@@ -31,6 +31,12 @@ $ApiResponseCopyWith<T, Q, ApiResponse<T, Q>> get copyWith => _$ApiResponseCopyW
   /// Serializes this ApiResponse to a JSON map.
   Map<String, dynamic> toJson(Object? Function(T) toJsonT,Object? Function(Q) toJsonQ);
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'ApiResponse<$T, $Q>'))
+    ..add(DiagnosticsProperty('status', status))..add(DiagnosticsProperty('errors', errors))..add(DiagnosticsProperty('result', result));
+}
 
 @override
 bool operator ==(Object other) {
@@ -42,7 +48,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(errors),const DeepCollectionEquality().hash(result));
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'ApiResponse<$T, $Q>(status: $status, errors: $errors, result: $result)';
 }
 
@@ -216,7 +222,7 @@ return $default(_that.status,_that.errors,_that.result);case _:
 /// @nodoc
 @JsonSerializable(genericArgumentFactories: true)
 
-class _ApiResponse<T,Q> implements ApiResponse<T, Q> {
+class _ApiResponse<T,Q> with DiagnosticableTreeMixin implements ApiResponse<T, Q> {
   const _ApiResponse({required this.status, this.errors, this.result});
   factory _ApiResponse.fromJson(Map<String, dynamic> json,T Function(Object?) fromJsonT,Q Function(Object?) fromJsonQ) => _$ApiResponseFromJson(json,fromJsonT,fromJsonQ);
 
@@ -240,6 +246,12 @@ _$ApiResponseCopyWith<T, Q, _ApiResponse<T, Q>> get copyWith => __$ApiResponseCo
 Map<String, dynamic> toJson(Object? Function(T) toJsonT,Object? Function(Q) toJsonQ) {
   return _$ApiResponseToJson<T, Q>(this, toJsonT,toJsonQ);
 }
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'ApiResponse<$T, $Q>'))
+    ..add(DiagnosticsProperty('status', status))..add(DiagnosticsProperty('errors', errors))..add(DiagnosticsProperty('result', result));
+}
 
 @override
 bool operator ==(Object other) {
@@ -251,7 +263,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(errors),const DeepCollectionEquality().hash(result));
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'ApiResponse<$T, $Q>(status: $status, errors: $errors, result: $result)';
 }
 

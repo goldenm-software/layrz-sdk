@@ -519,9 +519,9 @@ mixin _$EmployeeInput {
 /// not setting an avatar.
  set dynamicAvatar(AvatarInput? value);/// Required custom role-based permissions for platform modules. Must be a
 /// fully populated [GenericPermissionInput].
- GenericPermissionInput get customPermissions;/// Required custom role-based permissions for platform modules. Must be a
+ GenericPermissionInput? get customPermissions;/// Required custom role-based permissions for platform modules. Must be a
 /// fully populated [GenericPermissionInput].
- set customPermissions(GenericPermissionInput value);
+ set customPermissions(GenericPermissionInput? value);
 /// Create a copy of EmployeeInput
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -547,11 +547,11 @@ abstract mixin class $EmployeeInputCopyWith<$Res>  {
   factory $EmployeeInputCopyWith(EmployeeInput value, $Res Function(EmployeeInput) _then) = _$EmployeeInputCopyWithImpl;
 @useResult
 $Res call({
- String? id, String name, String email, String username, String? departmentId, AvatarInput? dynamicAvatar, GenericPermissionInput customPermissions
+ String? id, String name, String email, String username, String? departmentId, AvatarInput? dynamicAvatar, GenericPermissionInput? customPermissions
 });
 
 
-$AvatarInputCopyWith<$Res>? get dynamicAvatar;$GenericPermissionInputCopyWith<$Res> get customPermissions;
+$AvatarInputCopyWith<$Res>? get dynamicAvatar;$GenericPermissionInputCopyWith<$Res>? get customPermissions;
 
 }
 /// @nodoc
@@ -564,7 +564,7 @@ class _$EmployeeInputCopyWithImpl<$Res>
 
 /// Create a copy of EmployeeInput
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? email = null,Object? username = null,Object? departmentId = freezed,Object? dynamicAvatar = freezed,Object? customPermissions = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? email = null,Object? username = null,Object? departmentId = freezed,Object? dynamicAvatar = freezed,Object? customPermissions = freezed,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -572,8 +572,8 @@ as String,email: null == email ? _self.email : email // ignore: cast_nullable_to
 as String,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,departmentId: freezed == departmentId ? _self.departmentId : departmentId // ignore: cast_nullable_to_non_nullable
 as String?,dynamicAvatar: freezed == dynamicAvatar ? _self.dynamicAvatar : dynamicAvatar // ignore: cast_nullable_to_non_nullable
-as AvatarInput?,customPermissions: null == customPermissions ? _self.customPermissions : customPermissions // ignore: cast_nullable_to_non_nullable
-as GenericPermissionInput,
+as AvatarInput?,customPermissions: freezed == customPermissions ? _self.customPermissions : customPermissions // ignore: cast_nullable_to_non_nullable
+as GenericPermissionInput?,
   ));
 }
 /// Create a copy of EmployeeInput
@@ -592,9 +592,12 @@ $AvatarInputCopyWith<$Res>? get dynamicAvatar {
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$GenericPermissionInputCopyWith<$Res> get customPermissions {
-  
-  return $GenericPermissionInputCopyWith<$Res>(_self.customPermissions, (value) {
+$GenericPermissionInputCopyWith<$Res>? get customPermissions {
+    if (_self.customPermissions == null) {
+    return null;
+  }
+
+  return $GenericPermissionInputCopyWith<$Res>(_self.customPermissions!, (value) {
     return _then(_self.copyWith(customPermissions: value));
   });
 }
@@ -679,7 +682,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name,  String email,  String username,  String? departmentId,  AvatarInput? dynamicAvatar,  GenericPermissionInput customPermissions)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name,  String email,  String username,  String? departmentId,  AvatarInput? dynamicAvatar,  GenericPermissionInput? customPermissions)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _EmployeeInput() when $default != null:
 return $default(_that.id,_that.name,_that.email,_that.username,_that.departmentId,_that.dynamicAvatar,_that.customPermissions);case _:
@@ -700,7 +703,7 @@ return $default(_that.id,_that.name,_that.email,_that.username,_that.departmentI
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name,  String email,  String username,  String? departmentId,  AvatarInput? dynamicAvatar,  GenericPermissionInput customPermissions)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name,  String email,  String username,  String? departmentId,  AvatarInput? dynamicAvatar,  GenericPermissionInput? customPermissions)  $default,) {final _that = this;
 switch (_that) {
 case _EmployeeInput():
 return $default(_that.id,_that.name,_that.email,_that.username,_that.departmentId,_that.dynamicAvatar,_that.customPermissions);case _:
@@ -720,7 +723,7 @@ return $default(_that.id,_that.name,_that.email,_that.username,_that.departmentI
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name,  String email,  String username,  String? departmentId,  AvatarInput? dynamicAvatar,  GenericPermissionInput customPermissions)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name,  String email,  String username,  String? departmentId,  AvatarInput? dynamicAvatar,  GenericPermissionInput? customPermissions)?  $default,) {final _that = this;
 switch (_that) {
 case _EmployeeInput() when $default != null:
 return $default(_that.id,_that.name,_that.email,_that.username,_that.departmentId,_that.dynamicAvatar,_that.customPermissions);case _:
@@ -735,7 +738,7 @@ return $default(_that.id,_that.name,_that.email,_that.username,_that.departmentI
 @JsonSerializable()
 
 class _EmployeeInput extends EmployeeInput {
-   _EmployeeInput({this.id, this.name = '', this.email = '', this.username = '', this.departmentId, this.dynamicAvatar, required this.customPermissions}): super._();
+   _EmployeeInput({this.id, this.name = '', this.email = '', this.username = '', this.departmentId, this.dynamicAvatar, this.customPermissions}): super._();
   factory _EmployeeInput.fromJson(Map<String, dynamic> json) => _$EmployeeInputFromJson(json);
 
 /// The unique identifier for the user, optional (system-assigned on create).
@@ -754,7 +757,7 @@ class _EmployeeInput extends EmployeeInput {
 @override  AvatarInput? dynamicAvatar;
 /// Required custom role-based permissions for platform modules. Must be a
 /// fully populated [GenericPermissionInput].
-@override  GenericPermissionInput customPermissions;
+@override  GenericPermissionInput? customPermissions;
 
 /// Create a copy of EmployeeInput
 /// with the given fields replaced by the non-null parameter values.
@@ -782,11 +785,11 @@ abstract mixin class _$EmployeeInputCopyWith<$Res> implements $EmployeeInputCopy
   factory _$EmployeeInputCopyWith(_EmployeeInput value, $Res Function(_EmployeeInput) _then) = __$EmployeeInputCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String name, String email, String username, String? departmentId, AvatarInput? dynamicAvatar, GenericPermissionInput customPermissions
+ String? id, String name, String email, String username, String? departmentId, AvatarInput? dynamicAvatar, GenericPermissionInput? customPermissions
 });
 
 
-@override $AvatarInputCopyWith<$Res>? get dynamicAvatar;@override $GenericPermissionInputCopyWith<$Res> get customPermissions;
+@override $AvatarInputCopyWith<$Res>? get dynamicAvatar;@override $GenericPermissionInputCopyWith<$Res>? get customPermissions;
 
 }
 /// @nodoc
@@ -799,7 +802,7 @@ class __$EmployeeInputCopyWithImpl<$Res>
 
 /// Create a copy of EmployeeInput
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? email = null,Object? username = null,Object? departmentId = freezed,Object? dynamicAvatar = freezed,Object? customPermissions = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? email = null,Object? username = null,Object? departmentId = freezed,Object? dynamicAvatar = freezed,Object? customPermissions = freezed,}) {
   return _then(_EmployeeInput(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -807,8 +810,8 @@ as String,email: null == email ? _self.email : email // ignore: cast_nullable_to
 as String,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,departmentId: freezed == departmentId ? _self.departmentId : departmentId // ignore: cast_nullable_to_non_nullable
 as String?,dynamicAvatar: freezed == dynamicAvatar ? _self.dynamicAvatar : dynamicAvatar // ignore: cast_nullable_to_non_nullable
-as AvatarInput?,customPermissions: null == customPermissions ? _self.customPermissions : customPermissions // ignore: cast_nullable_to_non_nullable
-as GenericPermissionInput,
+as AvatarInput?,customPermissions: freezed == customPermissions ? _self.customPermissions : customPermissions // ignore: cast_nullable_to_non_nullable
+as GenericPermissionInput?,
   ));
 }
 
@@ -828,9 +831,12 @@ $AvatarInputCopyWith<$Res>? get dynamicAvatar {
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$GenericPermissionInputCopyWith<$Res> get customPermissions {
-  
-  return $GenericPermissionInputCopyWith<$Res>(_self.customPermissions, (value) {
+$GenericPermissionInputCopyWith<$Res>? get customPermissions {
+    if (_self.customPermissions == null) {
+    return null;
+  }
+
+  return $GenericPermissionInputCopyWith<$Res>(_self.customPermissions!, (value) {
     return _then(_self.copyWith(customPermissions: value));
   });
 }
