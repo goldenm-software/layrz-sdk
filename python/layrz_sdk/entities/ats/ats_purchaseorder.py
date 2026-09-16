@@ -4,7 +4,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
-from .asset import Asset
+from ..asset import Asset
 
 
 class OrderStatus(StrEnum):
