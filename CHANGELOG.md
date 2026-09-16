@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.5.3+1
+
+### Dart
+
+* Make `EmployeeInput.customPermissions` nullable (`GenericPermissionInput?`), so building an `EmployeeInput` from an `Employee` that has no custom permissions no longer throws a null-cast error in `EmployeeInput.fromJson`.
+* Include `customPermissions` in the `Employee` detail fragment, and switch `Employee.fetchAll` to the reduced fragment so the list query fetches only the minimum and `Employee.fetch` returns the full record.
+
 ## 4.5.3
 
 ### Dart
