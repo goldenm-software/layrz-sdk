@@ -19,8 +19,8 @@ abstract class EmployeeInput with _$EmployeeInput {
   /// mutations.
   ///
   /// [name], [email], and [username] default to empty strings. The
-  /// [customPermissions] is required and must be a valid
-  /// [GenericPermissionInput]. Fields [id] and [departmentId] are optional.
+  /// [customPermissions] is optional and may be null when the employee has
+  /// no custom permissions set. Fields [id] and [departmentId] are optional.
   factory EmployeeInput({
     /// The unique identifier for the user, optional (system-assigned on create).
     String? id,
@@ -42,14 +42,14 @@ abstract class EmployeeInput with _$EmployeeInput {
     /// not setting an avatar.
     AvatarInput? dynamicAvatar,
 
-    /// Required custom role-based permissions for platform modules. Must be a
-    /// fully populated [GenericPermissionInput].
-    required GenericPermissionInput customPermissions,
+    /// Optional custom role-based permissions for platform modules via
+    /// [GenericPermissionInput], or null if the employee has no custom
+    /// permissions.
+    GenericPermissionInput? customPermissions,
   }) = _EmployeeInput;
 
   /// Deserializes an [EmployeeInput] from a JSON map.
-  factory EmployeeInput.fromJson(Map<String, dynamic> json) =>
-      _$EmployeeInputFromJson(json);
+  factory EmployeeInput.fromJson(Map<String, dynamic> json) => _$EmployeeInputFromJson(json);
 
   // coverage:ignore-start
   /// Creates or updates this employee on the server.

@@ -79,9 +79,11 @@ _EmployeeInput _$EmployeeInputFromJson(Map<String, dynamic> json) =>
       dynamicAvatar: json['dynamicAvatar'] == null
           ? null
           : AvatarInput.fromJson(json['dynamicAvatar'] as Map<String, dynamic>),
-      customPermissions: GenericPermissionInput.fromJson(
-        json['customPermissions'] as Map<String, dynamic>,
-      ),
+      customPermissions: json['customPermissions'] == null
+          ? null
+          : GenericPermissionInput.fromJson(
+              json['customPermissions'] as Map<String, dynamic>,
+            ),
     );
 
 Map<String, dynamic> _$EmployeeInputToJson(_EmployeeInput instance) =>
@@ -92,5 +94,5 @@ Map<String, dynamic> _$EmployeeInputToJson(_EmployeeInput instance) =>
       'username': instance.username,
       'departmentId': instance.departmentId,
       'dynamicAvatar': instance.dynamicAvatar?.toJson(),
-      'customPermissions': instance.customPermissions.toJson(),
+      'customPermissions': instance.customPermissions?.toJson(),
     };

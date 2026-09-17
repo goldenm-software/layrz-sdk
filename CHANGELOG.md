@@ -1,5 +1,28 @@
 # Changelog
 
+## 4.5.4
+
+### Python
+
+* Move ATS entities into an `ats/` subpackage.
+* Add `TERMINAL_ENTRY`, `TERMINAL_EXIT`, `REDISPATCHED`, `MDFE_CONSOLIDATED`, and `CTE_OPERATION_MERGED` to `OrderStatus`, and `SALE_FROM_THIRD_PARTY_TANK`, `SALE_FROM_THIRD_PARTY_DELIVERY_BY_SELLER`, and `REMITTANCE_SALE` to `OrderCategories`.
+
+### Go
+
+* Rename ATS-related enum files with an `ats_` prefix (`ats_delivery_categories.go`, `ats_order_categories.go`, `ats_order_status.go`).
+* Add `OrderStatusTerminalEntry`, `OrderStatusTerminalExit`, `OrderStatusRedispatched`, `OrderStatusMdfeConsolidated`, and `OrderStatusCteOperationMerged` to `OrderStatus`, and `OrderCategoriesSaleFromThirdPartyTank`, `OrderCategoriesSaleFromThirdPartyDeliveryBySeller`, and `OrderCategoriesRemittanceSale` to `OrderCategories`, keeping parity with the Python entities.
+
+### Dart
+
+* No changes in this release.
+
+## 4.5.3+1
+
+### Dart
+
+* Make `EmployeeInput.customPermissions` nullable (`GenericPermissionInput?`), so building an `EmployeeInput` from an `Employee` that has no custom permissions no longer throws a null-cast error in `EmployeeInput.fromJson`.
+* Include `customPermissions` in the `Employee` detail fragment, and switch `Employee.fetchAll` to the reduced fragment so the list query fetches only the minimum and `Employee.fetch` returns the full record.
+
 ## 4.5.3
 
 ### Dart

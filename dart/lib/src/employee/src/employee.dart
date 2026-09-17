@@ -88,6 +88,7 @@ abstract class Employee with _$Employee {
       GqlField(name: 'department', fragment: Department.fragment),
       GqlField(name: 'departmentId'),
       GqlField(name: 'dynamicAvatar', fragment: Avatar.fragment),
+      GqlField(name: 'customPermissions', fragment: GenericPermission.fragment),
     ],
   );
   // coverage:ignore-end
@@ -136,7 +137,7 @@ abstract class Employee with _$Employee {
           GqlField(name: 'goldenmEmployees', args: {})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
-            ..add(GqlField(name: 'result', fragment: fragment)),
+            ..add(GqlField(name: 'result', fragment: reducedFragment)),
         ),
         _employeeListDecoder,
       );
