@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.5.5
+
+### Python
+
+* Fix `OrderCategories.SALE_FROM_THIRD_PARTY_DELIVERY_BY_SELLER` spelling to `SALE_FROM_THIRD_PARTY_DELIVERED_BY_SELLER`.
+
+### Go
+
+* Fix `OrderCategoriesSaleFromThirdPartyDeliveryBySeller` spelling to `OrderCategoriesSaleFromThirdPartyDeliveredBySeller`, keeping parity with the Python entities.
+
+### Dart
+
+* No changes in this release.
+
 ## 4.5.4
 
 ### Python
