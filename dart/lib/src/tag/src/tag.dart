@@ -173,4 +173,111 @@ abstract class Tag with _$Tag {
 
   /// Deserializes a [Tag] from a JSON map.
   factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
+
+  // coverage:ignore-start
+  /// GraphQL fragment definition for querying tag fields.
+  ///
+  /// Only the lightweight fields needed to display a [Tag] (e.g. in a
+  /// dropdown) are selected. The heavier associated-entity lists (assets,
+  /// devices, users, functions, and their `*Ids` counterparts) are
+  /// intentionally omitted; fetch a single [Tag] separately when that detail
+  /// is required.
+  static GqlFragment get fragment => GqlFragment(
+    name: 'tagFragment',
+    onType: 'Tag',
+    fields: [
+      GqlField(name: 'id'),
+      GqlField(name: 'name'),
+      GqlField(name: 'color'),
+      GqlField(name: 'dynamicIcon', fragment: Avatar.fragment),
+      GqlField(name: 'access', fragment: Access.idFragment),
+    ],
+  );
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Fetches all tags available to the authenticated user.
+  ///
+  /// Makes an authenticated GraphQL query (`tags`) to retrieve every [Tag]
+  /// visible to the user. Authentication is carried solely via the
+  /// connector's `Authorization` header, built from [apiToken].
+  ///
+  /// Optional callback invoked with the [ApiStatus] of the response. Called
+  /// once per invocation, regardless of success or failure.
+  ///
+  /// Returns an empty list on any error (network failure, authentication
+  /// failure, or server error). Errors are logged internally.
+  static Future<List<Tag>> fetchAll({
+    /// [apiToken] is the API token for authentication. Obtain via the
+    /// `login` mutation on the GraphQL API.
+    required String apiToken,
+
+    /// [uri] is the Layrz GraphQL API endpoint (e.g.
+    /// `https://api.example.com/graphql`).
+    required Uri uri,
+
+    /// [onResponse] is an optional callback invoked with the [ApiStatus] of
+    /// the response. Called once per invocation, regardless of success or
+    /// failure.
+    void Function(ApiStatus status)? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.query(
+        GqlQuery(name: 'tags')..add(
+          GqlField(name: 'tags')
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(
+              GqlField(
+                name: 'result',
+                fragment: fragment,
+                fields: [
+                  GqlField(name: 'actionsIds'),
+                  GqlField(name: 'assetsIds'),
+                  GqlField(name: 'careProtocolsIds'),
+                  GqlField(name: 'chartsIds'),
+                  GqlField(name: 'checkpointsIds'),
+                  GqlField(name: 'conciergeFormsIds'),
+                  GqlField(name: 'devicesIds'),
+                  GqlField(name: 'externalAccountsIds'),
+                  GqlField(name: 'functionsIds'),
+                  GqlField(name: 'geofencesIds'),
+                  GqlField(name: 'inboundServicesIds'),
+                  GqlField(name: 'mappitRoutesIds'),
+                  GqlField(name: 'operationsIds'),
+                  GqlField(name: 'outboundServicesIds'),
+                  GqlField(name: 'presetsIds'),
+                  GqlField(name: 'referencesIds'),
+                  GqlField(name: 'reportTemplatesIds'),
+                  GqlField(name: 'sensorsIds'),
+                  GqlField(name: 'triggersIds'),
+                  GqlField(name: 'usersIds'),
+                  GqlField(name: 'visionProfilesIds'),
+                  GqlField(name: 'workspacesIds'),
+                ],
+              ),
+            ),
+        ),
+        _tagListDecoder,
+      );
+
+      if (response.status != .ok) {
+        onResponse?.call(response.status);
+        return [];
+      }
+
+      return response.result ?? [];
+    } catch (e, stack) {
+      Log.critical('layrz_sdk/Tag/fetchAll(): General exception => $e\n$stack');
+      return [];
+    }
+  }
+  // coverage:ignore-end
+}
+
+/// [_tagListDecoder] decodes a raw listing `result` payload into a list of
+/// [Tag]. Used by listing queries (fetchAll).
+List<Tag> _tagListDecoder(Object? json) {
+  return List<Tag>.from((json as List? ?? []).map((e) => Tag.fromJson(Map<String, dynamic>.from(e as Map))));
 }

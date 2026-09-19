@@ -1,5 +1,29 @@
 # Changelog
 
+## 4.6.0
+
+### Dart
+
+* Add `Tag.fetchAll` and `VisionProfile.fetchAll` static callers (with lightweight `fragment`s), so consumers can list tags and vision profiles.
+* `GqlField` now emits a spread fragment together with inline fields in the same selection set (previously inline fields silently dropped the fragment).
+* `Tag.fetchAll` now also selects the associated-element ID lists (e.g. `assetsIds`, `devicesIds`, `usersIds`, `functionsIds`, and the rest of the schema-present `*Ids` fields) for per-tag element counts.
+* `Device.fetchAll` now selects the device's last-known `telemetry` (via `DeviceTelemetry.fragment`), so list/table connection indicators have data to render without a separate realtime feed.
+* `InboundProtocol`'s fetch fragment now selects `models` (via `Model.reducedFragment`), so fetched protocols carry their models inline (used by protocol-to-model selectors).
+
+### Python
+
+* No changes in this release.
+
+### Go
+
+* No changes in this release.
+
+## 4.5.5+1
+
+### Dart
+
+* Move `LayrzNotification` into a new `notifications` module (pure-data model; previously in `layrz_models`).
+
 ## 4.5.5
 
 ### Python

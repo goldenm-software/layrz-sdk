@@ -220,6 +220,7 @@ abstract class InboundProtocol with _$InboundProtocol {
       GqlField(name: 'modbusPorts'),
 
       GqlField(name: 'confiotCapable'),
+      GqlField(name: 'models', fragment: Model.reducedFragment),
     ],
   );
   // coverage:ignore-end
@@ -270,6 +271,7 @@ abstract class InboundProtocol with _$InboundProtocol {
                           GqlField(name: 'host'),
                           GqlField(name: 'port'),
                           GqlField(name: 'dynamicIcon', fragment: Avatar.fragment),
+                          GqlField(name: 'models', fragment: Model.reducedFragment),
                           ...?additionalFields,
                         ],
                 ),

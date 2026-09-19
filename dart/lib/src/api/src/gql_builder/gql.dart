@@ -160,9 +160,7 @@ abstract class Gql {
     if (variables.isNotEmpty) {
       buffer.write('(');
       buffer.write(
-        variables
-            .map((v) => '\$${v.name}: ${v.type.name}${v.isRequired ? '!' : ''}')
-            .join(', '),
+        variables.map((v) => '\$${v.name}: ${v.type.name}${v.isRequired ? '!' : ''}').join(', '),
       );
       buffer.write(')');
     }
@@ -265,23 +263,18 @@ abstract class Gql {
     }
 
     if (field.args.isNotEmpty) {
-      final argStr = field.args.entries
-          .map((e) => '${e.key}: \$${e.value}')
-          .join(', ');
+      final argStr = field.args.entries.map((e) => '${e.key}: \$${e.value}').join(', ');
       buffer.write('($argStr)');
     }
 
-    if (field.fields.isNotEmpty) {
+    final hasBody = field.fields.isNotEmpty || field.fragment != null;
+    if (hasBody) {
       buffer.write(' {\n');
       if (includeTypename) buffer.write('$indent  __typename\n');
+      if (field.fragment != null) buffer.write('$indent  ...${field.fragment!.name}\n');
       for (final subField in field.fields) {
         buffer.write('${_writeField(subField, depth: depth + 1)}\n');
       }
-      buffer.write('$indent}');
-    } else if (field.fragment != null) {
-      buffer.write(' {\n');
-      if (includeTypename) buffer.write('$indent  __typename\n');
-      buffer.write('$indent  ...${field.fragment!.name}\n');
       buffer.write('$indent}');
     }
 
