@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.6.1
+
+Version-sync release. Republishes the shared version line so pub.dev and PyPI match; no library code changes. Repairs the tag-cleanup CI job. See 4.6.0 for the functional Dart changes (which shipped to pub.dev but not PyPI under 4.6.0).
+
+### Dart
+
+* No changes since 4.6.0 (version bump only, to keep pub.dev in sync with the shared version line).
+
+### Python
+
+* No code changes; version bumped to 4.6.1 so the PyPI release matches the shared version line (the 4.6.0 PyPI publish failed on a stale version).
+
+### Go
+
+* No changes in this release.
+
 ## 4.6.0
 
 ### Dart
