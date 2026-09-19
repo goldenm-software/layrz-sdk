@@ -194,6 +194,7 @@ abstract class Device with _$Device {
       GqlField(name: 'protocol', fragment: InboundProtocol.reducedFragment),
       GqlField(name: 'modelId'),
       GqlField(name: 'model', fragment: Model.reducedFragment),
+      GqlField(name: 'telemetry', fragment: DeviceTelemetry.fragment),
     ],
   );
   // coverage:ignore-end
@@ -264,6 +265,7 @@ abstract class Device with _$Device {
                         GqlField(name: 'protocol', fragment: InboundProtocol.reducedFragment),
                         GqlField(name: 'modelId'),
                         GqlField(name: 'model', fragment: Model.reducedFragment),
+                        GqlField(name: 'telemetry', fragment: DeviceTelemetry.fragment),
                         ...?extraFields,
                       ],
               ),

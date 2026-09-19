@@ -209,6 +209,54 @@ void main() {
       expect(fieldInt.parser, isNotNull);
     });
 
+    test('field with both fragment and inline fields renders both in the same selection set', () {
+      final fragment = GqlFragment(
+        name: 'TagFragment',
+        onType: 'Tag',
+        fields: [
+          GqlField(name: 'id'),
+          GqlField(name: 'name'),
+        ],
+      );
+
+      final field = GqlField(
+        name: 'result',
+        fragment: fragment,
+        fields: [
+          GqlField(name: 'assetsIds'),
+          GqlField(name: 'devicesIds'),
+        ],
+      );
+      final query = GqlQuery(
+        name: 'GetTags',
+        fields: [field],
+      );
+
+      final generated = query.generated;
+
+      // Both the fragment spread and the inline fields must be present...
+      expect(generated, contains('...TagFragment'));
+      expect(generated, contains('assetsIds'));
+      expect(generated, contains('devicesIds'));
+
+      // ...and the fragment spread must come first, followed by the inline fields,
+      // all inside the same `result { ... }` selection set.
+      final resultBlockStart = generated.indexOf('result {');
+      expect(resultBlockStart, isNot(-1));
+      final resultBlockEnd = generated.indexOf('\n}', resultBlockStart);
+      final resultBlock = generated.substring(resultBlockStart, resultBlockEnd);
+
+      final fragmentIndex = resultBlock.indexOf('...TagFragment');
+      final assetsIdsIndex = resultBlock.indexOf('assetsIds');
+      final devicesIdsIndex = resultBlock.indexOf('devicesIds');
+
+      expect(fragmentIndex, isNot(-1));
+      expect(assetsIdsIndex, isNot(-1));
+      expect(devicesIdsIndex, isNot(-1));
+      expect(fragmentIndex, lessThan(assetsIdsIndex), reason: 'Fragment spread must be emitted before inline fields');
+      expect(assetsIdsIndex, lessThan(devicesIdsIndex));
+    });
+
     test('field with deeply nested structure', () {
       final field = GqlField(
         name: 'company',
@@ -295,7 +343,10 @@ void main() {
       final fragment2 = GqlFragment(
         name: 'UserFragment',
         onType: 'User',
-        fields: [GqlField(name: 'id'), GqlField(name: 'name')],
+        fields: [
+          GqlField(name: 'id'),
+          GqlField(name: 'name'),
+        ],
       );
 
       // Two fragments with same name and type are equal, regardless of fields
@@ -464,8 +515,7 @@ void main() {
       final generated = query.generated;
       // Count occurrences of the fragment definition
       final fragmentCount = 'fragment UserFields on User'.allMatches(generated).length;
-      expect(fragmentCount, 1,
-          reason: 'Fragment should appear exactly once despite being used twice');
+      expect(fragmentCount, 1, reason: 'Fragment should appear exactly once despite being used twice');
     });
 
     test('fragment comparison with fields does not affect equality', () {
