@@ -20,6 +20,7 @@
 /// - [link_shortcut] — Link shortcut and link shortcut input models for short, redirecting URLs.
 /// - [mfa] — Multi-factor authentication models: MFA methods and passkeys.
 /// - [model] — Device model catalog: [Model], [HwModel], firmware, and Zigbee parameters.
+/// - [notifications] — In-app notification models: [LayrzNotification].
 /// - [permissions] — Generic permission models for access control.
 /// - [realtime] — Typed envelope for realtime/websocket messages.
 /// - [simulation] — Simulation cycle catalog for the Layrz Cycle Scripting language.
@@ -74,6 +75,7 @@ export 'src/mfa/mfa.dart';
 export 'src/modbus/modbus.dart';
 export 'src/model/model.dart';
 export 'src/mqtt/mqtt.dart';
+export 'src/notifications/notifications.dart';
 export 'src/operations/operations.dart';
 export 'src/outbound/outbound.dart';
 export 'src/permissions/permissions.dart';
