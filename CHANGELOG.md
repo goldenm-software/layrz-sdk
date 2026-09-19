@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.5.5+1
+
+### Dart
+
+* Move `LayrzNotification` into a new `notifications` module (pure-data model; previously in `layrz_models`).
+
 ## 4.5.5
 
 ### Python

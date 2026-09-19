@@ -517,10 +517,12 @@ mixin _$EmployeeInput {
 /// not setting an avatar.
  AvatarInput? get dynamicAvatar;/// The avatar (profile picture) for the user via [AvatarInput], or null if
 /// not setting an avatar.
- set dynamicAvatar(AvatarInput? value);/// Required custom role-based permissions for platform modules. Must be a
-/// fully populated [GenericPermissionInput].
- GenericPermissionInput? get customPermissions;/// Required custom role-based permissions for platform modules. Must be a
-/// fully populated [GenericPermissionInput].
+ set dynamicAvatar(AvatarInput? value);/// Optional custom role-based permissions for platform modules via
+/// [GenericPermissionInput], or null if the employee has no custom
+/// permissions.
+ GenericPermissionInput? get customPermissions;/// Optional custom role-based permissions for platform modules via
+/// [GenericPermissionInput], or null if the employee has no custom
+/// permissions.
  set customPermissions(GenericPermissionInput? value);
 /// Create a copy of EmployeeInput
 /// with the given fields replaced by the non-null parameter values.
@@ -755,8 +757,9 @@ class _EmployeeInput extends EmployeeInput {
 /// The avatar (profile picture) for the user via [AvatarInput], or null if
 /// not setting an avatar.
 @override  AvatarInput? dynamicAvatar;
-/// Required custom role-based permissions for platform modules. Must be a
-/// fully populated [GenericPermissionInput].
+/// Optional custom role-based permissions for platform modules via
+/// [GenericPermissionInput], or null if the employee has no custom
+/// permissions.
 @override  GenericPermissionInput? customPermissions;
 
 /// Create a copy of EmployeeInput
