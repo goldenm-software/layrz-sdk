@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.6.1
+
+Version-sync release. Republishes the shared version line so pub.dev and PyPI match; no library code changes. Repairs the tag-cleanup CI job. See 4.6.0 for the functional Dart changes (which shipped to pub.dev but not PyPI under 4.6.0).
+
+### Dart
+
+* No changes since 4.6.0 (version bump only, to keep pub.dev in sync with the shared version line).
+
+### Python
+
+* No code changes; version bumped to 4.6.1 so the PyPI release matches the shared version line (the 4.6.0 PyPI publish failed on a stale version).
+
+### Go
+
+* No changes in this release.
+
 ## 4.6.0
 
 ### Dart
@@ -9,6 +25,7 @@
 * `Tag.fetchAll` now also selects the associated-element ID lists (e.g. `assetsIds`, `devicesIds`, `usersIds`, `functionsIds`, and the rest of the schema-present `*Ids` fields) for per-tag element counts.
 * `Device.fetchAll` now selects the device's last-known `telemetry` (via `DeviceTelemetry.fragment`), so list/table connection indicators have data to render without a separate realtime feed.
 * `InboundProtocol`'s fetch fragment now selects `models` (via `Model.reducedFragment`), so fetched protocols carry their models inline (used by protocol-to-model selectors).
+* `InboundProtocol.fetchAll` now also selects `hasNativeCommands`, `hasSmsCommands`, and `hasModbus` so consumers can gate command UI on protocol capability without a full fragment fetch.
 
 ### Python
 

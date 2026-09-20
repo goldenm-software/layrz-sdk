@@ -126,6 +126,9 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with: { fetch-depth: 0 }
       - name: Rename tag when fails
         run: |
           git config --global user.name "github-actions[bot]"
