@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.6.2
+
+### Dart
+
+- Ported remaining BLE modules (`service`, `characteristic`, and `property`) into the SDK.
+
+### Go
+
+* No changes in this release.
+
+### Python
+
+* No changes in this release.
+
 ## 4.6.1
 
 Version-sync release. Republishes the shared version line so pub.dev and PyPI match; no library code changes. Repairs the tag-cleanup CI job. See 4.6.0 for the functional Dart changes (which shipped to pub.dev but not PyPI under 4.6.0).
