@@ -199,6 +199,8 @@ abstract class DeviceCommand with _$DeviceCommand {
                           GqlField(name: 'name'),
                           GqlField(name: 'source'),
                           GqlField(name: 'isGlobal'),
+                          GqlField(name: 'protocolId'),
+                          GqlField(name: 'deviceId'),
 
                           GqlField(
                             name: 'protocol',

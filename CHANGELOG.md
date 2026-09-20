@@ -7,6 +7,7 @@ Version-sync release. Republishes the shared version line so pub.dev and PyPI ma
 ### Dart
 
 * No changes since 4.6.0 (version bump only, to keep pub.dev in sync with the shared version line).
+* `InboundProtocol.fetchAll` now also selects `hasNativeCommands`, `hasSmsCommands`, and `hasModbus` so consumers can gate command UI on protocol capability without a full fragment fetch.
 
 ### Python
 
