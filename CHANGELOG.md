@@ -7,7 +7,6 @@ Version-sync release. Republishes the shared version line so pub.dev and PyPI ma
 ### Dart
 
 * No changes since 4.6.0 (version bump only, to keep pub.dev in sync with the shared version line).
-* `InboundProtocol.fetchAll` now also selects `hasNativeCommands`, `hasSmsCommands`, and `hasModbus` so consumers can gate command UI on protocol capability without a full fragment fetch.
 
 ### Python
 
@@ -26,6 +25,7 @@ Version-sync release. Republishes the shared version line so pub.dev and PyPI ma
 * `Tag.fetchAll` now also selects the associated-element ID lists (e.g. `assetsIds`, `devicesIds`, `usersIds`, `functionsIds`, and the rest of the schema-present `*Ids` fields) for per-tag element counts.
 * `Device.fetchAll` now selects the device's last-known `telemetry` (via `DeviceTelemetry.fragment`), so list/table connection indicators have data to render without a separate realtime feed.
 * `InboundProtocol`'s fetch fragment now selects `models` (via `Model.reducedFragment`), so fetched protocols carry their models inline (used by protocol-to-model selectors).
+* `InboundProtocol.fetchAll` now also selects `hasNativeCommands`, `hasSmsCommands`, and `hasModbus` so consumers can gate command UI on protocol capability without a full fragment fetch.
 
 ### Python
 
