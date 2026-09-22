@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.6.3
+
+### Dart
+
+- Added `atsMergeOperations` (`ATS_MERGE_OPERATIONS`) to `ReferenceCategory`, gating the manual operation merge/revert actions.
+
+### Go
+
+* No changes in this release.
+
+### Python
+
+* No changes in this release.
+
 ## 4.6.2
 
 ### Dart
