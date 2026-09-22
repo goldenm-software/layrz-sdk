@@ -62,6 +62,14 @@ enum AtsHistoryAuthenticationCardOperation {
   /// A command result was recorded. API reference: `COMMAND_RESULT`.
   commandResult,
 
+  /// A device was added via a command result. API reference:
+  /// `COMMAND_RESULT_ADD`.
+  commandResultAdd,
+
+  /// A device was removed via a command result. API reference:
+  /// `COMMAND_RESULT_DEL`.
+  commandResultDel,
+
   /// Unknown operation. Fallback value used when an unrecognized operation
   /// value is received.
   unknown;
@@ -87,6 +95,10 @@ enum AtsHistoryAuthenticationCardOperation {
         return 'UNSUSPEND_CARD';
       case AtsHistoryAuthenticationCardOperation.commandResult:
         return 'COMMAND_RESULT';
+      case AtsHistoryAuthenticationCardOperation.commandResultAdd:
+        return 'COMMAND_RESULT_ADD';
+      case AtsHistoryAuthenticationCardOperation.commandResultDel:
+        return 'COMMAND_RESULT_DEL';
       case AtsHistoryAuthenticationCardOperation.unknown:
         return 'UNKNOWN';
     }
@@ -111,6 +123,10 @@ enum AtsHistoryAuthenticationCardOperation {
         return AtsHistoryAuthenticationCardOperation.unsuspendCard;
       case 'COMMAND_RESULT':
         return AtsHistoryAuthenticationCardOperation.commandResult;
+      case 'COMMAND_RESULT_ADD':
+        return AtsHistoryAuthenticationCardOperation.commandResultAdd;
+      case 'COMMAND_RESULT_DEL':
+        return AtsHistoryAuthenticationCardOperation.commandResultDel;
       default:
         return AtsHistoryAuthenticationCardOperation.unknown;
     }
