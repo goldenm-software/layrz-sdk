@@ -93,6 +93,7 @@ const _$ReferenceCategoryEnumMap = {
   ReferenceCategory.atsShowOnlyLastExit: 'ATS_SHOW_ONLY_LAST_EXIT',
   ReferenceCategory.atsSupervisorioAllowCloseRaftOperation:
       'ATS_SUPERVISORIO_ALLOW_CLOSE_RAFT_OPERATION',
+  ReferenceCategory.atsMergeOperations: 'ATS_MERGE_OPERATIONS',
   ReferenceCategory.mappitOperator: 'MAPPIT_OPERATOR',
   ReferenceCategory.mappitCustomer: 'MAPPIT_CUSTOMER',
   ReferenceCategory.mappitEmployee: 'MAPPIT_EMPLOYEE',

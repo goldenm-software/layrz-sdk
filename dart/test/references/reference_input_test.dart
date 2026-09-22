@@ -211,6 +211,16 @@ void main() {
       expect(input.category.toJson(), 'ATS_TANK');
     });
 
+    test('ReferenceInput with ATS merge operations category', () {
+      final input = ReferenceInput(
+        name: 'ATS Merge Operations Input',
+        category: ReferenceCategory.atsMergeOperations,
+      );
+
+      expect(input.category, ReferenceCategory.atsMergeOperations);
+      expect(input.category.toJson(), 'ATS_MERGE_OPERATIONS');
+    });
+
     test('ReferenceInput with Mappit category', () {
       final input = ReferenceInput(
         name: 'Mappit Input',
