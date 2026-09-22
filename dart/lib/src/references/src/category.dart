@@ -313,6 +313,12 @@ enum ReferenceCategory {
   @JsonValue('ATS_SUPERVISORIO_ALLOW_CLOSE_RAFT_OPERATION')
   atsSupervisorioAllowCloseRaftOperation,
 
+  /// !ATS Reference
+  /// [AllTank Systems] Access to merge and revert merge of operations.
+  /// Layrz API Reference: ATS_MERGE_OPERATIONS
+  @JsonValue('ATS_MERGE_OPERATIONS')
+  atsMergeOperations,
+
   /// !Mappit Reference
   /// Defines access to the Mappit module as an operator or Mappit employee.
   /// Layrz API Reference: MAPPIT_OPERATOR
