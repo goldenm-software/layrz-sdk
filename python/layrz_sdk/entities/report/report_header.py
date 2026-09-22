@@ -1,7 +1,6 @@
-import warnings
-from typing import Any, Optional
+from typing import Any
 
-from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
 from .text_alignment import TextAlignment
 

@@ -3,16 +3,18 @@ import os
 import time
 import warnings
 from pathlib import Path
+from subprocess import call
 from typing import Any, Literal, Optional, Self, overload
 
 import xlsxwriter
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
-from layrz_sdk.entities.custom_report_page import CustomReportPage
-from layrz_sdk.entities.report_data_type import ReportDataType
-from layrz_sdk.entities.report_format import ReportFormat
-from layrz_sdk.entities.report_page import ReportPage
 from layrz_sdk.helpers.color import use_black
+
+from .custom_report_page import CustomReportPage
+from .report_data_type import ReportDataType
+from .report_format import ReportFormat
+from .report_page import ReportPage
 
 log = logging.getLogger(__name__)
 DEFAULT_FONT = 'Calibri'
@@ -53,7 +55,7 @@ class Report(BaseModel):
   @overload
   def export(
     self: Self,
-    path: Path,
+    path: Path | str,
     export_format: Literal[ReportFormat.MICROSOFT_EXCEL] = ReportFormat.MICROSOFT_EXCEL,
     password: str | None = None,
     msoffice_crypt_path: str = '/opt/msoffice/bin/msoffice-crypt.exe',
@@ -62,7 +64,7 @@ class Report(BaseModel):
   @overload
   def export(
     self: Self,
-    path: Path,
+    path: Path | str,
     export_format: Literal[ReportFormat.JSON] = ReportFormat.JSON,
     password: str | None = None,
     msoffice_crypt_path: str = '/opt/msoffice/bin/msoffice-crypt.exe',
@@ -70,7 +72,7 @@ class Report(BaseModel):
 
   def export(
     self: Self,
-    path: Path,
+    path: Path | str,
     export_format: ReportFormat | None = None,
     password: str | None = None,
     msoffice_crypt_path: str = '/opt/msoffice/bin/msoffice-crypt.exe',
@@ -78,7 +80,7 @@ class Report(BaseModel):
     """
     Export report to file
 
-    :param path: Path to save the report
+    :param path: Path or string to save the report
     :param export_format: Format to export the report
     :param password: Password to protect the file (Only works with Microsoft Excel format)
     :param msoffice_crypt_path: Path to the msoffice-crypt.exe executable, used to encrypt the file
@@ -159,12 +161,12 @@ class Report(BaseModel):
 
   def _export_xlsx(
     self: Self,
-    path: Path,
+    path: Path | str,
     password: str | None = None,
     msoffice_crypt_path: str | None = None,
   ) -> Path:
     """
-    Export to Microsoft Excel (.xslx)
+    Export to Microsoft Excel (.xlsx)
 
     :param path: Path to save the report
     :param password: Password to protect the file
@@ -311,7 +313,7 @@ class Report(BaseModel):
     if password and msoffice_crypt_path:
       new_path = os.path.join(path, f'encrypted_{self.filename}')
       log.debug(f'Executing `{msoffice_crypt_path} -e -p "{password}" "{full_path}" "{new_path}"`')
-      os.system(f'{msoffice_crypt_path} -e -p "{password}" "{full_path}" "{new_path}"')
+      call(f'{msoffice_crypt_path} -e -p "{password}" "{full_path}" "{new_path}"', shell=True)
       os.remove(full_path)
 
       with open(new_path, 'rb') as f:
