@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.6.4
+
+### Dart
+
+- Added `commandResultAdd` (`COMMAND_RESULT_ADD`) and `commandResultDel` (`COMMAND_RESULT_DEL`) to `AtsHistoryAuthenticationCardOperation`, fixing authentication card history rows falling back to `unknown` for those operations (bug 135).
+
+### Go
+
+* No changes in this release.
+
+### Python
+
+* No changes in this release.
+
 ## 4.6.3
 
 ### Dart
