@@ -222,6 +222,15 @@ _ReportPage _$ReportPageFromJson(Map<String, dynamic> json) => _ReportPage(
           ?.map((e) => ReportHeader.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
+  headerRows:
+      (json['headerRows'] as List<dynamic>?)
+          ?.map(
+            (e) => (e as List<dynamic>)
+                .map((e) => ReportHeader.fromJson(e as Map<String, dynamic>))
+                .toList(),
+          )
+          .toList() ??
+      const [],
 );
 
 Map<String, dynamic> _$ReportPageToJson(_ReportPage instance) =>
@@ -229,6 +238,9 @@ Map<String, dynamic> _$ReportPageToJson(_ReportPage instance) =>
       'name': instance.name,
       'rows': instance.rows.map((e) => e.toJson()).toList(),
       'headers': instance.headers.map((e) => e.toJson()).toList(),
+      'headerRows': instance.headerRows
+          .map((e) => e.map((e) => e.toJson()).toList())
+          .toList(),
     };
 
 _ReportRow _$ReportRowFromJson(Map<String, dynamic> json) => _ReportRow(
@@ -253,6 +265,8 @@ _ReportHeader _$ReportHeaderFromJson(Map<String, dynamic> json) =>
         json['textColor'] as String?,
       ),
       color: const ColorOrNullConverter().fromJson(json['color'] as String?),
+      colspan: (json['colspan'] as num?)?.toInt() ?? 1,
+      rowspan: (json['rowspan'] as num?)?.toInt() ?? 1,
     );
 
 Map<String, dynamic> _$ReportHeaderToJson(_ReportHeader instance) =>
@@ -260,6 +274,8 @@ Map<String, dynamic> _$ReportHeaderToJson(_ReportHeader instance) =>
       'content': instance.content,
       'textColor': const ColorOrNullConverter().toJson(instance.textColor),
       'color': const ColorOrNullConverter().toJson(instance.color),
+      'colspan': instance.colspan,
+      'rowspan': instance.rowspan,
     };
 
 _ReportCell _$ReportCellFromJson(Map<String, dynamic> json) => _ReportCell(

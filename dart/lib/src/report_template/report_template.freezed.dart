@@ -1979,8 +1979,15 @@ mixin _$ReportPage {
 
 /// Is the name of the report page.
  String get name;/// Is the rows inside of the report. Defaults to an empty list.
- List<ReportRow> get rows;/// Is the headers of the report. Defaults to an empty list.
- List<ReportHeader> get headers;
+ List<ReportRow> get rows;/// Is the headers of the report, one per column. Defaults to an empty list.
+///
+/// When the page uses grouped headers, this holds the bottom-most header of
+/// each column, so it always lines up with [ReportRow.content]. Use
+/// [headerRows] to render the groups above them.
+ List<ReportHeader> get headers;/// Is the multi-row (grouped) header definition, top to bottom, where each
+/// header carries its own `colspan`/`rowspan`. Empty when the page uses a
+/// single header row. Defaults to an empty list.
+ List<List<ReportHeader>> get headerRows;
 /// Create a copy of ReportPage
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1993,16 +2000,16 @@ $ReportPageCopyWith<ReportPage> get copyWith => _$ReportPageCopyWithImpl<ReportP
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportPage&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.rows, rows)&&const DeepCollectionEquality().equals(other.headers, headers));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportPage&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.rows, rows)&&const DeepCollectionEquality().equals(other.headers, headers)&&const DeepCollectionEquality().equals(other.headerRows, headerRows));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(rows),const DeepCollectionEquality().hash(headers));
+int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(rows),const DeepCollectionEquality().hash(headers),const DeepCollectionEquality().hash(headerRows));
 
 @override
 String toString() {
-  return 'ReportPage(name: $name, rows: $rows, headers: $headers)';
+  return 'ReportPage(name: $name, rows: $rows, headers: $headers, headerRows: $headerRows)';
 }
 
 
@@ -2013,7 +2020,7 @@ abstract mixin class $ReportPageCopyWith<$Res>  {
   factory $ReportPageCopyWith(ReportPage value, $Res Function(ReportPage) _then) = _$ReportPageCopyWithImpl;
 @useResult
 $Res call({
- String name, List<ReportRow> rows, List<ReportHeader> headers
+ String name, List<ReportRow> rows, List<ReportHeader> headers, List<List<ReportHeader>> headerRows
 });
 
 
@@ -2030,12 +2037,13 @@ class _$ReportPageCopyWithImpl<$Res>
 
 /// Create a copy of ReportPage
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? rows = null,Object? headers = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? rows = null,Object? headers = null,Object? headerRows = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,rows: null == rows ? _self.rows : rows // ignore: cast_nullable_to_non_nullable
 as List<ReportRow>,headers: null == headers ? _self.headers : headers // ignore: cast_nullable_to_non_nullable
-as List<ReportHeader>,
+as List<ReportHeader>,headerRows: null == headerRows ? _self.headerRows : headerRows // ignore: cast_nullable_to_non_nullable
+as List<List<ReportHeader>>,
   ));
 }
 
@@ -2120,10 +2128,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<ReportRow> rows,  List<ReportHeader> headers)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<ReportRow> rows,  List<ReportHeader> headers,  List<List<ReportHeader>> headerRows)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ReportPage() when $default != null:
-return $default(_that.name,_that.rows,_that.headers);case _:
+return $default(_that.name,_that.rows,_that.headers,_that.headerRows);case _:
   return orElse();
 
 }
@@ -2141,10 +2149,10 @@ return $default(_that.name,_that.rows,_that.headers);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<ReportRow> rows,  List<ReportHeader> headers)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<ReportRow> rows,  List<ReportHeader> headers,  List<List<ReportHeader>> headerRows)  $default,) {final _that = this;
 switch (_that) {
 case _ReportPage():
-return $default(_that.name,_that.rows,_that.headers);case _:
+return $default(_that.name,_that.rows,_that.headers,_that.headerRows);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2161,10 +2169,10 @@ return $default(_that.name,_that.rows,_that.headers);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<ReportRow> rows,  List<ReportHeader> headers)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<ReportRow> rows,  List<ReportHeader> headers,  List<List<ReportHeader>> headerRows)?  $default,) {final _that = this;
 switch (_that) {
 case _ReportPage() when $default != null:
-return $default(_that.name,_that.rows,_that.headers);case _:
+return $default(_that.name,_that.rows,_that.headers,_that.headerRows);case _:
   return null;
 
 }
@@ -2176,15 +2184,23 @@ return $default(_that.name,_that.rows,_that.headers);case _:
 @JsonSerializable()
 
 class _ReportPage extends ReportPage {
-  const _ReportPage({required this.name, this.rows = const [], this.headers = const []}): super._();
+  const _ReportPage({required this.name, this.rows = const [], this.headers = const [], this.headerRows = const []}): super._();
   factory _ReportPage.fromJson(Map<String, dynamic> json) => _$ReportPageFromJson(json);
 
 /// Is the name of the report page.
 @override final  String name;
 /// Is the rows inside of the report. Defaults to an empty list.
 @override@JsonKey() final  List<ReportRow> rows;
-/// Is the headers of the report. Defaults to an empty list.
+/// Is the headers of the report, one per column. Defaults to an empty list.
+///
+/// When the page uses grouped headers, this holds the bottom-most header of
+/// each column, so it always lines up with [ReportRow.content]. Use
+/// [headerRows] to render the groups above them.
 @override@JsonKey() final  List<ReportHeader> headers;
+/// Is the multi-row (grouped) header definition, top to bottom, where each
+/// header carries its own `colspan`/`rowspan`. Empty when the page uses a
+/// single header row. Defaults to an empty list.
+@override@JsonKey() final  List<List<ReportHeader>> headerRows;
 
 /// Create a copy of ReportPage
 /// with the given fields replaced by the non-null parameter values.
@@ -2199,16 +2215,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReportPage&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.rows, rows)&&const DeepCollectionEquality().equals(other.headers, headers));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReportPage&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.rows, rows)&&const DeepCollectionEquality().equals(other.headers, headers)&&const DeepCollectionEquality().equals(other.headerRows, headerRows));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(rows),const DeepCollectionEquality().hash(headers));
+int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(rows),const DeepCollectionEquality().hash(headers),const DeepCollectionEquality().hash(headerRows));
 
 @override
 String toString() {
-  return 'ReportPage(name: $name, rows: $rows, headers: $headers)';
+  return 'ReportPage(name: $name, rows: $rows, headers: $headers, headerRows: $headerRows)';
 }
 
 
@@ -2219,7 +2235,7 @@ abstract mixin class _$ReportPageCopyWith<$Res> implements $ReportPageCopyWith<$
   factory _$ReportPageCopyWith(_ReportPage value, $Res Function(_ReportPage) _then) = __$ReportPageCopyWithImpl;
 @override @useResult
 $Res call({
- String name, List<ReportRow> rows, List<ReportHeader> headers
+ String name, List<ReportRow> rows, List<ReportHeader> headers, List<List<ReportHeader>> headerRows
 });
 
 
@@ -2236,12 +2252,13 @@ class __$ReportPageCopyWithImpl<$Res>
 
 /// Create a copy of ReportPage
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? rows = null,Object? headers = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? rows = null,Object? headers = null,Object? headerRows = null,}) {
   return _then(_ReportPage(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,rows: null == rows ? _self.rows : rows // ignore: cast_nullable_to_non_nullable
 as List<ReportRow>,headers: null == headers ? _self.headers : headers // ignore: cast_nullable_to_non_nullable
-as List<ReportHeader>,
+as List<ReportHeader>,headerRows: null == headerRows ? _self.headerRows : headerRows // ignore: cast_nullable_to_non_nullable
+as List<List<ReportHeader>>,
   ));
 }
 
@@ -2525,7 +2542,9 @@ mixin _$ReportHeader {
 /// Is the content of the report header.
  String get content;/// Is the text color of the report header.
 @ColorOrNullConverter() Color? get textColor;/// Is the color of the report header.
-@ColorOrNullConverter() Color? get color;
+@ColorOrNullConverter() Color? get color;/// Is the number of columns this header spans. Defaults to `1`.
+ int get colspan;/// Is the number of header rows this header spans. Defaults to `1`.
+ int get rowspan;
 /// Create a copy of ReportHeader
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2538,16 +2557,16 @@ $ReportHeaderCopyWith<ReportHeader> get copyWith => _$ReportHeaderCopyWithImpl<R
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportHeader&&(identical(other.content, content) || other.content == content)&&(identical(other.textColor, textColor) || other.textColor == textColor)&&(identical(other.color, color) || other.color == color));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportHeader&&(identical(other.content, content) || other.content == content)&&(identical(other.textColor, textColor) || other.textColor == textColor)&&(identical(other.color, color) || other.color == color)&&(identical(other.colspan, colspan) || other.colspan == colspan)&&(identical(other.rowspan, rowspan) || other.rowspan == rowspan));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,content,textColor,color);
+int get hashCode => Object.hash(runtimeType,content,textColor,color,colspan,rowspan);
 
 @override
 String toString() {
-  return 'ReportHeader(content: $content, textColor: $textColor, color: $color)';
+  return 'ReportHeader(content: $content, textColor: $textColor, color: $color, colspan: $colspan, rowspan: $rowspan)';
 }
 
 
@@ -2558,7 +2577,7 @@ abstract mixin class $ReportHeaderCopyWith<$Res>  {
   factory $ReportHeaderCopyWith(ReportHeader value, $Res Function(ReportHeader) _then) = _$ReportHeaderCopyWithImpl;
 @useResult
 $Res call({
- String content,@ColorOrNullConverter() Color? textColor,@ColorOrNullConverter() Color? color
+ String content,@ColorOrNullConverter() Color? textColor,@ColorOrNullConverter() Color? color, int colspan, int rowspan
 });
 
 
@@ -2575,12 +2594,14 @@ class _$ReportHeaderCopyWithImpl<$Res>
 
 /// Create a copy of ReportHeader
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? content = null,Object? textColor = freezed,Object? color = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? content = null,Object? textColor = freezed,Object? color = freezed,Object? colspan = null,Object? rowspan = null,}) {
   return _then(_self.copyWith(
 content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String,textColor: freezed == textColor ? _self.textColor : textColor // ignore: cast_nullable_to_non_nullable
 as Color?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
-as Color?,
+as Color?,colspan: null == colspan ? _self.colspan : colspan // ignore: cast_nullable_to_non_nullable
+as int,rowspan: null == rowspan ? _self.rowspan : rowspan // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -2665,10 +2686,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String content, @ColorOrNullConverter()  Color? textColor, @ColorOrNullConverter()  Color? color)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String content, @ColorOrNullConverter()  Color? textColor, @ColorOrNullConverter()  Color? color,  int colspan,  int rowspan)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ReportHeader() when $default != null:
-return $default(_that.content,_that.textColor,_that.color);case _:
+return $default(_that.content,_that.textColor,_that.color,_that.colspan,_that.rowspan);case _:
   return orElse();
 
 }
@@ -2686,10 +2707,10 @@ return $default(_that.content,_that.textColor,_that.color);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String content, @ColorOrNullConverter()  Color? textColor, @ColorOrNullConverter()  Color? color)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String content, @ColorOrNullConverter()  Color? textColor, @ColorOrNullConverter()  Color? color,  int colspan,  int rowspan)  $default,) {final _that = this;
 switch (_that) {
 case _ReportHeader():
-return $default(_that.content,_that.textColor,_that.color);case _:
+return $default(_that.content,_that.textColor,_that.color,_that.colspan,_that.rowspan);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2706,10 +2727,10 @@ return $default(_that.content,_that.textColor,_that.color);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String content, @ColorOrNullConverter()  Color? textColor, @ColorOrNullConverter()  Color? color)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String content, @ColorOrNullConverter()  Color? textColor, @ColorOrNullConverter()  Color? color,  int colspan,  int rowspan)?  $default,) {final _that = this;
 switch (_that) {
 case _ReportHeader() when $default != null:
-return $default(_that.content,_that.textColor,_that.color);case _:
+return $default(_that.content,_that.textColor,_that.color,_that.colspan,_that.rowspan);case _:
   return null;
 
 }
@@ -2721,7 +2742,7 @@ return $default(_that.content,_that.textColor,_that.color);case _:
 @JsonSerializable()
 
 class _ReportHeader extends ReportHeader {
-  const _ReportHeader({required this.content, @ColorOrNullConverter() this.textColor, @ColorOrNullConverter() this.color}): super._();
+  const _ReportHeader({required this.content, @ColorOrNullConverter() this.textColor, @ColorOrNullConverter() this.color, this.colspan = 1, this.rowspan = 1}): super._();
   factory _ReportHeader.fromJson(Map<String, dynamic> json) => _$ReportHeaderFromJson(json);
 
 /// Is the content of the report header.
@@ -2730,6 +2751,10 @@ class _ReportHeader extends ReportHeader {
 @override@ColorOrNullConverter() final  Color? textColor;
 /// Is the color of the report header.
 @override@ColorOrNullConverter() final  Color? color;
+/// Is the number of columns this header spans. Defaults to `1`.
+@override@JsonKey() final  int colspan;
+/// Is the number of header rows this header spans. Defaults to `1`.
+@override@JsonKey() final  int rowspan;
 
 /// Create a copy of ReportHeader
 /// with the given fields replaced by the non-null parameter values.
@@ -2744,16 +2769,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReportHeader&&(identical(other.content, content) || other.content == content)&&(identical(other.textColor, textColor) || other.textColor == textColor)&&(identical(other.color, color) || other.color == color));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReportHeader&&(identical(other.content, content) || other.content == content)&&(identical(other.textColor, textColor) || other.textColor == textColor)&&(identical(other.color, color) || other.color == color)&&(identical(other.colspan, colspan) || other.colspan == colspan)&&(identical(other.rowspan, rowspan) || other.rowspan == rowspan));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,content,textColor,color);
+int get hashCode => Object.hash(runtimeType,content,textColor,color,colspan,rowspan);
 
 @override
 String toString() {
-  return 'ReportHeader(content: $content, textColor: $textColor, color: $color)';
+  return 'ReportHeader(content: $content, textColor: $textColor, color: $color, colspan: $colspan, rowspan: $rowspan)';
 }
 
 
@@ -2764,7 +2789,7 @@ abstract mixin class _$ReportHeaderCopyWith<$Res> implements $ReportHeaderCopyWi
   factory _$ReportHeaderCopyWith(_ReportHeader value, $Res Function(_ReportHeader) _then) = __$ReportHeaderCopyWithImpl;
 @override @useResult
 $Res call({
- String content,@ColorOrNullConverter() Color? textColor,@ColorOrNullConverter() Color? color
+ String content,@ColorOrNullConverter() Color? textColor,@ColorOrNullConverter() Color? color, int colspan, int rowspan
 });
 
 
@@ -2781,12 +2806,14 @@ class __$ReportHeaderCopyWithImpl<$Res>
 
 /// Create a copy of ReportHeader
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? content = null,Object? textColor = freezed,Object? color = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? content = null,Object? textColor = freezed,Object? color = freezed,Object? colspan = null,Object? rowspan = null,}) {
   return _then(_ReportHeader(
 content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String,textColor: freezed == textColor ? _self.textColor : textColor // ignore: cast_nullable_to_non_nullable
 as Color?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
-as Color?,
+as Color?,colspan: null == colspan ? _self.colspan : colspan // ignore: cast_nullable_to_non_nullable
+as int,rowspan: null == rowspan ? _self.rowspan : rowspan // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
