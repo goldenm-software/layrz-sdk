@@ -120,10 +120,10 @@ class Report(BaseModel):
       if isinstance(page, CustomReportPage):
         continue
 
-      cells, depth, width = layout_header_grid(page.resolved_header_rows)
+      placements, depth, width = layout_header_grid(page.resolved_header_rows)
 
       headers: list[dict[str, Any]] = []
-      for header in leaf_headers(cells, depth, width):
+      for header in leaf_headers(placements, depth, width):
         headers.append(
           {
             'content': header.content,

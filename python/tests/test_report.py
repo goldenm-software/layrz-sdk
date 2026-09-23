@@ -203,6 +203,9 @@ def test_export_json_flat_is_unchanged() -> None:
 
   assert 'header_rows' not in page_json
   assert page_json['headers'] == [{'content': 'A', 'text_color': '#000000', 'color': '#ffffff'}]
+  assert page_json['rows'][0]['content'] == [
+    {'content': 'a', 'text_color': '#000000', 'color': '#ffffff', 'data_type': 'STR'}
+  ]
 
 
 def test_export_json_grouped_shape() -> None:
