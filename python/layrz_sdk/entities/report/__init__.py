@@ -1,4 +1,5 @@
 from .custom_report_page import CustomReportPage
+from .header_layout import HeaderCell, collapse_header_matrix, layout_header_grid, leaf_headers
 from .report import Report
 from .report_col import ReportCol
 from .report_configuration import ReportConfiguration
@@ -11,6 +12,7 @@ from .text_alignment import TextAlignment
 
 __all__ = [
   'CustomReportPage',
+  'HeaderCell',
   'Report',
   'ReportCol',
   'ReportHeader',
@@ -20,4 +22,7 @@ __all__ = [
   'ReportConfiguration',
   'ReportRow',
   'TextAlignment',
+  'collapse_header_matrix',
+  'layout_header_grid',
+  'leaf_headers',
 ]

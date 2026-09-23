@@ -95,6 +95,7 @@ from .preset import Preset
 from .push import PushNotification
 from .report import (
   CustomReportPage,
+  HeaderCell,
   Report,
   ReportCol,
   ReportConfiguration,
@@ -104,6 +105,9 @@ from .report import (
   ReportPage,
   ReportRow,
   TextAlignment,
+  collapse_header_matrix,
+  layout_header_grid,
+  leaf_headers,
 )
 from .request_type import HttpRequestType
 from .sensor import Sensor
@@ -205,6 +209,7 @@ __all__ = [
   'Preset',
   'RadarChart',
   'RadialBarChart',
+  'HeaderCell',
   'Report',
   'ReportCol',
   'ReportConfiguration',
@@ -251,4 +256,7 @@ __all__ = [
   'SensorType',
   'SensorSubtype',
   'SensorRange',
+  'collapse_header_matrix',
+  'layout_header_grid',
+  'leaf_headers',
 ]
