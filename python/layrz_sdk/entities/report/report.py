@@ -12,6 +12,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 from layrz_sdk.helpers.color import use_black
 
 from .custom_report_page import CustomReportPage
+from .header_layout import layout_header_grid, leaf_headers
 from .report_data_type import ReportDataType
 from .report_format import ReportFormat
 from .report_page import ReportPage
@@ -119,8 +120,10 @@ class Report(BaseModel):
       if isinstance(page, CustomReportPage):
         continue
 
+      cells, depth, width = layout_header_grid(page.resolved_header_rows)
+
       headers: list[dict[str, Any]] = []
-      for header in page.headers:
+      for header in leaf_headers(cells, depth, width):
         headers.append(
           {
             'content': header.content,
@@ -146,13 +149,28 @@ class Report(BaseModel):
             'compact': row.compact,
           }
         )
-      json_pages.append(
-        {
-          'name': page.name,
-          'headers': headers,
-          'rows': rows,
-        }
-      )
+      json_page: dict[str, Any] = {
+        'name': page.name,
+        'headers': headers,
+        'rows': rows,
+      }
+
+      if page.header_rows:
+        json_page['header_rows'] = [
+          [
+            {
+              'content': header.content,
+              'text_color': '#000000' if use_black(header.color) else '#ffffff',
+              'color': header.color,
+              'colspan': header.colspan,
+              'rowspan': header.rowspan,
+            }
+            for header in header_row
+          ]
+          for header_row in page.header_rows
+        ]
+
+      json_pages.append(json_page)
 
     return {
       'name': self.name,
@@ -213,12 +231,17 @@ class Report(BaseModel):
         sheet.autofit()
         continue
 
+      cells, depth, width = layout_header_grid(page.resolved_header_rows)
+      # A page without headers still leaves the first sheet row blank, as it always has
+      data_offset = depth or 1
+
       if page.freeze_header:
-        sheet.freeze_panes(1, 0)
+        sheet.freeze_panes(data_offset, 0)
 
       sizes: dict[int, float] = {}
 
-      for i, header in enumerate(page.headers):
+      for placement in cells:
+        header = placement.header
         style = book.add_format(
           {
             'align': header.align.value,
@@ -234,8 +257,31 @@ class Report(BaseModel):
             'font_name': DEFAULT_FONT,
           }
         )
-        sheet.write(0, i, header.content, style)
-        sizes[i] = max(sizes.get(i, 0), len(str(header.content)) * 1.8)
+
+        if placement.is_single:
+          # xlsxwriter warns and writes nothing when merge_range gets a single cell
+          sheet.write(placement.first_row, placement.first_col, header.content, style)
+        else:
+          sheet.merge_range(
+            placement.first_row,
+            placement.first_col,
+            placement.last_row,
+            placement.last_col,
+            header.content,
+            style,
+          )
+
+        # A label spread over N columns only needs 1/N of the width in each of them
+        span = placement.last_col - placement.first_col + 1
+        share = len(str(header.content)) * 1.8 / span
+        for col in range(placement.first_col, placement.last_col + 1):
+          sizes[col] = max(sizes.get(col, 0), share)
+
+      widest_row = max((len(row.content) for row in page.rows), default=0)
+      if width and widest_row and widest_row != width:
+        log.warning(
+          f'Page {page.name!r}: headers declare {width} column(s) but the widest row has {widest_row} cell(s)'
+        )
 
       should_protect = False
       for i, row in enumerate(page.rows):
@@ -275,7 +321,7 @@ class Report(BaseModel):
                 value = int(cell.content)
               except ValueError:
                 value = cell.content
-                log.warning(f'Invalid int value: {cell.content} in cell {i + 1}, {j}')
+                log.warning(f'Invalid int value: {cell.content} in cell {i + data_offset}, {j}')
 
             case ReportDataType.FLOAT:
               try:
@@ -284,7 +330,7 @@ class Report(BaseModel):
 
               except ValueError:
                 value = cell.content
-                log.warning(f'Invalid float value: {cell.content} in cell {i + 1}, {j}')
+                log.warning(f'Invalid float value: {cell.content} in cell {i + data_offset}, {j}')
 
             case ReportDataType.CURRENCY:
               value = float(cell.content)
@@ -293,14 +339,14 @@ class Report(BaseModel):
             case _:
               value = str(cell.content)
 
-          sheet.write(i + 1, j, value, format_)
+          sheet.write(i + data_offset, j, value, format_)
 
           sizes[j] = max(sizes.get(j, 0), len(str(value)) * 1.2)
 
-          if row.compact:
-            sheet.set_row(i + 1, None, None, {'level': 1, 'hidden': True})
-          else:
-            sheet.set_row(i + 1, None, None, {'collapsed': True})
+        if row.compact:
+          sheet.set_row(i + data_offset, None, None, {'level': 1, 'hidden': True})
+        else:
+          sheet.set_row(i + data_offset, None, None, {'collapsed': True})
 
       if should_protect:
         sheet.protect()

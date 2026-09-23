@@ -1,5 +1,25 @@
 # Changelog
 
+## 4.7.0
+
+### Python
+
+* `ReportPage` now supports multi-row (grouped) headers through a new `header_rows` field, which takes a list of header rows and uses the new `ReportHeader.colspan` / `ReportHeader.rowspan` fields to build groups. `headers` keeps its type and meaning: when `header_rows` is set, it is filled with the bottom-most header of each column, so `len(page.headers)` is still the column count and `page.headers[j]` still lines up with `row.content[j]`.
+* Added `ReportPage.from_header_matrix`, which builds a grouped page from a column-major matrix of shape `(columns, levels)` — one top-to-bottom label stack per column. Neighbouring labels merge into a shared group only when every label above them merges too, so two unrelated groups sharing a leaf label (`[['In', 'Total'], ['Out', 'Total']]`) stay apart.
+* Added `ReportPage.resolved_header_rows`, `ReportPage.header_depth` and `ReportPage.column_count`, plus the `HeaderCell`, `layout_header_grid`, `leaf_headers` and `collapse_header_matrix` helpers for consumers that render headers themselves (including `CustomReportPage` builders).
+* An invalid header grid (overlapping headers, a hole, or a `rowspan` deeper than the header block) now raises at `ReportPage` construction rather than corrupting the workbook mid-export.
+* The Excel export writes the whole header block and offsets data rows below it. `freeze_header` now freezes every header row instead of exactly one. Reports with a single header row export exactly as before.
+* The JSON export keeps `headers` unchanged and adds a sibling `header_rows` key carrying `colspan` / `rowspan`, only for pages that use grouping. Flat pages serialize exactly as before.
+* `ReportHeader` gains `colspan` and `rowspan` (both default `1`), so `model_dump()` output includes two new keys.
+
+### Dart
+
+* No changes in this release.
+
+### Go
+
+* No changes in this release.
+
 ## 4.6.4
 
 ### Dart
