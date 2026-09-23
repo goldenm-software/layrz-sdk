@@ -23,5 +23,3 @@ class ReportHeader(BaseModel):
     return align.value
 
   bold: bool = Field(description='Bold text', default=False)
-  colspan: int = Field(description='Number of columns this header spans', default=1, ge=1)
-  rowspan: int = Field(description='Number of header rows this header spans', default=1, ge=1)
