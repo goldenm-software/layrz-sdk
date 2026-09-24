@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.7.1
+
+### Python
+
+* `Report.filename` now sanitizes the report name to ensure compatibility with all filesystems, preventing export failures from invalid characters in report names.
+
+### Dart
+
+* No changes in this release.
+
+### Go
+
+* No changes in this release.
+
 ## 4.7.0
 
 ### Python
