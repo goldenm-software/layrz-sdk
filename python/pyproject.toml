@@ -1,6 +1,6 @@
 [project]
 name = "layrz-sdk"
-version = "4.7.0"
+version = "4.7.1"
 description = "Layrz SDK for Python"
 authors = [{ name = "Golden M, Inc.", email = "software@goldenm.com" }]
 requires-python = ">=3.13"
@@ -35,6 +35,7 @@ dependencies = [
   "requests>=2.32.4",
   "tzdata>=2025.2",
   "ty>=0.0.1a34",
+  "pathvalidate>=3.3.1",
 ]
 
 [project.urls]
