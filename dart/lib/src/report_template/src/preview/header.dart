@@ -16,6 +16,12 @@ abstract class ReportHeader with _$ReportHeader {
 
     /// Is the color of the report header.
     @ColorOrNullConverter() Color? color,
+
+    /// Is the number of columns this header spans. Defaults to `1`.
+    @Default(1) int colspan,
+
+    /// Is the number of header rows this header spans. Defaults to `1`.
+    @Default(1) int rowspan,
   }) = _ReportHeader;
 
   /// Deserializes a [ReportHeader] from a JSON map.

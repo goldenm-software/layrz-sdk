@@ -41,7 +41,7 @@ class ReportCol(BaseModel):
     """Validate text color"""
     if value is not None:
       warnings.warn(
-        'text_color is deprecated, the algorithm will calculate the rigth text color instead',
+        'text_color is deprecated, the algorithm will calculate the right text color instead',
         DeprecationWarning,
         stacklevel=2,
       )

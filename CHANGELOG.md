@@ -1,5 +1,26 @@
 # Changelog
 
+## 4.7.0
+
+### Python
+
+* `ReportPage` now supports multi-row (grouped) headers through a new `header_rows` field, which takes the header rows top to bottom and uses the new `ReportHeader.colspan` / `ReportHeader.rowspan` fields to build groups. `headers` keeps its type and its meaning: when `header_rows` is set it is filled with the bottom-most header of each column, so `len(page.headers)` is still the column count and `page.headers[j]` still lines up with `row.content[j]`.
+* Added `ReportPage.from_header_matrix`, which builds a grouped page from a column-major matrix of shape `(columns, levels)` — one top-to-bottom label stack per column. Neighbouring labels merge into a shared group only when every label above them merges too, so two unrelated groups that share a leaf label (`[['In', 'Total'], ['Out', 'Total']]`) stay apart.
+* Added `ReportPage.resolved_header_rows`, `ReportPage.header_depth` and `ReportPage.column_count`, plus the `HeaderCell`, `layout_header_grid`, `leaf_headers` and `collapse_header_matrix` helpers, for consumers that render headers themselves (including `CustomReportPage` builders).
+* An invalid header grid — overlapping headers, a hole, or a `rowspan` deeper than the header block — now raises when the `ReportPage` is constructed, instead of corrupting the workbook part-way through an export.
+* The Excel export writes the whole header block, merging grouped cells, and offsets data rows below it. `freeze_header` now freezes every header row rather than exactly one. Reports with a single header row export exactly as before, and a page with no headers still leaves the first sheet row blank.
+* The JSON export gains a `header_rows` key carrying each header's `colspan` / `rowspan`, emitted only for pages that use grouping. The existing `headers` key is unchanged: one entry per column, holding the bottom-most header of each.
+* `ReportHeader` gains `colspan` and `rowspan`, both defaulting to `1`, so `model_dump()` output includes two new keys.
+
+### Dart
+
+* `ReportHeader` (report preview) gains `colspan` and `rowspan`, both defaulting to `1`, so an existing single-row header parses and renders as before.
+* `ReportPage` (report preview) gains `headerRows`, the multi-row header definition, plus the `headerDepth` and `resolvedHeaderRows` getters matching the Python API. `headers` keeps its meaning of one entry per column, and a page with a single header row leaves `headerRows` empty, so existing payloads are unaffected. Note that the Python exporter emits snake_case keys (`header_rows`) while these models read camelCase; translating between the two happens outside this repository.
+
+### Go
+
+* No changes in this release.
+
 ## 4.6.4
 
 ### Dart
