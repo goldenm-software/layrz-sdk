@@ -7,6 +7,7 @@ from subprocess import call
 from typing import Any, Literal, Optional, Self, overload
 
 import xlsxwriter
+from pathvalidate import sanitize_filename
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from layrz_sdk.helpers.color import use_black
@@ -51,7 +52,7 @@ class Report(BaseModel):
   @property
   def filename(self: Self) -> str:
     """Report filename"""
-    return f'{self.name}_{int(time.time() * 1000)}.xlsx'
+    return f'{sanitize_filename(self.name)}_{int(time.time() * 1000)}.xlsx'
 
   @overload
   def export(
