@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.8.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* `Asset` gains `assetsInStorageTerminal` and `assetsInStorageTerminalIds`, the inverse relation of `linkedStorageTerminals` / `linkedStorageTerminalsIds`, listing the assets that selected this asset as a storage terminal.
+
+### Go
+
+* No changes in this release.
+
 ## 4.7.1
 
 ### Python
