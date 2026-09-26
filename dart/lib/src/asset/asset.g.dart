@@ -113,6 +113,13 @@ _Asset _$AssetFromJson(Map<String, dynamic> json) => _Asset(
       (json['linkedStorageTerminalsIds'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+  assetsInStorageTerminal: (json['assetsInStorageTerminal'] as List<dynamic>?)
+      ?.map((e) => Asset.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  assetsInStorageTerminalIds:
+      (json['assetsInStorageTerminalIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
   staticPosition: json['staticPosition'] == null
       ? null
       : StaticPosition.fromJson(json['staticPosition'] as Map<String, dynamic>),
@@ -219,6 +226,10 @@ Map<String, dynamic> _$AssetToJson(_Asset instance) => <String, dynamic>{
       ?.map((e) => e.toJson())
       .toList(),
   'linkedStorageTerminalsIds': instance.linkedStorageTerminalsIds,
+  'assetsInStorageTerminal': instance.assetsInStorageTerminal
+      ?.map((e) => e.toJson())
+      .toList(),
+  'assetsInStorageTerminalIds': instance.assetsInStorageTerminalIds,
   'staticPosition': instance.staticPosition?.toJson(),
   'points': instance.points?.map((e) => e.toJson()).toList(),
   'parameters': instance.parameters,

@@ -152,6 +152,14 @@ abstract class Asset with _$Asset {
     /// Only used in ATS apps.
     List<String>? linkedStorageTerminalsIds,
 
+    /// [assetsInStorageTerminal] refers to the list of assets that link to this asset as a storage terminal.
+    /// Inverse of [linkedStorageTerminals]. Only used in ATS apps.
+    List<Asset>? assetsInStorageTerminal,
+
+    /// [assetsInStorageTerminalIds] refers to the list of assets IDs that link to this asset as a storage terminal.
+    /// Inverse of [linkedStorageTerminalsIds]. Only used in ATS apps.
+    List<String>? assetsInStorageTerminalIds,
+
     /// [staticPosition] refers to the static position of the asset.
     /// Only used when mode is [AssetMode.fixed].
     StaticPosition? staticPosition,

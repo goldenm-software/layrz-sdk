@@ -70,6 +70,22 @@ abstract class LayrzNotification with _$LayrzNotification {
   /// Deserializes a [LayrzNotification] from a JSON map.
   factory LayrzNotification.fromJson(Map<String, dynamic> json) => _$LayrzNotificationFromJson(json);
 
+  // String formatTitle(BuildContext context) {
+  //   if (titleTranslate) {
+  //     String? translation = LayrzAppLocalizations.maybeOf(context)?.t(title, titleArgs);
+  //     if (translation != null) return translation;
+  //   }
+  //   return title;
+  // }
+
+  // String formatMessage(BuildContext context) {
+  //   if (messageTranslate) {
+  //     String? translation = LayrzAppLocalizations.maybeOf(context)?.t(message, messageArgs);
+  //     if (translation != null) return translation;
+  //   }
+  //   return message;
+  // }
+
   /// [soundFile] returns the sound file name for the sound effect.
   String? get soundFile {
     switch (sound) {

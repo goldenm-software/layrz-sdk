@@ -94,3 +94,4 @@ export 'src/utils/utils.dart';
 export 'src/vision_profile/vision_profile.dart';
 export 'src/workspace/workspace.dart';
 export 'src/zigbee/zigbee.dart';
+export 'src/reports/reports.dart';
