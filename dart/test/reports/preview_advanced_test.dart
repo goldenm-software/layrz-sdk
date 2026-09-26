@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:layrz_sdk/layrz_sdk.dart';
 
@@ -30,8 +31,8 @@ void main() {
     });
 
     test('ReportHeader textColor and color roundtrip', () {
-      final black = Color(0xFF000000);
-      final white = Color(0xFFFFFFFF);
+      const black = Color(0xFF000000);
+      const white = Color(0xFFFFFFFF);
 
       final original = ReportHeader(
         content: 'Test',
@@ -62,8 +63,8 @@ void main() {
     test('ReportHeader toJson', () {
       final header = ReportHeader(
         content: 'Export Header',
-        textColor: Colors.black,
-        color: Colors.white,
+        textColor: const Color(0xFF000000),
+        color: const Color(0xFFFFFFFF),
       );
 
       final json = header.toJson();
@@ -203,8 +204,8 @@ void main() {
     test('ReportCell toJson with all fields', () {
       final cell = ReportCell(
         content: 'Export Cell',
-        textColor: Colors.blue,
-        color: Colors.yellow,
+        textColor: const Color(0xFF2196F3),
+        color: const Color(0xFFFFEB3B),
         dataType: ReportDataType.string,
         currencySymbol: '€',
       );
@@ -221,8 +222,8 @@ void main() {
     test('ReportCell roundtrip with all fields', () {
       final original = ReportCell(
         content: 150.50,
-        textColor: Colors.green,
-        color: Colors.red,
+        textColor: const Color(0xFF4CAF50),
+        color: const Color(0xFFF44336),
         dataType: ReportDataType.currency,
         currencySymbol: '£',
       );
