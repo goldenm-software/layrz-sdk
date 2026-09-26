@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.8.2
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* No changes in this release. Version bump only, to retry the release pipeline after `v4.8.0` and `v4.8.1` failed to publish.
+
+### Go
+
+* No changes in this release.
+
 ## 4.8.1
 
 ### Python
