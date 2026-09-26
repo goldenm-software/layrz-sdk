@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.8.1
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* Added the `reports` library (`ReportScheduler`, `ReportSchedulerInput` and the `RelativeChoices` enum), covering the report-scheduling models that previously lived only in `layrz_models`, now moved into `layrz_sdk` and re-exported from `layrz_models` for backwards compatibility.
+* The report preview models (`ReportPreview`, `ReportPage`, `ReportRow`, `ReportHeader`, `ReportCell` and `ReportDataType`) that moved to `layrz_sdk` in 4.7.0 are now joined by the rest of the report entities, so the report template feature set no longer needs `layrz_models` at all when used alongside `layrz_sdk`.
+* `ReportTemplateSourceConverter`, `ReportTemplateAlgorithmConverter`, `ReportDataTypeConverter` and `ReportDataTypeOrNullConverter` are included for legacy payload compatibility and marked `@Deprecated` in favor of the native `json_serializable` / `@JsonEnum` converters.
+
+### Go
+
+* No changes in this release.
+
 ## 4.8.0
 
 ### Python
