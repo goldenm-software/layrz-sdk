@@ -3,7 +3,7 @@ library;
 // Still needed for `TimeOfDay` (ReportScheduler.execTime in src/reports_scheduler.dart); Color
 // (formerly used by ReportHeader/ReportCell) is no longer a direct reason for this import since
 // those types moved to layrz_sdk along with the rest of the preview types.
-import 'package:flutter/material.dart' hide TimeOfDay;
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:collection/collection.dart';
 import 'package:layrz_sdk/layrz_sdk.dart';
