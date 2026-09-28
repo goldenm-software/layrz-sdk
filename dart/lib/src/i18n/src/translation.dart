@@ -29,7 +29,8 @@ abstract class I18nTranslation with _$I18nTranslation {
   }) = _I18nTranslation;
 
   /// Deserializes an [I18nTranslation] from a JSON map.
-  factory I18nTranslation.fromJson(Map<String, dynamic> json) => _$I18nTranslationFromJson(json);
+  factory I18nTranslation.fromJson(Map<String, dynamic> json) =>
+      _$I18nTranslationFromJson(json);
 }
 
 /// Mutable translation message input model for creating or updating translations.
@@ -56,5 +57,6 @@ abstract class I18nTranslationInput with _$I18nTranslationInput {
   }) = _I18nTranslationInput;
 
   /// Deserializes an [I18nTranslationInput] from a JSON map.
-  factory I18nTranslationInput.fromJson(Map<String, dynamic> json) => _$I18nTranslationInputFromJson(json);
+  factory I18nTranslationInput.fromJson(Map<String, dynamic> json) =>
+      _$I18nTranslationInputFromJson(json);
 }
