@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.9.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* Added GraphQL API callers for the i18n models: `Language.fetchAll`, `I18nKey.fetchAll` (optionally filtered by `ids`), `I18nKey.fetch`, `I18nKeyInput.save` (`saveI18nKey`), `I18nKeyInput.saveAll` (`saveI18nKeys`) and `I18nKeyHistory.fetchAll` (`requestI18nKeyHistory`).
+* Added `Language.fragment`, `I18nKey.fragment` and `I18nKeyHistory.fragment`. The employee fields of `createdBy`, `updatedBy` and `performedBy` are selected inline instead of through `Employee.reducedFragment`, because the API does not resolve the nested `avatarFragment` for these queries.
+
+### Go
+
+* No changes in this release.
+
 ## 4.8.2
 
 ### Python
