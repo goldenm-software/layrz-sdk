@@ -21,6 +21,8 @@ library;
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:layrz_i18n/layrz_i18n.dart';
+import 'package:layrz_logging/layrz_logging.dart';
+import 'package:layrz_sdk/src/api/api.dart';
 import 'package:layrz_sdk/src/converters/converters.dart';
 import 'package:layrz_sdk/src/employee/employee.dart';
 

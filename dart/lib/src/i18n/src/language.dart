@@ -25,7 +25,85 @@ abstract class Language with _$Language {
   }) = _Language;
 
   /// Deserializes a [Language] from a JSON map.
-  factory Language.fromJson(Map<String, dynamic> json) => _$LanguageFromJson(json);
+  factory Language.fromJson(Map<String, dynamic> json) =>
+      _$LanguageFromJson(json);
+
+  // coverage:ignore-start
+  /// GraphQL fragment definition for querying language fields.
+  static GqlFragment get fragment => GqlFragment(
+    name: 'languageFragment',
+    onType: 'Language',
+    fields: [
+      GqlField(name: 'id'),
+      GqlField(name: 'name'),
+      GqlField(name: 'code'),
+      GqlField(name: 'progress'),
+    ],
+  );
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Fetches all [Language]s available to the authenticated user.
+  ///
+  /// Makes an authenticated GraphQL query (`languages`) to retrieve every
+  /// [Language] known to the server, along with its translation completion
+  /// [Language.progress]. Authentication is carried solely via the
+  /// connector's `Authorization` header, built from [apiToken].
+  ///
+  /// Optional callback invoked with the [ApiStatus] of the response. Called
+  /// once per invocation, regardless of success or failure.
+  ///
+  /// Returns an empty list on any error (network failure, authentication
+  /// failure, or server error). Errors are logged internally.
+  static Future<List<Language>> fetchAll({
+    /// The API token for authentication. Obtain via the `login` mutation
+    /// on the GraphQL API.
+    required String apiToken,
+
+    /// The Layrz GraphQL API endpoint (e.g.,
+    /// `https://api.example.com/graphql`).
+    required Uri uri,
+
+    /// Optional callback invoked with the [ApiStatus] of the response. Called
+    /// once per invocation, regardless of success or failure.
+    void Function(ApiStatus status)? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.query(
+        GqlQuery(name: 'languages')..add(
+          GqlField(name: 'languages')
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(GqlField(name: 'result', fragment: fragment)),
+        ),
+        _languageListDecoder,
+      );
+
+      if (response.status != .ok) {
+        onResponse?.call(response.status);
+        return [];
+      }
+
+      return response.result ?? [];
+    } catch (e, stack) {
+      Log.critical(
+        "layrz_sdk/Language/fetchAll(): General exception => $e\n$stack",
+      );
+      return [];
+    }
+  }
+  // coverage:ignore-end
+}
+
+/// [_languageListDecoder] decodes a raw listing `result` payload into a list of [Language].
+/// Used by listing queries (fetchAll).
+List<Language> _languageListDecoder(Object? json) {
+  return List<Language>.from(
+    (json as List? ?? []).map(
+      (e) => Language.fromJson(Map<String, dynamic>.from(e as Map)),
+    ),
+  );
 }
 
 /// Mutable translation language input model for creating or updating languages.
@@ -51,5 +129,6 @@ abstract class LanguageInput with _$LanguageInput {
   }) = _LanguageInput;
 
   /// Deserializes a [LanguageInput] from a JSON map.
-  factory LanguageInput.fromJson(Map<String, dynamic> json) => _$LanguageInputFromJson(json);
+  factory LanguageInput.fromJson(Map<String, dynamic> json) =>
+      _$LanguageInputFromJson(json);
 }
