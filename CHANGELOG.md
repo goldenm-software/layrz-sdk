@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.10.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* Added the `growth` module with the home metrics models `GrowthSummary`, `GrowthItem`, `DailyGrowthItem`, `AccountGrowth` and `TopAccount`, each with its `fragment`.
+* Added GraphQL API callers: `GrowthSummary.fetch` (`homeMetrics`), `DailyGrowthItem.fetchAll` (`userGrowth`, by user and date range) and `AccountGrowth.fetchAll` (`growthPerAccount`, by date range; heavy on the server, meant to be called on demand).
+* Added `MonthConverter` and `MonthOrNullConverter` for `YYYY-MM` month strings, and the `DateTime.toMonth()` extension.
+
+### Go
+
+* No changes in this release.
+
 ## 4.9.0
 
 ### Python
