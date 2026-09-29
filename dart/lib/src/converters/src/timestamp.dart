@@ -82,10 +82,57 @@ class DateOrNullConverter implements JsonConverter<DateTime?, String?> {
   }
 }
 
+/// A [JsonConverter] that converts between [DateTime] and month strings.
+///
+/// Converts from JSON month strings (format: `YYYY-MM`) to the first day of
+/// that month as a Dart [DateTime], and back to month strings.
+class MonthConverter implements JsonConverter<DateTime, String> {
+  /// Creates a [MonthConverter].
+  const MonthConverter();
+
+  @override
+  DateTime fromJson(String json) {
+    final parts = json.split('-');
+    return DateTime(int.parse(parts[0]), int.parse(parts[1]));
+  }
+
+  @override
+  String toJson(DateTime object) {
+    return object.toMonth();
+  }
+}
+
+/// A [JsonConverter] that converts between nullable [DateTime] and [String?].
+///
+/// Converts from JSON month strings (format: `YYYY-MM`) or `null` to the first
+/// day of that month as a Dart [DateTime?], and back to month strings. Returns
+/// `null` when the input is `null`.
+class MonthOrNullConverter implements JsonConverter<DateTime?, String?> {
+  /// Creates a [MonthOrNullConverter].
+  const MonthOrNullConverter();
+
+  @override
+  DateTime? fromJson(String? json) {
+    if (json == null) return null;
+    return const MonthConverter().fromJson(json);
+  }
+
+  @override
+  String? toJson(DateTime? object) {
+    if (object == null) return null;
+    return object.toMonth();
+  }
+}
+
 /// Utility extension for formatting [DateTime] as an ISO date string.
 extension DateExtension on DateTime {
   /// Formats this [DateTime] as an ISO date string in `YYYY-MM-DD` format.
   String toDate() {
     return "$year-${month.toString().padLeft(2, '0')}-${day.toString().padLeft(2, '0')}";
+  }
+
+  /// Formats this [DateTime] as a month string in `YYYY-MM` format.
+  String toMonth() {
+    return "$year-${month.toString().padLeft(2, '0')}";
   }
 }

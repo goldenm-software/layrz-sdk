@@ -14,6 +14,7 @@
 /// - [department] — Department model for organizational structure.
 /// - [employee] — Employee and employee input models for personnel management.
 /// - [flespi] — Flespi platform models: protocols, channels, and device models.
+/// - [growth] — Growth metrics models: summary, monthly, daily, and per-account growth.
 /// - [i18n] — Internationalization models: languages, translation keys, and messages.
 /// - [icons] — Material Design Icons registry with name-based lookup.
 /// - [inbound] — Inbound protocol definitions: connection, credentials, and configuration structures.
@@ -65,6 +66,7 @@ export 'src/flespi/flespi.dart';
 export 'src/function/function.dart';
 export 'src/general/general.dart';
 export 'src/geofences/geofences.dart';
+export 'src/growth/growth.dart';
 export 'src/i18n/i18n.dart';
 export 'src/icons/icons.dart';
 export 'src/inbound/inbound.dart';
