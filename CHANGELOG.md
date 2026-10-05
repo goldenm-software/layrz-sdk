@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.10.1
+
+### Python
+
+* `RawBroadcastResult` now accepts `BADREQUEST` as an alias of `BroadcastStatus.BAD_REQUEST`.
+* The invalid status error message of `RawBroadcastResult` now lists every valid `BroadcastStatus` value.
+
+### Dart
+
+* No changes in this release.
+
+### Go
+
+* No changes in this release.
+
 ## 4.10.0
 
 ### Python
