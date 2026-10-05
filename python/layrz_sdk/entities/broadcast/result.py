@@ -11,6 +11,8 @@ from .request import BroadcastRequest
 from .response import BroadcastResponse
 from .status import BroadcastStatus
 
+_STATUS_ALIASES = {'INTERNAL_ERROR': 'INTERNALERROR', 'BADREQUEST': 'BAD_REQUEST'}
+
 
 class BroadcastResult(BaseModel):
   """Broadcast result data"""
@@ -65,13 +67,15 @@ class RawBroadcastResult(BaseModel):
   @field_validator('status', mode='before')
   def validate_status(cls: type[RawBroadcastResult], value: Any) -> BroadcastStatus:
     """Validate the status field to ensure it is a valid BroadcastStatus."""
-    if isinstance(value, str) and value == 'INTERNAL_ERROR':
-      value = 'INTERNALERROR'
+    if isinstance(value, str):
+      # Upstream sends some statuses without the canonical enum spelling
+      value = _STATUS_ALIASES.get(value, value)
     try:
       return BroadcastStatus(value)
     except ValueError:
       pass
-    raise ValueError('Invalid status value. Must be one of: "PENDING", "SUCCESS", "FAILURE", "INTERNALERROR".')
+    valid = ', '.join(f'"{status.value}"' for status in BroadcastStatus)
+    raise ValueError(f'Invalid status value. Must be one of: {valid}.')
 
   @field_serializer('status', when_used='always')
   def serialize_status(self, status: BroadcastStatus) -> str:
