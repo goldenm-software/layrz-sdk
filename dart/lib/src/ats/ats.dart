@@ -1,10 +1,7 @@
 /// Automated Transport System (ATS) fuel-handling models for Layrz.
 ///
-/// This module defines the subset of the ATS domain ported to the SDK:
-/// [AtsExit] (a completed fuel exit/dispatch record), [AtsAuthenticationCard]
-/// (a physical/NFC/tag card used to authenticate ATS operations), its
-/// [AtsHistoryAuthenticationCard] audit trail entries, and [AtsStreamModel]
-/// (the streaming model used by an ATS Stream outbound integration).
+/// Entities, inputs, enums and converters of the ATS domain shared across
+/// Layrz apps, grouped by feature under `src/`.
 library;
 
 import 'package:collection/collection.dart';
@@ -20,3 +17,6 @@ part 'src/exits/exit.dart';
 part 'src/authentication_card.dart';
 part 'src/history_authentication_card.dart';
 part 'src/ats_outbound_services/ats_stream_model.dart';
+part 'src/exits/from_app.dart';
+part 'src/reception/reception_type.dart';
+part 'src/reception/reception_input.dart';
