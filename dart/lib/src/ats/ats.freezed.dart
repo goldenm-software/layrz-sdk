@@ -1137,4 +1137,556 @@ $UserCopyWith<$Res> get createdBy {
 }
 }
 
+
+/// @nodoc
+mixin _$AtsReceptionProductInput {
+
+/// Fuel ANP category code
+ String? get fuelAnp;/// Fuel ANP category code
+ set fuelAnp(String? value);/// List of tank photos
+ List<String>? get tanksImages;/// List of tank photos
+ set tanksImages(List<String>? value);
+/// Create a copy of AtsReceptionProductInput
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AtsReceptionProductInputCopyWith<AtsReceptionProductInput> get copyWith => _$AtsReceptionProductInputCopyWithImpl<AtsReceptionProductInput>(this as AtsReceptionProductInput, _$identity);
+
+  /// Serializes this AtsReceptionProductInput to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'AtsReceptionProductInput(fuelAnp: $fuelAnp, tanksImages: $tanksImages)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AtsReceptionProductInputCopyWith<$Res>  {
+  factory $AtsReceptionProductInputCopyWith(AtsReceptionProductInput value, $Res Function(AtsReceptionProductInput) _then) = _$AtsReceptionProductInputCopyWithImpl;
+@useResult
+$Res call({
+ String? fuelAnp, List<String>? tanksImages
+});
+
+
+
+
+}
+/// @nodoc
+class _$AtsReceptionProductInputCopyWithImpl<$Res>
+    implements $AtsReceptionProductInputCopyWith<$Res> {
+  _$AtsReceptionProductInputCopyWithImpl(this._self, this._then);
+
+  final AtsReceptionProductInput _self;
+  final $Res Function(AtsReceptionProductInput) _then;
+
+/// Create a copy of AtsReceptionProductInput
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? fuelAnp = freezed,Object? tanksImages = freezed,}) {
+  return _then(_self.copyWith(
+fuelAnp: freezed == fuelAnp ? _self.fuelAnp : fuelAnp // ignore: cast_nullable_to_non_nullable
+as String?,tanksImages: freezed == tanksImages ? _self.tanksImages : tanksImages // ignore: cast_nullable_to_non_nullable
+as List<String>?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [AtsReceptionProductInput].
+extension AtsReceptionProductInputPatterns on AtsReceptionProductInput {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AtsReceptionProductInput value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AtsReceptionProductInput() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AtsReceptionProductInput value)  $default,){
+final _that = this;
+switch (_that) {
+case _AtsReceptionProductInput():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AtsReceptionProductInput value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AtsReceptionProductInput() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? fuelAnp,  List<String>? tanksImages)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AtsReceptionProductInput() when $default != null:
+return $default(_that.fuelAnp,_that.tanksImages);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? fuelAnp,  List<String>? tanksImages)  $default,) {final _that = this;
+switch (_that) {
+case _AtsReceptionProductInput():
+return $default(_that.fuelAnp,_that.tanksImages);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? fuelAnp,  List<String>? tanksImages)?  $default,) {final _that = this;
+switch (_that) {
+case _AtsReceptionProductInput() when $default != null:
+return $default(_that.fuelAnp,_that.tanksImages);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _AtsReceptionProductInput implements AtsReceptionProductInput {
+   _AtsReceptionProductInput({this.fuelAnp, this.tanksImages});
+  factory _AtsReceptionProductInput.fromJson(Map<String, dynamic> json) => _$AtsReceptionProductInputFromJson(json);
+
+/// Fuel ANP category code
+@override  String? fuelAnp;
+/// List of tank photos
+@override  List<String>? tanksImages;
+
+/// Create a copy of AtsReceptionProductInput
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AtsReceptionProductInputCopyWith<_AtsReceptionProductInput> get copyWith => __$AtsReceptionProductInputCopyWithImpl<_AtsReceptionProductInput>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$AtsReceptionProductInputToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'AtsReceptionProductInput(fuelAnp: $fuelAnp, tanksImages: $tanksImages)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AtsReceptionProductInputCopyWith<$Res> implements $AtsReceptionProductInputCopyWith<$Res> {
+  factory _$AtsReceptionProductInputCopyWith(_AtsReceptionProductInput value, $Res Function(_AtsReceptionProductInput) _then) = __$AtsReceptionProductInputCopyWithImpl;
+@override @useResult
+$Res call({
+ String? fuelAnp, List<String>? tanksImages
+});
+
+
+
+
+}
+/// @nodoc
+class __$AtsReceptionProductInputCopyWithImpl<$Res>
+    implements _$AtsReceptionProductInputCopyWith<$Res> {
+  __$AtsReceptionProductInputCopyWithImpl(this._self, this._then);
+
+  final _AtsReceptionProductInput _self;
+  final $Res Function(_AtsReceptionProductInput) _then;
+
+/// Create a copy of AtsReceptionProductInput
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? fuelAnp = freezed,Object? tanksImages = freezed,}) {
+  return _then(_AtsReceptionProductInput(
+fuelAnp: freezed == fuelAnp ? _self.fuelAnp : fuelAnp // ignore: cast_nullable_to_non_nullable
+as String?,tanksImages: freezed == tanksImages ? _self.tanksImages : tanksImages // ignore: cast_nullable_to_non_nullable
+as List<String>?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$AtsReceptionInput {
+
+/// ID of the reception. This ID is unique.
+ String? get id;/// ID of the reception. This ID is unique.
+ set id(String? value);/// List of purchase order IDs.
+@Deprecated('Use purchaseOrderIds instead') List<String>? get ordersIds;/// List of purchase order IDs.
+@Deprecated('Use purchaseOrderIds instead') set ordersIds(List<String>? value);/// Different [AtsReceptionProductInput] obtained of the purchase order
+ List<AtsReceptionProductInput>? get products;/// Different [AtsReceptionProductInput] obtained of the purchase order
+ set products(List<AtsReceptionProductInput>? value);/// ID of the [Asset] supply point
+ String? get assetId;/// ID of the [Asset] supply point
+ set assetId(String? value);/// Reception operation time
+@DurationOrNullConverter() Duration? get operationTime;/// Reception operation time
+@DurationOrNullConverter() set operationTime(Duration? value);/// App used to create the reception.
+@AtsFromAppOrNullConverter() AtsFromApp? get app;/// App used to create the reception.
+@AtsFromAppOrNullConverter() set app(AtsFromApp? value);/// IDs of the purchase orders.
+ List<String>? get purchaseOrderIds;/// IDs of the purchase orders.
+ set purchaseOrderIds(List<String>? value);/// Type of the reception.
+@AtsReceptionTypeOrNullConverter() AtsReceptionType? get receptionType;/// Type of the reception.
+@AtsReceptionTypeOrNullConverter() set receptionType(AtsReceptionType? value);
+/// Create a copy of AtsReceptionInput
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AtsReceptionInputCopyWith<AtsReceptionInput> get copyWith => _$AtsReceptionInputCopyWithImpl<AtsReceptionInput>(this as AtsReceptionInput, _$identity);
+
+  /// Serializes this AtsReceptionInput to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'AtsReceptionInput(id: $id, ordersIds: $ordersIds, products: $products, assetId: $assetId, operationTime: $operationTime, app: $app, purchaseOrderIds: $purchaseOrderIds, receptionType: $receptionType)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AtsReceptionInputCopyWith<$Res>  {
+  factory $AtsReceptionInputCopyWith(AtsReceptionInput value, $Res Function(AtsReceptionInput) _then) = _$AtsReceptionInputCopyWithImpl;
+@useResult
+$Res call({
+ String? id,@Deprecated('Use purchaseOrderIds instead') List<String>? ordersIds, List<AtsReceptionProductInput>? products, String? assetId,@DurationOrNullConverter() Duration? operationTime,@AtsFromAppOrNullConverter() AtsFromApp? app, List<String>? purchaseOrderIds,@AtsReceptionTypeOrNullConverter() AtsReceptionType? receptionType
+});
+
+
+
+
+}
+/// @nodoc
+class _$AtsReceptionInputCopyWithImpl<$Res>
+    implements $AtsReceptionInputCopyWith<$Res> {
+  _$AtsReceptionInputCopyWithImpl(this._self, this._then);
+
+  final AtsReceptionInput _self;
+  final $Res Function(AtsReceptionInput) _then;
+
+/// Create a copy of AtsReceptionInput
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? ordersIds = freezed,Object? products = freezed,Object? assetId = freezed,Object? operationTime = freezed,Object? app = freezed,Object? purchaseOrderIds = freezed,Object? receptionType = freezed,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,ordersIds: freezed == ordersIds ? _self.ordersIds : ordersIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,products: freezed == products ? _self.products : products // ignore: cast_nullable_to_non_nullable
+as List<AtsReceptionProductInput>?,assetId: freezed == assetId ? _self.assetId : assetId // ignore: cast_nullable_to_non_nullable
+as String?,operationTime: freezed == operationTime ? _self.operationTime : operationTime // ignore: cast_nullable_to_non_nullable
+as Duration?,app: freezed == app ? _self.app : app // ignore: cast_nullable_to_non_nullable
+as AtsFromApp?,purchaseOrderIds: freezed == purchaseOrderIds ? _self.purchaseOrderIds : purchaseOrderIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,receptionType: freezed == receptionType ? _self.receptionType : receptionType // ignore: cast_nullable_to_non_nullable
+as AtsReceptionType?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [AtsReceptionInput].
+extension AtsReceptionInputPatterns on AtsReceptionInput {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AtsReceptionInput value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AtsReceptionInput() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AtsReceptionInput value)  $default,){
+final _that = this;
+switch (_that) {
+case _AtsReceptionInput():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AtsReceptionInput value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AtsReceptionInput() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id, @Deprecated('Use purchaseOrderIds instead')  List<String>? ordersIds,  List<AtsReceptionProductInput>? products,  String? assetId, @DurationOrNullConverter()  Duration? operationTime, @AtsFromAppOrNullConverter()  AtsFromApp? app,  List<String>? purchaseOrderIds, @AtsReceptionTypeOrNullConverter()  AtsReceptionType? receptionType)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AtsReceptionInput() when $default != null:
+return $default(_that.id,_that.ordersIds,_that.products,_that.assetId,_that.operationTime,_that.app,_that.purchaseOrderIds,_that.receptionType);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id, @Deprecated('Use purchaseOrderIds instead')  List<String>? ordersIds,  List<AtsReceptionProductInput>? products,  String? assetId, @DurationOrNullConverter()  Duration? operationTime, @AtsFromAppOrNullConverter()  AtsFromApp? app,  List<String>? purchaseOrderIds, @AtsReceptionTypeOrNullConverter()  AtsReceptionType? receptionType)  $default,) {final _that = this;
+switch (_that) {
+case _AtsReceptionInput():
+return $default(_that.id,_that.ordersIds,_that.products,_that.assetId,_that.operationTime,_that.app,_that.purchaseOrderIds,_that.receptionType);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id, @Deprecated('Use purchaseOrderIds instead')  List<String>? ordersIds,  List<AtsReceptionProductInput>? products,  String? assetId, @DurationOrNullConverter()  Duration? operationTime, @AtsFromAppOrNullConverter()  AtsFromApp? app,  List<String>? purchaseOrderIds, @AtsReceptionTypeOrNullConverter()  AtsReceptionType? receptionType)?  $default,) {final _that = this;
+switch (_that) {
+case _AtsReceptionInput() when $default != null:
+return $default(_that.id,_that.ordersIds,_that.products,_that.assetId,_that.operationTime,_that.app,_that.purchaseOrderIds,_that.receptionType);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _AtsReceptionInput implements AtsReceptionInput {
+   _AtsReceptionInput({this.id, @Deprecated('Use purchaseOrderIds instead') this.ordersIds, this.products, this.assetId, @DurationOrNullConverter() this.operationTime, @AtsFromAppOrNullConverter() this.app, this.purchaseOrderIds, @AtsReceptionTypeOrNullConverter() this.receptionType});
+  factory _AtsReceptionInput.fromJson(Map<String, dynamic> json) => _$AtsReceptionInputFromJson(json);
+
+/// ID of the reception. This ID is unique.
+@override  String? id;
+/// List of purchase order IDs.
+@override@Deprecated('Use purchaseOrderIds instead')  List<String>? ordersIds;
+/// Different [AtsReceptionProductInput] obtained of the purchase order
+@override  List<AtsReceptionProductInput>? products;
+/// ID of the [Asset] supply point
+@override  String? assetId;
+/// Reception operation time
+@override@DurationOrNullConverter()  Duration? operationTime;
+/// App used to create the reception.
+@override@AtsFromAppOrNullConverter()  AtsFromApp? app;
+/// IDs of the purchase orders.
+@override  List<String>? purchaseOrderIds;
+/// Type of the reception.
+@override@AtsReceptionTypeOrNullConverter()  AtsReceptionType? receptionType;
+
+/// Create a copy of AtsReceptionInput
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AtsReceptionInputCopyWith<_AtsReceptionInput> get copyWith => __$AtsReceptionInputCopyWithImpl<_AtsReceptionInput>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$AtsReceptionInputToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'AtsReceptionInput(id: $id, ordersIds: $ordersIds, products: $products, assetId: $assetId, operationTime: $operationTime, app: $app, purchaseOrderIds: $purchaseOrderIds, receptionType: $receptionType)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AtsReceptionInputCopyWith<$Res> implements $AtsReceptionInputCopyWith<$Res> {
+  factory _$AtsReceptionInputCopyWith(_AtsReceptionInput value, $Res Function(_AtsReceptionInput) _then) = __$AtsReceptionInputCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id,@Deprecated('Use purchaseOrderIds instead') List<String>? ordersIds, List<AtsReceptionProductInput>? products, String? assetId,@DurationOrNullConverter() Duration? operationTime,@AtsFromAppOrNullConverter() AtsFromApp? app, List<String>? purchaseOrderIds,@AtsReceptionTypeOrNullConverter() AtsReceptionType? receptionType
+});
+
+
+
+
+}
+/// @nodoc
+class __$AtsReceptionInputCopyWithImpl<$Res>
+    implements _$AtsReceptionInputCopyWith<$Res> {
+  __$AtsReceptionInputCopyWithImpl(this._self, this._then);
+
+  final _AtsReceptionInput _self;
+  final $Res Function(_AtsReceptionInput) _then;
+
+/// Create a copy of AtsReceptionInput
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? ordersIds = freezed,Object? products = freezed,Object? assetId = freezed,Object? operationTime = freezed,Object? app = freezed,Object? purchaseOrderIds = freezed,Object? receptionType = freezed,}) {
+  return _then(_AtsReceptionInput(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,ordersIds: freezed == ordersIds ? _self.ordersIds : ordersIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,products: freezed == products ? _self.products : products // ignore: cast_nullable_to_non_nullable
+as List<AtsReceptionProductInput>?,assetId: freezed == assetId ? _self.assetId : assetId // ignore: cast_nullable_to_non_nullable
+as String?,operationTime: freezed == operationTime ? _self.operationTime : operationTime // ignore: cast_nullable_to_non_nullable
+as Duration?,app: freezed == app ? _self.app : app // ignore: cast_nullable_to_non_nullable
+as AtsFromApp?,purchaseOrderIds: freezed == purchaseOrderIds ? _self.purchaseOrderIds : purchaseOrderIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,receptionType: freezed == receptionType ? _self.receptionType : receptionType // ignore: cast_nullable_to_non_nullable
+as AtsReceptionType?,
+  ));
+}
+
+
+}
+
 // dart format on

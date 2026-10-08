@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.11.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* Added the `AtsReceptionInput` and `AtsReceptionProductInput` input models to the `ats` module.
+* Added `AtsReceptionType` (`PA`, `TERMINAL`, `THIRD_PARTY`, `TRANSFER`, with `UNKNOWN` as read-only fallback) with its converters, and the `receptionType` field in `AtsReceptionInput`.
+* Added `AtsFromApp` with `AtsFromAppOrNullConverter` to the `ats` module.
+
+### Go
+
+* No changes in this release.
+
 ## 4.10.1
 
 ### Python
