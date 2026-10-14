@@ -21,11 +21,17 @@ abstract class LayrzFunctionInput with _$LayrzFunctionInput {
     /// Is the unique identifier of the algorithm driving the function.
     String? algorithmId,
 
-    /// Is the maximum time of the function, defined in minutes. Defaults to `0`.
-    @Default(0) double maximumTime,
+    /// Is the maximum time of the function, defined in minutes. Only applies to the `gaslp.hose.unroll`
+    /// algorithm; null when it does not apply.
+    double? maximumTime,
 
-    /// Is the minutes delta of the function, defined in minutes. Defaults to `0`.
-    @Default(0) double minutesDelta,
+    /// Is the minutes delta of the function, defined in minutes. Only applies to the `ats.fuel.entry` and
+    /// `ats.fuel.exit` algorithms; null when it does not apply.
+    double? minutesDelta,
+
+    /// Is the minimum tank level that triggers an `ATS.Entry`. Only applies to the `ats.fuel.entry`
+    /// algorithm; null when it does not apply. Input only, it is not part of [LayrzFunction].
+    double? minimumLevel,
 
     /// Is the external identifiers of the function. Defaults to an empty list.
     @Default([]) List<String> externalIdentifiers,

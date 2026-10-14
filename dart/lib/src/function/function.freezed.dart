@@ -16,8 +16,8 @@ T _$identity<T>(T value) => value;
 mixin _$FtpAccount {
 
 /// Is the host of the FTP account.
- String? get host;/// Is the port of the FTP account.
- int? get port;/// Is the username of the FTP account.
+ String? get host;/// Is the port of the FTP account, as a String like the backend.
+ String? get port;/// Is the username of the FTP account.
  String? get username;/// Is the password of the FTP account.
  String? get password;
 /// Create a copy of FtpAccount
@@ -52,7 +52,7 @@ abstract mixin class $FtpAccountCopyWith<$Res>  {
   factory $FtpAccountCopyWith(FtpAccount value, $Res Function(FtpAccount) _then) = _$FtpAccountCopyWithImpl;
 @useResult
 $Res call({
- String? host, int? port, String? username, String? password
+ String? host, String? port, String? username, String? password
 });
 
 
@@ -73,7 +73,7 @@ class _$FtpAccountCopyWithImpl<$Res>
   return _then(_self.copyWith(
 host: freezed == host ? _self.host : host // ignore: cast_nullable_to_non_nullable
 as String?,port: freezed == port ? _self.port : port // ignore: cast_nullable_to_non_nullable
-as int?,username: freezed == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
+as String?,username: freezed == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -160,7 +160,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? host,  int? port,  String? username,  String? password)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? host,  String? port,  String? username,  String? password)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FtpAccount() when $default != null:
 return $default(_that.host,_that.port,_that.username,_that.password);case _:
@@ -181,7 +181,7 @@ return $default(_that.host,_that.port,_that.username,_that.password);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? host,  int? port,  String? username,  String? password)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? host,  String? port,  String? username,  String? password)  $default,) {final _that = this;
 switch (_that) {
 case _FtpAccount():
 return $default(_that.host,_that.port,_that.username,_that.password);case _:
@@ -201,7 +201,7 @@ return $default(_that.host,_that.port,_that.username,_that.password);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? host,  int? port,  String? username,  String? password)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? host,  String? port,  String? username,  String? password)?  $default,) {final _that = this;
 switch (_that) {
 case _FtpAccount() when $default != null:
 return $default(_that.host,_that.port,_that.username,_that.password);case _:
@@ -221,8 +221,8 @@ class _FtpAccount implements FtpAccount {
 
 /// Is the host of the FTP account.
 @override final  String? host;
-/// Is the port of the FTP account.
-@override final  int? port;
+/// Is the port of the FTP account, as a String like the backend.
+@override final  String? port;
 /// Is the username of the FTP account.
 @override final  String? username;
 /// Is the password of the FTP account.
@@ -261,7 +261,7 @@ abstract mixin class _$FtpAccountCopyWith<$Res> implements $FtpAccountCopyWith<$
   factory _$FtpAccountCopyWith(_FtpAccount value, $Res Function(_FtpAccount) _then) = __$FtpAccountCopyWithImpl;
 @override @useResult
 $Res call({
- String? host, int? port, String? username, String? password
+ String? host, String? port, String? username, String? password
 });
 
 
@@ -282,7 +282,7 @@ class __$FtpAccountCopyWithImpl<$Res>
   return _then(_FtpAccount(
 host: freezed == host ? _self.host : host // ignore: cast_nullable_to_non_nullable
 as String?,port: freezed == port ? _self.port : port // ignore: cast_nullable_to_non_nullable
-as int?,username: freezed == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
+as String?,username: freezed == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -925,7 +925,9 @@ mixin _$LayrzFunction {
 
 /// Is the unique identifier of the function.
  String get id;/// Is the name of the function.
- String get name;/// Is the unique identifier of the algorithm.
+ String get name;/// Is the unique identifier of the owner of the function.
+ String? get ownerId;/// Is the current transmission status of the function.
+ bool? get isEnabled;/// Is the unique identifier of the algorithm.
  String? get algorithmId;/// Is the algorithm of the function.
  Algorithm? get algorithm;/// Is the minimum time of the function, defined in minutes.
  double? get maximumTime;/// Is the minutes delta of the function, defined in minutes.
@@ -951,16 +953,16 @@ $LayrzFunctionCopyWith<LayrzFunction> get copyWith => _$LayrzFunctionCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LayrzFunction&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.algorithmId, algorithmId) || other.algorithmId == algorithmId)&&(identical(other.algorithm, algorithm) || other.algorithm == algorithm)&&(identical(other.maximumTime, maximumTime) || other.maximumTime == maximumTime)&&(identical(other.minutesDelta, minutesDelta) || other.minutesDelta == minutesDelta)&&const DeepCollectionEquality().equals(other.externalIdentifiers, externalIdentifiers)&&(identical(other.token, token) || other.token == token)&&const DeepCollectionEquality().equals(other.credentials, credentials)&&(identical(other.ftp, ftp) || other.ftp == ftp)&&const DeepCollectionEquality().equals(other.groupsIds, groupsIds)&&const DeepCollectionEquality().equals(other.groups, groups)&&const DeepCollectionEquality().equals(other.assetsIds, assetsIds)&&const DeepCollectionEquality().equals(other.assets, assets)&&const DeepCollectionEquality().equals(other.access, access));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LayrzFunction&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId)&&(identical(other.isEnabled, isEnabled) || other.isEnabled == isEnabled)&&(identical(other.algorithmId, algorithmId) || other.algorithmId == algorithmId)&&(identical(other.algorithm, algorithm) || other.algorithm == algorithm)&&(identical(other.maximumTime, maximumTime) || other.maximumTime == maximumTime)&&(identical(other.minutesDelta, minutesDelta) || other.minutesDelta == minutesDelta)&&const DeepCollectionEquality().equals(other.externalIdentifiers, externalIdentifiers)&&(identical(other.token, token) || other.token == token)&&const DeepCollectionEquality().equals(other.credentials, credentials)&&(identical(other.ftp, ftp) || other.ftp == ftp)&&const DeepCollectionEquality().equals(other.groupsIds, groupsIds)&&const DeepCollectionEquality().equals(other.groups, groups)&&const DeepCollectionEquality().equals(other.assetsIds, assetsIds)&&const DeepCollectionEquality().equals(other.assets, assets)&&const DeepCollectionEquality().equals(other.access, access));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,algorithmId,algorithm,maximumTime,minutesDelta,const DeepCollectionEquality().hash(externalIdentifiers),token,const DeepCollectionEquality().hash(credentials),ftp,const DeepCollectionEquality().hash(groupsIds),const DeepCollectionEquality().hash(groups),const DeepCollectionEquality().hash(assetsIds),const DeepCollectionEquality().hash(assets),const DeepCollectionEquality().hash(access));
+int get hashCode => Object.hash(runtimeType,id,name,ownerId,isEnabled,algorithmId,algorithm,maximumTime,minutesDelta,const DeepCollectionEquality().hash(externalIdentifiers),token,const DeepCollectionEquality().hash(credentials),ftp,const DeepCollectionEquality().hash(groupsIds),const DeepCollectionEquality().hash(groups),const DeepCollectionEquality().hash(assetsIds),const DeepCollectionEquality().hash(assets),const DeepCollectionEquality().hash(access));
 
 @override
 String toString() {
-  return 'LayrzFunction(id: $id, name: $name, algorithmId: $algorithmId, algorithm: $algorithm, maximumTime: $maximumTime, minutesDelta: $minutesDelta, externalIdentifiers: $externalIdentifiers, token: $token, credentials: $credentials, ftp: $ftp, groupsIds: $groupsIds, groups: $groups, assetsIds: $assetsIds, assets: $assets, access: $access)';
+  return 'LayrzFunction(id: $id, name: $name, ownerId: $ownerId, isEnabled: $isEnabled, algorithmId: $algorithmId, algorithm: $algorithm, maximumTime: $maximumTime, minutesDelta: $minutesDelta, externalIdentifiers: $externalIdentifiers, token: $token, credentials: $credentials, ftp: $ftp, groupsIds: $groupsIds, groups: $groups, assetsIds: $assetsIds, assets: $assets, access: $access)';
 }
 
 
@@ -971,7 +973,7 @@ abstract mixin class $LayrzFunctionCopyWith<$Res>  {
   factory $LayrzFunctionCopyWith(LayrzFunction value, $Res Function(LayrzFunction) _then) = _$LayrzFunctionCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, String? algorithmId, Algorithm? algorithm, double? maximumTime, double? minutesDelta, List<String>? externalIdentifiers, String? token, Map<String, dynamic>? credentials, FtpAccount? ftp, List<String>? groupsIds, List<Tag>? groups, List<String>? assetsIds, List<Asset>? assets, List<Access>? access
+ String id, String name, String? ownerId, bool? isEnabled, String? algorithmId, Algorithm? algorithm, double? maximumTime, double? minutesDelta, List<String>? externalIdentifiers, String? token, Map<String, dynamic>? credentials, FtpAccount? ftp, List<String>? groupsIds, List<Tag>? groups, List<String>? assetsIds, List<Asset>? assets, List<Access>? access
 });
 
 
@@ -988,11 +990,13 @@ class _$LayrzFunctionCopyWithImpl<$Res>
 
 /// Create a copy of LayrzFunction
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? algorithmId = freezed,Object? algorithm = freezed,Object? maximumTime = freezed,Object? minutesDelta = freezed,Object? externalIdentifiers = freezed,Object? token = freezed,Object? credentials = freezed,Object? ftp = freezed,Object? groupsIds = freezed,Object? groups = freezed,Object? assetsIds = freezed,Object? assets = freezed,Object? access = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? ownerId = freezed,Object? isEnabled = freezed,Object? algorithmId = freezed,Object? algorithm = freezed,Object? maximumTime = freezed,Object? minutesDelta = freezed,Object? externalIdentifiers = freezed,Object? token = freezed,Object? credentials = freezed,Object? ftp = freezed,Object? groupsIds = freezed,Object? groups = freezed,Object? assetsIds = freezed,Object? assets = freezed,Object? access = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,algorithmId: freezed == algorithmId ? _self.algorithmId : algorithmId // ignore: cast_nullable_to_non_nullable
+as String,ownerId: freezed == ownerId ? _self.ownerId : ownerId // ignore: cast_nullable_to_non_nullable
+as String?,isEnabled: freezed == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
+as bool?,algorithmId: freezed == algorithmId ? _self.algorithmId : algorithmId // ignore: cast_nullable_to_non_nullable
 as String?,algorithm: freezed == algorithm ? _self.algorithm : algorithm // ignore: cast_nullable_to_non_nullable
 as Algorithm?,maximumTime: freezed == maximumTime ? _self.maximumTime : maximumTime // ignore: cast_nullable_to_non_nullable
 as double?,minutesDelta: freezed == minutesDelta ? _self.minutesDelta : minutesDelta // ignore: cast_nullable_to_non_nullable
@@ -1114,10 +1118,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String? algorithmId,  Algorithm? algorithm,  double? maximumTime,  double? minutesDelta,  List<String>? externalIdentifiers,  String? token,  Map<String, dynamic>? credentials,  FtpAccount? ftp,  List<String>? groupsIds,  List<Tag>? groups,  List<String>? assetsIds,  List<Asset>? assets,  List<Access>? access)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String? ownerId,  bool? isEnabled,  String? algorithmId,  Algorithm? algorithm,  double? maximumTime,  double? minutesDelta,  List<String>? externalIdentifiers,  String? token,  Map<String, dynamic>? credentials,  FtpAccount? ftp,  List<String>? groupsIds,  List<Tag>? groups,  List<String>? assetsIds,  List<Asset>? assets,  List<Access>? access)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LayrzFunction() when $default != null:
-return $default(_that.id,_that.name,_that.algorithmId,_that.algorithm,_that.maximumTime,_that.minutesDelta,_that.externalIdentifiers,_that.token,_that.credentials,_that.ftp,_that.groupsIds,_that.groups,_that.assetsIds,_that.assets,_that.access);case _:
+return $default(_that.id,_that.name,_that.ownerId,_that.isEnabled,_that.algorithmId,_that.algorithm,_that.maximumTime,_that.minutesDelta,_that.externalIdentifiers,_that.token,_that.credentials,_that.ftp,_that.groupsIds,_that.groups,_that.assetsIds,_that.assets,_that.access);case _:
   return orElse();
 
 }
@@ -1135,10 +1139,10 @@ return $default(_that.id,_that.name,_that.algorithmId,_that.algorithm,_that.maxi
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String? algorithmId,  Algorithm? algorithm,  double? maximumTime,  double? minutesDelta,  List<String>? externalIdentifiers,  String? token,  Map<String, dynamic>? credentials,  FtpAccount? ftp,  List<String>? groupsIds,  List<Tag>? groups,  List<String>? assetsIds,  List<Asset>? assets,  List<Access>? access)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String? ownerId,  bool? isEnabled,  String? algorithmId,  Algorithm? algorithm,  double? maximumTime,  double? minutesDelta,  List<String>? externalIdentifiers,  String? token,  Map<String, dynamic>? credentials,  FtpAccount? ftp,  List<String>? groupsIds,  List<Tag>? groups,  List<String>? assetsIds,  List<Asset>? assets,  List<Access>? access)  $default,) {final _that = this;
 switch (_that) {
 case _LayrzFunction():
-return $default(_that.id,_that.name,_that.algorithmId,_that.algorithm,_that.maximumTime,_that.minutesDelta,_that.externalIdentifiers,_that.token,_that.credentials,_that.ftp,_that.groupsIds,_that.groups,_that.assetsIds,_that.assets,_that.access);case _:
+return $default(_that.id,_that.name,_that.ownerId,_that.isEnabled,_that.algorithmId,_that.algorithm,_that.maximumTime,_that.minutesDelta,_that.externalIdentifiers,_that.token,_that.credentials,_that.ftp,_that.groupsIds,_that.groups,_that.assetsIds,_that.assets,_that.access);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1155,10 +1159,10 @@ return $default(_that.id,_that.name,_that.algorithmId,_that.algorithm,_that.maxi
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String? algorithmId,  Algorithm? algorithm,  double? maximumTime,  double? minutesDelta,  List<String>? externalIdentifiers,  String? token,  Map<String, dynamic>? credentials,  FtpAccount? ftp,  List<String>? groupsIds,  List<Tag>? groups,  List<String>? assetsIds,  List<Asset>? assets,  List<Access>? access)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String? ownerId,  bool? isEnabled,  String? algorithmId,  Algorithm? algorithm,  double? maximumTime,  double? minutesDelta,  List<String>? externalIdentifiers,  String? token,  Map<String, dynamic>? credentials,  FtpAccount? ftp,  List<String>? groupsIds,  List<Tag>? groups,  List<String>? assetsIds,  List<Asset>? assets,  List<Access>? access)?  $default,) {final _that = this;
 switch (_that) {
 case _LayrzFunction() when $default != null:
-return $default(_that.id,_that.name,_that.algorithmId,_that.algorithm,_that.maximumTime,_that.minutesDelta,_that.externalIdentifiers,_that.token,_that.credentials,_that.ftp,_that.groupsIds,_that.groups,_that.assetsIds,_that.assets,_that.access);case _:
+return $default(_that.id,_that.name,_that.ownerId,_that.isEnabled,_that.algorithmId,_that.algorithm,_that.maximumTime,_that.minutesDelta,_that.externalIdentifiers,_that.token,_that.credentials,_that.ftp,_that.groupsIds,_that.groups,_that.assetsIds,_that.assets,_that.access);case _:
   return null;
 
 }
@@ -1170,13 +1174,17 @@ return $default(_that.id,_that.name,_that.algorithmId,_that.algorithm,_that.maxi
 @JsonSerializable()
 
 class _LayrzFunction extends LayrzFunction {
-  const _LayrzFunction({required this.id, required this.name, this.algorithmId, this.algorithm, this.maximumTime, this.minutesDelta, this.externalIdentifiers, this.token, this.credentials, this.ftp, this.groupsIds, this.groups, this.assetsIds, this.assets, this.access}): super._();
+  const _LayrzFunction({required this.id, required this.name, this.ownerId, this.isEnabled, this.algorithmId, this.algorithm, this.maximumTime, this.minutesDelta, this.externalIdentifiers, this.token, this.credentials, this.ftp, this.groupsIds, this.groups, this.assetsIds, this.assets, this.access}): super._();
   factory _LayrzFunction.fromJson(Map<String, dynamic> json) => _$LayrzFunctionFromJson(json);
 
 /// Is the unique identifier of the function.
 @override final  String id;
 /// Is the name of the function.
 @override final  String name;
+/// Is the unique identifier of the owner of the function.
+@override final  String? ownerId;
+/// Is the current transmission status of the function.
+@override final  bool? isEnabled;
 /// Is the unique identifier of the algorithm.
 @override final  String? algorithmId;
 /// Is the algorithm of the function.
@@ -1217,16 +1225,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LayrzFunction&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.algorithmId, algorithmId) || other.algorithmId == algorithmId)&&(identical(other.algorithm, algorithm) || other.algorithm == algorithm)&&(identical(other.maximumTime, maximumTime) || other.maximumTime == maximumTime)&&(identical(other.minutesDelta, minutesDelta) || other.minutesDelta == minutesDelta)&&const DeepCollectionEquality().equals(other.externalIdentifiers, externalIdentifiers)&&(identical(other.token, token) || other.token == token)&&const DeepCollectionEquality().equals(other.credentials, credentials)&&(identical(other.ftp, ftp) || other.ftp == ftp)&&const DeepCollectionEquality().equals(other.groupsIds, groupsIds)&&const DeepCollectionEquality().equals(other.groups, groups)&&const DeepCollectionEquality().equals(other.assetsIds, assetsIds)&&const DeepCollectionEquality().equals(other.assets, assets)&&const DeepCollectionEquality().equals(other.access, access));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LayrzFunction&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId)&&(identical(other.isEnabled, isEnabled) || other.isEnabled == isEnabled)&&(identical(other.algorithmId, algorithmId) || other.algorithmId == algorithmId)&&(identical(other.algorithm, algorithm) || other.algorithm == algorithm)&&(identical(other.maximumTime, maximumTime) || other.maximumTime == maximumTime)&&(identical(other.minutesDelta, minutesDelta) || other.minutesDelta == minutesDelta)&&const DeepCollectionEquality().equals(other.externalIdentifiers, externalIdentifiers)&&(identical(other.token, token) || other.token == token)&&const DeepCollectionEquality().equals(other.credentials, credentials)&&(identical(other.ftp, ftp) || other.ftp == ftp)&&const DeepCollectionEquality().equals(other.groupsIds, groupsIds)&&const DeepCollectionEquality().equals(other.groups, groups)&&const DeepCollectionEquality().equals(other.assetsIds, assetsIds)&&const DeepCollectionEquality().equals(other.assets, assets)&&const DeepCollectionEquality().equals(other.access, access));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,algorithmId,algorithm,maximumTime,minutesDelta,const DeepCollectionEquality().hash(externalIdentifiers),token,const DeepCollectionEquality().hash(credentials),ftp,const DeepCollectionEquality().hash(groupsIds),const DeepCollectionEquality().hash(groups),const DeepCollectionEquality().hash(assetsIds),const DeepCollectionEquality().hash(assets),const DeepCollectionEquality().hash(access));
+int get hashCode => Object.hash(runtimeType,id,name,ownerId,isEnabled,algorithmId,algorithm,maximumTime,minutesDelta,const DeepCollectionEquality().hash(externalIdentifiers),token,const DeepCollectionEquality().hash(credentials),ftp,const DeepCollectionEquality().hash(groupsIds),const DeepCollectionEquality().hash(groups),const DeepCollectionEquality().hash(assetsIds),const DeepCollectionEquality().hash(assets),const DeepCollectionEquality().hash(access));
 
 @override
 String toString() {
-  return 'LayrzFunction(id: $id, name: $name, algorithmId: $algorithmId, algorithm: $algorithm, maximumTime: $maximumTime, minutesDelta: $minutesDelta, externalIdentifiers: $externalIdentifiers, token: $token, credentials: $credentials, ftp: $ftp, groupsIds: $groupsIds, groups: $groups, assetsIds: $assetsIds, assets: $assets, access: $access)';
+  return 'LayrzFunction(id: $id, name: $name, ownerId: $ownerId, isEnabled: $isEnabled, algorithmId: $algorithmId, algorithm: $algorithm, maximumTime: $maximumTime, minutesDelta: $minutesDelta, externalIdentifiers: $externalIdentifiers, token: $token, credentials: $credentials, ftp: $ftp, groupsIds: $groupsIds, groups: $groups, assetsIds: $assetsIds, assets: $assets, access: $access)';
 }
 
 
@@ -1237,7 +1245,7 @@ abstract mixin class _$LayrzFunctionCopyWith<$Res> implements $LayrzFunctionCopy
   factory _$LayrzFunctionCopyWith(_LayrzFunction value, $Res Function(_LayrzFunction) _then) = __$LayrzFunctionCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, String? algorithmId, Algorithm? algorithm, double? maximumTime, double? minutesDelta, List<String>? externalIdentifiers, String? token, Map<String, dynamic>? credentials, FtpAccount? ftp, List<String>? groupsIds, List<Tag>? groups, List<String>? assetsIds, List<Asset>? assets, List<Access>? access
+ String id, String name, String? ownerId, bool? isEnabled, String? algorithmId, Algorithm? algorithm, double? maximumTime, double? minutesDelta, List<String>? externalIdentifiers, String? token, Map<String, dynamic>? credentials, FtpAccount? ftp, List<String>? groupsIds, List<Tag>? groups, List<String>? assetsIds, List<Asset>? assets, List<Access>? access
 });
 
 
@@ -1254,11 +1262,13 @@ class __$LayrzFunctionCopyWithImpl<$Res>
 
 /// Create a copy of LayrzFunction
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? algorithmId = freezed,Object? algorithm = freezed,Object? maximumTime = freezed,Object? minutesDelta = freezed,Object? externalIdentifiers = freezed,Object? token = freezed,Object? credentials = freezed,Object? ftp = freezed,Object? groupsIds = freezed,Object? groups = freezed,Object? assetsIds = freezed,Object? assets = freezed,Object? access = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? ownerId = freezed,Object? isEnabled = freezed,Object? algorithmId = freezed,Object? algorithm = freezed,Object? maximumTime = freezed,Object? minutesDelta = freezed,Object? externalIdentifiers = freezed,Object? token = freezed,Object? credentials = freezed,Object? ftp = freezed,Object? groupsIds = freezed,Object? groups = freezed,Object? assetsIds = freezed,Object? assets = freezed,Object? access = freezed,}) {
   return _then(_LayrzFunction(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,algorithmId: freezed == algorithmId ? _self.algorithmId : algorithmId // ignore: cast_nullable_to_non_nullable
+as String,ownerId: freezed == ownerId ? _self.ownerId : ownerId // ignore: cast_nullable_to_non_nullable
+as String?,isEnabled: freezed == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
+as bool?,algorithmId: freezed == algorithmId ? _self.algorithmId : algorithmId // ignore: cast_nullable_to_non_nullable
 as String?,algorithm: freezed == algorithm ? _self.algorithm : algorithm // ignore: cast_nullable_to_non_nullable
 as Algorithm?,maximumTime: freezed == maximumTime ? _self.maximumTime : maximumTime // ignore: cast_nullable_to_non_nullable
 as double?,minutesDelta: freezed == minutesDelta ? _self.minutesDelta : minutesDelta // ignore: cast_nullable_to_non_nullable
@@ -1312,11 +1322,19 @@ mixin _$LayrzFunctionInput {
  String get name;/// Human-readable name of the function. Defaults to an empty string.
  set name(String value);/// Is the unique identifier of the algorithm driving the function.
  String? get algorithmId;/// Is the unique identifier of the algorithm driving the function.
- set algorithmId(String? value);/// Is the maximum time of the function, defined in minutes. Defaults to `0`.
- double get maximumTime;/// Is the maximum time of the function, defined in minutes. Defaults to `0`.
- set maximumTime(double value);/// Is the minutes delta of the function, defined in minutes. Defaults to `0`.
- double get minutesDelta;/// Is the minutes delta of the function, defined in minutes. Defaults to `0`.
- set minutesDelta(double value);/// Is the external identifiers of the function. Defaults to an empty list.
+ set algorithmId(String? value);/// Is the maximum time of the function, defined in minutes. Only applies to the `gaslp.hose.unroll`
+/// algorithm; null when it does not apply.
+ double? get maximumTime;/// Is the maximum time of the function, defined in minutes. Only applies to the `gaslp.hose.unroll`
+/// algorithm; null when it does not apply.
+ set maximumTime(double? value);/// Is the minutes delta of the function, defined in minutes. Only applies to the `ats.fuel.entry` and
+/// `ats.fuel.exit` algorithms; null when it does not apply.
+ double? get minutesDelta;/// Is the minutes delta of the function, defined in minutes. Only applies to the `ats.fuel.entry` and
+/// `ats.fuel.exit` algorithms; null when it does not apply.
+ set minutesDelta(double? value);/// Is the minimum tank level that triggers an `ATS.Entry`. Only applies to the `ats.fuel.entry`
+/// algorithm; null when it does not apply. Input only, it is not part of [LayrzFunction].
+ double? get minimumLevel;/// Is the minimum tank level that triggers an `ATS.Entry`. Only applies to the `ats.fuel.entry`
+/// algorithm; null when it does not apply. Input only, it is not part of [LayrzFunction].
+ set minimumLevel(double? value);/// Is the external identifiers of the function. Defaults to an empty list.
  List<String> get externalIdentifiers;/// Is the external identifiers of the function. Defaults to an empty list.
  set externalIdentifiers(List<String> value);/// Is the credentials of the function. Defaults to an empty map.
  Map<String, dynamic> get credentials;/// Is the credentials of the function. Defaults to an empty map.
@@ -1339,7 +1357,7 @@ $LayrzFunctionInputCopyWith<LayrzFunctionInput> get copyWith => _$LayrzFunctionI
 
 @override
 String toString() {
-  return 'LayrzFunctionInput(id: $id, name: $name, algorithmId: $algorithmId, maximumTime: $maximumTime, minutesDelta: $minutesDelta, externalIdentifiers: $externalIdentifiers, credentials: $credentials, groupsIds: $groupsIds, assetsIds: $assetsIds)';
+  return 'LayrzFunctionInput(id: $id, name: $name, algorithmId: $algorithmId, maximumTime: $maximumTime, minutesDelta: $minutesDelta, minimumLevel: $minimumLevel, externalIdentifiers: $externalIdentifiers, credentials: $credentials, groupsIds: $groupsIds, assetsIds: $assetsIds)';
 }
 
 
@@ -1350,7 +1368,7 @@ abstract mixin class $LayrzFunctionInputCopyWith<$Res>  {
   factory $LayrzFunctionInputCopyWith(LayrzFunctionInput value, $Res Function(LayrzFunctionInput) _then) = _$LayrzFunctionInputCopyWithImpl;
 @useResult
 $Res call({
- String? id, String name, String? algorithmId, double maximumTime, double minutesDelta, List<String> externalIdentifiers, Map<String, dynamic> credentials, List<String> groupsIds, List<String> assetsIds
+ String? id, String name, String? algorithmId, double? maximumTime, double? minutesDelta, double? minimumLevel, List<String> externalIdentifiers, Map<String, dynamic> credentials, List<String> groupsIds, List<String> assetsIds
 });
 
 
@@ -1367,14 +1385,15 @@ class _$LayrzFunctionInputCopyWithImpl<$Res>
 
 /// Create a copy of LayrzFunctionInput
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? algorithmId = freezed,Object? maximumTime = null,Object? minutesDelta = null,Object? externalIdentifiers = null,Object? credentials = null,Object? groupsIds = null,Object? assetsIds = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? algorithmId = freezed,Object? maximumTime = freezed,Object? minutesDelta = freezed,Object? minimumLevel = freezed,Object? externalIdentifiers = null,Object? credentials = null,Object? groupsIds = null,Object? assetsIds = null,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,algorithmId: freezed == algorithmId ? _self.algorithmId : algorithmId // ignore: cast_nullable_to_non_nullable
-as String?,maximumTime: null == maximumTime ? _self.maximumTime : maximumTime // ignore: cast_nullable_to_non_nullable
-as double,minutesDelta: null == minutesDelta ? _self.minutesDelta : minutesDelta // ignore: cast_nullable_to_non_nullable
-as double,externalIdentifiers: null == externalIdentifiers ? _self.externalIdentifiers : externalIdentifiers // ignore: cast_nullable_to_non_nullable
+as String?,maximumTime: freezed == maximumTime ? _self.maximumTime : maximumTime // ignore: cast_nullable_to_non_nullable
+as double?,minutesDelta: freezed == minutesDelta ? _self.minutesDelta : minutesDelta // ignore: cast_nullable_to_non_nullable
+as double?,minimumLevel: freezed == minimumLevel ? _self.minimumLevel : minimumLevel // ignore: cast_nullable_to_non_nullable
+as double?,externalIdentifiers: null == externalIdentifiers ? _self.externalIdentifiers : externalIdentifiers // ignore: cast_nullable_to_non_nullable
 as List<String>,credentials: null == credentials ? _self.credentials : credentials // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,groupsIds: null == groupsIds ? _self.groupsIds : groupsIds // ignore: cast_nullable_to_non_nullable
 as List<String>,assetsIds: null == assetsIds ? _self.assetsIds : assetsIds // ignore: cast_nullable_to_non_nullable
@@ -1463,10 +1482,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name,  String? algorithmId,  double maximumTime,  double minutesDelta,  List<String> externalIdentifiers,  Map<String, dynamic> credentials,  List<String> groupsIds,  List<String> assetsIds)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name,  String? algorithmId,  double? maximumTime,  double? minutesDelta,  double? minimumLevel,  List<String> externalIdentifiers,  Map<String, dynamic> credentials,  List<String> groupsIds,  List<String> assetsIds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LayrzFunctionInput() when $default != null:
-return $default(_that.id,_that.name,_that.algorithmId,_that.maximumTime,_that.minutesDelta,_that.externalIdentifiers,_that.credentials,_that.groupsIds,_that.assetsIds);case _:
+return $default(_that.id,_that.name,_that.algorithmId,_that.maximumTime,_that.minutesDelta,_that.minimumLevel,_that.externalIdentifiers,_that.credentials,_that.groupsIds,_that.assetsIds);case _:
   return orElse();
 
 }
@@ -1484,10 +1503,10 @@ return $default(_that.id,_that.name,_that.algorithmId,_that.maximumTime,_that.mi
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name,  String? algorithmId,  double maximumTime,  double minutesDelta,  List<String> externalIdentifiers,  Map<String, dynamic> credentials,  List<String> groupsIds,  List<String> assetsIds)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name,  String? algorithmId,  double? maximumTime,  double? minutesDelta,  double? minimumLevel,  List<String> externalIdentifiers,  Map<String, dynamic> credentials,  List<String> groupsIds,  List<String> assetsIds)  $default,) {final _that = this;
 switch (_that) {
 case _LayrzFunctionInput():
-return $default(_that.id,_that.name,_that.algorithmId,_that.maximumTime,_that.minutesDelta,_that.externalIdentifiers,_that.credentials,_that.groupsIds,_that.assetsIds);case _:
+return $default(_that.id,_that.name,_that.algorithmId,_that.maximumTime,_that.minutesDelta,_that.minimumLevel,_that.externalIdentifiers,_that.credentials,_that.groupsIds,_that.assetsIds);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1504,10 +1523,10 @@ return $default(_that.id,_that.name,_that.algorithmId,_that.maximumTime,_that.mi
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name,  String? algorithmId,  double maximumTime,  double minutesDelta,  List<String> externalIdentifiers,  Map<String, dynamic> credentials,  List<String> groupsIds,  List<String> assetsIds)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name,  String? algorithmId,  double? maximumTime,  double? minutesDelta,  double? minimumLevel,  List<String> externalIdentifiers,  Map<String, dynamic> credentials,  List<String> groupsIds,  List<String> assetsIds)?  $default,) {final _that = this;
 switch (_that) {
 case _LayrzFunctionInput() when $default != null:
-return $default(_that.id,_that.name,_that.algorithmId,_that.maximumTime,_that.minutesDelta,_that.externalIdentifiers,_that.credentials,_that.groupsIds,_that.assetsIds);case _:
+return $default(_that.id,_that.name,_that.algorithmId,_that.maximumTime,_that.minutesDelta,_that.minimumLevel,_that.externalIdentifiers,_that.credentials,_that.groupsIds,_that.assetsIds);case _:
   return null;
 
 }
@@ -1519,7 +1538,7 @@ return $default(_that.id,_that.name,_that.algorithmId,_that.maximumTime,_that.mi
 @JsonSerializable()
 
 class _LayrzFunctionInput extends LayrzFunctionInput {
-   _LayrzFunctionInput({this.id, this.name = '', this.algorithmId, this.maximumTime = 0, this.minutesDelta = 0, this.externalIdentifiers = const [], this.credentials = const {}, this.groupsIds = const [], this.assetsIds = const []}): super._();
+   _LayrzFunctionInput({this.id, this.name = '', this.algorithmId, this.maximumTime, this.minutesDelta, this.minimumLevel, this.externalIdentifiers = const [], this.credentials = const {}, this.groupsIds = const [], this.assetsIds = const []}): super._();
   factory _LayrzFunctionInput.fromJson(Map<String, dynamic> json) => _$LayrzFunctionInputFromJson(json);
 
 /// Unique identifier for this function, or null when creating a new one.
@@ -1528,10 +1547,15 @@ class _LayrzFunctionInput extends LayrzFunctionInput {
 @override@JsonKey()  String name;
 /// Is the unique identifier of the algorithm driving the function.
 @override  String? algorithmId;
-/// Is the maximum time of the function, defined in minutes. Defaults to `0`.
-@override@JsonKey()  double maximumTime;
-/// Is the minutes delta of the function, defined in minutes. Defaults to `0`.
-@override@JsonKey()  double minutesDelta;
+/// Is the maximum time of the function, defined in minutes. Only applies to the `gaslp.hose.unroll`
+/// algorithm; null when it does not apply.
+@override  double? maximumTime;
+/// Is the minutes delta of the function, defined in minutes. Only applies to the `ats.fuel.entry` and
+/// `ats.fuel.exit` algorithms; null when it does not apply.
+@override  double? minutesDelta;
+/// Is the minimum tank level that triggers an `ATS.Entry`. Only applies to the `ats.fuel.entry`
+/// algorithm; null when it does not apply. Input only, it is not part of [LayrzFunction].
+@override  double? minimumLevel;
 /// Is the external identifiers of the function. Defaults to an empty list.
 @override@JsonKey()  List<String> externalIdentifiers;
 /// Is the credentials of the function. Defaults to an empty map.
@@ -1556,7 +1580,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'LayrzFunctionInput(id: $id, name: $name, algorithmId: $algorithmId, maximumTime: $maximumTime, minutesDelta: $minutesDelta, externalIdentifiers: $externalIdentifiers, credentials: $credentials, groupsIds: $groupsIds, assetsIds: $assetsIds)';
+  return 'LayrzFunctionInput(id: $id, name: $name, algorithmId: $algorithmId, maximumTime: $maximumTime, minutesDelta: $minutesDelta, minimumLevel: $minimumLevel, externalIdentifiers: $externalIdentifiers, credentials: $credentials, groupsIds: $groupsIds, assetsIds: $assetsIds)';
 }
 
 
@@ -1567,7 +1591,7 @@ abstract mixin class _$LayrzFunctionInputCopyWith<$Res> implements $LayrzFunctio
   factory _$LayrzFunctionInputCopyWith(_LayrzFunctionInput value, $Res Function(_LayrzFunctionInput) _then) = __$LayrzFunctionInputCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String name, String? algorithmId, double maximumTime, double minutesDelta, List<String> externalIdentifiers, Map<String, dynamic> credentials, List<String> groupsIds, List<String> assetsIds
+ String? id, String name, String? algorithmId, double? maximumTime, double? minutesDelta, double? minimumLevel, List<String> externalIdentifiers, Map<String, dynamic> credentials, List<String> groupsIds, List<String> assetsIds
 });
 
 
@@ -1584,14 +1608,15 @@ class __$LayrzFunctionInputCopyWithImpl<$Res>
 
 /// Create a copy of LayrzFunctionInput
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? algorithmId = freezed,Object? maximumTime = null,Object? minutesDelta = null,Object? externalIdentifiers = null,Object? credentials = null,Object? groupsIds = null,Object? assetsIds = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? algorithmId = freezed,Object? maximumTime = freezed,Object? minutesDelta = freezed,Object? minimumLevel = freezed,Object? externalIdentifiers = null,Object? credentials = null,Object? groupsIds = null,Object? assetsIds = null,}) {
   return _then(_LayrzFunctionInput(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,algorithmId: freezed == algorithmId ? _self.algorithmId : algorithmId // ignore: cast_nullable_to_non_nullable
-as String?,maximumTime: null == maximumTime ? _self.maximumTime : maximumTime // ignore: cast_nullable_to_non_nullable
-as double,minutesDelta: null == minutesDelta ? _self.minutesDelta : minutesDelta // ignore: cast_nullable_to_non_nullable
-as double,externalIdentifiers: null == externalIdentifiers ? _self.externalIdentifiers : externalIdentifiers // ignore: cast_nullable_to_non_nullable
+as String?,maximumTime: freezed == maximumTime ? _self.maximumTime : maximumTime // ignore: cast_nullable_to_non_nullable
+as double?,minutesDelta: freezed == minutesDelta ? _self.minutesDelta : minutesDelta // ignore: cast_nullable_to_non_nullable
+as double?,minimumLevel: freezed == minimumLevel ? _self.minimumLevel : minimumLevel // ignore: cast_nullable_to_non_nullable
+as double?,externalIdentifiers: null == externalIdentifiers ? _self.externalIdentifiers : externalIdentifiers // ignore: cast_nullable_to_non_nullable
 as List<String>,credentials: null == credentials ? _self.credentials : credentials // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,groupsIds: null == groupsIds ? _self.groupsIds : groupsIds // ignore: cast_nullable_to_non_nullable
 as List<String>,assetsIds: null == assetsIds ? _self.assetsIds : assetsIds // ignore: cast_nullable_to_non_nullable

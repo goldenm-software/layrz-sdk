@@ -16,34 +16,41 @@ void main() {
     test('fromJson/toJson roundtrip', () {
       final json = {
         'host': 'ftp.example.com',
-        'port': 21,
+        'port': '21',
         'username': 'user',
         'password': 'pass',
       };
 
       final ftp = FtpAccount.fromJson(json);
       expect(ftp.host, 'ftp.example.com');
-      expect(ftp.port, 21);
+      expect(ftp.port, '21');
       expect(ftp.username, 'user');
       expect(ftp.password, 'pass');
 
       final restored = ftp.toJson();
       expect(restored['host'], 'ftp.example.com');
-      expect(restored['port'], 21);
+      expect(restored['port'], '21');
+      expect(restored['port'], isA<String>());
+    });
+
+    test('port is null when absent or null', () {
+      expect(FtpAccount.fromJson({'host': 'h'}).port, isNull);
+      expect(FtpAccount.fromJson({'host': 'h', 'port': null}).port, isNull);
+      expect(FtpAccount(host: 'h').toJson()['port'], isNull);
     });
 
     test('copyWith updates fields', () {
       final ftp = FtpAccount(host: 'a');
-      final updated = ftp.copyWith(host: 'b', port: 2121);
+      final updated = ftp.copyWith(host: 'b', port: '2121');
 
       expect(updated.host, 'b');
-      expect(updated.port, 2121);
+      expect(updated.port, '2121');
     });
 
     test('equality', () {
-      final a = FtpAccount(host: 'a', port: 21);
-      final b = FtpAccount(host: 'a', port: 21);
-      final c = FtpAccount(host: 'c', port: 22);
+      final a = FtpAccount(host: 'a', port: '21');
+      final b = FtpAccount(host: 'a', port: '21');
+      final c = FtpAccount(host: 'c', port: '22');
 
       expect(a, b);
       expect(a, isNot(c));
@@ -173,7 +180,7 @@ void main() {
         'externalIdentifiers': ['ext-1', 'ext-2'],
         'token': 'tok-123',
         'credentials': {'key': 'value'},
-        'ftp': {'host': 'ftp.example.com', 'port': 21},
+        'ftp': {'host': 'ftp.example.com', 'port': '21'},
         'groupsIds': ['tag-1'],
         'assetsIds': ['asset-1'],
       };
@@ -222,6 +229,8 @@ void main() {
       final json = {
         'id': 'fn-4',
         'name': 'Nested Function',
+        'ownerId': 'owner-1',
+        'isEnabled': true,
         'algorithmId': 'alg-1',
         'maximumTime': 10,
         'minutesDelta': 2,
@@ -250,7 +259,7 @@ void main() {
         'credentials': {'key': 'value'},
         'ftp': {
           'host': 'ftp.example.com',
-          'port': 21,
+          'port': '21',
           'username': 'user',
           'password': 'pass',
         },
@@ -268,6 +277,8 @@ void main() {
       };
 
       final function = LayrzFunction.fromJson(json);
+      expect(function.ownerId, 'owner-1');
+      expect(function.isEnabled, isTrue);
       expect(function.maximumTime, 10.0);
       expect(function.assets, hasLength(1));
       expect(function.assets!.first.mode, AssetMode.single);
@@ -280,12 +291,25 @@ void main() {
         'https://example.com/icon.png',
       );
       expect(function.ftp?.host, 'ftp.example.com');
+      expect(function.ftp?.port, '21');
       expect(function.ftp?.username, 'user');
       expect(function.ftp?.password, 'pass');
       expect(function.access, hasLength(1));
       expect(function.access!.first.userId, 'user-1');
       expect(function.access!.first.read, isTrue);
       expect(function.token, 'tok');
+    });
+
+    test('ownerId and isEnabled are null by default', () {
+      final function = LayrzFunction(id: 'a', name: 'A');
+      expect(function.ownerId, isNull);
+      expect(function.isEnabled, isNull);
+    });
+
+    test('fragment selects ownerId and isEnabled', () {
+      final fragment = LayrzFunction.fragment;
+      expect(fragment.onType, 'Function');
+      expect(fragment.fields.map((f) => f.name), containsAll(['ownerId', 'isEnabled']));
     });
 
     test('copyWith updates fields', () {
@@ -313,8 +337,9 @@ void main() {
       expect(input.id, isNull);
       expect(input.name, '');
       expect(input.algorithmId, isNull);
-      expect(input.maximumTime, 0);
-      expect(input.minutesDelta, 0);
+      expect(input.maximumTime, isNull);
+      expect(input.minutesDelta, isNull);
+      expect(input.minimumLevel, isNull);
       expect(input.externalIdentifiers, isEmpty);
       expect(input.credentials, isEmpty);
       expect(input.groupsIds, isEmpty);
@@ -328,6 +353,7 @@ void main() {
         'algorithmId': 'alg-1',
         'maximumTime': 15.5,
         'minutesDelta': 3.0,
+        'minimumLevel': 12.5,
         'externalIdentifiers': ['ext-1'],
         'credentials': {'key': 'value'},
         'groupsIds': ['tag-1'],
@@ -340,6 +366,7 @@ void main() {
       expect(input.algorithmId, 'alg-1');
       expect(input.maximumTime, 15.5);
       expect(input.minutesDelta, 3.0);
+      expect(input.minimumLevel, 12.5);
       expect(input.externalIdentifiers, ['ext-1']);
       expect(input.credentials, {'key': 'value'});
       expect(input.groupsIds, ['tag-1']);
@@ -348,6 +375,8 @@ void main() {
       final restored = input.toJson();
       expect(restored['id'], 'fn-1');
       expect(restored['maximumTime'], 15.5);
+      expect(restored['minutesDelta'], 3.0);
+      expect(restored['minimumLevel'], 12.5);
       expect(restored['credentials'], {'key': 'value'});
       expect(restored['assetsIds'], ['asset-1']);
     });
@@ -357,12 +386,24 @@ void main() {
       final updated = input.copyWith(
         name: 'B',
         maximumTime: 9,
+        minimumLevel: 4.5,
         assetsIds: ['a'],
       );
 
       expect(updated.name, 'B');
       expect(updated.maximumTime, 9);
+      expect(updated.minimumLevel, 4.5);
+      expect(updated.minutesDelta, isNull);
       expect(updated.assetsIds, ['a']);
+    });
+
+    test('roundtrip without optional values keeps them null', () {
+      final input = LayrzFunctionInput.fromJson({'name': 'Plain'});
+
+      expect(input.maximumTime, isNull);
+      expect(input.minutesDelta, isNull);
+      expect(input.minimumLevel, isNull);
+      expect(input.toJson()['minimumLevel'], isNull);
     });
 
     test('is mutable', () {

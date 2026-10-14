@@ -8,8 +8,8 @@ abstract class FtpAccount with _$FtpAccount {
     /// Is the host of the FTP account.
     String? host,
 
-    /// Is the port of the FTP account.
-    int? port,
+    /// Is the port of the FTP account, as a String like the backend.
+    String? port,
 
     /// Is the username of the FTP account.
     String? username,

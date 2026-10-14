@@ -28,6 +28,10 @@ _CredentialField _$CredentialFieldFromJson(Map<String, dynamic> json) =>
       requiredFields: (json['requiredFields'] as List<dynamic>?)
           ?.map((e) => CredentialField.fromJson(e as Map<String, dynamic>))
           .toList(),
+      seq: (json['seq'] as num?)?.toInt(),
+      extensions: (json['extensions'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$CredentialFieldToJson(
@@ -44,6 +48,8 @@ Map<String, dynamic> _$CredentialFieldToJson(
   'onlyChoices': instance.onlyChoices,
   'action': instance.action?.toJson(),
   'requiredFields': instance.requiredFields?.map((e) => e.toJson()).toList(),
+  'seq': instance.seq,
+  'extensions': instance.extensions,
 };
 
 const _$CredentialFieldTypeEnumMap = {

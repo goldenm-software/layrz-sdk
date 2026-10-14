@@ -8,7 +8,7 @@ part of 'function.dart';
 
 _FtpAccount _$FtpAccountFromJson(Map<String, dynamic> json) => _FtpAccount(
   host: json['host'] as String?,
-  port: (json['port'] as num?)?.toInt(),
+  port: json['port'] as String?,
   username: json['username'] as String?,
   password: json['password'] as String?,
 );
@@ -100,6 +100,8 @@ _LayrzFunction _$LayrzFunctionFromJson(Map<String, dynamic> json) =>
     _LayrzFunction(
       id: json['id'] as String,
       name: json['name'] as String,
+      ownerId: json['ownerId'] as String?,
+      isEnabled: json['isEnabled'] as bool?,
       algorithmId: json['algorithmId'] as String?,
       algorithm: json['algorithm'] == null
           ? null
@@ -135,6 +137,8 @@ Map<String, dynamic> _$LayrzFunctionToJson(_LayrzFunction instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'ownerId': instance.ownerId,
+      'isEnabled': instance.isEnabled,
       'algorithmId': instance.algorithmId,
       'algorithm': instance.algorithm?.toJson(),
       'maximumTime': instance.maximumTime,
@@ -156,8 +160,9 @@ _LayrzFunctionInput _$LayrzFunctionInputFromJson(
   id: json['id'] as String?,
   name: json['name'] as String? ?? '',
   algorithmId: json['algorithmId'] as String?,
-  maximumTime: (json['maximumTime'] as num?)?.toDouble() ?? 0,
-  minutesDelta: (json['minutesDelta'] as num?)?.toDouble() ?? 0,
+  maximumTime: (json['maximumTime'] as num?)?.toDouble(),
+  minutesDelta: (json['minutesDelta'] as num?)?.toDouble(),
+  minimumLevel: (json['minimumLevel'] as num?)?.toDouble(),
   externalIdentifiers:
       (json['externalIdentifiers'] as List<dynamic>?)
           ?.map((e) => e as String)
@@ -179,6 +184,7 @@ Map<String, dynamic> _$LayrzFunctionInputToJson(_LayrzFunctionInput instance) =>
       'algorithmId': instance.algorithmId,
       'maximumTime': instance.maximumTime,
       'minutesDelta': instance.minutesDelta,
+      'minimumLevel': instance.minimumLevel,
       'externalIdentifiers': instance.externalIdentifiers,
       'credentials': instance.credentials,
       'groupsIds': instance.groupsIds,
