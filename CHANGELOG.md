@@ -1,5 +1,23 @@
 # Changelog
 
+## 4.13.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* **Breaking:** `FtpAccount.port` is now `String?`, matching the `FTPCredential` schema (it was an `int?`, which made the decode of any function with FTP credentials fail against the live API).
+* Added `LayrzFunction.ownerId` and `LayrzFunction.isEnabled`, both selected by `LayrzFunction.fragment`.
+* **Breaking:** `LayrzFunctionInput.maximumTime` and `LayrzFunctionInput.minutesDelta` are now nullable `double?` without a default (they only apply to specific algorithms).
+* Added `LayrzFunctionInput.minimumLevel` (`ats.fuel.entry` algorithm).
+* Added `CredentialField.seq` and `CredentialField.extensions`, both selected by `CredentialField.fragment`.
+
+### Go
+
+* No changes in this release.
+
 ## 4.12.0
 
 ### Python
