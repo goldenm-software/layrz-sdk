@@ -115,7 +115,7 @@ class DeviceMessage(BaseModel):
     from layrz_sdk.helpers import compose_uuid
     pk = compose_uuid(ts=received_at, bound='lower')
     return cls(
-      id=pk,  # type: ignore
+      id=pk,
       ident=device.ident,
       device_id=device.pk,
       protocol_id=device.protocol_id,

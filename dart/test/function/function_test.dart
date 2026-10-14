@@ -119,8 +119,18 @@ void main() {
     });
 
     test('equality', () {
-      final a = Algorithm(id: 'x', name: 'X', color: const Color(0xFF000000), isEnabled: true);
-      final b = Algorithm(id: 'x', name: 'X', color: const Color(0xFF000000), isEnabled: true);
+      final a = Algorithm(
+        id: 'x',
+        name: 'X',
+        color: const Color(0xFF000000),
+        isEnabled: true,
+      );
+      final b = Algorithm(
+        id: 'x',
+        name: 'X',
+        color: const Color(0xFF000000),
+        isEnabled: true,
+      );
 
       expect(a, b);
     });
@@ -208,6 +218,76 @@ void main() {
       expect(function.assets!.first.name, 'Truck A');
     });
 
+    test('fromJson decodes a full fetch payload with nested objects', () {
+      final json = {
+        'id': 'fn-4',
+        'name': 'Nested Function',
+        'algorithmId': 'alg-1',
+        'maximumTime': 10,
+        'minutesDelta': 2,
+        'externalIdentifiers': ['ext-1'],
+        'assetsIds': ['asset-1'],
+        'assets': [
+          {
+            'id': 'asset-1',
+            'name': 'Truck A',
+            'mode': 'SINGLE',
+            'dynamicIcon': {'type': 'EMOJI', 'emoji': 'x'},
+          },
+        ],
+        'groupsIds': ['tag-1'],
+        'groups': [
+          {
+            'id': 'tag-1',
+            'name': 'Trucks',
+            'color': '#00FF00',
+            'dynamicIcon': {
+              'type': 'URL',
+              'url': 'https://example.com/icon.png',
+            },
+          },
+        ],
+        'credentials': {'key': 'value'},
+        'ftp': {
+          'host': 'ftp.example.com',
+          'port': 21,
+          'username': 'user',
+          'password': 'pass',
+        },
+        'token': 'tok',
+        'access': [
+          {
+            'id': '1',
+            'read': true,
+            'write': false,
+            'manage': false,
+            'userId': 'user-1',
+            'module': 'UNKNOWN',
+          },
+        ],
+      };
+
+      final function = LayrzFunction.fromJson(json);
+      expect(function.maximumTime, 10.0);
+      expect(function.assets, hasLength(1));
+      expect(function.assets!.first.mode, AssetMode.single);
+      expect(function.assets!.first.dynamicIcon?.type, AvatarType.emoji);
+      expect(function.assets!.first.dynamicIcon?.emoji, 'x');
+      expect(function.groups, hasLength(1));
+      expect(function.groups!.first.dynamicIcon?.type, AvatarType.url);
+      expect(
+        function.groups!.first.dynamicIcon?.url,
+        'https://example.com/icon.png',
+      );
+      expect(function.ftp?.host, 'ftp.example.com');
+      expect(function.ftp?.username, 'user');
+      expect(function.ftp?.password, 'pass');
+      expect(function.access, hasLength(1));
+      expect(function.access!.first.userId, 'user-1');
+      expect(function.access!.first.read, isTrue);
+      expect(function.token, 'tok');
+    });
+
     test('copyWith updates fields', () {
       final function = LayrzFunction(id: 'a', name: 'A');
       final updated = function.copyWith(name: 'B', token: 'new-token');
@@ -223,6 +303,75 @@ void main() {
 
       expect(a, b);
       expect(a, isNot(c));
+    });
+  });
+
+  group('LayrzFunctionInput Tests', () {
+    test('constructs with defaults', () {
+      final input = LayrzFunctionInput();
+
+      expect(input.id, isNull);
+      expect(input.name, '');
+      expect(input.algorithmId, isNull);
+      expect(input.maximumTime, 0);
+      expect(input.minutesDelta, 0);
+      expect(input.externalIdentifiers, isEmpty);
+      expect(input.credentials, isEmpty);
+      expect(input.groupsIds, isEmpty);
+      expect(input.assetsIds, isEmpty);
+    });
+
+    test('fromJson/toJson roundtrip', () {
+      final json = {
+        'id': 'fn-1',
+        'name': 'Input',
+        'algorithmId': 'alg-1',
+        'maximumTime': 15.5,
+        'minutesDelta': 3.0,
+        'externalIdentifiers': ['ext-1'],
+        'credentials': {'key': 'value'},
+        'groupsIds': ['tag-1'],
+        'assetsIds': ['asset-1'],
+      };
+
+      final input = LayrzFunctionInput.fromJson(json);
+      expect(input.id, 'fn-1');
+      expect(input.name, 'Input');
+      expect(input.algorithmId, 'alg-1');
+      expect(input.maximumTime, 15.5);
+      expect(input.minutesDelta, 3.0);
+      expect(input.externalIdentifiers, ['ext-1']);
+      expect(input.credentials, {'key': 'value'});
+      expect(input.groupsIds, ['tag-1']);
+      expect(input.assetsIds, ['asset-1']);
+
+      final restored = input.toJson();
+      expect(restored['id'], 'fn-1');
+      expect(restored['maximumTime'], 15.5);
+      expect(restored['credentials'], {'key': 'value'});
+      expect(restored['assetsIds'], ['asset-1']);
+    });
+
+    test('copyWith updates fields', () {
+      final input = LayrzFunctionInput(name: 'A');
+      final updated = input.copyWith(
+        name: 'B',
+        maximumTime: 9,
+        assetsIds: ['a'],
+      );
+
+      expect(updated.name, 'B');
+      expect(updated.maximumTime, 9);
+      expect(updated.assetsIds, ['a']);
+    });
+
+    test('is mutable', () {
+      final input = LayrzFunctionInput();
+      input.name = 'Changed';
+      input.id = 'fn-9';
+
+      expect(input.name, 'Changed');
+      expect(input.id, 'fn-9');
     });
   });
 }

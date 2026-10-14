@@ -149,3 +149,38 @@ Map<String, dynamic> _$LayrzFunctionToJson(_LayrzFunction instance) =>
       'assets': instance.assets?.map((e) => e.toJson()).toList(),
       'access': instance.access?.map((e) => e.toJson()).toList(),
     };
+
+_LayrzFunctionInput _$LayrzFunctionInputFromJson(
+  Map<String, dynamic> json,
+) => _LayrzFunctionInput(
+  id: json['id'] as String?,
+  name: json['name'] as String? ?? '',
+  algorithmId: json['algorithmId'] as String?,
+  maximumTime: (json['maximumTime'] as num?)?.toDouble() ?? 0,
+  minutesDelta: (json['minutesDelta'] as num?)?.toDouble() ?? 0,
+  externalIdentifiers:
+      (json['externalIdentifiers'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  credentials: json['credentials'] as Map<String, dynamic>? ?? const {},
+  groupsIds:
+      (json['groupsIds'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
+  assetsIds:
+      (json['assetsIds'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
+);
+
+Map<String, dynamic> _$LayrzFunctionInputToJson(_LayrzFunctionInput instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'algorithmId': instance.algorithmId,
+      'maximumTime': instance.maximumTime,
+      'minutesDelta': instance.minutesDelta,
+      'externalIdentifiers': instance.externalIdentifiers,
+      'credentials': instance.credentials,
+      'groupsIds': instance.groupsIds,
+      'assetsIds': instance.assetsIds,
+    };

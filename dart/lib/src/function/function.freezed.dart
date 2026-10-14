@@ -1169,8 +1169,8 @@ return $default(_that.id,_that.name,_that.algorithmId,_that.algorithm,_that.maxi
 /// @nodoc
 @JsonSerializable()
 
-class _LayrzFunction implements LayrzFunction {
-  const _LayrzFunction({required this.id, required this.name, this.algorithmId, this.algorithm, this.maximumTime, this.minutesDelta, this.externalIdentifiers, this.token, this.credentials, this.ftp, this.groupsIds, this.groups, this.assetsIds, this.assets, this.access});
+class _LayrzFunction extends LayrzFunction {
+  const _LayrzFunction({required this.id, required this.name, this.algorithmId, this.algorithm, this.maximumTime, this.minutesDelta, this.externalIdentifiers, this.token, this.credentials, this.ftp, this.groupsIds, this.groups, this.assetsIds, this.assets, this.access}): super._();
   factory _LayrzFunction.fromJson(Map<String, dynamic> json) => _$LayrzFunctionFromJson(json);
 
 /// Is the unique identifier of the function.
@@ -1300,6 +1300,306 @@ $FtpAccountCopyWith<$Res>? get ftp {
     return _then(_self.copyWith(ftp: value));
   });
 }
+}
+
+
+/// @nodoc
+mixin _$LayrzFunctionInput {
+
+/// Unique identifier for this function, or null when creating a new one.
+ String? get id;/// Unique identifier for this function, or null when creating a new one.
+ set id(String? value);/// Human-readable name of the function. Defaults to an empty string.
+ String get name;/// Human-readable name of the function. Defaults to an empty string.
+ set name(String value);/// Is the unique identifier of the algorithm driving the function.
+ String? get algorithmId;/// Is the unique identifier of the algorithm driving the function.
+ set algorithmId(String? value);/// Is the maximum time of the function, defined in minutes. Defaults to `0`.
+ double get maximumTime;/// Is the maximum time of the function, defined in minutes. Defaults to `0`.
+ set maximumTime(double value);/// Is the minutes delta of the function, defined in minutes. Defaults to `0`.
+ double get minutesDelta;/// Is the minutes delta of the function, defined in minutes. Defaults to `0`.
+ set minutesDelta(double value);/// Is the external identifiers of the function. Defaults to an empty list.
+ List<String> get externalIdentifiers;/// Is the external identifiers of the function. Defaults to an empty list.
+ set externalIdentifiers(List<String> value);/// Is the credentials of the function. Defaults to an empty map.
+ Map<String, dynamic> get credentials;/// Is the credentials of the function. Defaults to an empty map.
+ set credentials(Map<String, dynamic> value);/// Is the group (tag) IDs of the function. Defaults to an empty list.
+ List<String> get groupsIds;/// Is the group (tag) IDs of the function. Defaults to an empty list.
+ set groupsIds(List<String> value);/// Is the asset IDs of the function. Defaults to an empty list.
+ List<String> get assetsIds;/// Is the asset IDs of the function. Defaults to an empty list.
+ set assetsIds(List<String> value);
+/// Create a copy of LayrzFunctionInput
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LayrzFunctionInputCopyWith<LayrzFunctionInput> get copyWith => _$LayrzFunctionInputCopyWithImpl<LayrzFunctionInput>(this as LayrzFunctionInput, _$identity);
+
+  /// Serializes this LayrzFunctionInput to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'LayrzFunctionInput(id: $id, name: $name, algorithmId: $algorithmId, maximumTime: $maximumTime, minutesDelta: $minutesDelta, externalIdentifiers: $externalIdentifiers, credentials: $credentials, groupsIds: $groupsIds, assetsIds: $assetsIds)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LayrzFunctionInputCopyWith<$Res>  {
+  factory $LayrzFunctionInputCopyWith(LayrzFunctionInput value, $Res Function(LayrzFunctionInput) _then) = _$LayrzFunctionInputCopyWithImpl;
+@useResult
+$Res call({
+ String? id, String name, String? algorithmId, double maximumTime, double minutesDelta, List<String> externalIdentifiers, Map<String, dynamic> credentials, List<String> groupsIds, List<String> assetsIds
+});
+
+
+
+
+}
+/// @nodoc
+class _$LayrzFunctionInputCopyWithImpl<$Res>
+    implements $LayrzFunctionInputCopyWith<$Res> {
+  _$LayrzFunctionInputCopyWithImpl(this._self, this._then);
+
+  final LayrzFunctionInput _self;
+  final $Res Function(LayrzFunctionInput) _then;
+
+/// Create a copy of LayrzFunctionInput
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? algorithmId = freezed,Object? maximumTime = null,Object? minutesDelta = null,Object? externalIdentifiers = null,Object? credentials = null,Object? groupsIds = null,Object? assetsIds = null,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,algorithmId: freezed == algorithmId ? _self.algorithmId : algorithmId // ignore: cast_nullable_to_non_nullable
+as String?,maximumTime: null == maximumTime ? _self.maximumTime : maximumTime // ignore: cast_nullable_to_non_nullable
+as double,minutesDelta: null == minutesDelta ? _self.minutesDelta : minutesDelta // ignore: cast_nullable_to_non_nullable
+as double,externalIdentifiers: null == externalIdentifiers ? _self.externalIdentifiers : externalIdentifiers // ignore: cast_nullable_to_non_nullable
+as List<String>,credentials: null == credentials ? _self.credentials : credentials // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,groupsIds: null == groupsIds ? _self.groupsIds : groupsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,assetsIds: null == assetsIds ? _self.assetsIds : assetsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [LayrzFunctionInput].
+extension LayrzFunctionInputPatterns on LayrzFunctionInput {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _LayrzFunctionInput value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _LayrzFunctionInput() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _LayrzFunctionInput value)  $default,){
+final _that = this;
+switch (_that) {
+case _LayrzFunctionInput():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _LayrzFunctionInput value)?  $default,){
+final _that = this;
+switch (_that) {
+case _LayrzFunctionInput() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name,  String? algorithmId,  double maximumTime,  double minutesDelta,  List<String> externalIdentifiers,  Map<String, dynamic> credentials,  List<String> groupsIds,  List<String> assetsIds)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _LayrzFunctionInput() when $default != null:
+return $default(_that.id,_that.name,_that.algorithmId,_that.maximumTime,_that.minutesDelta,_that.externalIdentifiers,_that.credentials,_that.groupsIds,_that.assetsIds);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name,  String? algorithmId,  double maximumTime,  double minutesDelta,  List<String> externalIdentifiers,  Map<String, dynamic> credentials,  List<String> groupsIds,  List<String> assetsIds)  $default,) {final _that = this;
+switch (_that) {
+case _LayrzFunctionInput():
+return $default(_that.id,_that.name,_that.algorithmId,_that.maximumTime,_that.minutesDelta,_that.externalIdentifiers,_that.credentials,_that.groupsIds,_that.assetsIds);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name,  String? algorithmId,  double maximumTime,  double minutesDelta,  List<String> externalIdentifiers,  Map<String, dynamic> credentials,  List<String> groupsIds,  List<String> assetsIds)?  $default,) {final _that = this;
+switch (_that) {
+case _LayrzFunctionInput() when $default != null:
+return $default(_that.id,_that.name,_that.algorithmId,_that.maximumTime,_that.minutesDelta,_that.externalIdentifiers,_that.credentials,_that.groupsIds,_that.assetsIds);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _LayrzFunctionInput extends LayrzFunctionInput {
+   _LayrzFunctionInput({this.id, this.name = '', this.algorithmId, this.maximumTime = 0, this.minutesDelta = 0, this.externalIdentifiers = const [], this.credentials = const {}, this.groupsIds = const [], this.assetsIds = const []}): super._();
+  factory _LayrzFunctionInput.fromJson(Map<String, dynamic> json) => _$LayrzFunctionInputFromJson(json);
+
+/// Unique identifier for this function, or null when creating a new one.
+@override  String? id;
+/// Human-readable name of the function. Defaults to an empty string.
+@override@JsonKey()  String name;
+/// Is the unique identifier of the algorithm driving the function.
+@override  String? algorithmId;
+/// Is the maximum time of the function, defined in minutes. Defaults to `0`.
+@override@JsonKey()  double maximumTime;
+/// Is the minutes delta of the function, defined in minutes. Defaults to `0`.
+@override@JsonKey()  double minutesDelta;
+/// Is the external identifiers of the function. Defaults to an empty list.
+@override@JsonKey()  List<String> externalIdentifiers;
+/// Is the credentials of the function. Defaults to an empty map.
+@override@JsonKey()  Map<String, dynamic> credentials;
+/// Is the group (tag) IDs of the function. Defaults to an empty list.
+@override@JsonKey()  List<String> groupsIds;
+/// Is the asset IDs of the function. Defaults to an empty list.
+@override@JsonKey()  List<String> assetsIds;
+
+/// Create a copy of LayrzFunctionInput
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$LayrzFunctionInputCopyWith<_LayrzFunctionInput> get copyWith => __$LayrzFunctionInputCopyWithImpl<_LayrzFunctionInput>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$LayrzFunctionInputToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'LayrzFunctionInput(id: $id, name: $name, algorithmId: $algorithmId, maximumTime: $maximumTime, minutesDelta: $minutesDelta, externalIdentifiers: $externalIdentifiers, credentials: $credentials, groupsIds: $groupsIds, assetsIds: $assetsIds)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$LayrzFunctionInputCopyWith<$Res> implements $LayrzFunctionInputCopyWith<$Res> {
+  factory _$LayrzFunctionInputCopyWith(_LayrzFunctionInput value, $Res Function(_LayrzFunctionInput) _then) = __$LayrzFunctionInputCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id, String name, String? algorithmId, double maximumTime, double minutesDelta, List<String> externalIdentifiers, Map<String, dynamic> credentials, List<String> groupsIds, List<String> assetsIds
+});
+
+
+
+
+}
+/// @nodoc
+class __$LayrzFunctionInputCopyWithImpl<$Res>
+    implements _$LayrzFunctionInputCopyWith<$Res> {
+  __$LayrzFunctionInputCopyWithImpl(this._self, this._then);
+
+  final _LayrzFunctionInput _self;
+  final $Res Function(_LayrzFunctionInput) _then;
+
+/// Create a copy of LayrzFunctionInput
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? algorithmId = freezed,Object? maximumTime = null,Object? minutesDelta = null,Object? externalIdentifiers = null,Object? credentials = null,Object? groupsIds = null,Object? assetsIds = null,}) {
+  return _then(_LayrzFunctionInput(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,algorithmId: freezed == algorithmId ? _self.algorithmId : algorithmId // ignore: cast_nullable_to_non_nullable
+as String?,maximumTime: null == maximumTime ? _self.maximumTime : maximumTime // ignore: cast_nullable_to_non_nullable
+as double,minutesDelta: null == minutesDelta ? _self.minutesDelta : minutesDelta // ignore: cast_nullable_to_non_nullable
+as double,externalIdentifiers: null == externalIdentifiers ? _self.externalIdentifiers : externalIdentifiers // ignore: cast_nullable_to_non_nullable
+as List<String>,credentials: null == credentials ? _self.credentials : credentials // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,groupsIds: null == groupsIds ? _self.groupsIds : groupsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,assetsIds: null == assetsIds ? _self.assetsIds : assetsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+
 }
 
 // dart format on
