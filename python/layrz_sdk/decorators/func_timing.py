@@ -1,6 +1,6 @@
 """Timing decorator"""
 
-import asyncio
+import inspect
 import logging
 import os
 from collections.abc import Callable, Coroutine
@@ -70,7 +70,7 @@ def func_timing(
 
       return result
 
-    if asyncio.iscoroutinefunction(func):
+    if inspect.iscoroutinefunction(func):
       return async_wrapper  # type: ignore
     return sync_wrapper
 
