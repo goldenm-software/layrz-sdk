@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.12.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* Added `LayrzFunction.fragment`, `LayrzFunction.fetchAll`, `LayrzFunction.fetch`, `LayrzFunction.deleteMultiple` and `LayrzFunction.importIntoApp` to the `function` module.
+* Added `LayrzFunctionInput` with `save` to the `function` module.
+
+### Go
+
+* No changes in this release.
+
 ## 4.11.0
 
 ### Python
