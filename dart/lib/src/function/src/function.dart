@@ -14,6 +14,12 @@ abstract class LayrzFunction with _$LayrzFunction {
     /// Is the name of the function.
     required String name,
 
+    /// Is the unique identifier of the owner of the function.
+    String? ownerId,
+
+    /// Is the current transmission status of the function.
+    bool? isEnabled,
+
     /// Is the unique identifier of the algorithm.
     String? algorithmId,
 
@@ -65,6 +71,8 @@ abstract class LayrzFunction with _$LayrzFunction {
     fields: [
       GqlField(name: 'id'),
       GqlField(name: 'name'),
+      GqlField(name: 'ownerId'),
+      GqlField(name: 'isEnabled'),
       GqlField(name: 'algorithmId'),
       GqlField(name: 'maximumTime'),
       GqlField(name: 'minutesDelta'),

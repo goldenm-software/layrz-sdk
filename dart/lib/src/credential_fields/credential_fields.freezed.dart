@@ -31,7 +31,10 @@ mixin _$CredentialField {
  List<String>? get onlyChoices;/// [action] defines the action to show in the field (as suffix icon).
  CredentialFieldAction? get action;/// [requiredFields] represents the nested fields.
 /// Only used when [type] = [CredentialFieldType.nestedField].
- List<CredentialField>? get requiredFields;
+ List<CredentialField>? get requiredFields;/// [seq] is the sequential number used to order the fields in the frontend.
+ int? get seq;/// [extensions] is the list of allowed file extensions for the field. Intended for file fields
+/// ([CredentialFieldType.base64]).
+ List<String>? get extensions;
 /// Create a copy of CredentialField
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -44,16 +47,16 @@ $CredentialFieldCopyWith<CredentialField> get copyWith => _$CredentialFieldCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CredentialField&&(identical(other.field, field) || other.field == field)&&(identical(other.type, type) || other.type == type)&&(identical(other.maxLength, maxLength) || other.maxLength == maxLength)&&(identical(other.minLength, minLength) || other.minLength == minLength)&&(identical(other.maxValue, maxValue) || other.maxValue == maxValue)&&(identical(other.minValue, minValue) || other.minValue == minValue)&&const DeepCollectionEquality().equals(other.choices, choices)&&(identical(other.onlyField, onlyField) || other.onlyField == onlyField)&&const DeepCollectionEquality().equals(other.onlyChoices, onlyChoices)&&(identical(other.action, action) || other.action == action)&&const DeepCollectionEquality().equals(other.requiredFields, requiredFields));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CredentialField&&(identical(other.field, field) || other.field == field)&&(identical(other.type, type) || other.type == type)&&(identical(other.maxLength, maxLength) || other.maxLength == maxLength)&&(identical(other.minLength, minLength) || other.minLength == minLength)&&(identical(other.maxValue, maxValue) || other.maxValue == maxValue)&&(identical(other.minValue, minValue) || other.minValue == minValue)&&const DeepCollectionEquality().equals(other.choices, choices)&&(identical(other.onlyField, onlyField) || other.onlyField == onlyField)&&const DeepCollectionEquality().equals(other.onlyChoices, onlyChoices)&&(identical(other.action, action) || other.action == action)&&const DeepCollectionEquality().equals(other.requiredFields, requiredFields)&&(identical(other.seq, seq) || other.seq == seq)&&const DeepCollectionEquality().equals(other.extensions, extensions));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,field,type,maxLength,minLength,maxValue,minValue,const DeepCollectionEquality().hash(choices),onlyField,const DeepCollectionEquality().hash(onlyChoices),action,const DeepCollectionEquality().hash(requiredFields));
+int get hashCode => Object.hash(runtimeType,field,type,maxLength,minLength,maxValue,minValue,const DeepCollectionEquality().hash(choices),onlyField,const DeepCollectionEquality().hash(onlyChoices),action,const DeepCollectionEquality().hash(requiredFields),seq,const DeepCollectionEquality().hash(extensions));
 
 @override
 String toString() {
-  return 'CredentialField(field: $field, type: $type, maxLength: $maxLength, minLength: $minLength, maxValue: $maxValue, minValue: $minValue, choices: $choices, onlyField: $onlyField, onlyChoices: $onlyChoices, action: $action, requiredFields: $requiredFields)';
+  return 'CredentialField(field: $field, type: $type, maxLength: $maxLength, minLength: $minLength, maxValue: $maxValue, minValue: $minValue, choices: $choices, onlyField: $onlyField, onlyChoices: $onlyChoices, action: $action, requiredFields: $requiredFields, seq: $seq, extensions: $extensions)';
 }
 
 
@@ -64,7 +67,7 @@ abstract mixin class $CredentialFieldCopyWith<$Res>  {
   factory $CredentialFieldCopyWith(CredentialField value, $Res Function(CredentialField) _then) = _$CredentialFieldCopyWithImpl;
 @useResult
 $Res call({
- String field, CredentialFieldType type, int? maxLength, int? minLength, num? maxValue, num? minValue, List<String>? choices, String? onlyField, List<String>? onlyChoices, CredentialFieldAction? action, List<CredentialField>? requiredFields
+ String field, CredentialFieldType type, int? maxLength, int? minLength, num? maxValue, num? minValue, List<String>? choices, String? onlyField, List<String>? onlyChoices, CredentialFieldAction? action, List<CredentialField>? requiredFields, int? seq, List<String>? extensions
 });
 
 
@@ -81,7 +84,7 @@ class _$CredentialFieldCopyWithImpl<$Res>
 
 /// Create a copy of CredentialField
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? field = null,Object? type = null,Object? maxLength = freezed,Object? minLength = freezed,Object? maxValue = freezed,Object? minValue = freezed,Object? choices = freezed,Object? onlyField = freezed,Object? onlyChoices = freezed,Object? action = freezed,Object? requiredFields = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? field = null,Object? type = null,Object? maxLength = freezed,Object? minLength = freezed,Object? maxValue = freezed,Object? minValue = freezed,Object? choices = freezed,Object? onlyField = freezed,Object? onlyChoices = freezed,Object? action = freezed,Object? requiredFields = freezed,Object? seq = freezed,Object? extensions = freezed,}) {
   return _then(_self.copyWith(
 field: null == field ? _self.field : field // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
@@ -94,7 +97,9 @@ as List<String>?,onlyField: freezed == onlyField ? _self.onlyField : onlyField /
 as String?,onlyChoices: freezed == onlyChoices ? _self.onlyChoices : onlyChoices // ignore: cast_nullable_to_non_nullable
 as List<String>?,action: freezed == action ? _self.action : action // ignore: cast_nullable_to_non_nullable
 as CredentialFieldAction?,requiredFields: freezed == requiredFields ? _self.requiredFields : requiredFields // ignore: cast_nullable_to_non_nullable
-as List<CredentialField>?,
+as List<CredentialField>?,seq: freezed == seq ? _self.seq : seq // ignore: cast_nullable_to_non_nullable
+as int?,extensions: freezed == extensions ? _self.extensions : extensions // ignore: cast_nullable_to_non_nullable
+as List<String>?,
   ));
 }
 
@@ -179,10 +184,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String field,  CredentialFieldType type,  int? maxLength,  int? minLength,  num? maxValue,  num? minValue,  List<String>? choices,  String? onlyField,  List<String>? onlyChoices,  CredentialFieldAction? action,  List<CredentialField>? requiredFields)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String field,  CredentialFieldType type,  int? maxLength,  int? minLength,  num? maxValue,  num? minValue,  List<String>? choices,  String? onlyField,  List<String>? onlyChoices,  CredentialFieldAction? action,  List<CredentialField>? requiredFields,  int? seq,  List<String>? extensions)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CredentialField() when $default != null:
-return $default(_that.field,_that.type,_that.maxLength,_that.minLength,_that.maxValue,_that.minValue,_that.choices,_that.onlyField,_that.onlyChoices,_that.action,_that.requiredFields);case _:
+return $default(_that.field,_that.type,_that.maxLength,_that.minLength,_that.maxValue,_that.minValue,_that.choices,_that.onlyField,_that.onlyChoices,_that.action,_that.requiredFields,_that.seq,_that.extensions);case _:
   return orElse();
 
 }
@@ -200,10 +205,10 @@ return $default(_that.field,_that.type,_that.maxLength,_that.minLength,_that.max
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String field,  CredentialFieldType type,  int? maxLength,  int? minLength,  num? maxValue,  num? minValue,  List<String>? choices,  String? onlyField,  List<String>? onlyChoices,  CredentialFieldAction? action,  List<CredentialField>? requiredFields)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String field,  CredentialFieldType type,  int? maxLength,  int? minLength,  num? maxValue,  num? minValue,  List<String>? choices,  String? onlyField,  List<String>? onlyChoices,  CredentialFieldAction? action,  List<CredentialField>? requiredFields,  int? seq,  List<String>? extensions)  $default,) {final _that = this;
 switch (_that) {
 case _CredentialField():
-return $default(_that.field,_that.type,_that.maxLength,_that.minLength,_that.maxValue,_that.minValue,_that.choices,_that.onlyField,_that.onlyChoices,_that.action,_that.requiredFields);case _:
+return $default(_that.field,_that.type,_that.maxLength,_that.minLength,_that.maxValue,_that.minValue,_that.choices,_that.onlyField,_that.onlyChoices,_that.action,_that.requiredFields,_that.seq,_that.extensions);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -220,10 +225,10 @@ return $default(_that.field,_that.type,_that.maxLength,_that.minLength,_that.max
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String field,  CredentialFieldType type,  int? maxLength,  int? minLength,  num? maxValue,  num? minValue,  List<String>? choices,  String? onlyField,  List<String>? onlyChoices,  CredentialFieldAction? action,  List<CredentialField>? requiredFields)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String field,  CredentialFieldType type,  int? maxLength,  int? minLength,  num? maxValue,  num? minValue,  List<String>? choices,  String? onlyField,  List<String>? onlyChoices,  CredentialFieldAction? action,  List<CredentialField>? requiredFields,  int? seq,  List<String>? extensions)?  $default,) {final _that = this;
 switch (_that) {
 case _CredentialField() when $default != null:
-return $default(_that.field,_that.type,_that.maxLength,_that.minLength,_that.maxValue,_that.minValue,_that.choices,_that.onlyField,_that.onlyChoices,_that.action,_that.requiredFields);case _:
+return $default(_that.field,_that.type,_that.maxLength,_that.minLength,_that.maxValue,_that.minValue,_that.choices,_that.onlyField,_that.onlyChoices,_that.action,_that.requiredFields,_that.seq,_that.extensions);case _:
   return null;
 
 }
@@ -235,7 +240,7 @@ return $default(_that.field,_that.type,_that.maxLength,_that.minLength,_that.max
 @JsonSerializable()
 
 class _CredentialField extends CredentialField {
-  const _CredentialField({required this.field, required this.type, this.maxLength, this.minLength, this.maxValue, this.minValue, this.choices, this.onlyField, this.onlyChoices, this.action, this.requiredFields}): super._();
+  const _CredentialField({required this.field, required this.type, this.maxLength, this.minLength, this.maxValue, this.minValue, this.choices, this.onlyField, this.onlyChoices, this.action, this.requiredFields, this.seq, this.extensions}): super._();
   factory _CredentialField.fromJson(Map<String, dynamic> json) => _$CredentialFieldFromJson(json);
 
 /// [field] is the name of the field, is a translation key.
@@ -265,6 +270,11 @@ class _CredentialField extends CredentialField {
 /// [requiredFields] represents the nested fields.
 /// Only used when [type] = [CredentialFieldType.nestedField].
 @override final  List<CredentialField>? requiredFields;
+/// [seq] is the sequential number used to order the fields in the frontend.
+@override final  int? seq;
+/// [extensions] is the list of allowed file extensions for the field. Intended for file fields
+/// ([CredentialFieldType.base64]).
+@override final  List<String>? extensions;
 
 /// Create a copy of CredentialField
 /// with the given fields replaced by the non-null parameter values.
@@ -279,16 +289,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CredentialField&&(identical(other.field, field) || other.field == field)&&(identical(other.type, type) || other.type == type)&&(identical(other.maxLength, maxLength) || other.maxLength == maxLength)&&(identical(other.minLength, minLength) || other.minLength == minLength)&&(identical(other.maxValue, maxValue) || other.maxValue == maxValue)&&(identical(other.minValue, minValue) || other.minValue == minValue)&&const DeepCollectionEquality().equals(other.choices, choices)&&(identical(other.onlyField, onlyField) || other.onlyField == onlyField)&&const DeepCollectionEquality().equals(other.onlyChoices, onlyChoices)&&(identical(other.action, action) || other.action == action)&&const DeepCollectionEquality().equals(other.requiredFields, requiredFields));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CredentialField&&(identical(other.field, field) || other.field == field)&&(identical(other.type, type) || other.type == type)&&(identical(other.maxLength, maxLength) || other.maxLength == maxLength)&&(identical(other.minLength, minLength) || other.minLength == minLength)&&(identical(other.maxValue, maxValue) || other.maxValue == maxValue)&&(identical(other.minValue, minValue) || other.minValue == minValue)&&const DeepCollectionEquality().equals(other.choices, choices)&&(identical(other.onlyField, onlyField) || other.onlyField == onlyField)&&const DeepCollectionEquality().equals(other.onlyChoices, onlyChoices)&&(identical(other.action, action) || other.action == action)&&const DeepCollectionEquality().equals(other.requiredFields, requiredFields)&&(identical(other.seq, seq) || other.seq == seq)&&const DeepCollectionEquality().equals(other.extensions, extensions));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,field,type,maxLength,minLength,maxValue,minValue,const DeepCollectionEquality().hash(choices),onlyField,const DeepCollectionEquality().hash(onlyChoices),action,const DeepCollectionEquality().hash(requiredFields));
+int get hashCode => Object.hash(runtimeType,field,type,maxLength,minLength,maxValue,minValue,const DeepCollectionEquality().hash(choices),onlyField,const DeepCollectionEquality().hash(onlyChoices),action,const DeepCollectionEquality().hash(requiredFields),seq,const DeepCollectionEquality().hash(extensions));
 
 @override
 String toString() {
-  return 'CredentialField(field: $field, type: $type, maxLength: $maxLength, minLength: $minLength, maxValue: $maxValue, minValue: $minValue, choices: $choices, onlyField: $onlyField, onlyChoices: $onlyChoices, action: $action, requiredFields: $requiredFields)';
+  return 'CredentialField(field: $field, type: $type, maxLength: $maxLength, minLength: $minLength, maxValue: $maxValue, minValue: $minValue, choices: $choices, onlyField: $onlyField, onlyChoices: $onlyChoices, action: $action, requiredFields: $requiredFields, seq: $seq, extensions: $extensions)';
 }
 
 
@@ -299,7 +309,7 @@ abstract mixin class _$CredentialFieldCopyWith<$Res> implements $CredentialField
   factory _$CredentialFieldCopyWith(_CredentialField value, $Res Function(_CredentialField) _then) = __$CredentialFieldCopyWithImpl;
 @override @useResult
 $Res call({
- String field, CredentialFieldType type, int? maxLength, int? minLength, num? maxValue, num? minValue, List<String>? choices, String? onlyField, List<String>? onlyChoices, CredentialFieldAction? action, List<CredentialField>? requiredFields
+ String field, CredentialFieldType type, int? maxLength, int? minLength, num? maxValue, num? minValue, List<String>? choices, String? onlyField, List<String>? onlyChoices, CredentialFieldAction? action, List<CredentialField>? requiredFields, int? seq, List<String>? extensions
 });
 
 
@@ -316,7 +326,7 @@ class __$CredentialFieldCopyWithImpl<$Res>
 
 /// Create a copy of CredentialField
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? field = null,Object? type = null,Object? maxLength = freezed,Object? minLength = freezed,Object? maxValue = freezed,Object? minValue = freezed,Object? choices = freezed,Object? onlyField = freezed,Object? onlyChoices = freezed,Object? action = freezed,Object? requiredFields = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? field = null,Object? type = null,Object? maxLength = freezed,Object? minLength = freezed,Object? maxValue = freezed,Object? minValue = freezed,Object? choices = freezed,Object? onlyField = freezed,Object? onlyChoices = freezed,Object? action = freezed,Object? requiredFields = freezed,Object? seq = freezed,Object? extensions = freezed,}) {
   return _then(_CredentialField(
 field: null == field ? _self.field : field // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
@@ -329,7 +339,9 @@ as List<String>?,onlyField: freezed == onlyField ? _self.onlyField : onlyField /
 as String?,onlyChoices: freezed == onlyChoices ? _self.onlyChoices : onlyChoices // ignore: cast_nullable_to_non_nullable
 as List<String>?,action: freezed == action ? _self.action : action // ignore: cast_nullable_to_non_nullable
 as CredentialFieldAction?,requiredFields: freezed == requiredFields ? _self.requiredFields : requiredFields // ignore: cast_nullable_to_non_nullable
-as List<CredentialField>?,
+as List<CredentialField>?,seq: freezed == seq ? _self.seq : seq // ignore: cast_nullable_to_non_nullable
+as int?,extensions: freezed == extensions ? _self.extensions : extensions // ignore: cast_nullable_to_non_nullable
+as List<String>?,
   ));
 }
 

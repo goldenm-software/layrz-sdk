@@ -42,6 +42,13 @@ abstract class CredentialField with _$CredentialField {
     /// [requiredFields] represents the nested fields.
     /// Only used when [type] = [CredentialFieldType.nestedField].
     List<CredentialField>? requiredFields,
+
+    /// [seq] is the sequential number used to order the fields in the frontend.
+    int? seq,
+
+    /// [extensions] is the list of allowed file extensions for the field. Intended for file fields
+    /// ([CredentialFieldType.base64]).
+    List<String>? extensions,
   }) = _CredentialField;
 
   factory CredentialField.fromJson(Map<String, dynamic> json) => _$CredentialFieldFromJson(json);
@@ -59,6 +66,8 @@ abstract class CredentialField with _$CredentialField {
       GqlField(name: 'choices'),
       GqlField(name: 'onlyField'),
       GqlField(name: 'onlyChoices'),
+      GqlField(name: 'seq'),
+      GqlField(name: 'extensions'),
     ];
 
     return GqlFragment(
