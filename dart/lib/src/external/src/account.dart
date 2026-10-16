@@ -33,53 +33,40 @@ abstract class ExternalAccount with _$ExternalAccount {
 
     /// [devices] is the list of devices that have been imported from this external account.
     List<Device>? devices,
+
+    /// [ownerId] is the identifier of the user that owns this external account.
+    String? ownerId,
+
+    /// [sourceName] is the display name of the [source], exposed directly by the API.
+    String? sourceName,
   }) = _ExternalAccount;
 
   /// Creates an [ExternalAccount] from a JSON map.
   factory ExternalAccount.fromJson(Map<String, dynamic> json) => _$ExternalAccountFromJson(json);
 
   /// [gqlFragment] is the GqlFragment for an external account, including its source and access.
-  static GqlFragment get gqlFragment =>
-      GqlFragment(name: 'externalAccountFragment', onType: 'ExternalAccount')
+  static GqlFragment get gqlFragment => GqlFragment(name: 'externalAccountFragment', onType: 'ExternalAccount')
+    ..add(GqlField(name: 'id'))
+    ..add(GqlField(name: 'name'))
+    ..add(GqlField(name: 'credentials'))
+    ..add(GqlField(name: 'sourceId'))
+    ..add(
+      GqlField(name: 'devices')
         ..add(GqlField(name: 'id'))
         ..add(GqlField(name: 'name'))
-        ..add(GqlField(name: 'credentials'))
-        ..add(GqlField(name: 'sourceId'))
-        ..add(
-          GqlField(name: 'devices')
-            ..add(GqlField(name: 'id'))
-            ..add(GqlField(name: 'name'))
-            ..add(GqlField(name: 'ident')),
-        )
-        ..add(
-          GqlField(name: 'source')
-            ..add(GqlField(name: 'id'))
-            ..add(GqlField(name: 'name'))
-            ..add(GqlField(name: 'color'))
-            ..add(GqlField(name: 'isEnabled'))
-            ..add(_requiredFieldsField(nested: _requiredFieldsField())),
-        )
-        ..add(GqlField(name: 'access', fragment: Access.graphqlIdFragment));
-
-  /// [_requiredFieldsField] builds the `requiredFields` selection.
-  ///
-  /// The API nests `requiredFields` one level into itself, so pass another instance as [nested]
-  /// to reproduce that inner level.
-  static GqlField _requiredFieldsField({GqlField? nested}) => GqlField(
-    name: 'requiredFields',
-    fields: [
-      GqlField(name: 'field'),
-      GqlField(name: 'type'),
-      GqlField(name: 'maxLength'),
-      GqlField(name: 'minLength'),
-      GqlField(name: 'maxValue'),
-      GqlField(name: 'minValue'),
-      GqlField(name: 'choices'),
-      GqlField(name: 'onlyChoices'),
-      GqlField(name: 'onlyField'),
-      ?nested,
-    ],
-  );
+        ..add(GqlField(name: 'ident')),
+    )
+    ..add(GqlField(name: 'ownerId'))
+    ..add(GqlField(name: 'sourceName'))
+    ..add(
+      GqlField(name: 'source')
+        ..add(GqlField(name: 'id'))
+        ..add(GqlField(name: 'name'))
+        ..add(GqlField(name: 'color'))
+        ..add(GqlField(name: 'isEnabled'))
+        ..add(GqlField(name: 'requiredFields', fragment: CredentialField.fragment)),
+    )
+    ..add(GqlField(name: 'access', fragment: Access.idFragment));
 
   // coverage:ignore-start
   /// [fetch] fetches a single external account from the server by its ID.

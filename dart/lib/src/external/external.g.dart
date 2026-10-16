@@ -21,6 +21,8 @@ _ExternalAccount _$ExternalAccountFromJson(Map<String, dynamic> json) =>
       devices: (json['devices'] as List<dynamic>?)
           ?.map((e) => Device.fromJson(e as Map<String, dynamic>))
           .toList(),
+      ownerId: json['ownerId'] as String?,
+      sourceName: json['sourceName'] as String?,
     );
 
 Map<String, dynamic> _$ExternalAccountToJson(_ExternalAccount instance) =>
@@ -32,6 +34,8 @@ Map<String, dynamic> _$ExternalAccountToJson(_ExternalAccount instance) =>
       'sourceId': instance.sourceId,
       'access': instance.access?.map((e) => e.toJson()).toList(),
       'devices': instance.devices?.map((e) => e.toJson()).toList(),
+      'ownerId': instance.ownerId,
+      'sourceName': instance.sourceName,
     };
 
 _ExternalAccountInput _$ExternalAccountInputFromJson(
@@ -73,3 +77,29 @@ Map<String, dynamic> _$ExternalSourceToJson(_ExternalSource instance) =>
       'isEnabled': instance.isEnabled,
       'requiredFields': instance.requiredFields.map((e) => e.toJson()).toList(),
     };
+
+_WialonAccount _$WialonAccountFromJson(Map<String, dynamic> json) =>
+    _WialonAccount(
+      wialonId: json['wialonId'] as String,
+      name: json['name'] as String,
+    );
+
+Map<String, dynamic> _$WialonAccountToJson(_WialonAccount instance) =>
+    <String, dynamic>{'wialonId': instance.wialonId, 'name': instance.name};
+
+_WialonAccountsInput _$WialonAccountsInputFromJson(Map<String, dynamic> json) =>
+    _WialonAccountsInput(
+      externalAccountId: json['externalAccountId'] as String,
+      wialonIds:
+          (json['wialonIds'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+    );
+
+Map<String, dynamic> _$WialonAccountsInputToJson(
+  _WialonAccountsInput instance,
+) => <String, dynamic>{
+  'externalAccountId': instance.externalAccountId,
+  'wialonIds': instance.wialonIds,
+};
