@@ -9,7 +9,7 @@
 library;
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart' show Color;
 import 'package:layrz_logging/layrz_logging.dart';
 import 'package:layrz_sdk/src/access/access.dart';
 import 'package:layrz_sdk/src/api/api.dart';
@@ -24,3 +24,5 @@ part 'src/variants.dart';
 part 'src/decoders.dart';
 part 'src/account.dart';
 part 'src/source.dart';
+part 'src/wialon_account.dart';
+part 'src/wialon_accounts_input.dart';

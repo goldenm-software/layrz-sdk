@@ -13,3 +13,15 @@ ExternalAccount? _externalAccountDecoder(Object? json) {
   if (json is! Map<String, dynamic>) return null;
   return ExternalAccount.fromJson(json);
 }
+
+/// [_externalSourceListDecoder] decodes a raw listing `result` payload into a list of [ExternalSource].
+List<ExternalSource> _externalSourceListDecoder(Object? json) {
+  if (json is! List) return [];
+  return json.map((e) => ExternalSource.fromJson(Map<String, dynamic>.from(e as Map))).toList();
+}
+
+/// [_wialonAccountListDecoder] decodes a raw listing `result` payload into a list of [WialonAccount].
+List<WialonAccount> _wialonAccountListDecoder(Object? json) {
+  if (json is! List) return [];
+  return json.map((e) => WialonAccount.fromJson(Map<String, dynamic>.from(e as Map))).toList();
+}

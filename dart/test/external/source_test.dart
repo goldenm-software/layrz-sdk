@@ -131,4 +131,18 @@ void main() {
       expect(source.requiredFields[2].field, 'host');
     });
   });
+
+  group('ExternalSource.fragment', () {
+    test('selects seq and extensions and never asks for action', () {
+      final query = GqlQuery(variables: [])
+        ..add(GqlField(name: 'externalSources')..add(GqlField(name: 'result', fragment: ExternalSource.fragment)));
+      final doc = query.generated;
+
+      expect(doc, contains('requiredFields'));
+      expect(doc, contains('seq'));
+      expect(doc, contains('extensions'));
+      expect(doc, isNot(contains('action')));
+      expect(doc, isNot(contains('supportedTechnologies')));
+    });
+  });
 }

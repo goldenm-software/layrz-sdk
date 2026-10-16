@@ -1,5 +1,23 @@
 # Changelog
 
+## 4.14.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* Added `ExternalAccount.ownerId` and `ExternalAccount.sourceName`, both selected by `ExternalAccount.gqlFragment`.
+* `ExternalAccount.gqlFragment` now selects the source `requiredFields` through `CredentialField.fragment` (including `seq` and `extensions`) and uses `Access.idFragment`.
+* Added `ExternalSource.fragment` and `ExternalSource.fetchAll` to the `external` module.
+* Added `WialonAccount` with `fragment` and `fetchAll`.
+* Added `WialonAccountsInput` with `import`, to import Wialon accounts into Layrz.
+
+### Go
+
+* No changes in this release.
+
 ## 4.13.0
 
 ### Python

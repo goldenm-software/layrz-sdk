@@ -242,4 +242,47 @@ void main() {
       expect(json['id'], 'existing_account_id');
     });
   });
+
+  group('ExternalAccount ownerId, sourceName and fragment', () {
+    test('ExternalAccount.fromJson() reads ownerId and sourceName', () {
+      final account = ExternalAccount.fromJson(<String, dynamic>{
+        'id': 'a1',
+        'name': 'Account',
+        'ownerId': 'owner_1',
+        'sourceName': 'Wialon',
+      });
+
+      expect(account.ownerId, 'owner_1');
+      expect(account.sourceName, 'Wialon');
+    });
+
+    test('ExternalAccount.toJson() roundtrips ownerId and sourceName', () {
+      final json = ExternalAccount(id: 'a1', name: 'Account', ownerId: 'owner_1', sourceName: 'Wialon').toJson();
+
+      expect(json['ownerId'], 'owner_1');
+      expect(json['sourceName'], 'Wialon');
+      final restored = ExternalAccount.fromJson(json);
+      expect(restored.ownerId, 'owner_1');
+      expect(restored.sourceName, 'Wialon');
+    });
+
+    test('ExternalAccount.fromJson() leaves ownerId and sourceName null when absent', () {
+      final account = ExternalAccount.fromJson(<String, dynamic>{'id': 'a1', 'name': 'Account'});
+
+      expect(account.ownerId, isNull);
+      expect(account.sourceName, isNull);
+    });
+
+    test('ExternalAccount.gqlFragment selects the new fields and never asks for action', () {
+      final query = GqlQuery(variables: [])
+        ..add(GqlField(name: 'externalAccounts')..add(GqlField(name: 'result', fragment: ExternalAccount.gqlFragment)));
+      final doc = query.generated;
+
+      expect(doc, contains('ownerId'));
+      expect(doc, contains('sourceName'));
+      expect(doc, contains('seq'));
+      expect(doc, contains('extensions'));
+      expect(doc, isNot(contains('action')));
+    });
+  });
 }

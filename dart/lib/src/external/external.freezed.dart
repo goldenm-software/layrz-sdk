@@ -24,7 +24,9 @@ mixin _$ExternalAccount {
  ExternalSource? get source;/// [sourceId] is the reference to the `ExternalSource` identifier.
  String? get sourceId;/// [access] is the list of access permissions configured for this external account.
  List<Access>? get access;/// [devices] is the list of devices that have been imported from this external account.
- List<Device>? get devices;
+ List<Device>? get devices;/// [ownerId] is the identifier of the user that owns this external account.
+ String? get ownerId;/// [sourceName] is the display name of the [source], exposed directly by the API.
+ String? get sourceName;
 /// Create a copy of ExternalAccount
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -37,16 +39,16 @@ $ExternalAccountCopyWith<ExternalAccount> get copyWith => _$ExternalAccountCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExternalAccount&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.credentials, credentials)&&(identical(other.source, source) || other.source == source)&&(identical(other.sourceId, sourceId) || other.sourceId == sourceId)&&const DeepCollectionEquality().equals(other.access, access)&&const DeepCollectionEquality().equals(other.devices, devices));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExternalAccount&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.credentials, credentials)&&(identical(other.source, source) || other.source == source)&&(identical(other.sourceId, sourceId) || other.sourceId == sourceId)&&const DeepCollectionEquality().equals(other.access, access)&&const DeepCollectionEquality().equals(other.devices, devices)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId)&&(identical(other.sourceName, sourceName) || other.sourceName == sourceName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(credentials),source,sourceId,const DeepCollectionEquality().hash(access),const DeepCollectionEquality().hash(devices));
+int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(credentials),source,sourceId,const DeepCollectionEquality().hash(access),const DeepCollectionEquality().hash(devices),ownerId,sourceName);
 
 @override
 String toString() {
-  return 'ExternalAccount(id: $id, name: $name, credentials: $credentials, source: $source, sourceId: $sourceId, access: $access, devices: $devices)';
+  return 'ExternalAccount(id: $id, name: $name, credentials: $credentials, source: $source, sourceId: $sourceId, access: $access, devices: $devices, ownerId: $ownerId, sourceName: $sourceName)';
 }
 
 
@@ -57,7 +59,7 @@ abstract mixin class $ExternalAccountCopyWith<$Res>  {
   factory $ExternalAccountCopyWith(ExternalAccount value, $Res Function(ExternalAccount) _then) = _$ExternalAccountCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, Map<String, dynamic>? credentials, ExternalSource? source, String? sourceId, List<Access>? access, List<Device>? devices
+ String id, String name, Map<String, dynamic>? credentials, ExternalSource? source, String? sourceId, List<Access>? access, List<Device>? devices, String? ownerId, String? sourceName
 });
 
 
@@ -74,7 +76,7 @@ class _$ExternalAccountCopyWithImpl<$Res>
 
 /// Create a copy of ExternalAccount
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? credentials = freezed,Object? source = freezed,Object? sourceId = freezed,Object? access = freezed,Object? devices = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? credentials = freezed,Object? source = freezed,Object? sourceId = freezed,Object? access = freezed,Object? devices = freezed,Object? ownerId = freezed,Object? sourceName = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -83,7 +85,9 @@ as Map<String, dynamic>?,source: freezed == source ? _self.source : source // ig
 as ExternalSource?,sourceId: freezed == sourceId ? _self.sourceId : sourceId // ignore: cast_nullable_to_non_nullable
 as String?,access: freezed == access ? _self.access : access // ignore: cast_nullable_to_non_nullable
 as List<Access>?,devices: freezed == devices ? _self.devices : devices // ignore: cast_nullable_to_non_nullable
-as List<Device>?,
+as List<Device>?,ownerId: freezed == ownerId ? _self.ownerId : ownerId // ignore: cast_nullable_to_non_nullable
+as String?,sourceName: freezed == sourceName ? _self.sourceName : sourceName // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 /// Create a copy of ExternalAccount
@@ -180,10 +184,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  Map<String, dynamic>? credentials,  ExternalSource? source,  String? sourceId,  List<Access>? access,  List<Device>? devices)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  Map<String, dynamic>? credentials,  ExternalSource? source,  String? sourceId,  List<Access>? access,  List<Device>? devices,  String? ownerId,  String? sourceName)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ExternalAccount() when $default != null:
-return $default(_that.id,_that.name,_that.credentials,_that.source,_that.sourceId,_that.access,_that.devices);case _:
+return $default(_that.id,_that.name,_that.credentials,_that.source,_that.sourceId,_that.access,_that.devices,_that.ownerId,_that.sourceName);case _:
   return orElse();
 
 }
@@ -201,10 +205,10 @@ return $default(_that.id,_that.name,_that.credentials,_that.source,_that.sourceI
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  Map<String, dynamic>? credentials,  ExternalSource? source,  String? sourceId,  List<Access>? access,  List<Device>? devices)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  Map<String, dynamic>? credentials,  ExternalSource? source,  String? sourceId,  List<Access>? access,  List<Device>? devices,  String? ownerId,  String? sourceName)  $default,) {final _that = this;
 switch (_that) {
 case _ExternalAccount():
-return $default(_that.id,_that.name,_that.credentials,_that.source,_that.sourceId,_that.access,_that.devices);case _:
+return $default(_that.id,_that.name,_that.credentials,_that.source,_that.sourceId,_that.access,_that.devices,_that.ownerId,_that.sourceName);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -221,10 +225,10 @@ return $default(_that.id,_that.name,_that.credentials,_that.source,_that.sourceI
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  Map<String, dynamic>? credentials,  ExternalSource? source,  String? sourceId,  List<Access>? access,  List<Device>? devices)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  Map<String, dynamic>? credentials,  ExternalSource? source,  String? sourceId,  List<Access>? access,  List<Device>? devices,  String? ownerId,  String? sourceName)?  $default,) {final _that = this;
 switch (_that) {
 case _ExternalAccount() when $default != null:
-return $default(_that.id,_that.name,_that.credentials,_that.source,_that.sourceId,_that.access,_that.devices);case _:
+return $default(_that.id,_that.name,_that.credentials,_that.source,_that.sourceId,_that.access,_that.devices,_that.ownerId,_that.sourceName);case _:
   return null;
 
 }
@@ -236,7 +240,7 @@ return $default(_that.id,_that.name,_that.credentials,_that.source,_that.sourceI
 @JsonSerializable()
 
 class _ExternalAccount implements ExternalAccount {
-  const _ExternalAccount({required this.id, required this.name, this.credentials, this.source, this.sourceId, this.access, this.devices});
+  const _ExternalAccount({required this.id, required this.name, this.credentials, this.source, this.sourceId, this.access, this.devices, this.ownerId, this.sourceName});
   factory _ExternalAccount.fromJson(Map<String, dynamic> json) => _$ExternalAccountFromJson(json);
 
 /// [id] is the unique database identifier for this external account.
@@ -255,6 +259,10 @@ class _ExternalAccount implements ExternalAccount {
 @override final  List<Access>? access;
 /// [devices] is the list of devices that have been imported from this external account.
 @override final  List<Device>? devices;
+/// [ownerId] is the identifier of the user that owns this external account.
+@override final  String? ownerId;
+/// [sourceName] is the display name of the [source], exposed directly by the API.
+@override final  String? sourceName;
 
 /// Create a copy of ExternalAccount
 /// with the given fields replaced by the non-null parameter values.
@@ -269,16 +277,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExternalAccount&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.credentials, credentials)&&(identical(other.source, source) || other.source == source)&&(identical(other.sourceId, sourceId) || other.sourceId == sourceId)&&const DeepCollectionEquality().equals(other.access, access)&&const DeepCollectionEquality().equals(other.devices, devices));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExternalAccount&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.credentials, credentials)&&(identical(other.source, source) || other.source == source)&&(identical(other.sourceId, sourceId) || other.sourceId == sourceId)&&const DeepCollectionEquality().equals(other.access, access)&&const DeepCollectionEquality().equals(other.devices, devices)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId)&&(identical(other.sourceName, sourceName) || other.sourceName == sourceName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(credentials),source,sourceId,const DeepCollectionEquality().hash(access),const DeepCollectionEquality().hash(devices));
+int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(credentials),source,sourceId,const DeepCollectionEquality().hash(access),const DeepCollectionEquality().hash(devices),ownerId,sourceName);
 
 @override
 String toString() {
-  return 'ExternalAccount(id: $id, name: $name, credentials: $credentials, source: $source, sourceId: $sourceId, access: $access, devices: $devices)';
+  return 'ExternalAccount(id: $id, name: $name, credentials: $credentials, source: $source, sourceId: $sourceId, access: $access, devices: $devices, ownerId: $ownerId, sourceName: $sourceName)';
 }
 
 
@@ -289,7 +297,7 @@ abstract mixin class _$ExternalAccountCopyWith<$Res> implements $ExternalAccount
   factory _$ExternalAccountCopyWith(_ExternalAccount value, $Res Function(_ExternalAccount) _then) = __$ExternalAccountCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, Map<String, dynamic>? credentials, ExternalSource? source, String? sourceId, List<Access>? access, List<Device>? devices
+ String id, String name, Map<String, dynamic>? credentials, ExternalSource? source, String? sourceId, List<Access>? access, List<Device>? devices, String? ownerId, String? sourceName
 });
 
 
@@ -306,7 +314,7 @@ class __$ExternalAccountCopyWithImpl<$Res>
 
 /// Create a copy of ExternalAccount
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? credentials = freezed,Object? source = freezed,Object? sourceId = freezed,Object? access = freezed,Object? devices = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? credentials = freezed,Object? source = freezed,Object? sourceId = freezed,Object? access = freezed,Object? devices = freezed,Object? ownerId = freezed,Object? sourceName = freezed,}) {
   return _then(_ExternalAccount(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -315,7 +323,9 @@ as Map<String, dynamic>?,source: freezed == source ? _self.source : source // ig
 as ExternalSource?,sourceId: freezed == sourceId ? _self.sourceId : sourceId // ignore: cast_nullable_to_non_nullable
 as String?,access: freezed == access ? _self.access : access // ignore: cast_nullable_to_non_nullable
 as List<Access>?,devices: freezed == devices ? _self.devices : devices // ignore: cast_nullable_to_non_nullable
-as List<Device>?,
+as List<Device>?,ownerId: freezed == ownerId ? _self.ownerId : ownerId // ignore: cast_nullable_to_non_nullable
+as String?,sourceName: freezed == sourceName ? _self.sourceName : sourceName // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -816,8 +826,8 @@ return $default(_that.id,_that.name,_that.color,_that.isEnabled,_that.requiredFi
 /// @nodoc
 @JsonSerializable()
 
-class _ExternalSource implements ExternalSource {
-  const _ExternalSource({required this.id, required this.name, @ColorConverter() required this.color, required this.isEnabled, this.requiredFields = const []});
+class _ExternalSource extends ExternalSource {
+  const _ExternalSource({required this.id, required this.name, @ColorConverter() required this.color, required this.isEnabled, this.requiredFields = const []}): super._();
   factory _ExternalSource.fromJson(Map<String, dynamic> json) => _$ExternalSourceFromJson(json);
 
 /// [id] is the unique database identifier for this external source.
@@ -889,6 +899,534 @@ as String,color: null == color ? _self.color : color // ignore: cast_nullable_to
 as Color,isEnabled: null == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
 as bool,requiredFields: null == requiredFields ? _self.requiredFields : requiredFields // ignore: cast_nullable_to_non_nullable
 as List<CredentialField>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$WialonAccount {
+
+/// [wialonId] is the identifier of the account in the Wialon platform.
+ String get wialonId;/// [name] is the display name of the account in the Wialon platform.
+ String get name;
+/// Create a copy of WialonAccount
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$WialonAccountCopyWith<WialonAccount> get copyWith => _$WialonAccountCopyWithImpl<WialonAccount>(this as WialonAccount, _$identity);
+
+  /// Serializes this WialonAccount to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WialonAccount&&(identical(other.wialonId, wialonId) || other.wialonId == wialonId)&&(identical(other.name, name) || other.name == name));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,wialonId,name);
+
+@override
+String toString() {
+  return 'WialonAccount(wialonId: $wialonId, name: $name)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $WialonAccountCopyWith<$Res>  {
+  factory $WialonAccountCopyWith(WialonAccount value, $Res Function(WialonAccount) _then) = _$WialonAccountCopyWithImpl;
+@useResult
+$Res call({
+ String wialonId, String name
+});
+
+
+
+
+}
+/// @nodoc
+class _$WialonAccountCopyWithImpl<$Res>
+    implements $WialonAccountCopyWith<$Res> {
+  _$WialonAccountCopyWithImpl(this._self, this._then);
+
+  final WialonAccount _self;
+  final $Res Function(WialonAccount) _then;
+
+/// Create a copy of WialonAccount
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? wialonId = null,Object? name = null,}) {
+  return _then(_self.copyWith(
+wialonId: null == wialonId ? _self.wialonId : wialonId // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [WialonAccount].
+extension WialonAccountPatterns on WialonAccount {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _WialonAccount value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _WialonAccount() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _WialonAccount value)  $default,){
+final _that = this;
+switch (_that) {
+case _WialonAccount():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _WialonAccount value)?  $default,){
+final _that = this;
+switch (_that) {
+case _WialonAccount() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String wialonId,  String name)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _WialonAccount() when $default != null:
+return $default(_that.wialonId,_that.name);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String wialonId,  String name)  $default,) {final _that = this;
+switch (_that) {
+case _WialonAccount():
+return $default(_that.wialonId,_that.name);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String wialonId,  String name)?  $default,) {final _that = this;
+switch (_that) {
+case _WialonAccount() when $default != null:
+return $default(_that.wialonId,_that.name);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _WialonAccount extends WialonAccount {
+  const _WialonAccount({required this.wialonId, required this.name}): super._();
+  factory _WialonAccount.fromJson(Map<String, dynamic> json) => _$WialonAccountFromJson(json);
+
+/// [wialonId] is the identifier of the account in the Wialon platform.
+@override final  String wialonId;
+/// [name] is the display name of the account in the Wialon platform.
+@override final  String name;
+
+/// Create a copy of WialonAccount
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$WialonAccountCopyWith<_WialonAccount> get copyWith => __$WialonAccountCopyWithImpl<_WialonAccount>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$WialonAccountToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WialonAccount&&(identical(other.wialonId, wialonId) || other.wialonId == wialonId)&&(identical(other.name, name) || other.name == name));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,wialonId,name);
+
+@override
+String toString() {
+  return 'WialonAccount(wialonId: $wialonId, name: $name)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$WialonAccountCopyWith<$Res> implements $WialonAccountCopyWith<$Res> {
+  factory _$WialonAccountCopyWith(_WialonAccount value, $Res Function(_WialonAccount) _then) = __$WialonAccountCopyWithImpl;
+@override @useResult
+$Res call({
+ String wialonId, String name
+});
+
+
+
+
+}
+/// @nodoc
+class __$WialonAccountCopyWithImpl<$Res>
+    implements _$WialonAccountCopyWith<$Res> {
+  __$WialonAccountCopyWithImpl(this._self, this._then);
+
+  final _WialonAccount _self;
+  final $Res Function(_WialonAccount) _then;
+
+/// Create a copy of WialonAccount
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? wialonId = null,Object? name = null,}) {
+  return _then(_WialonAccount(
+wialonId: null == wialonId ? _self.wialonId : wialonId // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$WialonAccountsInput {
+
+/// [externalAccountId] is the ID of the external account used to reach the Wialon platform.
+ String get externalAccountId;/// [externalAccountId] is the ID of the external account used to reach the Wialon platform.
+ set externalAccountId(String value);/// [wialonIds] is the list of Wialon account identifiers to import. Defaults to an empty list.
+ List<String> get wialonIds;/// [wialonIds] is the list of Wialon account identifiers to import. Defaults to an empty list.
+ set wialonIds(List<String> value);
+/// Create a copy of WialonAccountsInput
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$WialonAccountsInputCopyWith<WialonAccountsInput> get copyWith => _$WialonAccountsInputCopyWithImpl<WialonAccountsInput>(this as WialonAccountsInput, _$identity);
+
+  /// Serializes this WialonAccountsInput to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'WialonAccountsInput(externalAccountId: $externalAccountId, wialonIds: $wialonIds)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $WialonAccountsInputCopyWith<$Res>  {
+  factory $WialonAccountsInputCopyWith(WialonAccountsInput value, $Res Function(WialonAccountsInput) _then) = _$WialonAccountsInputCopyWithImpl;
+@useResult
+$Res call({
+ String externalAccountId, List<String> wialonIds
+});
+
+
+
+
+}
+/// @nodoc
+class _$WialonAccountsInputCopyWithImpl<$Res>
+    implements $WialonAccountsInputCopyWith<$Res> {
+  _$WialonAccountsInputCopyWithImpl(this._self, this._then);
+
+  final WialonAccountsInput _self;
+  final $Res Function(WialonAccountsInput) _then;
+
+/// Create a copy of WialonAccountsInput
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? externalAccountId = null,Object? wialonIds = null,}) {
+  return _then(_self.copyWith(
+externalAccountId: null == externalAccountId ? _self.externalAccountId : externalAccountId // ignore: cast_nullable_to_non_nullable
+as String,wialonIds: null == wialonIds ? _self.wialonIds : wialonIds // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [WialonAccountsInput].
+extension WialonAccountsInputPatterns on WialonAccountsInput {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _WialonAccountsInput value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _WialonAccountsInput() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _WialonAccountsInput value)  $default,){
+final _that = this;
+switch (_that) {
+case _WialonAccountsInput():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _WialonAccountsInput value)?  $default,){
+final _that = this;
+switch (_that) {
+case _WialonAccountsInput() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String externalAccountId,  List<String> wialonIds)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _WialonAccountsInput() when $default != null:
+return $default(_that.externalAccountId,_that.wialonIds);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String externalAccountId,  List<String> wialonIds)  $default,) {final _that = this;
+switch (_that) {
+case _WialonAccountsInput():
+return $default(_that.externalAccountId,_that.wialonIds);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String externalAccountId,  List<String> wialonIds)?  $default,) {final _that = this;
+switch (_that) {
+case _WialonAccountsInput() when $default != null:
+return $default(_that.externalAccountId,_that.wialonIds);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _WialonAccountsInput extends WialonAccountsInput {
+   _WialonAccountsInput({required this.externalAccountId, this.wialonIds = const []}): super._();
+  factory _WialonAccountsInput.fromJson(Map<String, dynamic> json) => _$WialonAccountsInputFromJson(json);
+
+/// [externalAccountId] is the ID of the external account used to reach the Wialon platform.
+@override  String externalAccountId;
+/// [wialonIds] is the list of Wialon account identifiers to import. Defaults to an empty list.
+@override@JsonKey()  List<String> wialonIds;
+
+/// Create a copy of WialonAccountsInput
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$WialonAccountsInputCopyWith<_WialonAccountsInput> get copyWith => __$WialonAccountsInputCopyWithImpl<_WialonAccountsInput>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$WialonAccountsInputToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'WialonAccountsInput(externalAccountId: $externalAccountId, wialonIds: $wialonIds)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$WialonAccountsInputCopyWith<$Res> implements $WialonAccountsInputCopyWith<$Res> {
+  factory _$WialonAccountsInputCopyWith(_WialonAccountsInput value, $Res Function(_WialonAccountsInput) _then) = __$WialonAccountsInputCopyWithImpl;
+@override @useResult
+$Res call({
+ String externalAccountId, List<String> wialonIds
+});
+
+
+
+
+}
+/// @nodoc
+class __$WialonAccountsInputCopyWithImpl<$Res>
+    implements _$WialonAccountsInputCopyWith<$Res> {
+  __$WialonAccountsInputCopyWithImpl(this._self, this._then);
+
+  final _WialonAccountsInput _self;
+  final $Res Function(_WialonAccountsInput) _then;
+
+/// Create a copy of WialonAccountsInput
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? externalAccountId = null,Object? wialonIds = null,}) {
+  return _then(_WialonAccountsInput(
+externalAccountId: null == externalAccountId ? _self.externalAccountId : externalAccountId // ignore: cast_nullable_to_non_nullable
+as String,wialonIds: null == wialonIds ? _self.wialonIds : wialonIds // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 
