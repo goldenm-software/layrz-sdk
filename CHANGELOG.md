@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.15.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* Added the ATS models that `layrz_models` used to provide to the `ats` module, with the same shape and JSON contracts: entries, exits (`AtsExecuteExitInput`), operations, loading orders, purchase orders, receptions (with their products, company and loading-parameter forms), manifests, CACL entities, command execution history, transport information, SIL unloading order input, and their enums and JSON converters.
+* Added the `guide` module with the `Guide` video guide model.
+
+### Go
+
+* No changes in this release.
+
 ## 4.14.0
 
 ### Python
