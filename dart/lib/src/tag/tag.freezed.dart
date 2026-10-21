@@ -68,7 +68,9 @@ mixin _$Tag {
  User? get owner;/// The ID of the owner of this tag.
  String? get ownerId;/// The list of IDs of associated sensors for this tag.
  List<String>? get sensorsIds;/// The list of associated sensors for this tag.
- List<Sensor>? get sensors;
+ List<Sensor>? get sensors;/// The list of IDs of associated email templates for this tag.
+ List<String>? get emailTemplatesIds;/// The list of IDs of associated authentication cards for this tag.
+ List<String>? get authenticationCardsIds;
 /// Create a copy of Tag
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -81,16 +83,16 @@ $TagCopyWith<Tag> get copyWith => _$TagCopyWithImpl<Tag>(this as Tag, _$identity
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Tag&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.color, color) || other.color == color)&&(identical(other.dynamicIcon, dynamicIcon) || other.dynamicIcon == dynamicIcon)&&const DeepCollectionEquality().equals(other.users, users)&&const DeepCollectionEquality().equals(other.usersIds, usersIds)&&const DeepCollectionEquality().equals(other.outboundServices, outboundServices)&&const DeepCollectionEquality().equals(other.outboundServicesIds, outboundServicesIds)&&const DeepCollectionEquality().equals(other.triggers, triggers)&&const DeepCollectionEquality().equals(other.triggersIds, triggersIds)&&const DeepCollectionEquality().equals(other.actions, actions)&&const DeepCollectionEquality().equals(other.actionsIds, actionsIds)&&const DeepCollectionEquality().equals(other.operations, operations)&&const DeepCollectionEquality().equals(other.operationsIds, operationsIds)&&const DeepCollectionEquality().equals(other.assets, assets)&&const DeepCollectionEquality().equals(other.assetsIds, assetsIds)&&const DeepCollectionEquality().equals(other.devices, devices)&&const DeepCollectionEquality().equals(other.devicesIds, devicesIds)&&const DeepCollectionEquality().equals(other.geofences, geofences)&&const DeepCollectionEquality().equals(other.geofencesIds, geofencesIds)&&const DeepCollectionEquality().equals(other.externalAccounts, externalAccounts)&&const DeepCollectionEquality().equals(other.externalAccountsIds, externalAccountsIds)&&const DeepCollectionEquality().equals(other.presets, presets)&&const DeepCollectionEquality().equals(other.presetsIds, presetsIds)&&const DeepCollectionEquality().equals(other.references, references)&&const DeepCollectionEquality().equals(other.referencesIds, referencesIds)&&const DeepCollectionEquality().equals(other.checkpoints, checkpoints)&&const DeepCollectionEquality().equals(other.checkpointsIds, checkpointsIds)&&const DeepCollectionEquality().equals(other.careProtocols, careProtocols)&&const DeepCollectionEquality().equals(other.careProtocolsIds, careProtocolsIds)&&const DeepCollectionEquality().equals(other.inboundServices, inboundServices)&&const DeepCollectionEquality().equals(other.inboundServicesIds, inboundServicesIds)&&const DeepCollectionEquality().equals(other.functions, functions)&&const DeepCollectionEquality().equals(other.functionsIds, functionsIds)&&const DeepCollectionEquality().equals(other.conciergeForms, conciergeForms)&&const DeepCollectionEquality().equals(other.conciergeFormsIds, conciergeFormsIds)&&const DeepCollectionEquality().equals(other.reportTemplates, reportTemplates)&&const DeepCollectionEquality().equals(other.reportTemplatesIds, reportTemplatesIds)&&const DeepCollectionEquality().equals(other.charts, charts)&&const DeepCollectionEquality().equals(other.chartsIds, chartsIds)&&const DeepCollectionEquality().equals(other.workspaces, workspaces)&&const DeepCollectionEquality().equals(other.workspacesIds, workspacesIds)&&const DeepCollectionEquality().equals(other.visionProfiles, visionProfiles)&&const DeepCollectionEquality().equals(other.visionProfilesIds, visionProfilesIds)&&const DeepCollectionEquality().equals(other.mappitRoutes, mappitRoutes)&&const DeepCollectionEquality().equals(other.mappitRoutesIds, mappitRoutesIds)&&const DeepCollectionEquality().equals(other.exchangeServices, exchangeServices)&&const DeepCollectionEquality().equals(other.exchangeServicesIds, exchangeServicesIds)&&const DeepCollectionEquality().equals(other.access, access)&&(identical(other.owner, owner) || other.owner == owner)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId)&&const DeepCollectionEquality().equals(other.sensorsIds, sensorsIds)&&const DeepCollectionEquality().equals(other.sensors, sensors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Tag&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.color, color) || other.color == color)&&(identical(other.dynamicIcon, dynamicIcon) || other.dynamicIcon == dynamicIcon)&&const DeepCollectionEquality().equals(other.users, users)&&const DeepCollectionEquality().equals(other.usersIds, usersIds)&&const DeepCollectionEquality().equals(other.outboundServices, outboundServices)&&const DeepCollectionEquality().equals(other.outboundServicesIds, outboundServicesIds)&&const DeepCollectionEquality().equals(other.triggers, triggers)&&const DeepCollectionEquality().equals(other.triggersIds, triggersIds)&&const DeepCollectionEquality().equals(other.actions, actions)&&const DeepCollectionEquality().equals(other.actionsIds, actionsIds)&&const DeepCollectionEquality().equals(other.operations, operations)&&const DeepCollectionEquality().equals(other.operationsIds, operationsIds)&&const DeepCollectionEquality().equals(other.assets, assets)&&const DeepCollectionEquality().equals(other.assetsIds, assetsIds)&&const DeepCollectionEquality().equals(other.devices, devices)&&const DeepCollectionEquality().equals(other.devicesIds, devicesIds)&&const DeepCollectionEquality().equals(other.geofences, geofences)&&const DeepCollectionEquality().equals(other.geofencesIds, geofencesIds)&&const DeepCollectionEquality().equals(other.externalAccounts, externalAccounts)&&const DeepCollectionEquality().equals(other.externalAccountsIds, externalAccountsIds)&&const DeepCollectionEquality().equals(other.presets, presets)&&const DeepCollectionEquality().equals(other.presetsIds, presetsIds)&&const DeepCollectionEquality().equals(other.references, references)&&const DeepCollectionEquality().equals(other.referencesIds, referencesIds)&&const DeepCollectionEquality().equals(other.checkpoints, checkpoints)&&const DeepCollectionEquality().equals(other.checkpointsIds, checkpointsIds)&&const DeepCollectionEquality().equals(other.careProtocols, careProtocols)&&const DeepCollectionEquality().equals(other.careProtocolsIds, careProtocolsIds)&&const DeepCollectionEquality().equals(other.inboundServices, inboundServices)&&const DeepCollectionEquality().equals(other.inboundServicesIds, inboundServicesIds)&&const DeepCollectionEquality().equals(other.functions, functions)&&const DeepCollectionEquality().equals(other.functionsIds, functionsIds)&&const DeepCollectionEquality().equals(other.conciergeForms, conciergeForms)&&const DeepCollectionEquality().equals(other.conciergeFormsIds, conciergeFormsIds)&&const DeepCollectionEquality().equals(other.reportTemplates, reportTemplates)&&const DeepCollectionEquality().equals(other.reportTemplatesIds, reportTemplatesIds)&&const DeepCollectionEquality().equals(other.charts, charts)&&const DeepCollectionEquality().equals(other.chartsIds, chartsIds)&&const DeepCollectionEquality().equals(other.workspaces, workspaces)&&const DeepCollectionEquality().equals(other.workspacesIds, workspacesIds)&&const DeepCollectionEquality().equals(other.visionProfiles, visionProfiles)&&const DeepCollectionEquality().equals(other.visionProfilesIds, visionProfilesIds)&&const DeepCollectionEquality().equals(other.mappitRoutes, mappitRoutes)&&const DeepCollectionEquality().equals(other.mappitRoutesIds, mappitRoutesIds)&&const DeepCollectionEquality().equals(other.exchangeServices, exchangeServices)&&const DeepCollectionEquality().equals(other.exchangeServicesIds, exchangeServicesIds)&&const DeepCollectionEquality().equals(other.access, access)&&(identical(other.owner, owner) || other.owner == owner)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId)&&const DeepCollectionEquality().equals(other.sensorsIds, sensorsIds)&&const DeepCollectionEquality().equals(other.sensors, sensors)&&const DeepCollectionEquality().equals(other.emailTemplatesIds, emailTemplatesIds)&&const DeepCollectionEquality().equals(other.authenticationCardsIds, authenticationCardsIds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,name,color,dynamicIcon,const DeepCollectionEquality().hash(users),const DeepCollectionEquality().hash(usersIds),const DeepCollectionEquality().hash(outboundServices),const DeepCollectionEquality().hash(outboundServicesIds),const DeepCollectionEquality().hash(triggers),const DeepCollectionEquality().hash(triggersIds),const DeepCollectionEquality().hash(actions),const DeepCollectionEquality().hash(actionsIds),const DeepCollectionEquality().hash(operations),const DeepCollectionEquality().hash(operationsIds),const DeepCollectionEquality().hash(assets),const DeepCollectionEquality().hash(assetsIds),const DeepCollectionEquality().hash(devices),const DeepCollectionEquality().hash(devicesIds),const DeepCollectionEquality().hash(geofences),const DeepCollectionEquality().hash(geofencesIds),const DeepCollectionEquality().hash(externalAccounts),const DeepCollectionEquality().hash(externalAccountsIds),const DeepCollectionEquality().hash(presets),const DeepCollectionEquality().hash(presetsIds),const DeepCollectionEquality().hash(references),const DeepCollectionEquality().hash(referencesIds),const DeepCollectionEquality().hash(checkpoints),const DeepCollectionEquality().hash(checkpointsIds),const DeepCollectionEquality().hash(careProtocols),const DeepCollectionEquality().hash(careProtocolsIds),const DeepCollectionEquality().hash(inboundServices),const DeepCollectionEquality().hash(inboundServicesIds),const DeepCollectionEquality().hash(functions),const DeepCollectionEquality().hash(functionsIds),const DeepCollectionEquality().hash(conciergeForms),const DeepCollectionEquality().hash(conciergeFormsIds),const DeepCollectionEquality().hash(reportTemplates),const DeepCollectionEquality().hash(reportTemplatesIds),const DeepCollectionEquality().hash(charts),const DeepCollectionEquality().hash(chartsIds),const DeepCollectionEquality().hash(workspaces),const DeepCollectionEquality().hash(workspacesIds),const DeepCollectionEquality().hash(visionProfiles),const DeepCollectionEquality().hash(visionProfilesIds),const DeepCollectionEquality().hash(mappitRoutes),const DeepCollectionEquality().hash(mappitRoutesIds),const DeepCollectionEquality().hash(exchangeServices),const DeepCollectionEquality().hash(exchangeServicesIds),const DeepCollectionEquality().hash(access),owner,ownerId,const DeepCollectionEquality().hash(sensorsIds),const DeepCollectionEquality().hash(sensors)]);
+int get hashCode => Object.hashAll([runtimeType,id,name,color,dynamicIcon,const DeepCollectionEquality().hash(users),const DeepCollectionEquality().hash(usersIds),const DeepCollectionEquality().hash(outboundServices),const DeepCollectionEquality().hash(outboundServicesIds),const DeepCollectionEquality().hash(triggers),const DeepCollectionEquality().hash(triggersIds),const DeepCollectionEquality().hash(actions),const DeepCollectionEquality().hash(actionsIds),const DeepCollectionEquality().hash(operations),const DeepCollectionEquality().hash(operationsIds),const DeepCollectionEquality().hash(assets),const DeepCollectionEquality().hash(assetsIds),const DeepCollectionEquality().hash(devices),const DeepCollectionEquality().hash(devicesIds),const DeepCollectionEquality().hash(geofences),const DeepCollectionEquality().hash(geofencesIds),const DeepCollectionEquality().hash(externalAccounts),const DeepCollectionEquality().hash(externalAccountsIds),const DeepCollectionEquality().hash(presets),const DeepCollectionEquality().hash(presetsIds),const DeepCollectionEquality().hash(references),const DeepCollectionEquality().hash(referencesIds),const DeepCollectionEquality().hash(checkpoints),const DeepCollectionEquality().hash(checkpointsIds),const DeepCollectionEquality().hash(careProtocols),const DeepCollectionEquality().hash(careProtocolsIds),const DeepCollectionEquality().hash(inboundServices),const DeepCollectionEquality().hash(inboundServicesIds),const DeepCollectionEquality().hash(functions),const DeepCollectionEquality().hash(functionsIds),const DeepCollectionEquality().hash(conciergeForms),const DeepCollectionEquality().hash(conciergeFormsIds),const DeepCollectionEquality().hash(reportTemplates),const DeepCollectionEquality().hash(reportTemplatesIds),const DeepCollectionEquality().hash(charts),const DeepCollectionEquality().hash(chartsIds),const DeepCollectionEquality().hash(workspaces),const DeepCollectionEquality().hash(workspacesIds),const DeepCollectionEquality().hash(visionProfiles),const DeepCollectionEquality().hash(visionProfilesIds),const DeepCollectionEquality().hash(mappitRoutes),const DeepCollectionEquality().hash(mappitRoutesIds),const DeepCollectionEquality().hash(exchangeServices),const DeepCollectionEquality().hash(exchangeServicesIds),const DeepCollectionEquality().hash(access),owner,ownerId,const DeepCollectionEquality().hash(sensorsIds),const DeepCollectionEquality().hash(sensors),const DeepCollectionEquality().hash(emailTemplatesIds),const DeepCollectionEquality().hash(authenticationCardsIds)]);
 
 @override
 String toString() {
-  return 'Tag(id: $id, name: $name, color: $color, dynamicIcon: $dynamicIcon, users: $users, usersIds: $usersIds, outboundServices: $outboundServices, outboundServicesIds: $outboundServicesIds, triggers: $triggers, triggersIds: $triggersIds, actions: $actions, actionsIds: $actionsIds, operations: $operations, operationsIds: $operationsIds, assets: $assets, assetsIds: $assetsIds, devices: $devices, devicesIds: $devicesIds, geofences: $geofences, geofencesIds: $geofencesIds, externalAccounts: $externalAccounts, externalAccountsIds: $externalAccountsIds, presets: $presets, presetsIds: $presetsIds, references: $references, referencesIds: $referencesIds, checkpoints: $checkpoints, checkpointsIds: $checkpointsIds, careProtocols: $careProtocols, careProtocolsIds: $careProtocolsIds, inboundServices: $inboundServices, inboundServicesIds: $inboundServicesIds, functions: $functions, functionsIds: $functionsIds, conciergeForms: $conciergeForms, conciergeFormsIds: $conciergeFormsIds, reportTemplates: $reportTemplates, reportTemplatesIds: $reportTemplatesIds, charts: $charts, chartsIds: $chartsIds, workspaces: $workspaces, workspacesIds: $workspacesIds, visionProfiles: $visionProfiles, visionProfilesIds: $visionProfilesIds, mappitRoutes: $mappitRoutes, mappitRoutesIds: $mappitRoutesIds, exchangeServices: $exchangeServices, exchangeServicesIds: $exchangeServicesIds, access: $access, owner: $owner, ownerId: $ownerId, sensorsIds: $sensorsIds, sensors: $sensors)';
+  return 'Tag(id: $id, name: $name, color: $color, dynamicIcon: $dynamicIcon, users: $users, usersIds: $usersIds, outboundServices: $outboundServices, outboundServicesIds: $outboundServicesIds, triggers: $triggers, triggersIds: $triggersIds, actions: $actions, actionsIds: $actionsIds, operations: $operations, operationsIds: $operationsIds, assets: $assets, assetsIds: $assetsIds, devices: $devices, devicesIds: $devicesIds, geofences: $geofences, geofencesIds: $geofencesIds, externalAccounts: $externalAccounts, externalAccountsIds: $externalAccountsIds, presets: $presets, presetsIds: $presetsIds, references: $references, referencesIds: $referencesIds, checkpoints: $checkpoints, checkpointsIds: $checkpointsIds, careProtocols: $careProtocols, careProtocolsIds: $careProtocolsIds, inboundServices: $inboundServices, inboundServicesIds: $inboundServicesIds, functions: $functions, functionsIds: $functionsIds, conciergeForms: $conciergeForms, conciergeFormsIds: $conciergeFormsIds, reportTemplates: $reportTemplates, reportTemplatesIds: $reportTemplatesIds, charts: $charts, chartsIds: $chartsIds, workspaces: $workspaces, workspacesIds: $workspacesIds, visionProfiles: $visionProfiles, visionProfilesIds: $visionProfilesIds, mappitRoutes: $mappitRoutes, mappitRoutesIds: $mappitRoutesIds, exchangeServices: $exchangeServices, exchangeServicesIds: $exchangeServicesIds, access: $access, owner: $owner, ownerId: $ownerId, sensorsIds: $sensorsIds, sensors: $sensors, emailTemplatesIds: $emailTemplatesIds, authenticationCardsIds: $authenticationCardsIds)';
 }
 
 
@@ -101,7 +103,7 @@ abstract mixin class $TagCopyWith<$Res>  {
   factory $TagCopyWith(Tag value, $Res Function(Tag) _then) = _$TagCopyWithImpl;
 @useResult
 $Res call({
- String id, String name,@ColorConverter() Color color, Avatar? dynamicIcon, List<User>? users, List<String>? usersIds, List<OutboundService>? outboundServices, List<String>? outboundServicesIds, List<Trigger>? triggers, List<String>? triggersIds, List<Action>? actions, List<String>? actionsIds, List<Operation>? operations, List<String>? operationsIds, List<Asset>? assets, List<String>? assetsIds, List<Device>? devices, List<String>? devicesIds, List<Geofence>? geofences, List<String>? geofencesIds, List<ExternalAccount>? externalAccounts, List<String>? externalAccountsIds, List<Preset>? presets, List<String>? presetsIds, List<Reference>? references, List<String>? referencesIds, List<Checkpoint>? checkpoints, List<String>? checkpointsIds, List<CareProtocol>? careProtocols, List<String>? careProtocolsIds, List<InboundService>? inboundServices, List<String>? inboundServicesIds, List<LayrzFunction>? functions, List<String>? functionsIds, List<ConciergeForm>? conciergeForms, List<String>? conciergeFormsIds, List<ReportTemplate>? reportTemplates, List<String>? reportTemplatesIds, List<LayrzChart>? charts, List<String>? chartsIds, List<Workspace>? workspaces, List<String>? workspacesIds, List<VisionProfile>? visionProfiles, List<String>? visionProfilesIds, List<MappitRoute>? mappitRoutes, List<String>? mappitRoutesIds, List<ExchangeService>? exchangeServices, List<String>? exchangeServicesIds, List<Access>? access, User? owner, String? ownerId, List<String>? sensorsIds, List<Sensor>? sensors
+ String id, String name,@ColorConverter() Color color, Avatar? dynamicIcon, List<User>? users, List<String>? usersIds, List<OutboundService>? outboundServices, List<String>? outboundServicesIds, List<Trigger>? triggers, List<String>? triggersIds, List<Action>? actions, List<String>? actionsIds, List<Operation>? operations, List<String>? operationsIds, List<Asset>? assets, List<String>? assetsIds, List<Device>? devices, List<String>? devicesIds, List<Geofence>? geofences, List<String>? geofencesIds, List<ExternalAccount>? externalAccounts, List<String>? externalAccountsIds, List<Preset>? presets, List<String>? presetsIds, List<Reference>? references, List<String>? referencesIds, List<Checkpoint>? checkpoints, List<String>? checkpointsIds, List<CareProtocol>? careProtocols, List<String>? careProtocolsIds, List<InboundService>? inboundServices, List<String>? inboundServicesIds, List<LayrzFunction>? functions, List<String>? functionsIds, List<ConciergeForm>? conciergeForms, List<String>? conciergeFormsIds, List<ReportTemplate>? reportTemplates, List<String>? reportTemplatesIds, List<LayrzChart>? charts, List<String>? chartsIds, List<Workspace>? workspaces, List<String>? workspacesIds, List<VisionProfile>? visionProfiles, List<String>? visionProfilesIds, List<MappitRoute>? mappitRoutes, List<String>? mappitRoutesIds, List<ExchangeService>? exchangeServices, List<String>? exchangeServicesIds, List<Access>? access, User? owner, String? ownerId, List<String>? sensorsIds, List<Sensor>? sensors, List<String>? emailTemplatesIds, List<String>? authenticationCardsIds
 });
 
 
@@ -118,7 +120,7 @@ class _$TagCopyWithImpl<$Res>
 
 /// Create a copy of Tag
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? color = null,Object? dynamicIcon = freezed,Object? users = freezed,Object? usersIds = freezed,Object? outboundServices = freezed,Object? outboundServicesIds = freezed,Object? triggers = freezed,Object? triggersIds = freezed,Object? actions = freezed,Object? actionsIds = freezed,Object? operations = freezed,Object? operationsIds = freezed,Object? assets = freezed,Object? assetsIds = freezed,Object? devices = freezed,Object? devicesIds = freezed,Object? geofences = freezed,Object? geofencesIds = freezed,Object? externalAccounts = freezed,Object? externalAccountsIds = freezed,Object? presets = freezed,Object? presetsIds = freezed,Object? references = freezed,Object? referencesIds = freezed,Object? checkpoints = freezed,Object? checkpointsIds = freezed,Object? careProtocols = freezed,Object? careProtocolsIds = freezed,Object? inboundServices = freezed,Object? inboundServicesIds = freezed,Object? functions = freezed,Object? functionsIds = freezed,Object? conciergeForms = freezed,Object? conciergeFormsIds = freezed,Object? reportTemplates = freezed,Object? reportTemplatesIds = freezed,Object? charts = freezed,Object? chartsIds = freezed,Object? workspaces = freezed,Object? workspacesIds = freezed,Object? visionProfiles = freezed,Object? visionProfilesIds = freezed,Object? mappitRoutes = freezed,Object? mappitRoutesIds = freezed,Object? exchangeServices = freezed,Object? exchangeServicesIds = freezed,Object? access = freezed,Object? owner = freezed,Object? ownerId = freezed,Object? sensorsIds = freezed,Object? sensors = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? color = null,Object? dynamicIcon = freezed,Object? users = freezed,Object? usersIds = freezed,Object? outboundServices = freezed,Object? outboundServicesIds = freezed,Object? triggers = freezed,Object? triggersIds = freezed,Object? actions = freezed,Object? actionsIds = freezed,Object? operations = freezed,Object? operationsIds = freezed,Object? assets = freezed,Object? assetsIds = freezed,Object? devices = freezed,Object? devicesIds = freezed,Object? geofences = freezed,Object? geofencesIds = freezed,Object? externalAccounts = freezed,Object? externalAccountsIds = freezed,Object? presets = freezed,Object? presetsIds = freezed,Object? references = freezed,Object? referencesIds = freezed,Object? checkpoints = freezed,Object? checkpointsIds = freezed,Object? careProtocols = freezed,Object? careProtocolsIds = freezed,Object? inboundServices = freezed,Object? inboundServicesIds = freezed,Object? functions = freezed,Object? functionsIds = freezed,Object? conciergeForms = freezed,Object? conciergeFormsIds = freezed,Object? reportTemplates = freezed,Object? reportTemplatesIds = freezed,Object? charts = freezed,Object? chartsIds = freezed,Object? workspaces = freezed,Object? workspacesIds = freezed,Object? visionProfiles = freezed,Object? visionProfilesIds = freezed,Object? mappitRoutes = freezed,Object? mappitRoutesIds = freezed,Object? exchangeServices = freezed,Object? exchangeServicesIds = freezed,Object? access = freezed,Object? owner = freezed,Object? ownerId = freezed,Object? sensorsIds = freezed,Object? sensors = freezed,Object? emailTemplatesIds = freezed,Object? authenticationCardsIds = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -173,7 +175,9 @@ as List<Access>?,owner: freezed == owner ? _self.owner : owner // ignore: cast_n
 as User?,ownerId: freezed == ownerId ? _self.ownerId : ownerId // ignore: cast_nullable_to_non_nullable
 as String?,sensorsIds: freezed == sensorsIds ? _self.sensorsIds : sensorsIds // ignore: cast_nullable_to_non_nullable
 as List<String>?,sensors: freezed == sensors ? _self.sensors : sensors // ignore: cast_nullable_to_non_nullable
-as List<Sensor>?,
+as List<Sensor>?,emailTemplatesIds: freezed == emailTemplatesIds ? _self.emailTemplatesIds : emailTemplatesIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,authenticationCardsIds: freezed == authenticationCardsIds ? _self.authenticationCardsIds : authenticationCardsIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,
   ));
 }
 /// Create a copy of Tag
@@ -282,10 +286,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name, @ColorConverter()  Color color,  Avatar? dynamicIcon,  List<User>? users,  List<String>? usersIds,  List<OutboundService>? outboundServices,  List<String>? outboundServicesIds,  List<Trigger>? triggers,  List<String>? triggersIds,  List<Action>? actions,  List<String>? actionsIds,  List<Operation>? operations,  List<String>? operationsIds,  List<Asset>? assets,  List<String>? assetsIds,  List<Device>? devices,  List<String>? devicesIds,  List<Geofence>? geofences,  List<String>? geofencesIds,  List<ExternalAccount>? externalAccounts,  List<String>? externalAccountsIds,  List<Preset>? presets,  List<String>? presetsIds,  List<Reference>? references,  List<String>? referencesIds,  List<Checkpoint>? checkpoints,  List<String>? checkpointsIds,  List<CareProtocol>? careProtocols,  List<String>? careProtocolsIds,  List<InboundService>? inboundServices,  List<String>? inboundServicesIds,  List<LayrzFunction>? functions,  List<String>? functionsIds,  List<ConciergeForm>? conciergeForms,  List<String>? conciergeFormsIds,  List<ReportTemplate>? reportTemplates,  List<String>? reportTemplatesIds,  List<LayrzChart>? charts,  List<String>? chartsIds,  List<Workspace>? workspaces,  List<String>? workspacesIds,  List<VisionProfile>? visionProfiles,  List<String>? visionProfilesIds,  List<MappitRoute>? mappitRoutes,  List<String>? mappitRoutesIds,  List<ExchangeService>? exchangeServices,  List<String>? exchangeServicesIds,  List<Access>? access,  User? owner,  String? ownerId,  List<String>? sensorsIds,  List<Sensor>? sensors)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name, @ColorConverter()  Color color,  Avatar? dynamicIcon,  List<User>? users,  List<String>? usersIds,  List<OutboundService>? outboundServices,  List<String>? outboundServicesIds,  List<Trigger>? triggers,  List<String>? triggersIds,  List<Action>? actions,  List<String>? actionsIds,  List<Operation>? operations,  List<String>? operationsIds,  List<Asset>? assets,  List<String>? assetsIds,  List<Device>? devices,  List<String>? devicesIds,  List<Geofence>? geofences,  List<String>? geofencesIds,  List<ExternalAccount>? externalAccounts,  List<String>? externalAccountsIds,  List<Preset>? presets,  List<String>? presetsIds,  List<Reference>? references,  List<String>? referencesIds,  List<Checkpoint>? checkpoints,  List<String>? checkpointsIds,  List<CareProtocol>? careProtocols,  List<String>? careProtocolsIds,  List<InboundService>? inboundServices,  List<String>? inboundServicesIds,  List<LayrzFunction>? functions,  List<String>? functionsIds,  List<ConciergeForm>? conciergeForms,  List<String>? conciergeFormsIds,  List<ReportTemplate>? reportTemplates,  List<String>? reportTemplatesIds,  List<LayrzChart>? charts,  List<String>? chartsIds,  List<Workspace>? workspaces,  List<String>? workspacesIds,  List<VisionProfile>? visionProfiles,  List<String>? visionProfilesIds,  List<MappitRoute>? mappitRoutes,  List<String>? mappitRoutesIds,  List<ExchangeService>? exchangeServices,  List<String>? exchangeServicesIds,  List<Access>? access,  User? owner,  String? ownerId,  List<String>? sensorsIds,  List<Sensor>? sensors,  List<String>? emailTemplatesIds,  List<String>? authenticationCardsIds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Tag() when $default != null:
-return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.users,_that.usersIds,_that.outboundServices,_that.outboundServicesIds,_that.triggers,_that.triggersIds,_that.actions,_that.actionsIds,_that.operations,_that.operationsIds,_that.assets,_that.assetsIds,_that.devices,_that.devicesIds,_that.geofences,_that.geofencesIds,_that.externalAccounts,_that.externalAccountsIds,_that.presets,_that.presetsIds,_that.references,_that.referencesIds,_that.checkpoints,_that.checkpointsIds,_that.careProtocols,_that.careProtocolsIds,_that.inboundServices,_that.inboundServicesIds,_that.functions,_that.functionsIds,_that.conciergeForms,_that.conciergeFormsIds,_that.reportTemplates,_that.reportTemplatesIds,_that.charts,_that.chartsIds,_that.workspaces,_that.workspacesIds,_that.visionProfiles,_that.visionProfilesIds,_that.mappitRoutes,_that.mappitRoutesIds,_that.exchangeServices,_that.exchangeServicesIds,_that.access,_that.owner,_that.ownerId,_that.sensorsIds,_that.sensors);case _:
+return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.users,_that.usersIds,_that.outboundServices,_that.outboundServicesIds,_that.triggers,_that.triggersIds,_that.actions,_that.actionsIds,_that.operations,_that.operationsIds,_that.assets,_that.assetsIds,_that.devices,_that.devicesIds,_that.geofences,_that.geofencesIds,_that.externalAccounts,_that.externalAccountsIds,_that.presets,_that.presetsIds,_that.references,_that.referencesIds,_that.checkpoints,_that.checkpointsIds,_that.careProtocols,_that.careProtocolsIds,_that.inboundServices,_that.inboundServicesIds,_that.functions,_that.functionsIds,_that.conciergeForms,_that.conciergeFormsIds,_that.reportTemplates,_that.reportTemplatesIds,_that.charts,_that.chartsIds,_that.workspaces,_that.workspacesIds,_that.visionProfiles,_that.visionProfilesIds,_that.mappitRoutes,_that.mappitRoutesIds,_that.exchangeServices,_that.exchangeServicesIds,_that.access,_that.owner,_that.ownerId,_that.sensorsIds,_that.sensors,_that.emailTemplatesIds,_that.authenticationCardsIds);case _:
   return orElse();
 
 }
@@ -303,10 +307,10 @@ return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.users,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name, @ColorConverter()  Color color,  Avatar? dynamicIcon,  List<User>? users,  List<String>? usersIds,  List<OutboundService>? outboundServices,  List<String>? outboundServicesIds,  List<Trigger>? triggers,  List<String>? triggersIds,  List<Action>? actions,  List<String>? actionsIds,  List<Operation>? operations,  List<String>? operationsIds,  List<Asset>? assets,  List<String>? assetsIds,  List<Device>? devices,  List<String>? devicesIds,  List<Geofence>? geofences,  List<String>? geofencesIds,  List<ExternalAccount>? externalAccounts,  List<String>? externalAccountsIds,  List<Preset>? presets,  List<String>? presetsIds,  List<Reference>? references,  List<String>? referencesIds,  List<Checkpoint>? checkpoints,  List<String>? checkpointsIds,  List<CareProtocol>? careProtocols,  List<String>? careProtocolsIds,  List<InboundService>? inboundServices,  List<String>? inboundServicesIds,  List<LayrzFunction>? functions,  List<String>? functionsIds,  List<ConciergeForm>? conciergeForms,  List<String>? conciergeFormsIds,  List<ReportTemplate>? reportTemplates,  List<String>? reportTemplatesIds,  List<LayrzChart>? charts,  List<String>? chartsIds,  List<Workspace>? workspaces,  List<String>? workspacesIds,  List<VisionProfile>? visionProfiles,  List<String>? visionProfilesIds,  List<MappitRoute>? mappitRoutes,  List<String>? mappitRoutesIds,  List<ExchangeService>? exchangeServices,  List<String>? exchangeServicesIds,  List<Access>? access,  User? owner,  String? ownerId,  List<String>? sensorsIds,  List<Sensor>? sensors)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name, @ColorConverter()  Color color,  Avatar? dynamicIcon,  List<User>? users,  List<String>? usersIds,  List<OutboundService>? outboundServices,  List<String>? outboundServicesIds,  List<Trigger>? triggers,  List<String>? triggersIds,  List<Action>? actions,  List<String>? actionsIds,  List<Operation>? operations,  List<String>? operationsIds,  List<Asset>? assets,  List<String>? assetsIds,  List<Device>? devices,  List<String>? devicesIds,  List<Geofence>? geofences,  List<String>? geofencesIds,  List<ExternalAccount>? externalAccounts,  List<String>? externalAccountsIds,  List<Preset>? presets,  List<String>? presetsIds,  List<Reference>? references,  List<String>? referencesIds,  List<Checkpoint>? checkpoints,  List<String>? checkpointsIds,  List<CareProtocol>? careProtocols,  List<String>? careProtocolsIds,  List<InboundService>? inboundServices,  List<String>? inboundServicesIds,  List<LayrzFunction>? functions,  List<String>? functionsIds,  List<ConciergeForm>? conciergeForms,  List<String>? conciergeFormsIds,  List<ReportTemplate>? reportTemplates,  List<String>? reportTemplatesIds,  List<LayrzChart>? charts,  List<String>? chartsIds,  List<Workspace>? workspaces,  List<String>? workspacesIds,  List<VisionProfile>? visionProfiles,  List<String>? visionProfilesIds,  List<MappitRoute>? mappitRoutes,  List<String>? mappitRoutesIds,  List<ExchangeService>? exchangeServices,  List<String>? exchangeServicesIds,  List<Access>? access,  User? owner,  String? ownerId,  List<String>? sensorsIds,  List<Sensor>? sensors,  List<String>? emailTemplatesIds,  List<String>? authenticationCardsIds)  $default,) {final _that = this;
 switch (_that) {
 case _Tag():
-return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.users,_that.usersIds,_that.outboundServices,_that.outboundServicesIds,_that.triggers,_that.triggersIds,_that.actions,_that.actionsIds,_that.operations,_that.operationsIds,_that.assets,_that.assetsIds,_that.devices,_that.devicesIds,_that.geofences,_that.geofencesIds,_that.externalAccounts,_that.externalAccountsIds,_that.presets,_that.presetsIds,_that.references,_that.referencesIds,_that.checkpoints,_that.checkpointsIds,_that.careProtocols,_that.careProtocolsIds,_that.inboundServices,_that.inboundServicesIds,_that.functions,_that.functionsIds,_that.conciergeForms,_that.conciergeFormsIds,_that.reportTemplates,_that.reportTemplatesIds,_that.charts,_that.chartsIds,_that.workspaces,_that.workspacesIds,_that.visionProfiles,_that.visionProfilesIds,_that.mappitRoutes,_that.mappitRoutesIds,_that.exchangeServices,_that.exchangeServicesIds,_that.access,_that.owner,_that.ownerId,_that.sensorsIds,_that.sensors);case _:
+return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.users,_that.usersIds,_that.outboundServices,_that.outboundServicesIds,_that.triggers,_that.triggersIds,_that.actions,_that.actionsIds,_that.operations,_that.operationsIds,_that.assets,_that.assetsIds,_that.devices,_that.devicesIds,_that.geofences,_that.geofencesIds,_that.externalAccounts,_that.externalAccountsIds,_that.presets,_that.presetsIds,_that.references,_that.referencesIds,_that.checkpoints,_that.checkpointsIds,_that.careProtocols,_that.careProtocolsIds,_that.inboundServices,_that.inboundServicesIds,_that.functions,_that.functionsIds,_that.conciergeForms,_that.conciergeFormsIds,_that.reportTemplates,_that.reportTemplatesIds,_that.charts,_that.chartsIds,_that.workspaces,_that.workspacesIds,_that.visionProfiles,_that.visionProfilesIds,_that.mappitRoutes,_that.mappitRoutesIds,_that.exchangeServices,_that.exchangeServicesIds,_that.access,_that.owner,_that.ownerId,_that.sensorsIds,_that.sensors,_that.emailTemplatesIds,_that.authenticationCardsIds);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -323,10 +327,10 @@ return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.users,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name, @ColorConverter()  Color color,  Avatar? dynamicIcon,  List<User>? users,  List<String>? usersIds,  List<OutboundService>? outboundServices,  List<String>? outboundServicesIds,  List<Trigger>? triggers,  List<String>? triggersIds,  List<Action>? actions,  List<String>? actionsIds,  List<Operation>? operations,  List<String>? operationsIds,  List<Asset>? assets,  List<String>? assetsIds,  List<Device>? devices,  List<String>? devicesIds,  List<Geofence>? geofences,  List<String>? geofencesIds,  List<ExternalAccount>? externalAccounts,  List<String>? externalAccountsIds,  List<Preset>? presets,  List<String>? presetsIds,  List<Reference>? references,  List<String>? referencesIds,  List<Checkpoint>? checkpoints,  List<String>? checkpointsIds,  List<CareProtocol>? careProtocols,  List<String>? careProtocolsIds,  List<InboundService>? inboundServices,  List<String>? inboundServicesIds,  List<LayrzFunction>? functions,  List<String>? functionsIds,  List<ConciergeForm>? conciergeForms,  List<String>? conciergeFormsIds,  List<ReportTemplate>? reportTemplates,  List<String>? reportTemplatesIds,  List<LayrzChart>? charts,  List<String>? chartsIds,  List<Workspace>? workspaces,  List<String>? workspacesIds,  List<VisionProfile>? visionProfiles,  List<String>? visionProfilesIds,  List<MappitRoute>? mappitRoutes,  List<String>? mappitRoutesIds,  List<ExchangeService>? exchangeServices,  List<String>? exchangeServicesIds,  List<Access>? access,  User? owner,  String? ownerId,  List<String>? sensorsIds,  List<Sensor>? sensors)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name, @ColorConverter()  Color color,  Avatar? dynamicIcon,  List<User>? users,  List<String>? usersIds,  List<OutboundService>? outboundServices,  List<String>? outboundServicesIds,  List<Trigger>? triggers,  List<String>? triggersIds,  List<Action>? actions,  List<String>? actionsIds,  List<Operation>? operations,  List<String>? operationsIds,  List<Asset>? assets,  List<String>? assetsIds,  List<Device>? devices,  List<String>? devicesIds,  List<Geofence>? geofences,  List<String>? geofencesIds,  List<ExternalAccount>? externalAccounts,  List<String>? externalAccountsIds,  List<Preset>? presets,  List<String>? presetsIds,  List<Reference>? references,  List<String>? referencesIds,  List<Checkpoint>? checkpoints,  List<String>? checkpointsIds,  List<CareProtocol>? careProtocols,  List<String>? careProtocolsIds,  List<InboundService>? inboundServices,  List<String>? inboundServicesIds,  List<LayrzFunction>? functions,  List<String>? functionsIds,  List<ConciergeForm>? conciergeForms,  List<String>? conciergeFormsIds,  List<ReportTemplate>? reportTemplates,  List<String>? reportTemplatesIds,  List<LayrzChart>? charts,  List<String>? chartsIds,  List<Workspace>? workspaces,  List<String>? workspacesIds,  List<VisionProfile>? visionProfiles,  List<String>? visionProfilesIds,  List<MappitRoute>? mappitRoutes,  List<String>? mappitRoutesIds,  List<ExchangeService>? exchangeServices,  List<String>? exchangeServicesIds,  List<Access>? access,  User? owner,  String? ownerId,  List<String>? sensorsIds,  List<Sensor>? sensors,  List<String>? emailTemplatesIds,  List<String>? authenticationCardsIds)?  $default,) {final _that = this;
 switch (_that) {
 case _Tag() when $default != null:
-return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.users,_that.usersIds,_that.outboundServices,_that.outboundServicesIds,_that.triggers,_that.triggersIds,_that.actions,_that.actionsIds,_that.operations,_that.operationsIds,_that.assets,_that.assetsIds,_that.devices,_that.devicesIds,_that.geofences,_that.geofencesIds,_that.externalAccounts,_that.externalAccountsIds,_that.presets,_that.presetsIds,_that.references,_that.referencesIds,_that.checkpoints,_that.checkpointsIds,_that.careProtocols,_that.careProtocolsIds,_that.inboundServices,_that.inboundServicesIds,_that.functions,_that.functionsIds,_that.conciergeForms,_that.conciergeFormsIds,_that.reportTemplates,_that.reportTemplatesIds,_that.charts,_that.chartsIds,_that.workspaces,_that.workspacesIds,_that.visionProfiles,_that.visionProfilesIds,_that.mappitRoutes,_that.mappitRoutesIds,_that.exchangeServices,_that.exchangeServicesIds,_that.access,_that.owner,_that.ownerId,_that.sensorsIds,_that.sensors);case _:
+return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.users,_that.usersIds,_that.outboundServices,_that.outboundServicesIds,_that.triggers,_that.triggersIds,_that.actions,_that.actionsIds,_that.operations,_that.operationsIds,_that.assets,_that.assetsIds,_that.devices,_that.devicesIds,_that.geofences,_that.geofencesIds,_that.externalAccounts,_that.externalAccountsIds,_that.presets,_that.presetsIds,_that.references,_that.referencesIds,_that.checkpoints,_that.checkpointsIds,_that.careProtocols,_that.careProtocolsIds,_that.inboundServices,_that.inboundServicesIds,_that.functions,_that.functionsIds,_that.conciergeForms,_that.conciergeFormsIds,_that.reportTemplates,_that.reportTemplatesIds,_that.charts,_that.chartsIds,_that.workspaces,_that.workspacesIds,_that.visionProfiles,_that.visionProfilesIds,_that.mappitRoutes,_that.mappitRoutesIds,_that.exchangeServices,_that.exchangeServicesIds,_that.access,_that.owner,_that.ownerId,_that.sensorsIds,_that.sensors,_that.emailTemplatesIds,_that.authenticationCardsIds);case _:
   return null;
 
 }
@@ -337,8 +341,8 @@ return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.users,_t
 /// @nodoc
 @JsonSerializable()
 
-class _Tag implements Tag {
-  const _Tag({required this.id, required this.name, @ColorConverter() required this.color, this.dynamicIcon, this.users, this.usersIds, this.outboundServices, this.outboundServicesIds, this.triggers, this.triggersIds, this.actions, this.actionsIds, this.operations, this.operationsIds, this.assets, this.assetsIds, this.devices, this.devicesIds, this.geofences, this.geofencesIds, this.externalAccounts, this.externalAccountsIds, this.presets, this.presetsIds, this.references, this.referencesIds, this.checkpoints, this.checkpointsIds, this.careProtocols, this.careProtocolsIds, this.inboundServices, this.inboundServicesIds, this.functions, this.functionsIds, this.conciergeForms, this.conciergeFormsIds, this.reportTemplates, this.reportTemplatesIds, this.charts, this.chartsIds, this.workspaces, this.workspacesIds, this.visionProfiles, this.visionProfilesIds, this.mappitRoutes, this.mappitRoutesIds, this.exchangeServices, this.exchangeServicesIds, this.access, this.owner, this.ownerId, this.sensorsIds, this.sensors});
+class _Tag extends Tag {
+  const _Tag({required this.id, required this.name, @ColorConverter() required this.color, this.dynamicIcon, this.users, this.usersIds, this.outboundServices, this.outboundServicesIds, this.triggers, this.triggersIds, this.actions, this.actionsIds, this.operations, this.operationsIds, this.assets, this.assetsIds, this.devices, this.devicesIds, this.geofences, this.geofencesIds, this.externalAccounts, this.externalAccountsIds, this.presets, this.presetsIds, this.references, this.referencesIds, this.checkpoints, this.checkpointsIds, this.careProtocols, this.careProtocolsIds, this.inboundServices, this.inboundServicesIds, this.functions, this.functionsIds, this.conciergeForms, this.conciergeFormsIds, this.reportTemplates, this.reportTemplatesIds, this.charts, this.chartsIds, this.workspaces, this.workspacesIds, this.visionProfiles, this.visionProfilesIds, this.mappitRoutes, this.mappitRoutesIds, this.exchangeServices, this.exchangeServicesIds, this.access, this.owner, this.ownerId, this.sensorsIds, this.sensors, this.emailTemplatesIds, this.authenticationCardsIds}): super._();
   factory _Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
 
 /// The ID of the tag.
@@ -447,6 +451,10 @@ class _Tag implements Tag {
 @override final  List<String>? sensorsIds;
 /// The list of associated sensors for this tag.
 @override final  List<Sensor>? sensors;
+/// The list of IDs of associated email templates for this tag.
+@override final  List<String>? emailTemplatesIds;
+/// The list of IDs of associated authentication cards for this tag.
+@override final  List<String>? authenticationCardsIds;
 
 /// Create a copy of Tag
 /// with the given fields replaced by the non-null parameter values.
@@ -461,16 +469,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Tag&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.color, color) || other.color == color)&&(identical(other.dynamicIcon, dynamicIcon) || other.dynamicIcon == dynamicIcon)&&const DeepCollectionEquality().equals(other.users, users)&&const DeepCollectionEquality().equals(other.usersIds, usersIds)&&const DeepCollectionEquality().equals(other.outboundServices, outboundServices)&&const DeepCollectionEquality().equals(other.outboundServicesIds, outboundServicesIds)&&const DeepCollectionEquality().equals(other.triggers, triggers)&&const DeepCollectionEquality().equals(other.triggersIds, triggersIds)&&const DeepCollectionEquality().equals(other.actions, actions)&&const DeepCollectionEquality().equals(other.actionsIds, actionsIds)&&const DeepCollectionEquality().equals(other.operations, operations)&&const DeepCollectionEquality().equals(other.operationsIds, operationsIds)&&const DeepCollectionEquality().equals(other.assets, assets)&&const DeepCollectionEquality().equals(other.assetsIds, assetsIds)&&const DeepCollectionEquality().equals(other.devices, devices)&&const DeepCollectionEquality().equals(other.devicesIds, devicesIds)&&const DeepCollectionEquality().equals(other.geofences, geofences)&&const DeepCollectionEquality().equals(other.geofencesIds, geofencesIds)&&const DeepCollectionEquality().equals(other.externalAccounts, externalAccounts)&&const DeepCollectionEquality().equals(other.externalAccountsIds, externalAccountsIds)&&const DeepCollectionEquality().equals(other.presets, presets)&&const DeepCollectionEquality().equals(other.presetsIds, presetsIds)&&const DeepCollectionEquality().equals(other.references, references)&&const DeepCollectionEquality().equals(other.referencesIds, referencesIds)&&const DeepCollectionEquality().equals(other.checkpoints, checkpoints)&&const DeepCollectionEquality().equals(other.checkpointsIds, checkpointsIds)&&const DeepCollectionEquality().equals(other.careProtocols, careProtocols)&&const DeepCollectionEquality().equals(other.careProtocolsIds, careProtocolsIds)&&const DeepCollectionEquality().equals(other.inboundServices, inboundServices)&&const DeepCollectionEquality().equals(other.inboundServicesIds, inboundServicesIds)&&const DeepCollectionEquality().equals(other.functions, functions)&&const DeepCollectionEquality().equals(other.functionsIds, functionsIds)&&const DeepCollectionEquality().equals(other.conciergeForms, conciergeForms)&&const DeepCollectionEquality().equals(other.conciergeFormsIds, conciergeFormsIds)&&const DeepCollectionEquality().equals(other.reportTemplates, reportTemplates)&&const DeepCollectionEquality().equals(other.reportTemplatesIds, reportTemplatesIds)&&const DeepCollectionEquality().equals(other.charts, charts)&&const DeepCollectionEquality().equals(other.chartsIds, chartsIds)&&const DeepCollectionEquality().equals(other.workspaces, workspaces)&&const DeepCollectionEquality().equals(other.workspacesIds, workspacesIds)&&const DeepCollectionEquality().equals(other.visionProfiles, visionProfiles)&&const DeepCollectionEquality().equals(other.visionProfilesIds, visionProfilesIds)&&const DeepCollectionEquality().equals(other.mappitRoutes, mappitRoutes)&&const DeepCollectionEquality().equals(other.mappitRoutesIds, mappitRoutesIds)&&const DeepCollectionEquality().equals(other.exchangeServices, exchangeServices)&&const DeepCollectionEquality().equals(other.exchangeServicesIds, exchangeServicesIds)&&const DeepCollectionEquality().equals(other.access, access)&&(identical(other.owner, owner) || other.owner == owner)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId)&&const DeepCollectionEquality().equals(other.sensorsIds, sensorsIds)&&const DeepCollectionEquality().equals(other.sensors, sensors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Tag&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.color, color) || other.color == color)&&(identical(other.dynamicIcon, dynamicIcon) || other.dynamicIcon == dynamicIcon)&&const DeepCollectionEquality().equals(other.users, users)&&const DeepCollectionEquality().equals(other.usersIds, usersIds)&&const DeepCollectionEquality().equals(other.outboundServices, outboundServices)&&const DeepCollectionEquality().equals(other.outboundServicesIds, outboundServicesIds)&&const DeepCollectionEquality().equals(other.triggers, triggers)&&const DeepCollectionEquality().equals(other.triggersIds, triggersIds)&&const DeepCollectionEquality().equals(other.actions, actions)&&const DeepCollectionEquality().equals(other.actionsIds, actionsIds)&&const DeepCollectionEquality().equals(other.operations, operations)&&const DeepCollectionEquality().equals(other.operationsIds, operationsIds)&&const DeepCollectionEquality().equals(other.assets, assets)&&const DeepCollectionEquality().equals(other.assetsIds, assetsIds)&&const DeepCollectionEquality().equals(other.devices, devices)&&const DeepCollectionEquality().equals(other.devicesIds, devicesIds)&&const DeepCollectionEquality().equals(other.geofences, geofences)&&const DeepCollectionEquality().equals(other.geofencesIds, geofencesIds)&&const DeepCollectionEquality().equals(other.externalAccounts, externalAccounts)&&const DeepCollectionEquality().equals(other.externalAccountsIds, externalAccountsIds)&&const DeepCollectionEquality().equals(other.presets, presets)&&const DeepCollectionEquality().equals(other.presetsIds, presetsIds)&&const DeepCollectionEquality().equals(other.references, references)&&const DeepCollectionEquality().equals(other.referencesIds, referencesIds)&&const DeepCollectionEquality().equals(other.checkpoints, checkpoints)&&const DeepCollectionEquality().equals(other.checkpointsIds, checkpointsIds)&&const DeepCollectionEquality().equals(other.careProtocols, careProtocols)&&const DeepCollectionEquality().equals(other.careProtocolsIds, careProtocolsIds)&&const DeepCollectionEquality().equals(other.inboundServices, inboundServices)&&const DeepCollectionEquality().equals(other.inboundServicesIds, inboundServicesIds)&&const DeepCollectionEquality().equals(other.functions, functions)&&const DeepCollectionEquality().equals(other.functionsIds, functionsIds)&&const DeepCollectionEquality().equals(other.conciergeForms, conciergeForms)&&const DeepCollectionEquality().equals(other.conciergeFormsIds, conciergeFormsIds)&&const DeepCollectionEquality().equals(other.reportTemplates, reportTemplates)&&const DeepCollectionEquality().equals(other.reportTemplatesIds, reportTemplatesIds)&&const DeepCollectionEquality().equals(other.charts, charts)&&const DeepCollectionEquality().equals(other.chartsIds, chartsIds)&&const DeepCollectionEquality().equals(other.workspaces, workspaces)&&const DeepCollectionEquality().equals(other.workspacesIds, workspacesIds)&&const DeepCollectionEquality().equals(other.visionProfiles, visionProfiles)&&const DeepCollectionEquality().equals(other.visionProfilesIds, visionProfilesIds)&&const DeepCollectionEquality().equals(other.mappitRoutes, mappitRoutes)&&const DeepCollectionEquality().equals(other.mappitRoutesIds, mappitRoutesIds)&&const DeepCollectionEquality().equals(other.exchangeServices, exchangeServices)&&const DeepCollectionEquality().equals(other.exchangeServicesIds, exchangeServicesIds)&&const DeepCollectionEquality().equals(other.access, access)&&(identical(other.owner, owner) || other.owner == owner)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId)&&const DeepCollectionEquality().equals(other.sensorsIds, sensorsIds)&&const DeepCollectionEquality().equals(other.sensors, sensors)&&const DeepCollectionEquality().equals(other.emailTemplatesIds, emailTemplatesIds)&&const DeepCollectionEquality().equals(other.authenticationCardsIds, authenticationCardsIds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,name,color,dynamicIcon,const DeepCollectionEquality().hash(users),const DeepCollectionEquality().hash(usersIds),const DeepCollectionEquality().hash(outboundServices),const DeepCollectionEquality().hash(outboundServicesIds),const DeepCollectionEquality().hash(triggers),const DeepCollectionEquality().hash(triggersIds),const DeepCollectionEquality().hash(actions),const DeepCollectionEquality().hash(actionsIds),const DeepCollectionEquality().hash(operations),const DeepCollectionEquality().hash(operationsIds),const DeepCollectionEquality().hash(assets),const DeepCollectionEquality().hash(assetsIds),const DeepCollectionEquality().hash(devices),const DeepCollectionEquality().hash(devicesIds),const DeepCollectionEquality().hash(geofences),const DeepCollectionEquality().hash(geofencesIds),const DeepCollectionEquality().hash(externalAccounts),const DeepCollectionEquality().hash(externalAccountsIds),const DeepCollectionEquality().hash(presets),const DeepCollectionEquality().hash(presetsIds),const DeepCollectionEquality().hash(references),const DeepCollectionEquality().hash(referencesIds),const DeepCollectionEquality().hash(checkpoints),const DeepCollectionEquality().hash(checkpointsIds),const DeepCollectionEquality().hash(careProtocols),const DeepCollectionEquality().hash(careProtocolsIds),const DeepCollectionEquality().hash(inboundServices),const DeepCollectionEquality().hash(inboundServicesIds),const DeepCollectionEquality().hash(functions),const DeepCollectionEquality().hash(functionsIds),const DeepCollectionEquality().hash(conciergeForms),const DeepCollectionEquality().hash(conciergeFormsIds),const DeepCollectionEquality().hash(reportTemplates),const DeepCollectionEquality().hash(reportTemplatesIds),const DeepCollectionEquality().hash(charts),const DeepCollectionEquality().hash(chartsIds),const DeepCollectionEquality().hash(workspaces),const DeepCollectionEquality().hash(workspacesIds),const DeepCollectionEquality().hash(visionProfiles),const DeepCollectionEquality().hash(visionProfilesIds),const DeepCollectionEquality().hash(mappitRoutes),const DeepCollectionEquality().hash(mappitRoutesIds),const DeepCollectionEquality().hash(exchangeServices),const DeepCollectionEquality().hash(exchangeServicesIds),const DeepCollectionEquality().hash(access),owner,ownerId,const DeepCollectionEquality().hash(sensorsIds),const DeepCollectionEquality().hash(sensors)]);
+int get hashCode => Object.hashAll([runtimeType,id,name,color,dynamicIcon,const DeepCollectionEquality().hash(users),const DeepCollectionEquality().hash(usersIds),const DeepCollectionEquality().hash(outboundServices),const DeepCollectionEquality().hash(outboundServicesIds),const DeepCollectionEquality().hash(triggers),const DeepCollectionEquality().hash(triggersIds),const DeepCollectionEquality().hash(actions),const DeepCollectionEquality().hash(actionsIds),const DeepCollectionEquality().hash(operations),const DeepCollectionEquality().hash(operationsIds),const DeepCollectionEquality().hash(assets),const DeepCollectionEquality().hash(assetsIds),const DeepCollectionEquality().hash(devices),const DeepCollectionEquality().hash(devicesIds),const DeepCollectionEquality().hash(geofences),const DeepCollectionEquality().hash(geofencesIds),const DeepCollectionEquality().hash(externalAccounts),const DeepCollectionEquality().hash(externalAccountsIds),const DeepCollectionEquality().hash(presets),const DeepCollectionEquality().hash(presetsIds),const DeepCollectionEquality().hash(references),const DeepCollectionEquality().hash(referencesIds),const DeepCollectionEquality().hash(checkpoints),const DeepCollectionEquality().hash(checkpointsIds),const DeepCollectionEquality().hash(careProtocols),const DeepCollectionEquality().hash(careProtocolsIds),const DeepCollectionEquality().hash(inboundServices),const DeepCollectionEquality().hash(inboundServicesIds),const DeepCollectionEquality().hash(functions),const DeepCollectionEquality().hash(functionsIds),const DeepCollectionEquality().hash(conciergeForms),const DeepCollectionEquality().hash(conciergeFormsIds),const DeepCollectionEquality().hash(reportTemplates),const DeepCollectionEquality().hash(reportTemplatesIds),const DeepCollectionEquality().hash(charts),const DeepCollectionEquality().hash(chartsIds),const DeepCollectionEquality().hash(workspaces),const DeepCollectionEquality().hash(workspacesIds),const DeepCollectionEquality().hash(visionProfiles),const DeepCollectionEquality().hash(visionProfilesIds),const DeepCollectionEquality().hash(mappitRoutes),const DeepCollectionEquality().hash(mappitRoutesIds),const DeepCollectionEquality().hash(exchangeServices),const DeepCollectionEquality().hash(exchangeServicesIds),const DeepCollectionEquality().hash(access),owner,ownerId,const DeepCollectionEquality().hash(sensorsIds),const DeepCollectionEquality().hash(sensors),const DeepCollectionEquality().hash(emailTemplatesIds),const DeepCollectionEquality().hash(authenticationCardsIds)]);
 
 @override
 String toString() {
-  return 'Tag(id: $id, name: $name, color: $color, dynamicIcon: $dynamicIcon, users: $users, usersIds: $usersIds, outboundServices: $outboundServices, outboundServicesIds: $outboundServicesIds, triggers: $triggers, triggersIds: $triggersIds, actions: $actions, actionsIds: $actionsIds, operations: $operations, operationsIds: $operationsIds, assets: $assets, assetsIds: $assetsIds, devices: $devices, devicesIds: $devicesIds, geofences: $geofences, geofencesIds: $geofencesIds, externalAccounts: $externalAccounts, externalAccountsIds: $externalAccountsIds, presets: $presets, presetsIds: $presetsIds, references: $references, referencesIds: $referencesIds, checkpoints: $checkpoints, checkpointsIds: $checkpointsIds, careProtocols: $careProtocols, careProtocolsIds: $careProtocolsIds, inboundServices: $inboundServices, inboundServicesIds: $inboundServicesIds, functions: $functions, functionsIds: $functionsIds, conciergeForms: $conciergeForms, conciergeFormsIds: $conciergeFormsIds, reportTemplates: $reportTemplates, reportTemplatesIds: $reportTemplatesIds, charts: $charts, chartsIds: $chartsIds, workspaces: $workspaces, workspacesIds: $workspacesIds, visionProfiles: $visionProfiles, visionProfilesIds: $visionProfilesIds, mappitRoutes: $mappitRoutes, mappitRoutesIds: $mappitRoutesIds, exchangeServices: $exchangeServices, exchangeServicesIds: $exchangeServicesIds, access: $access, owner: $owner, ownerId: $ownerId, sensorsIds: $sensorsIds, sensors: $sensors)';
+  return 'Tag(id: $id, name: $name, color: $color, dynamicIcon: $dynamicIcon, users: $users, usersIds: $usersIds, outboundServices: $outboundServices, outboundServicesIds: $outboundServicesIds, triggers: $triggers, triggersIds: $triggersIds, actions: $actions, actionsIds: $actionsIds, operations: $operations, operationsIds: $operationsIds, assets: $assets, assetsIds: $assetsIds, devices: $devices, devicesIds: $devicesIds, geofences: $geofences, geofencesIds: $geofencesIds, externalAccounts: $externalAccounts, externalAccountsIds: $externalAccountsIds, presets: $presets, presetsIds: $presetsIds, references: $references, referencesIds: $referencesIds, checkpoints: $checkpoints, checkpointsIds: $checkpointsIds, careProtocols: $careProtocols, careProtocolsIds: $careProtocolsIds, inboundServices: $inboundServices, inboundServicesIds: $inboundServicesIds, functions: $functions, functionsIds: $functionsIds, conciergeForms: $conciergeForms, conciergeFormsIds: $conciergeFormsIds, reportTemplates: $reportTemplates, reportTemplatesIds: $reportTemplatesIds, charts: $charts, chartsIds: $chartsIds, workspaces: $workspaces, workspacesIds: $workspacesIds, visionProfiles: $visionProfiles, visionProfilesIds: $visionProfilesIds, mappitRoutes: $mappitRoutes, mappitRoutesIds: $mappitRoutesIds, exchangeServices: $exchangeServices, exchangeServicesIds: $exchangeServicesIds, access: $access, owner: $owner, ownerId: $ownerId, sensorsIds: $sensorsIds, sensors: $sensors, emailTemplatesIds: $emailTemplatesIds, authenticationCardsIds: $authenticationCardsIds)';
 }
 
 
@@ -481,7 +489,7 @@ abstract mixin class _$TagCopyWith<$Res> implements $TagCopyWith<$Res> {
   factory _$TagCopyWith(_Tag value, $Res Function(_Tag) _then) = __$TagCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name,@ColorConverter() Color color, Avatar? dynamicIcon, List<User>? users, List<String>? usersIds, List<OutboundService>? outboundServices, List<String>? outboundServicesIds, List<Trigger>? triggers, List<String>? triggersIds, List<Action>? actions, List<String>? actionsIds, List<Operation>? operations, List<String>? operationsIds, List<Asset>? assets, List<String>? assetsIds, List<Device>? devices, List<String>? devicesIds, List<Geofence>? geofences, List<String>? geofencesIds, List<ExternalAccount>? externalAccounts, List<String>? externalAccountsIds, List<Preset>? presets, List<String>? presetsIds, List<Reference>? references, List<String>? referencesIds, List<Checkpoint>? checkpoints, List<String>? checkpointsIds, List<CareProtocol>? careProtocols, List<String>? careProtocolsIds, List<InboundService>? inboundServices, List<String>? inboundServicesIds, List<LayrzFunction>? functions, List<String>? functionsIds, List<ConciergeForm>? conciergeForms, List<String>? conciergeFormsIds, List<ReportTemplate>? reportTemplates, List<String>? reportTemplatesIds, List<LayrzChart>? charts, List<String>? chartsIds, List<Workspace>? workspaces, List<String>? workspacesIds, List<VisionProfile>? visionProfiles, List<String>? visionProfilesIds, List<MappitRoute>? mappitRoutes, List<String>? mappitRoutesIds, List<ExchangeService>? exchangeServices, List<String>? exchangeServicesIds, List<Access>? access, User? owner, String? ownerId, List<String>? sensorsIds, List<Sensor>? sensors
+ String id, String name,@ColorConverter() Color color, Avatar? dynamicIcon, List<User>? users, List<String>? usersIds, List<OutboundService>? outboundServices, List<String>? outboundServicesIds, List<Trigger>? triggers, List<String>? triggersIds, List<Action>? actions, List<String>? actionsIds, List<Operation>? operations, List<String>? operationsIds, List<Asset>? assets, List<String>? assetsIds, List<Device>? devices, List<String>? devicesIds, List<Geofence>? geofences, List<String>? geofencesIds, List<ExternalAccount>? externalAccounts, List<String>? externalAccountsIds, List<Preset>? presets, List<String>? presetsIds, List<Reference>? references, List<String>? referencesIds, List<Checkpoint>? checkpoints, List<String>? checkpointsIds, List<CareProtocol>? careProtocols, List<String>? careProtocolsIds, List<InboundService>? inboundServices, List<String>? inboundServicesIds, List<LayrzFunction>? functions, List<String>? functionsIds, List<ConciergeForm>? conciergeForms, List<String>? conciergeFormsIds, List<ReportTemplate>? reportTemplates, List<String>? reportTemplatesIds, List<LayrzChart>? charts, List<String>? chartsIds, List<Workspace>? workspaces, List<String>? workspacesIds, List<VisionProfile>? visionProfiles, List<String>? visionProfilesIds, List<MappitRoute>? mappitRoutes, List<String>? mappitRoutesIds, List<ExchangeService>? exchangeServices, List<String>? exchangeServicesIds, List<Access>? access, User? owner, String? ownerId, List<String>? sensorsIds, List<Sensor>? sensors, List<String>? emailTemplatesIds, List<String>? authenticationCardsIds
 });
 
 
@@ -498,7 +506,7 @@ class __$TagCopyWithImpl<$Res>
 
 /// Create a copy of Tag
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? color = null,Object? dynamicIcon = freezed,Object? users = freezed,Object? usersIds = freezed,Object? outboundServices = freezed,Object? outboundServicesIds = freezed,Object? triggers = freezed,Object? triggersIds = freezed,Object? actions = freezed,Object? actionsIds = freezed,Object? operations = freezed,Object? operationsIds = freezed,Object? assets = freezed,Object? assetsIds = freezed,Object? devices = freezed,Object? devicesIds = freezed,Object? geofences = freezed,Object? geofencesIds = freezed,Object? externalAccounts = freezed,Object? externalAccountsIds = freezed,Object? presets = freezed,Object? presetsIds = freezed,Object? references = freezed,Object? referencesIds = freezed,Object? checkpoints = freezed,Object? checkpointsIds = freezed,Object? careProtocols = freezed,Object? careProtocolsIds = freezed,Object? inboundServices = freezed,Object? inboundServicesIds = freezed,Object? functions = freezed,Object? functionsIds = freezed,Object? conciergeForms = freezed,Object? conciergeFormsIds = freezed,Object? reportTemplates = freezed,Object? reportTemplatesIds = freezed,Object? charts = freezed,Object? chartsIds = freezed,Object? workspaces = freezed,Object? workspacesIds = freezed,Object? visionProfiles = freezed,Object? visionProfilesIds = freezed,Object? mappitRoutes = freezed,Object? mappitRoutesIds = freezed,Object? exchangeServices = freezed,Object? exchangeServicesIds = freezed,Object? access = freezed,Object? owner = freezed,Object? ownerId = freezed,Object? sensorsIds = freezed,Object? sensors = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? color = null,Object? dynamicIcon = freezed,Object? users = freezed,Object? usersIds = freezed,Object? outboundServices = freezed,Object? outboundServicesIds = freezed,Object? triggers = freezed,Object? triggersIds = freezed,Object? actions = freezed,Object? actionsIds = freezed,Object? operations = freezed,Object? operationsIds = freezed,Object? assets = freezed,Object? assetsIds = freezed,Object? devices = freezed,Object? devicesIds = freezed,Object? geofences = freezed,Object? geofencesIds = freezed,Object? externalAccounts = freezed,Object? externalAccountsIds = freezed,Object? presets = freezed,Object? presetsIds = freezed,Object? references = freezed,Object? referencesIds = freezed,Object? checkpoints = freezed,Object? checkpointsIds = freezed,Object? careProtocols = freezed,Object? careProtocolsIds = freezed,Object? inboundServices = freezed,Object? inboundServicesIds = freezed,Object? functions = freezed,Object? functionsIds = freezed,Object? conciergeForms = freezed,Object? conciergeFormsIds = freezed,Object? reportTemplates = freezed,Object? reportTemplatesIds = freezed,Object? charts = freezed,Object? chartsIds = freezed,Object? workspaces = freezed,Object? workspacesIds = freezed,Object? visionProfiles = freezed,Object? visionProfilesIds = freezed,Object? mappitRoutes = freezed,Object? mappitRoutesIds = freezed,Object? exchangeServices = freezed,Object? exchangeServicesIds = freezed,Object? access = freezed,Object? owner = freezed,Object? ownerId = freezed,Object? sensorsIds = freezed,Object? sensors = freezed,Object? emailTemplatesIds = freezed,Object? authenticationCardsIds = freezed,}) {
   return _then(_Tag(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -553,7 +561,9 @@ as List<Access>?,owner: freezed == owner ? _self.owner : owner // ignore: cast_n
 as User?,ownerId: freezed == ownerId ? _self.ownerId : ownerId // ignore: cast_nullable_to_non_nullable
 as String?,sensorsIds: freezed == sensorsIds ? _self.sensorsIds : sensorsIds // ignore: cast_nullable_to_non_nullable
 as List<String>?,sensors: freezed == sensors ? _self.sensors : sensors // ignore: cast_nullable_to_non_nullable
-as List<Sensor>?,
+as List<Sensor>?,emailTemplatesIds: freezed == emailTemplatesIds ? _self.emailTemplatesIds : emailTemplatesIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,authenticationCardsIds: freezed == authenticationCardsIds ? _self.authenticationCardsIds : authenticationCardsIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,
   ));
 }
 
@@ -580,6 +590,456 @@ $UserCopyWith<$Res>? get owner {
 
   return $UserCopyWith<$Res>(_self.owner!, (value) {
     return _then(_self.copyWith(owner: value));
+  });
+}
+}
+
+
+/// @nodoc
+mixin _$TagInput {
+
+/// The ID of the tag, `null` when creating a new one.
+ String? get id;/// The ID of the tag, `null` when creating a new one.
+ set id(String? value);/// The name of the tag.
+ String get name;/// The name of the tag.
+ set name(String value);/// The color of the tag.
+@ColorConverter() Color get color;/// The color of the tag.
+@ColorConverter() set color(Color value);/// The dynamic icon of the tag.
+ AvatarInput? get dynamicIcon;/// The dynamic icon of the tag.
+ set dynamicIcon(AvatarInput? value);/// The IDs of the associated users.
+ List<String> get usersIds;/// The IDs of the associated users.
+ set usersIds(List<String> value);/// The IDs of the associated outbound services.
+ List<String> get outboundServicesIds;/// The IDs of the associated outbound services.
+ set outboundServicesIds(List<String> value);/// The IDs of the associated triggers.
+ List<String> get triggersIds;/// The IDs of the associated triggers.
+ set triggersIds(List<String> value);/// The IDs of the associated actions.
+ List<String> get actionsIds;/// The IDs of the associated actions.
+ set actionsIds(List<String> value);/// The IDs of the associated operations.
+ List<String> get operationsIds;/// The IDs of the associated operations.
+ set operationsIds(List<String> value);/// The IDs of the associated assets.
+ List<String> get assetsIds;/// The IDs of the associated assets.
+ set assetsIds(List<String> value);/// The IDs of the associated devices.
+ List<String> get devicesIds;/// The IDs of the associated devices.
+ set devicesIds(List<String> value);/// The IDs of the associated geofences.
+ List<String> get geofencesIds;/// The IDs of the associated geofences.
+ set geofencesIds(List<String> value);/// The IDs of the associated external accounts.
+ List<String> get externalAccountsIds;/// The IDs of the associated external accounts.
+ set externalAccountsIds(List<String> value);/// The IDs of the associated presets.
+ List<String> get presetsIds;/// The IDs of the associated presets.
+ set presetsIds(List<String> value);/// The IDs of the associated references.
+ List<String> get referencesIds;/// The IDs of the associated references.
+ set referencesIds(List<String> value);/// The IDs of the associated checkpoints.
+ List<String> get checkpointsIds;/// The IDs of the associated checkpoints.
+ set checkpointsIds(List<String> value);/// The IDs of the associated care protocols.
+ List<String> get careProtocolsIds;/// The IDs of the associated care protocols.
+ set careProtocolsIds(List<String> value);/// The IDs of the associated inbound services.
+ List<String> get inboundServicesIds;/// The IDs of the associated inbound services.
+ set inboundServicesIds(List<String> value);/// The IDs of the associated functions.
+ List<String> get functionsIds;/// The IDs of the associated functions.
+ set functionsIds(List<String> value);/// The IDs of the associated concierge forms.
+ List<String> get conciergeFormsIds;/// The IDs of the associated concierge forms.
+ set conciergeFormsIds(List<String> value);/// The IDs of the associated report templates.
+ List<String> get reportTemplatesIds;/// The IDs of the associated report templates.
+ set reportTemplatesIds(List<String> value);/// The IDs of the associated charts.
+ List<String> get chartsIds;/// The IDs of the associated charts.
+ set chartsIds(List<String> value);/// The IDs of the associated workspaces.
+ List<String> get workspacesIds;/// The IDs of the associated workspaces.
+ set workspacesIds(List<String> value);/// The IDs of the associated vision profiles.
+ List<String> get visionProfilesIds;/// The IDs of the associated vision profiles.
+ set visionProfilesIds(List<String> value);/// The IDs of the associated Mappit routes.
+ List<String> get mappitRoutesIds;/// The IDs of the associated Mappit routes.
+ set mappitRoutesIds(List<String> value);/// The IDs of the associated sensors.
+ List<String> get sensorsIds;/// The IDs of the associated sensors.
+ set sensorsIds(List<String> value);/// The IDs of the associated email templates.
+ List<String> get emailTemplatesIds;/// The IDs of the associated email templates.
+ set emailTemplatesIds(List<String> value);/// The IDs of the associated authentication cards.
+ List<String> get authenticationCardsIds;/// The IDs of the associated authentication cards.
+ set authenticationCardsIds(List<String> value);/// The IDs of the associated exchange services, only sent when set.
+@JsonKey(includeIfNull: false) List<String>? get exchangeServicesIds;/// The IDs of the associated exchange services, only sent when set.
+@JsonKey(includeIfNull: false) set exchangeServicesIds(List<String>? value);/// The IDs of the associated Tagon bus routes, only sent when set.
+@JsonKey(includeIfNull: false) List<String>? get tagonBusRoutesIds;/// The IDs of the associated Tagon bus routes, only sent when set.
+@JsonKey(includeIfNull: false) set tagonBusRoutesIds(List<String>? value);
+/// Create a copy of TagInput
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TagInputCopyWith<TagInput> get copyWith => _$TagInputCopyWithImpl<TagInput>(this as TagInput, _$identity);
+
+  /// Serializes this TagInput to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'TagInput(id: $id, name: $name, color: $color, dynamicIcon: $dynamicIcon, usersIds: $usersIds, outboundServicesIds: $outboundServicesIds, triggersIds: $triggersIds, actionsIds: $actionsIds, operationsIds: $operationsIds, assetsIds: $assetsIds, devicesIds: $devicesIds, geofencesIds: $geofencesIds, externalAccountsIds: $externalAccountsIds, presetsIds: $presetsIds, referencesIds: $referencesIds, checkpointsIds: $checkpointsIds, careProtocolsIds: $careProtocolsIds, inboundServicesIds: $inboundServicesIds, functionsIds: $functionsIds, conciergeFormsIds: $conciergeFormsIds, reportTemplatesIds: $reportTemplatesIds, chartsIds: $chartsIds, workspacesIds: $workspacesIds, visionProfilesIds: $visionProfilesIds, mappitRoutesIds: $mappitRoutesIds, sensorsIds: $sensorsIds, emailTemplatesIds: $emailTemplatesIds, authenticationCardsIds: $authenticationCardsIds, exchangeServicesIds: $exchangeServicesIds, tagonBusRoutesIds: $tagonBusRoutesIds)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $TagInputCopyWith<$Res>  {
+  factory $TagInputCopyWith(TagInput value, $Res Function(TagInput) _then) = _$TagInputCopyWithImpl;
+@useResult
+$Res call({
+ String? id, String name,@ColorConverter() Color color, AvatarInput? dynamicIcon, List<String> usersIds, List<String> outboundServicesIds, List<String> triggersIds, List<String> actionsIds, List<String> operationsIds, List<String> assetsIds, List<String> devicesIds, List<String> geofencesIds, List<String> externalAccountsIds, List<String> presetsIds, List<String> referencesIds, List<String> checkpointsIds, List<String> careProtocolsIds, List<String> inboundServicesIds, List<String> functionsIds, List<String> conciergeFormsIds, List<String> reportTemplatesIds, List<String> chartsIds, List<String> workspacesIds, List<String> visionProfilesIds, List<String> mappitRoutesIds, List<String> sensorsIds, List<String> emailTemplatesIds, List<String> authenticationCardsIds,@JsonKey(includeIfNull: false) List<String>? exchangeServicesIds,@JsonKey(includeIfNull: false) List<String>? tagonBusRoutesIds
+});
+
+
+$AvatarInputCopyWith<$Res>? get dynamicIcon;
+
+}
+/// @nodoc
+class _$TagInputCopyWithImpl<$Res>
+    implements $TagInputCopyWith<$Res> {
+  _$TagInputCopyWithImpl(this._self, this._then);
+
+  final TagInput _self;
+  final $Res Function(TagInput) _then;
+
+/// Create a copy of TagInput
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? color = null,Object? dynamicIcon = freezed,Object? usersIds = null,Object? outboundServicesIds = null,Object? triggersIds = null,Object? actionsIds = null,Object? operationsIds = null,Object? assetsIds = null,Object? devicesIds = null,Object? geofencesIds = null,Object? externalAccountsIds = null,Object? presetsIds = null,Object? referencesIds = null,Object? checkpointsIds = null,Object? careProtocolsIds = null,Object? inboundServicesIds = null,Object? functionsIds = null,Object? conciergeFormsIds = null,Object? reportTemplatesIds = null,Object? chartsIds = null,Object? workspacesIds = null,Object? visionProfilesIds = null,Object? mappitRoutesIds = null,Object? sensorsIds = null,Object? emailTemplatesIds = null,Object? authenticationCardsIds = null,Object? exchangeServicesIds = freezed,Object? tagonBusRoutesIds = freezed,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as Color,dynamicIcon: freezed == dynamicIcon ? _self.dynamicIcon : dynamicIcon // ignore: cast_nullable_to_non_nullable
+as AvatarInput?,usersIds: null == usersIds ? _self.usersIds : usersIds // ignore: cast_nullable_to_non_nullable
+as List<String>,outboundServicesIds: null == outboundServicesIds ? _self.outboundServicesIds : outboundServicesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,triggersIds: null == triggersIds ? _self.triggersIds : triggersIds // ignore: cast_nullable_to_non_nullable
+as List<String>,actionsIds: null == actionsIds ? _self.actionsIds : actionsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,operationsIds: null == operationsIds ? _self.operationsIds : operationsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,assetsIds: null == assetsIds ? _self.assetsIds : assetsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,devicesIds: null == devicesIds ? _self.devicesIds : devicesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,geofencesIds: null == geofencesIds ? _self.geofencesIds : geofencesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,externalAccountsIds: null == externalAccountsIds ? _self.externalAccountsIds : externalAccountsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,presetsIds: null == presetsIds ? _self.presetsIds : presetsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,referencesIds: null == referencesIds ? _self.referencesIds : referencesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,checkpointsIds: null == checkpointsIds ? _self.checkpointsIds : checkpointsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,careProtocolsIds: null == careProtocolsIds ? _self.careProtocolsIds : careProtocolsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,inboundServicesIds: null == inboundServicesIds ? _self.inboundServicesIds : inboundServicesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,functionsIds: null == functionsIds ? _self.functionsIds : functionsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,conciergeFormsIds: null == conciergeFormsIds ? _self.conciergeFormsIds : conciergeFormsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,reportTemplatesIds: null == reportTemplatesIds ? _self.reportTemplatesIds : reportTemplatesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,chartsIds: null == chartsIds ? _self.chartsIds : chartsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,workspacesIds: null == workspacesIds ? _self.workspacesIds : workspacesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,visionProfilesIds: null == visionProfilesIds ? _self.visionProfilesIds : visionProfilesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,mappitRoutesIds: null == mappitRoutesIds ? _self.mappitRoutesIds : mappitRoutesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,sensorsIds: null == sensorsIds ? _self.sensorsIds : sensorsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,emailTemplatesIds: null == emailTemplatesIds ? _self.emailTemplatesIds : emailTemplatesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,authenticationCardsIds: null == authenticationCardsIds ? _self.authenticationCardsIds : authenticationCardsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,exchangeServicesIds: freezed == exchangeServicesIds ? _self.exchangeServicesIds : exchangeServicesIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,tagonBusRoutesIds: freezed == tagonBusRoutesIds ? _self.tagonBusRoutesIds : tagonBusRoutesIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,
+  ));
+}
+/// Create a copy of TagInput
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AvatarInputCopyWith<$Res>? get dynamicIcon {
+    if (_self.dynamicIcon == null) {
+    return null;
+  }
+
+  return $AvatarInputCopyWith<$Res>(_self.dynamicIcon!, (value) {
+    return _then(_self.copyWith(dynamicIcon: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [TagInput].
+extension TagInputPatterns on TagInput {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _TagInput value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _TagInput() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _TagInput value)  $default,){
+final _that = this;
+switch (_that) {
+case _TagInput():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _TagInput value)?  $default,){
+final _that = this;
+switch (_that) {
+case _TagInput() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name, @ColorConverter()  Color color,  AvatarInput? dynamicIcon,  List<String> usersIds,  List<String> outboundServicesIds,  List<String> triggersIds,  List<String> actionsIds,  List<String> operationsIds,  List<String> assetsIds,  List<String> devicesIds,  List<String> geofencesIds,  List<String> externalAccountsIds,  List<String> presetsIds,  List<String> referencesIds,  List<String> checkpointsIds,  List<String> careProtocolsIds,  List<String> inboundServicesIds,  List<String> functionsIds,  List<String> conciergeFormsIds,  List<String> reportTemplatesIds,  List<String> chartsIds,  List<String> workspacesIds,  List<String> visionProfilesIds,  List<String> mappitRoutesIds,  List<String> sensorsIds,  List<String> emailTemplatesIds,  List<String> authenticationCardsIds, @JsonKey(includeIfNull: false)  List<String>? exchangeServicesIds, @JsonKey(includeIfNull: false)  List<String>? tagonBusRoutesIds)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _TagInput() when $default != null:
+return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.usersIds,_that.outboundServicesIds,_that.triggersIds,_that.actionsIds,_that.operationsIds,_that.assetsIds,_that.devicesIds,_that.geofencesIds,_that.externalAccountsIds,_that.presetsIds,_that.referencesIds,_that.checkpointsIds,_that.careProtocolsIds,_that.inboundServicesIds,_that.functionsIds,_that.conciergeFormsIds,_that.reportTemplatesIds,_that.chartsIds,_that.workspacesIds,_that.visionProfilesIds,_that.mappitRoutesIds,_that.sensorsIds,_that.emailTemplatesIds,_that.authenticationCardsIds,_that.exchangeServicesIds,_that.tagonBusRoutesIds);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name, @ColorConverter()  Color color,  AvatarInput? dynamicIcon,  List<String> usersIds,  List<String> outboundServicesIds,  List<String> triggersIds,  List<String> actionsIds,  List<String> operationsIds,  List<String> assetsIds,  List<String> devicesIds,  List<String> geofencesIds,  List<String> externalAccountsIds,  List<String> presetsIds,  List<String> referencesIds,  List<String> checkpointsIds,  List<String> careProtocolsIds,  List<String> inboundServicesIds,  List<String> functionsIds,  List<String> conciergeFormsIds,  List<String> reportTemplatesIds,  List<String> chartsIds,  List<String> workspacesIds,  List<String> visionProfilesIds,  List<String> mappitRoutesIds,  List<String> sensorsIds,  List<String> emailTemplatesIds,  List<String> authenticationCardsIds, @JsonKey(includeIfNull: false)  List<String>? exchangeServicesIds, @JsonKey(includeIfNull: false)  List<String>? tagonBusRoutesIds)  $default,) {final _that = this;
+switch (_that) {
+case _TagInput():
+return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.usersIds,_that.outboundServicesIds,_that.triggersIds,_that.actionsIds,_that.operationsIds,_that.assetsIds,_that.devicesIds,_that.geofencesIds,_that.externalAccountsIds,_that.presetsIds,_that.referencesIds,_that.checkpointsIds,_that.careProtocolsIds,_that.inboundServicesIds,_that.functionsIds,_that.conciergeFormsIds,_that.reportTemplatesIds,_that.chartsIds,_that.workspacesIds,_that.visionProfilesIds,_that.mappitRoutesIds,_that.sensorsIds,_that.emailTemplatesIds,_that.authenticationCardsIds,_that.exchangeServicesIds,_that.tagonBusRoutesIds);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name, @ColorConverter()  Color color,  AvatarInput? dynamicIcon,  List<String> usersIds,  List<String> outboundServicesIds,  List<String> triggersIds,  List<String> actionsIds,  List<String> operationsIds,  List<String> assetsIds,  List<String> devicesIds,  List<String> geofencesIds,  List<String> externalAccountsIds,  List<String> presetsIds,  List<String> referencesIds,  List<String> checkpointsIds,  List<String> careProtocolsIds,  List<String> inboundServicesIds,  List<String> functionsIds,  List<String> conciergeFormsIds,  List<String> reportTemplatesIds,  List<String> chartsIds,  List<String> workspacesIds,  List<String> visionProfilesIds,  List<String> mappitRoutesIds,  List<String> sensorsIds,  List<String> emailTemplatesIds,  List<String> authenticationCardsIds, @JsonKey(includeIfNull: false)  List<String>? exchangeServicesIds, @JsonKey(includeIfNull: false)  List<String>? tagonBusRoutesIds)?  $default,) {final _that = this;
+switch (_that) {
+case _TagInput() when $default != null:
+return $default(_that.id,_that.name,_that.color,_that.dynamicIcon,_that.usersIds,_that.outboundServicesIds,_that.triggersIds,_that.actionsIds,_that.operationsIds,_that.assetsIds,_that.devicesIds,_that.geofencesIds,_that.externalAccountsIds,_that.presetsIds,_that.referencesIds,_that.checkpointsIds,_that.careProtocolsIds,_that.inboundServicesIds,_that.functionsIds,_that.conciergeFormsIds,_that.reportTemplatesIds,_that.chartsIds,_that.workspacesIds,_that.visionProfilesIds,_that.mappitRoutesIds,_that.sensorsIds,_that.emailTemplatesIds,_that.authenticationCardsIds,_that.exchangeServicesIds,_that.tagonBusRoutesIds);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _TagInput extends TagInput {
+   _TagInput({this.id, this.name = '', @ColorConverter() this.color = const Color(0xFF001E60), this.dynamicIcon, this.usersIds = const [], this.outboundServicesIds = const [], this.triggersIds = const [], this.actionsIds = const [], this.operationsIds = const [], this.assetsIds = const [], this.devicesIds = const [], this.geofencesIds = const [], this.externalAccountsIds = const [], this.presetsIds = const [], this.referencesIds = const [], this.checkpointsIds = const [], this.careProtocolsIds = const [], this.inboundServicesIds = const [], this.functionsIds = const [], this.conciergeFormsIds = const [], this.reportTemplatesIds = const [], this.chartsIds = const [], this.workspacesIds = const [], this.visionProfilesIds = const [], this.mappitRoutesIds = const [], this.sensorsIds = const [], this.emailTemplatesIds = const [], this.authenticationCardsIds = const [], @JsonKey(includeIfNull: false) this.exchangeServicesIds, @JsonKey(includeIfNull: false) this.tagonBusRoutesIds}): super._();
+  factory _TagInput.fromJson(Map<String, dynamic> json) => _$TagInputFromJson(json);
+
+/// The ID of the tag, `null` when creating a new one.
+@override  String? id;
+/// The name of the tag.
+@override@JsonKey()  String name;
+/// The color of the tag.
+@override@JsonKey()@ColorConverter()  Color color;
+/// The dynamic icon of the tag.
+@override  AvatarInput? dynamicIcon;
+/// The IDs of the associated users.
+@override@JsonKey()  List<String> usersIds;
+/// The IDs of the associated outbound services.
+@override@JsonKey()  List<String> outboundServicesIds;
+/// The IDs of the associated triggers.
+@override@JsonKey()  List<String> triggersIds;
+/// The IDs of the associated actions.
+@override@JsonKey()  List<String> actionsIds;
+/// The IDs of the associated operations.
+@override@JsonKey()  List<String> operationsIds;
+/// The IDs of the associated assets.
+@override@JsonKey()  List<String> assetsIds;
+/// The IDs of the associated devices.
+@override@JsonKey()  List<String> devicesIds;
+/// The IDs of the associated geofences.
+@override@JsonKey()  List<String> geofencesIds;
+/// The IDs of the associated external accounts.
+@override@JsonKey()  List<String> externalAccountsIds;
+/// The IDs of the associated presets.
+@override@JsonKey()  List<String> presetsIds;
+/// The IDs of the associated references.
+@override@JsonKey()  List<String> referencesIds;
+/// The IDs of the associated checkpoints.
+@override@JsonKey()  List<String> checkpointsIds;
+/// The IDs of the associated care protocols.
+@override@JsonKey()  List<String> careProtocolsIds;
+/// The IDs of the associated inbound services.
+@override@JsonKey()  List<String> inboundServicesIds;
+/// The IDs of the associated functions.
+@override@JsonKey()  List<String> functionsIds;
+/// The IDs of the associated concierge forms.
+@override@JsonKey()  List<String> conciergeFormsIds;
+/// The IDs of the associated report templates.
+@override@JsonKey()  List<String> reportTemplatesIds;
+/// The IDs of the associated charts.
+@override@JsonKey()  List<String> chartsIds;
+/// The IDs of the associated workspaces.
+@override@JsonKey()  List<String> workspacesIds;
+/// The IDs of the associated vision profiles.
+@override@JsonKey()  List<String> visionProfilesIds;
+/// The IDs of the associated Mappit routes.
+@override@JsonKey()  List<String> mappitRoutesIds;
+/// The IDs of the associated sensors.
+@override@JsonKey()  List<String> sensorsIds;
+/// The IDs of the associated email templates.
+@override@JsonKey()  List<String> emailTemplatesIds;
+/// The IDs of the associated authentication cards.
+@override@JsonKey()  List<String> authenticationCardsIds;
+/// The IDs of the associated exchange services, only sent when set.
+@override@JsonKey(includeIfNull: false)  List<String>? exchangeServicesIds;
+/// The IDs of the associated Tagon bus routes, only sent when set.
+@override@JsonKey(includeIfNull: false)  List<String>? tagonBusRoutesIds;
+
+/// Create a copy of TagInput
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$TagInputCopyWith<_TagInput> get copyWith => __$TagInputCopyWithImpl<_TagInput>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$TagInputToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'TagInput(id: $id, name: $name, color: $color, dynamicIcon: $dynamicIcon, usersIds: $usersIds, outboundServicesIds: $outboundServicesIds, triggersIds: $triggersIds, actionsIds: $actionsIds, operationsIds: $operationsIds, assetsIds: $assetsIds, devicesIds: $devicesIds, geofencesIds: $geofencesIds, externalAccountsIds: $externalAccountsIds, presetsIds: $presetsIds, referencesIds: $referencesIds, checkpointsIds: $checkpointsIds, careProtocolsIds: $careProtocolsIds, inboundServicesIds: $inboundServicesIds, functionsIds: $functionsIds, conciergeFormsIds: $conciergeFormsIds, reportTemplatesIds: $reportTemplatesIds, chartsIds: $chartsIds, workspacesIds: $workspacesIds, visionProfilesIds: $visionProfilesIds, mappitRoutesIds: $mappitRoutesIds, sensorsIds: $sensorsIds, emailTemplatesIds: $emailTemplatesIds, authenticationCardsIds: $authenticationCardsIds, exchangeServicesIds: $exchangeServicesIds, tagonBusRoutesIds: $tagonBusRoutesIds)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$TagInputCopyWith<$Res> implements $TagInputCopyWith<$Res> {
+  factory _$TagInputCopyWith(_TagInput value, $Res Function(_TagInput) _then) = __$TagInputCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id, String name,@ColorConverter() Color color, AvatarInput? dynamicIcon, List<String> usersIds, List<String> outboundServicesIds, List<String> triggersIds, List<String> actionsIds, List<String> operationsIds, List<String> assetsIds, List<String> devicesIds, List<String> geofencesIds, List<String> externalAccountsIds, List<String> presetsIds, List<String> referencesIds, List<String> checkpointsIds, List<String> careProtocolsIds, List<String> inboundServicesIds, List<String> functionsIds, List<String> conciergeFormsIds, List<String> reportTemplatesIds, List<String> chartsIds, List<String> workspacesIds, List<String> visionProfilesIds, List<String> mappitRoutesIds, List<String> sensorsIds, List<String> emailTemplatesIds, List<String> authenticationCardsIds,@JsonKey(includeIfNull: false) List<String>? exchangeServicesIds,@JsonKey(includeIfNull: false) List<String>? tagonBusRoutesIds
+});
+
+
+@override $AvatarInputCopyWith<$Res>? get dynamicIcon;
+
+}
+/// @nodoc
+class __$TagInputCopyWithImpl<$Res>
+    implements _$TagInputCopyWith<$Res> {
+  __$TagInputCopyWithImpl(this._self, this._then);
+
+  final _TagInput _self;
+  final $Res Function(_TagInput) _then;
+
+/// Create a copy of TagInput
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? color = null,Object? dynamicIcon = freezed,Object? usersIds = null,Object? outboundServicesIds = null,Object? triggersIds = null,Object? actionsIds = null,Object? operationsIds = null,Object? assetsIds = null,Object? devicesIds = null,Object? geofencesIds = null,Object? externalAccountsIds = null,Object? presetsIds = null,Object? referencesIds = null,Object? checkpointsIds = null,Object? careProtocolsIds = null,Object? inboundServicesIds = null,Object? functionsIds = null,Object? conciergeFormsIds = null,Object? reportTemplatesIds = null,Object? chartsIds = null,Object? workspacesIds = null,Object? visionProfilesIds = null,Object? mappitRoutesIds = null,Object? sensorsIds = null,Object? emailTemplatesIds = null,Object? authenticationCardsIds = null,Object? exchangeServicesIds = freezed,Object? tagonBusRoutesIds = freezed,}) {
+  return _then(_TagInput(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as Color,dynamicIcon: freezed == dynamicIcon ? _self.dynamicIcon : dynamicIcon // ignore: cast_nullable_to_non_nullable
+as AvatarInput?,usersIds: null == usersIds ? _self.usersIds : usersIds // ignore: cast_nullable_to_non_nullable
+as List<String>,outboundServicesIds: null == outboundServicesIds ? _self.outboundServicesIds : outboundServicesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,triggersIds: null == triggersIds ? _self.triggersIds : triggersIds // ignore: cast_nullable_to_non_nullable
+as List<String>,actionsIds: null == actionsIds ? _self.actionsIds : actionsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,operationsIds: null == operationsIds ? _self.operationsIds : operationsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,assetsIds: null == assetsIds ? _self.assetsIds : assetsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,devicesIds: null == devicesIds ? _self.devicesIds : devicesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,geofencesIds: null == geofencesIds ? _self.geofencesIds : geofencesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,externalAccountsIds: null == externalAccountsIds ? _self.externalAccountsIds : externalAccountsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,presetsIds: null == presetsIds ? _self.presetsIds : presetsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,referencesIds: null == referencesIds ? _self.referencesIds : referencesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,checkpointsIds: null == checkpointsIds ? _self.checkpointsIds : checkpointsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,careProtocolsIds: null == careProtocolsIds ? _self.careProtocolsIds : careProtocolsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,inboundServicesIds: null == inboundServicesIds ? _self.inboundServicesIds : inboundServicesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,functionsIds: null == functionsIds ? _self.functionsIds : functionsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,conciergeFormsIds: null == conciergeFormsIds ? _self.conciergeFormsIds : conciergeFormsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,reportTemplatesIds: null == reportTemplatesIds ? _self.reportTemplatesIds : reportTemplatesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,chartsIds: null == chartsIds ? _self.chartsIds : chartsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,workspacesIds: null == workspacesIds ? _self.workspacesIds : workspacesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,visionProfilesIds: null == visionProfilesIds ? _self.visionProfilesIds : visionProfilesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,mappitRoutesIds: null == mappitRoutesIds ? _self.mappitRoutesIds : mappitRoutesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,sensorsIds: null == sensorsIds ? _self.sensorsIds : sensorsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,emailTemplatesIds: null == emailTemplatesIds ? _self.emailTemplatesIds : emailTemplatesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,authenticationCardsIds: null == authenticationCardsIds ? _self.authenticationCardsIds : authenticationCardsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,exchangeServicesIds: freezed == exchangeServicesIds ? _self.exchangeServicesIds : exchangeServicesIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,tagonBusRoutesIds: freezed == tagonBusRoutesIds ? _self.tagonBusRoutesIds : tagonBusRoutesIds // ignore: cast_nullable_to_non_nullable
+as List<String>?,
+  ));
+}
+
+/// Create a copy of TagInput
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AvatarInputCopyWith<$Res>? get dynamicIcon {
+    if (_self.dynamicIcon == null) {
+    return null;
+  }
+
+  return $AvatarInputCopyWith<$Res>(_self.dynamicIcon!, (value) {
+    return _then(_self.copyWith(dynamicIcon: value));
   });
 }
 }

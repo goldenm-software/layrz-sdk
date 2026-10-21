@@ -26,6 +26,7 @@
 /// - [permissions] — Generic permission models for access control.
 /// - [realtime] — Typed envelope for realtime/websocket messages.
 /// - [simulation] — Simulation cycle catalog for the Layrz Cycle Scripting language.
+/// - [tag] — Tag model with [TagInput] and [TagVariant] to list, fetch, save and delete tags.
 /// - [time_of_day] — A framework-independent [TimeOfDay] class for time-of-day values.
 /// - [token] — Authentication token models and token audience types.
 /// - [utils] — Utility classes including [LayrzNumber] (base-36 encoding) and [ParamData]
