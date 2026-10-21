@@ -9,6 +9,8 @@ part of '../tag.dart';
 /// list of bare IDs (e.g. [usersIds]).
 @freezed
 abstract class Tag with _$Tag {
+  const Tag._();
+
   /// Constructs an immutable [Tag].
   const factory Tag({
     /// The ID of the tag.
@@ -169,6 +171,12 @@ abstract class Tag with _$Tag {
 
     /// The list of associated sensors for this tag.
     List<Sensor>? sensors,
+
+    /// The list of IDs of associated email templates for this tag.
+    List<String>? emailTemplatesIds,
+
+    /// The list of IDs of associated authentication cards for this tag.
+    List<String>? authenticationCardsIds,
   }) = _Tag;
 
   /// Deserializes a [Tag] from a JSON map.
@@ -196,36 +204,164 @@ abstract class Tag with _$Tag {
   // coverage:ignore-end
 
   // coverage:ignore-start
+  /// The `*Ids` association fields selected next to [fragment] when listing or saving.
+  static List<GqlField> get _idsFields => [
+    for (final name in [
+      'actionsIds',
+      'assetsIds',
+      'careProtocolsIds',
+      'chartsIds',
+      'checkpointsIds',
+      'conciergeFormsIds',
+      'devicesIds',
+      'externalAccountsIds',
+      'functionsIds',
+      'geofencesIds',
+      'inboundServicesIds',
+      'mappitRoutesIds',
+      'operationsIds',
+      'outboundServicesIds',
+      'presetsIds',
+      'referencesIds',
+      'reportTemplatesIds',
+      'sensorsIds',
+      'triggersIds',
+      'usersIds',
+      'visionProfilesIds',
+      'workspacesIds',
+    ])
+      GqlField(name: name),
+  ];
+
+  /// The resolved association lists of a [Tag], with the minimum fields each nested model needs to
+  /// decode.
+  static List<GqlField> get _associationFields {
+    GqlField association(String name, [List<String> extra = const []]) {
+      return GqlField(
+        name: name,
+        fields: [
+          for (final field in ['id', 'name', ...extra]) GqlField(name: field),
+        ],
+      );
+    }
+
+    return [
+      association('users'),
+      association('outboundServices'),
+      association('triggers', ['code', 'kind']),
+      association('actions', ['kind']),
+      association('operations', ['operationType']),
+      association('assets'),
+      association('devices', ['ident']),
+      association('geofences', ['color', 'mode']),
+      association('externalAccounts'),
+      association('presets'),
+      association('references'),
+      association('checkpoints'),
+      association('careProtocols'),
+      association('inboundServices'),
+      association('functions'),
+      association('conciergeForms'),
+      association('reportTemplates'),
+      association('charts'),
+      association('workspaces'),
+      association('visionProfiles'),
+      association('mappitRoutes'),
+      association('sensors', ['slug']),
+    ];
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
   /// Fetches all tags available to the authenticated user.
   ///
-  /// Makes an authenticated GraphQL query (`tags`) to retrieve every [Tag]
-  /// visible to the user. Authentication is carried solely via the
-  /// connector's `Authorization` header, built from [apiToken].
-  ///
-  /// Optional callback invoked with the [ApiStatus] of the response. Called
-  /// once per invocation, regardless of success or failure.
-  ///
-  /// Returns an empty list on any error (network failure, authentication
-  /// failure, or server error). Errors are logged internally.
+  /// Selects the lightweight [fragment] plus the `*Ids` association lists; add any other field with
+  /// [extraFields]. Use [fetch] for the full record. Returns an empty list on any error. Errors are
+  /// logged internally.
   static Future<List<Tag>> fetchAll({
-    /// [apiToken] is the API token for authentication. Obtain via the
-    /// `login` mutation on the GraphQL API.
+    /// [apiToken] is the API token for authentication.
     required String apiToken,
 
-    /// [uri] is the Layrz GraphQL API endpoint (e.g.
-    /// `https://api.example.com/graphql`).
+    /// [uri] is the Layrz GraphQL API endpoint.
     required Uri uri,
 
-    /// [onResponse] is an optional callback invoked with the [ApiStatus] of
-    /// the response. Called once per invocation, regardless of success or
-    /// failure.
-    void Function(ApiStatus status)? onResponse,
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [variant] selects the standard or Mappit query.
+    TagVariant variant = .standard,
+
+    /// [extraFields] is the list of additional fields to fetch from the API, if any.
+    List<GqlField>? extraFields,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    final queryName = _getQueryNameFromVariant(variant);
     try {
       final response = await connector.query(
-        GqlQuery(name: 'tags')..add(
-          GqlField(name: 'tags')
+        GqlQuery(name: queryName)..add(
+          GqlField(name: queryName)
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(
+              GqlField(
+                name: 'result',
+                fragment: fragment,
+                fields: [..._idsFields, ...?extraFields],
+              ),
+            ),
+        ),
+        _tagListDecoder,
+      );
+
+      if (response.status != .ok) {
+        Log.warning(
+          "layrz_sdk/Tag/fetchAll(): API returned status ${response.status}",
+        );
+        onResponse?.call(response.status);
+        return [];
+      }
+
+      return response.result ?? [];
+    } catch (err, stack) {
+      Log.critical(
+        "layrz_sdk/Tag/fetchAll(): General exception => $err\n$stack",
+      );
+      return [];
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Fetches the full record of this tag: the `*Ids` lists (including [emailTemplatesIds] and
+  /// [authenticationCardsIds]) and the resolved association objects (e.g. [users], [assets]) with
+  /// their `id` and `name`.
+  ///
+  /// Returns `null` when the tag is not found or on any error; a missing tag reports
+  /// [ApiStatus.notfound] through [onResponse].
+  Future<Tag?> fetch({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz GraphQL API endpoint.
+    required Uri uri,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [variant] selects the standard or Mappit query.
+    TagVariant variant = .standard,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    final queryName = _getQueryNameFromVariant(variant);
+    try {
+      final response = await connector.query(
+        GqlQuery(
+          name: queryName,
+          variables: [
+            GqlVariable(name: 'id', value: id, type: .id, isRequired: true),
+          ],
+        )..add(
+          GqlField(name: queryName, args: {'id': 'id'})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(
@@ -233,28 +369,10 @@ abstract class Tag with _$Tag {
                 name: 'result',
                 fragment: fragment,
                 fields: [
-                  GqlField(name: 'actionsIds'),
-                  GqlField(name: 'assetsIds'),
-                  GqlField(name: 'careProtocolsIds'),
-                  GqlField(name: 'chartsIds'),
-                  GqlField(name: 'checkpointsIds'),
-                  GqlField(name: 'conciergeFormsIds'),
-                  GqlField(name: 'devicesIds'),
-                  GqlField(name: 'externalAccountsIds'),
-                  GqlField(name: 'functionsIds'),
-                  GqlField(name: 'geofencesIds'),
-                  GqlField(name: 'inboundServicesIds'),
-                  GqlField(name: 'mappitRoutesIds'),
-                  GqlField(name: 'operationsIds'),
-                  GqlField(name: 'outboundServicesIds'),
-                  GqlField(name: 'presetsIds'),
-                  GqlField(name: 'referencesIds'),
-                  GqlField(name: 'reportTemplatesIds'),
-                  GqlField(name: 'sensorsIds'),
-                  GqlField(name: 'triggersIds'),
-                  GqlField(name: 'usersIds'),
-                  GqlField(name: 'visionProfilesIds'),
-                  GqlField(name: 'workspacesIds'),
+                  ..._idsFields,
+                  GqlField(name: 'emailTemplatesIds'),
+                  GqlField(name: 'authenticationCardsIds'),
+                  ..._associationFields,
                 ],
               ),
             ),
@@ -263,21 +381,118 @@ abstract class Tag with _$Tag {
       );
 
       if (response.status != .ok) {
+        Log.warning(
+          "layrz_sdk/Tag/fetch(): API returned status ${response.status}",
+        );
         onResponse?.call(response.status);
-        return [];
+        return null;
       }
 
-      return response.result ?? [];
-    } catch (e, stack) {
-      Log.critical('layrz_sdk/Tag/fetchAll(): General exception => $e\n$stack');
-      return [];
+      final result = response.result ?? [];
+      if (result.isEmpty) {
+        onResponse?.call(.notfound);
+        return null;
+      }
+
+      return result.first;
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/Tag/fetch(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return null;
     }
   }
   // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Deletes the tags with the given [ids].
+  ///
+  /// Returns `true` when the API reports success, `false` otherwise.
+  static Future<bool> deleteMany({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz GraphQL API endpoint.
+    required Uri uri,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [variant] selects the standard or Mappit mutation.
+    TagVariant variant = .standard,
+
+    /// [ids] are the IDs of the tags to delete.
+    required List<String> ids,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    final mutationName = _getDeleteMutationNameFromVariant(variant);
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          name: mutationName,
+          variables: [
+            GqlVariable(
+              name: 'ids',
+              value: ids,
+              type: .list(of: .id, isRequired: true),
+              isRequired: true,
+            ),
+          ],
+        )..add(
+          GqlField(name: mutationName, args: {'ids': 'ids'})
+            ..add(GqlField(name: 'status')),
+        ),
+      );
+
+      if (response.status != .ok) {
+        Log.warning(
+          "layrz_sdk/Tag/deleteMany(): API returned status ${response.status}",
+        );
+        onResponse?.call(response.status);
+        return false;
+      }
+
+      return true;
+    } catch (err, stack) {
+      Log.critical(
+        "layrz_sdk/Tag/deleteMany(): General exception => $err\n$stack",
+      );
+      onResponse?.call(.internalError);
+      return false;
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  static String _getQueryNameFromVariant(TagVariant variant) {
+    switch (variant) {
+      case .mappit:
+        return 'mappitTags';
+      case .standard:
+        return 'tags';
+    }
+  }
+
+  static String _getDeleteMutationNameFromVariant(TagVariant variant) {
+    switch (variant) {
+      case .mappit:
+        return 'deleteMappitTags';
+      case .standard:
+        return 'deleteTags';
+    }
+  }
+
+  // coverage:ignore-end
 }
 
-/// [_tagListDecoder] decodes a raw listing `result` payload into a list of
-/// [Tag]. Used by listing queries (fetchAll).
+/// [_tagListDecoder] decodes a raw listing `result` payload into a list of [Tag].
 List<Tag> _tagListDecoder(Object? json) {
-  return List<Tag>.from((json as List? ?? []).map((e) => Tag.fromJson(Map<String, dynamic>.from(e as Map))));
+  return List<Tag>.from(
+    (json as List? ?? []).map(
+      (e) => Tag.fromJson(Map<String, dynamic>.from(e as Map)),
+    ),
+  );
 }
+
+/// [_tagDecoder] decodes a single raw `result` payload into a [Tag].
+Tag _tagDecoder(Object? json) =>
+    Tag.fromJson(Map<String, dynamic>.from(json as Map));

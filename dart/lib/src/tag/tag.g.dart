@@ -158,6 +158,12 @@ _Tag _$TagFromJson(Map<String, dynamic> json) => _Tag(
   sensors: (json['sensors'] as List<dynamic>?)
       ?.map((e) => Sensor.fromJson(e as Map<String, dynamic>))
       .toList(),
+  emailTemplatesIds: (json['emailTemplatesIds'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+  authenticationCardsIds: (json['authenticationCardsIds'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
 );
 
 Map<String, dynamic> _$TagToJson(_Tag instance) => <String, dynamic>{
@@ -220,4 +226,170 @@ Map<String, dynamic> _$TagToJson(_Tag instance) => <String, dynamic>{
   'ownerId': instance.ownerId,
   'sensorsIds': instance.sensorsIds,
   'sensors': instance.sensors?.map((e) => e.toJson()).toList(),
+  'emailTemplatesIds': instance.emailTemplatesIds,
+  'authenticationCardsIds': instance.authenticationCardsIds,
+};
+
+_TagInput _$TagInputFromJson(Map<String, dynamic> json) => _TagInput(
+  id: json['id'] as String?,
+  name: json['name'] as String? ?? '',
+  color: json['color'] == null
+      ? const Color(0xFF001E60)
+      : const ColorConverter().fromJson(json['color'] as String),
+  dynamicIcon: json['dynamicIcon'] == null
+      ? null
+      : AvatarInput.fromJson(json['dynamicIcon'] as Map<String, dynamic>),
+  usersIds:
+      (json['usersIds'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
+  outboundServicesIds:
+      (json['outboundServicesIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  triggersIds:
+      (json['triggersIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  actionsIds:
+      (json['actionsIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  operationsIds:
+      (json['operationsIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  assetsIds:
+      (json['assetsIds'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
+  devicesIds:
+      (json['devicesIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  geofencesIds:
+      (json['geofencesIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  externalAccountsIds:
+      (json['externalAccountsIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  presetsIds:
+      (json['presetsIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  referencesIds:
+      (json['referencesIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  checkpointsIds:
+      (json['checkpointsIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  careProtocolsIds:
+      (json['careProtocolsIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  inboundServicesIds:
+      (json['inboundServicesIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  functionsIds:
+      (json['functionsIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  conciergeFormsIds:
+      (json['conciergeFormsIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  reportTemplatesIds:
+      (json['reportTemplatesIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  chartsIds:
+      (json['chartsIds'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
+  workspacesIds:
+      (json['workspacesIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  visionProfilesIds:
+      (json['visionProfilesIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  mappitRoutesIds:
+      (json['mappitRoutesIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  sensorsIds:
+      (json['sensorsIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  emailTemplatesIds:
+      (json['emailTemplatesIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  authenticationCardsIds:
+      (json['authenticationCardsIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  exchangeServicesIds: (json['exchangeServicesIds'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+  tagonBusRoutesIds: (json['tagonBusRoutesIds'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+);
+
+Map<String, dynamic> _$TagInputToJson(_TagInput instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'color': const ColorConverter().toJson(instance.color),
+  'dynamicIcon': instance.dynamicIcon?.toJson(),
+  'usersIds': instance.usersIds,
+  'outboundServicesIds': instance.outboundServicesIds,
+  'triggersIds': instance.triggersIds,
+  'actionsIds': instance.actionsIds,
+  'operationsIds': instance.operationsIds,
+  'assetsIds': instance.assetsIds,
+  'devicesIds': instance.devicesIds,
+  'geofencesIds': instance.geofencesIds,
+  'externalAccountsIds': instance.externalAccountsIds,
+  'presetsIds': instance.presetsIds,
+  'referencesIds': instance.referencesIds,
+  'checkpointsIds': instance.checkpointsIds,
+  'careProtocolsIds': instance.careProtocolsIds,
+  'inboundServicesIds': instance.inboundServicesIds,
+  'functionsIds': instance.functionsIds,
+  'conciergeFormsIds': instance.conciergeFormsIds,
+  'reportTemplatesIds': instance.reportTemplatesIds,
+  'chartsIds': instance.chartsIds,
+  'workspacesIds': instance.workspacesIds,
+  'visionProfilesIds': instance.visionProfilesIds,
+  'mappitRoutesIds': instance.mappitRoutesIds,
+  'sensorsIds': instance.sensorsIds,
+  'emailTemplatesIds': instance.emailTemplatesIds,
+  'authenticationCardsIds': instance.authenticationCardsIds,
+  'exchangeServicesIds': ?instance.exchangeServicesIds,
+  'tagonBusRoutesIds': ?instance.tagonBusRoutesIds,
 };

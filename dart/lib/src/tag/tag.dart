@@ -40,3 +40,5 @@ part 'tag.freezed.dart';
 part 'tag.g.dart';
 
 part 'src/tag.dart';
+part 'src/tag_input.dart';
+part 'src/variant.dart';

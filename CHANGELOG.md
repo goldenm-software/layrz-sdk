@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.16.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* Added tag operations to the `tag` module: `TagVariant` (standard, Mappit), `Tag.fetch` (detail with resolved associations), `Tag.deleteMany` and `TagInput` with `save` and `TagInput.fromTag`. `Tag.fetchAll` keeps its lightweight selection, accepts a `variant` and `extraFields`.
+* Added `emailTemplatesIds` and `authenticationCardsIds` to `Tag`.
+
+### Go
+
+* No changes in this release.
+
 ## 4.15.0
 
 ### Python
