@@ -311,8 +311,8 @@ return $default(_that.id,_that.name,_that.iterationCycle,_that.slug,_that.isInst
 /// @nodoc
 @JsonSerializable()
 
-class _Sensor implements Sensor {
-  const _Sensor({required this.id, required this.name, this.iterationCycle, required this.slug, this.isInstant, @IconOrNullConverter() this.icon, this.measuringUnit, @JsonKey(unknownEnumValue: SensorType.constant) this.type, @JsonKey(unknownEnumValue: SensorSubType.raw) this.subtype, this.parameter, this.externalIdentifiers, this.formula, this.script, this.hasHeaders, this.csvHeaders, this.csvSeparator, this.ranges, this.mask, this.hasValidator, this.minValue, this.maxValue, this.contentType, this.parentId, this.parent, this.functionId, this.lastExit, this.qrCode, this.assignedAssetsIds, this.assignedAssets, this.isTemplate, this.isGlobal = false, this.access, @DurationOrNullConverter() this.maxHistorySearch});
+class _Sensor extends Sensor {
+  const _Sensor({required this.id, required this.name, this.iterationCycle, required this.slug, this.isInstant, @IconOrNullConverter() this.icon, this.measuringUnit, @JsonKey(unknownEnumValue: SensorType.constant) this.type, @JsonKey(unknownEnumValue: SensorSubType.raw) this.subtype, this.parameter, this.externalIdentifiers, this.formula, this.script, this.hasHeaders, this.csvHeaders, this.csvSeparator, this.ranges, this.mask, this.hasValidator, this.minValue, this.maxValue, this.contentType, this.parentId, this.parent, this.functionId, this.lastExit, this.qrCode, this.assignedAssetsIds, this.assignedAssets, this.isTemplate, this.isGlobal = false, this.access, @DurationOrNullConverter() this.maxHistorySearch}): super._();
   factory _Sensor.fromJson(Map<String, dynamic> json) => _$SensorFromJson(json);
 
 /// [id] of the sensor. Must be unique along of all sensors of the asset.
@@ -510,408 +510,6 @@ $AtsExitCopyWith<$Res>? get lastExit {
     return _then(_self.copyWith(lastExit: value));
   });
 }
-}
-
-
-/// @nodoc
-mixin _$SensorInput {
-
-/// Unique identifier for this sensor, or `null` when creating a new one.
- String? get id;/// Unique identifier for this sensor, or `null` when creating a new one.
- set id(String? value);/// [assetId] is the id of the asset this sensor belongs to.
- String? get assetId;/// [assetId] is the id of the asset this sensor belongs to.
- set assetId(String? value);/// [name] of the sensor. Defaults to an empty string.
- String get name;/// [name] of the sensor. Defaults to an empty string.
- set name(String value);/// [slug] of the sensor. Defaults to an empty string.
- String get slug;/// [slug] of the sensor. Defaults to an empty string.
- set slug(String value);/// [measuringUnit] of the sensor. Defaults to an empty string.
- String get measuringUnit;/// [measuringUnit] of the sensor. Defaults to an empty string.
- set measuringUnit(String value);/// [type] of the sensor. Defaults to [SensorType.constant].
-@JsonKey(unknownEnumValue: SensorType.constant) SensorType get type;/// [type] of the sensor. Defaults to [SensorType.constant].
-@JsonKey(unknownEnumValue: SensorType.constant) set type(SensorType value);/// [subtype] of the sensor. Defaults to [SensorSubType.raw].
-@JsonKey(unknownEnumValue: SensorSubType.raw) SensorSubType get subtype;/// [subtype] of the sensor. Defaults to [SensorSubType.raw].
-@JsonKey(unknownEnumValue: SensorSubType.raw) set subtype(SensorSubType value);/// [parameter] of the sensor. Defaults to an empty string.
- String get parameter;/// [parameter] of the sensor. Defaults to an empty string.
- set parameter(String value);/// [iterationCycle] of the sensor. Defaults to `1`.
- int get iterationCycle;/// [iterationCycle] of the sensor. Defaults to `1`.
- set iterationCycle(int value);/// [formula] is the LCL formula to execute. Defaults to an empty string.
- String get formula;/// [formula] is the LCL formula to execute. Defaults to an empty string.
- set formula(String value);/// [script] is the script to execute. Defaults to an empty string.
- String get script;/// [script] is the script to execute. Defaults to an empty string.
- set script(String value);/// [icon] of the sensor.
-@IconOrNullConverter() MdiRemapIcon? get icon;/// [icon] of the sensor.
-@IconOrNullConverter() set icon(MdiRemapIcon? value);/// [contentType] is the content type of the sensor.
- String? get contentType;/// [contentType] is the content type of the sensor.
- set contentType(String? value);/// [ranges] of the sensor. Defaults to an empty list.
- List<SensorRangeInput> get ranges;/// [ranges] of the sensor. Defaults to an empty list.
- set ranges(List<SensorRangeInput> value);/// [mask] of the sensor. Defaults to an empty list.
- List<MaskPointInput> get mask;/// [mask] of the sensor. Defaults to an empty list.
- set mask(List<MaskPointInput> value);/// [parentId] is the id of the parent sensor.
- String? get parentId;/// [parentId] is the id of the parent sensor.
- set parentId(String? value);/// [isInstant] indicates if the sensor is an instant sensor. Defaults to `false`.
- bool get isInstant;/// [isInstant] indicates if the sensor is an instant sensor. Defaults to `false`.
- set isInstant(bool value);/// [hasValidator] indicates if the sensor has a [double] validator. Defaults to `false`.
- bool get hasValidator;/// [hasValidator] indicates if the sensor has a [double] validator. Defaults to `false`.
- set hasValidator(bool value);/// [minValue] is the minimum value of the sensor.
- double? get minValue;/// [minValue] is the minimum value of the sensor.
- set minValue(double? value);/// [maxValue] is the maximum value of the sensor.
- double? get maxValue;/// [maxValue] is the maximum value of the sensor.
- set maxValue(double? value);/// [hasHeaders] indicates if the CSV has headers inside of the message. Defaults to `false`.
- bool get hasHeaders;/// [hasHeaders] indicates if the CSV has headers inside of the message. Defaults to `false`.
- set hasHeaders(bool value);/// [csvSeparator] is the separator of the CSV. Defaults to `,`.
- String get csvSeparator;/// [csvSeparator] is the separator of the CSV. Defaults to `,`.
- set csvSeparator(String value);/// [csvHeaders] is the list of names of the columns of the CSV. Defaults to an empty list.
- List<String> get csvHeaders;/// [csvHeaders] is the list of names of the columns of the CSV. Defaults to an empty list.
- set csvHeaders(List<String> value);/// [functionId] is the id of the Function of the sensor.
- String? get functionId;/// [functionId] is the id of the Function of the sensor.
- set functionId(String? value);/// [assignedAssetsIds] is the list of assets ids assigned to this sensor. Defaults to an empty list.
- List<String> get assignedAssetsIds;/// [assignedAssetsIds] is the list of assets ids assigned to this sensor. Defaults to an empty list.
- set assignedAssetsIds(List<String> value);/// [maxHistorySearch] defines the maximum search interval for the history of the sensor.
-@DurationOrNullConverter() Duration? get maxHistorySearch;/// [maxHistorySearch] defines the maximum search interval for the history of the sensor.
-@DurationOrNullConverter() set maxHistorySearch(Duration? value);
-/// Create a copy of SensorInput
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$SensorInputCopyWith<SensorInput> get copyWith => _$SensorInputCopyWithImpl<SensorInput>(this as SensorInput, _$identity);
-
-  /// Serializes this SensorInput to a JSON map.
-  Map<String, dynamic> toJson();
-
-
-
-
-@override
-String toString() {
-  return 'SensorInput(id: $id, assetId: $assetId, name: $name, slug: $slug, measuringUnit: $measuringUnit, type: $type, subtype: $subtype, parameter: $parameter, iterationCycle: $iterationCycle, formula: $formula, script: $script, icon: $icon, contentType: $contentType, ranges: $ranges, mask: $mask, parentId: $parentId, isInstant: $isInstant, hasValidator: $hasValidator, minValue: $minValue, maxValue: $maxValue, hasHeaders: $hasHeaders, csvSeparator: $csvSeparator, csvHeaders: $csvHeaders, functionId: $functionId, assignedAssetsIds: $assignedAssetsIds, maxHistorySearch: $maxHistorySearch)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $SensorInputCopyWith<$Res>  {
-  factory $SensorInputCopyWith(SensorInput value, $Res Function(SensorInput) _then) = _$SensorInputCopyWithImpl;
-@useResult
-$Res call({
- String? id, String? assetId, String name, String slug, String measuringUnit,@JsonKey(unknownEnumValue: SensorType.constant) SensorType type,@JsonKey(unknownEnumValue: SensorSubType.raw) SensorSubType subtype, String parameter, int iterationCycle, String formula, String script,@IconOrNullConverter() MdiRemapIcon? icon, String? contentType, List<SensorRangeInput> ranges, List<MaskPointInput> mask, String? parentId, bool isInstant, bool hasValidator, double? minValue, double? maxValue, bool hasHeaders, String csvSeparator, List<String> csvHeaders, String? functionId, List<String> assignedAssetsIds,@DurationOrNullConverter() Duration? maxHistorySearch
-});
-
-
-
-
-}
-/// @nodoc
-class _$SensorInputCopyWithImpl<$Res>
-    implements $SensorInputCopyWith<$Res> {
-  _$SensorInputCopyWithImpl(this._self, this._then);
-
-  final SensorInput _self;
-  final $Res Function(SensorInput) _then;
-
-/// Create a copy of SensorInput
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? assetId = freezed,Object? name = null,Object? slug = null,Object? measuringUnit = null,Object? type = null,Object? subtype = null,Object? parameter = null,Object? iterationCycle = null,Object? formula = null,Object? script = null,Object? icon = freezed,Object? contentType = freezed,Object? ranges = null,Object? mask = null,Object? parentId = freezed,Object? isInstant = null,Object? hasValidator = null,Object? minValue = freezed,Object? maxValue = freezed,Object? hasHeaders = null,Object? csvSeparator = null,Object? csvHeaders = null,Object? functionId = freezed,Object? assignedAssetsIds = null,Object? maxHistorySearch = freezed,}) {
-  return _then(_self.copyWith(
-id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String?,assetId: freezed == assetId ? _self.assetId : assetId // ignore: cast_nullable_to_non_nullable
-as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
-as String,measuringUnit: null == measuringUnit ? _self.measuringUnit : measuringUnit // ignore: cast_nullable_to_non_nullable
-as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as SensorType,subtype: null == subtype ? _self.subtype : subtype // ignore: cast_nullable_to_non_nullable
-as SensorSubType,parameter: null == parameter ? _self.parameter : parameter // ignore: cast_nullable_to_non_nullable
-as String,iterationCycle: null == iterationCycle ? _self.iterationCycle : iterationCycle // ignore: cast_nullable_to_non_nullable
-as int,formula: null == formula ? _self.formula : formula // ignore: cast_nullable_to_non_nullable
-as String,script: null == script ? _self.script : script // ignore: cast_nullable_to_non_nullable
-as String,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
-as MdiRemapIcon?,contentType: freezed == contentType ? _self.contentType : contentType // ignore: cast_nullable_to_non_nullable
-as String?,ranges: null == ranges ? _self.ranges : ranges // ignore: cast_nullable_to_non_nullable
-as List<SensorRangeInput>,mask: null == mask ? _self.mask : mask // ignore: cast_nullable_to_non_nullable
-as List<MaskPointInput>,parentId: freezed == parentId ? _self.parentId : parentId // ignore: cast_nullable_to_non_nullable
-as String?,isInstant: null == isInstant ? _self.isInstant : isInstant // ignore: cast_nullable_to_non_nullable
-as bool,hasValidator: null == hasValidator ? _self.hasValidator : hasValidator // ignore: cast_nullable_to_non_nullable
-as bool,minValue: freezed == minValue ? _self.minValue : minValue // ignore: cast_nullable_to_non_nullable
-as double?,maxValue: freezed == maxValue ? _self.maxValue : maxValue // ignore: cast_nullable_to_non_nullable
-as double?,hasHeaders: null == hasHeaders ? _self.hasHeaders : hasHeaders // ignore: cast_nullable_to_non_nullable
-as bool,csvSeparator: null == csvSeparator ? _self.csvSeparator : csvSeparator // ignore: cast_nullable_to_non_nullable
-as String,csvHeaders: null == csvHeaders ? _self.csvHeaders : csvHeaders // ignore: cast_nullable_to_non_nullable
-as List<String>,functionId: freezed == functionId ? _self.functionId : functionId // ignore: cast_nullable_to_non_nullable
-as String?,assignedAssetsIds: null == assignedAssetsIds ? _self.assignedAssetsIds : assignedAssetsIds // ignore: cast_nullable_to_non_nullable
-as List<String>,maxHistorySearch: freezed == maxHistorySearch ? _self.maxHistorySearch : maxHistorySearch // ignore: cast_nullable_to_non_nullable
-as Duration?,
-  ));
-}
-
-}
-
-
-/// Adds pattern-matching-related methods to [SensorInput].
-extension SensorInputPatterns on SensorInput {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SensorInput value)?  $default,{required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case _SensorInput() when $default != null:
-return $default(_that);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SensorInput value)  $default,){
-final _that = this;
-switch (_that) {
-case _SensorInput():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SensorInput value)?  $default,){
-final _that = this;
-switch (_that) {
-case _SensorInput() when $default != null:
-return $default(_that);case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? assetId,  String name,  String slug,  String measuringUnit, @JsonKey(unknownEnumValue: SensorType.constant)  SensorType type, @JsonKey(unknownEnumValue: SensorSubType.raw)  SensorSubType subtype,  String parameter,  int iterationCycle,  String formula,  String script, @IconOrNullConverter()  MdiRemapIcon? icon,  String? contentType,  List<SensorRangeInput> ranges,  List<MaskPointInput> mask,  String? parentId,  bool isInstant,  bool hasValidator,  double? minValue,  double? maxValue,  bool hasHeaders,  String csvSeparator,  List<String> csvHeaders,  String? functionId,  List<String> assignedAssetsIds, @DurationOrNullConverter()  Duration? maxHistorySearch)?  $default,{required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case _SensorInput() when $default != null:
-return $default(_that.id,_that.assetId,_that.name,_that.slug,_that.measuringUnit,_that.type,_that.subtype,_that.parameter,_that.iterationCycle,_that.formula,_that.script,_that.icon,_that.contentType,_that.ranges,_that.mask,_that.parentId,_that.isInstant,_that.hasValidator,_that.minValue,_that.maxValue,_that.hasHeaders,_that.csvSeparator,_that.csvHeaders,_that.functionId,_that.assignedAssetsIds,_that.maxHistorySearch);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? assetId,  String name,  String slug,  String measuringUnit, @JsonKey(unknownEnumValue: SensorType.constant)  SensorType type, @JsonKey(unknownEnumValue: SensorSubType.raw)  SensorSubType subtype,  String parameter,  int iterationCycle,  String formula,  String script, @IconOrNullConverter()  MdiRemapIcon? icon,  String? contentType,  List<SensorRangeInput> ranges,  List<MaskPointInput> mask,  String? parentId,  bool isInstant,  bool hasValidator,  double? minValue,  double? maxValue,  bool hasHeaders,  String csvSeparator,  List<String> csvHeaders,  String? functionId,  List<String> assignedAssetsIds, @DurationOrNullConverter()  Duration? maxHistorySearch)  $default,) {final _that = this;
-switch (_that) {
-case _SensorInput():
-return $default(_that.id,_that.assetId,_that.name,_that.slug,_that.measuringUnit,_that.type,_that.subtype,_that.parameter,_that.iterationCycle,_that.formula,_that.script,_that.icon,_that.contentType,_that.ranges,_that.mask,_that.parentId,_that.isInstant,_that.hasValidator,_that.minValue,_that.maxValue,_that.hasHeaders,_that.csvSeparator,_that.csvHeaders,_that.functionId,_that.assignedAssetsIds,_that.maxHistorySearch);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? assetId,  String name,  String slug,  String measuringUnit, @JsonKey(unknownEnumValue: SensorType.constant)  SensorType type, @JsonKey(unknownEnumValue: SensorSubType.raw)  SensorSubType subtype,  String parameter,  int iterationCycle,  String formula,  String script, @IconOrNullConverter()  MdiRemapIcon? icon,  String? contentType,  List<SensorRangeInput> ranges,  List<MaskPointInput> mask,  String? parentId,  bool isInstant,  bool hasValidator,  double? minValue,  double? maxValue,  bool hasHeaders,  String csvSeparator,  List<String> csvHeaders,  String? functionId,  List<String> assignedAssetsIds, @DurationOrNullConverter()  Duration? maxHistorySearch)?  $default,) {final _that = this;
-switch (_that) {
-case _SensorInput() when $default != null:
-return $default(_that.id,_that.assetId,_that.name,_that.slug,_that.measuringUnit,_that.type,_that.subtype,_that.parameter,_that.iterationCycle,_that.formula,_that.script,_that.icon,_that.contentType,_that.ranges,_that.mask,_that.parentId,_that.isInstant,_that.hasValidator,_that.minValue,_that.maxValue,_that.hasHeaders,_that.csvSeparator,_that.csvHeaders,_that.functionId,_that.assignedAssetsIds,_that.maxHistorySearch);case _:
-  return null;
-
-}
-}
-
-}
-
-/// @nodoc
-@JsonSerializable()
-
-class _SensorInput implements SensorInput {
-   _SensorInput({this.id, this.assetId, this.name = '', this.slug = '', this.measuringUnit = '', @JsonKey(unknownEnumValue: SensorType.constant) this.type = SensorType.constant, @JsonKey(unknownEnumValue: SensorSubType.raw) this.subtype = SensorSubType.raw, this.parameter = '', this.iterationCycle = 1, this.formula = '', this.script = '', @IconOrNullConverter() this.icon, this.contentType, this.ranges = const [], this.mask = const [], this.parentId, this.isInstant = false, this.hasValidator = false, this.minValue, this.maxValue, this.hasHeaders = false, this.csvSeparator = ',', this.csvHeaders = const [], this.functionId, this.assignedAssetsIds = const [], @DurationOrNullConverter() this.maxHistorySearch});
-  factory _SensorInput.fromJson(Map<String, dynamic> json) => _$SensorInputFromJson(json);
-
-/// Unique identifier for this sensor, or `null` when creating a new one.
-@override  String? id;
-/// [assetId] is the id of the asset this sensor belongs to.
-@override  String? assetId;
-/// [name] of the sensor. Defaults to an empty string.
-@override@JsonKey()  String name;
-/// [slug] of the sensor. Defaults to an empty string.
-@override@JsonKey()  String slug;
-/// [measuringUnit] of the sensor. Defaults to an empty string.
-@override@JsonKey()  String measuringUnit;
-/// [type] of the sensor. Defaults to [SensorType.constant].
-@override@JsonKey(unknownEnumValue: SensorType.constant)  SensorType type;
-/// [subtype] of the sensor. Defaults to [SensorSubType.raw].
-@override@JsonKey(unknownEnumValue: SensorSubType.raw)  SensorSubType subtype;
-/// [parameter] of the sensor. Defaults to an empty string.
-@override@JsonKey()  String parameter;
-/// [iterationCycle] of the sensor. Defaults to `1`.
-@override@JsonKey()  int iterationCycle;
-/// [formula] is the LCL formula to execute. Defaults to an empty string.
-@override@JsonKey()  String formula;
-/// [script] is the script to execute. Defaults to an empty string.
-@override@JsonKey()  String script;
-/// [icon] of the sensor.
-@override@IconOrNullConverter()  MdiRemapIcon? icon;
-/// [contentType] is the content type of the sensor.
-@override  String? contentType;
-/// [ranges] of the sensor. Defaults to an empty list.
-@override@JsonKey()  List<SensorRangeInput> ranges;
-/// [mask] of the sensor. Defaults to an empty list.
-@override@JsonKey()  List<MaskPointInput> mask;
-/// [parentId] is the id of the parent sensor.
-@override  String? parentId;
-/// [isInstant] indicates if the sensor is an instant sensor. Defaults to `false`.
-@override@JsonKey()  bool isInstant;
-/// [hasValidator] indicates if the sensor has a [double] validator. Defaults to `false`.
-@override@JsonKey()  bool hasValidator;
-/// [minValue] is the minimum value of the sensor.
-@override  double? minValue;
-/// [maxValue] is the maximum value of the sensor.
-@override  double? maxValue;
-/// [hasHeaders] indicates if the CSV has headers inside of the message. Defaults to `false`.
-@override@JsonKey()  bool hasHeaders;
-/// [csvSeparator] is the separator of the CSV. Defaults to `,`.
-@override@JsonKey()  String csvSeparator;
-/// [csvHeaders] is the list of names of the columns of the CSV. Defaults to an empty list.
-@override@JsonKey()  List<String> csvHeaders;
-/// [functionId] is the id of the Function of the sensor.
-@override  String? functionId;
-/// [assignedAssetsIds] is the list of assets ids assigned to this sensor. Defaults to an empty list.
-@override@JsonKey()  List<String> assignedAssetsIds;
-/// [maxHistorySearch] defines the maximum search interval for the history of the sensor.
-@override@DurationOrNullConverter()  Duration? maxHistorySearch;
-
-/// Create a copy of SensorInput
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$SensorInputCopyWith<_SensorInput> get copyWith => __$SensorInputCopyWithImpl<_SensorInput>(this, _$identity);
-
-@override
-Map<String, dynamic> toJson() {
-  return _$SensorInputToJson(this, );
-}
-
-
-
-@override
-String toString() {
-  return 'SensorInput(id: $id, assetId: $assetId, name: $name, slug: $slug, measuringUnit: $measuringUnit, type: $type, subtype: $subtype, parameter: $parameter, iterationCycle: $iterationCycle, formula: $formula, script: $script, icon: $icon, contentType: $contentType, ranges: $ranges, mask: $mask, parentId: $parentId, isInstant: $isInstant, hasValidator: $hasValidator, minValue: $minValue, maxValue: $maxValue, hasHeaders: $hasHeaders, csvSeparator: $csvSeparator, csvHeaders: $csvHeaders, functionId: $functionId, assignedAssetsIds: $assignedAssetsIds, maxHistorySearch: $maxHistorySearch)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$SensorInputCopyWith<$Res> implements $SensorInputCopyWith<$Res> {
-  factory _$SensorInputCopyWith(_SensorInput value, $Res Function(_SensorInput) _then) = __$SensorInputCopyWithImpl;
-@override @useResult
-$Res call({
- String? id, String? assetId, String name, String slug, String measuringUnit,@JsonKey(unknownEnumValue: SensorType.constant) SensorType type,@JsonKey(unknownEnumValue: SensorSubType.raw) SensorSubType subtype, String parameter, int iterationCycle, String formula, String script,@IconOrNullConverter() MdiRemapIcon? icon, String? contentType, List<SensorRangeInput> ranges, List<MaskPointInput> mask, String? parentId, bool isInstant, bool hasValidator, double? minValue, double? maxValue, bool hasHeaders, String csvSeparator, List<String> csvHeaders, String? functionId, List<String> assignedAssetsIds,@DurationOrNullConverter() Duration? maxHistorySearch
-});
-
-
-
-
-}
-/// @nodoc
-class __$SensorInputCopyWithImpl<$Res>
-    implements _$SensorInputCopyWith<$Res> {
-  __$SensorInputCopyWithImpl(this._self, this._then);
-
-  final _SensorInput _self;
-  final $Res Function(_SensorInput) _then;
-
-/// Create a copy of SensorInput
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? assetId = freezed,Object? name = null,Object? slug = null,Object? measuringUnit = null,Object? type = null,Object? subtype = null,Object? parameter = null,Object? iterationCycle = null,Object? formula = null,Object? script = null,Object? icon = freezed,Object? contentType = freezed,Object? ranges = null,Object? mask = null,Object? parentId = freezed,Object? isInstant = null,Object? hasValidator = null,Object? minValue = freezed,Object? maxValue = freezed,Object? hasHeaders = null,Object? csvSeparator = null,Object? csvHeaders = null,Object? functionId = freezed,Object? assignedAssetsIds = null,Object? maxHistorySearch = freezed,}) {
-  return _then(_SensorInput(
-id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String?,assetId: freezed == assetId ? _self.assetId : assetId // ignore: cast_nullable_to_non_nullable
-as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
-as String,measuringUnit: null == measuringUnit ? _self.measuringUnit : measuringUnit // ignore: cast_nullable_to_non_nullable
-as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as SensorType,subtype: null == subtype ? _self.subtype : subtype // ignore: cast_nullable_to_non_nullable
-as SensorSubType,parameter: null == parameter ? _self.parameter : parameter // ignore: cast_nullable_to_non_nullable
-as String,iterationCycle: null == iterationCycle ? _self.iterationCycle : iterationCycle // ignore: cast_nullable_to_non_nullable
-as int,formula: null == formula ? _self.formula : formula // ignore: cast_nullable_to_non_nullable
-as String,script: null == script ? _self.script : script // ignore: cast_nullable_to_non_nullable
-as String,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
-as MdiRemapIcon?,contentType: freezed == contentType ? _self.contentType : contentType // ignore: cast_nullable_to_non_nullable
-as String?,ranges: null == ranges ? _self.ranges : ranges // ignore: cast_nullable_to_non_nullable
-as List<SensorRangeInput>,mask: null == mask ? _self.mask : mask // ignore: cast_nullable_to_non_nullable
-as List<MaskPointInput>,parentId: freezed == parentId ? _self.parentId : parentId // ignore: cast_nullable_to_non_nullable
-as String?,isInstant: null == isInstant ? _self.isInstant : isInstant // ignore: cast_nullable_to_non_nullable
-as bool,hasValidator: null == hasValidator ? _self.hasValidator : hasValidator // ignore: cast_nullable_to_non_nullable
-as bool,minValue: freezed == minValue ? _self.minValue : minValue // ignore: cast_nullable_to_non_nullable
-as double?,maxValue: freezed == maxValue ? _self.maxValue : maxValue // ignore: cast_nullable_to_non_nullable
-as double?,hasHeaders: null == hasHeaders ? _self.hasHeaders : hasHeaders // ignore: cast_nullable_to_non_nullable
-as bool,csvSeparator: null == csvSeparator ? _self.csvSeparator : csvSeparator // ignore: cast_nullable_to_non_nullable
-as String,csvHeaders: null == csvHeaders ? _self.csvHeaders : csvHeaders // ignore: cast_nullable_to_non_nullable
-as List<String>,functionId: freezed == functionId ? _self.functionId : functionId // ignore: cast_nullable_to_non_nullable
-as String?,assignedAssetsIds: null == assignedAssetsIds ? _self.assignedAssetsIds : assignedAssetsIds // ignore: cast_nullable_to_non_nullable
-as List<String>,maxHistorySearch: freezed == maxHistorySearch ? _self.maxHistorySearch : maxHistorySearch // ignore: cast_nullable_to_non_nullable
-as Duration?,
-  ));
-}
-
-
 }
 
 
@@ -2003,6 +1601,408 @@ as Color?,text: freezed == text ? _self.text : text // ignore: cast_nullable_to_
 as String?,value: freezed == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
 as MdiRemapIcon?,duration: freezed == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
+as Duration?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$SensorInput {
+
+/// Unique identifier for this sensor, or `null` when creating a new one.
+ String? get id;/// Unique identifier for this sensor, or `null` when creating a new one.
+ set id(String? value);/// [assetId] is the id of the asset this sensor belongs to.
+ String? get assetId;/// [assetId] is the id of the asset this sensor belongs to.
+ set assetId(String? value);/// [name] of the sensor. Defaults to an empty string.
+ String get name;/// [name] of the sensor. Defaults to an empty string.
+ set name(String value);/// [slug] of the sensor. Defaults to an empty string.
+ String get slug;/// [slug] of the sensor. Defaults to an empty string.
+ set slug(String value);/// [measuringUnit] of the sensor. Defaults to an empty string.
+ String get measuringUnit;/// [measuringUnit] of the sensor. Defaults to an empty string.
+ set measuringUnit(String value);/// [type] of the sensor. Defaults to [SensorType.constant].
+@JsonKey(unknownEnumValue: SensorType.constant) SensorType get type;/// [type] of the sensor. Defaults to [SensorType.constant].
+@JsonKey(unknownEnumValue: SensorType.constant) set type(SensorType value);/// [subtype] of the sensor. Defaults to [SensorSubType.raw].
+@JsonKey(unknownEnumValue: SensorSubType.raw) SensorSubType get subtype;/// [subtype] of the sensor. Defaults to [SensorSubType.raw].
+@JsonKey(unknownEnumValue: SensorSubType.raw) set subtype(SensorSubType value);/// [parameter] of the sensor. Defaults to an empty string.
+ String get parameter;/// [parameter] of the sensor. Defaults to an empty string.
+ set parameter(String value);/// [iterationCycle] of the sensor. Defaults to `1`.
+ int get iterationCycle;/// [iterationCycle] of the sensor. Defaults to `1`.
+ set iterationCycle(int value);/// [formula] is the LCL formula to execute. Defaults to an empty string.
+ String get formula;/// [formula] is the LCL formula to execute. Defaults to an empty string.
+ set formula(String value);/// [script] is the script to execute. Defaults to an empty string.
+ String get script;/// [script] is the script to execute. Defaults to an empty string.
+ set script(String value);/// [icon] of the sensor.
+@IconOrNullConverter() MdiRemapIcon? get icon;/// [icon] of the sensor.
+@IconOrNullConverter() set icon(MdiRemapIcon? value);/// [contentType] is the content type of the sensor.
+ String? get contentType;/// [contentType] is the content type of the sensor.
+ set contentType(String? value);/// [ranges] of the sensor. Defaults to an empty list.
+ List<SensorRangeInput> get ranges;/// [ranges] of the sensor. Defaults to an empty list.
+ set ranges(List<SensorRangeInput> value);/// [mask] of the sensor. Defaults to an empty list.
+ List<MaskPointInput> get mask;/// [mask] of the sensor. Defaults to an empty list.
+ set mask(List<MaskPointInput> value);/// [parentId] is the id of the parent sensor.
+ String? get parentId;/// [parentId] is the id of the parent sensor.
+ set parentId(String? value);/// [isInstant] indicates if the sensor is an instant sensor. Defaults to `false`.
+ bool get isInstant;/// [isInstant] indicates if the sensor is an instant sensor. Defaults to `false`.
+ set isInstant(bool value);/// [hasValidator] indicates if the sensor has a [double] validator. Defaults to `false`.
+ bool get hasValidator;/// [hasValidator] indicates if the sensor has a [double] validator. Defaults to `false`.
+ set hasValidator(bool value);/// [minValue] is the minimum value of the sensor.
+ double? get minValue;/// [minValue] is the minimum value of the sensor.
+ set minValue(double? value);/// [maxValue] is the maximum value of the sensor.
+ double? get maxValue;/// [maxValue] is the maximum value of the sensor.
+ set maxValue(double? value);/// [hasHeaders] indicates if the CSV has headers inside of the message. Defaults to `false`.
+ bool get hasHeaders;/// [hasHeaders] indicates if the CSV has headers inside of the message. Defaults to `false`.
+ set hasHeaders(bool value);/// [csvSeparator] is the separator of the CSV. Defaults to `,`.
+ String get csvSeparator;/// [csvSeparator] is the separator of the CSV. Defaults to `,`.
+ set csvSeparator(String value);/// [csvHeaders] is the list of names of the columns of the CSV. Defaults to an empty list.
+ List<String> get csvHeaders;/// [csvHeaders] is the list of names of the columns of the CSV. Defaults to an empty list.
+ set csvHeaders(List<String> value);/// [functionId] is the id of the Function of the sensor.
+ String? get functionId;/// [functionId] is the id of the Function of the sensor.
+ set functionId(String? value);/// [assignedAssetsIds] is the list of assets ids assigned to this sensor. Defaults to an empty list.
+ List<String> get assignedAssetsIds;/// [assignedAssetsIds] is the list of assets ids assigned to this sensor. Defaults to an empty list.
+ set assignedAssetsIds(List<String> value);/// [maxHistorySearch] defines the maximum search interval for the history of the sensor.
+@DurationOrNullConverter() Duration? get maxHistorySearch;/// [maxHistorySearch] defines the maximum search interval for the history of the sensor.
+@DurationOrNullConverter() set maxHistorySearch(Duration? value);
+/// Create a copy of SensorInput
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SensorInputCopyWith<SensorInput> get copyWith => _$SensorInputCopyWithImpl<SensorInput>(this as SensorInput, _$identity);
+
+  /// Serializes this SensorInput to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'SensorInput(id: $id, assetId: $assetId, name: $name, slug: $slug, measuringUnit: $measuringUnit, type: $type, subtype: $subtype, parameter: $parameter, iterationCycle: $iterationCycle, formula: $formula, script: $script, icon: $icon, contentType: $contentType, ranges: $ranges, mask: $mask, parentId: $parentId, isInstant: $isInstant, hasValidator: $hasValidator, minValue: $minValue, maxValue: $maxValue, hasHeaders: $hasHeaders, csvSeparator: $csvSeparator, csvHeaders: $csvHeaders, functionId: $functionId, assignedAssetsIds: $assignedAssetsIds, maxHistorySearch: $maxHistorySearch)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SensorInputCopyWith<$Res>  {
+  factory $SensorInputCopyWith(SensorInput value, $Res Function(SensorInput) _then) = _$SensorInputCopyWithImpl;
+@useResult
+$Res call({
+ String? id, String? assetId, String name, String slug, String measuringUnit,@JsonKey(unknownEnumValue: SensorType.constant) SensorType type,@JsonKey(unknownEnumValue: SensorSubType.raw) SensorSubType subtype, String parameter, int iterationCycle, String formula, String script,@IconOrNullConverter() MdiRemapIcon? icon, String? contentType, List<SensorRangeInput> ranges, List<MaskPointInput> mask, String? parentId, bool isInstant, bool hasValidator, double? minValue, double? maxValue, bool hasHeaders, String csvSeparator, List<String> csvHeaders, String? functionId, List<String> assignedAssetsIds,@DurationOrNullConverter() Duration? maxHistorySearch
+});
+
+
+
+
+}
+/// @nodoc
+class _$SensorInputCopyWithImpl<$Res>
+    implements $SensorInputCopyWith<$Res> {
+  _$SensorInputCopyWithImpl(this._self, this._then);
+
+  final SensorInput _self;
+  final $Res Function(SensorInput) _then;
+
+/// Create a copy of SensorInput
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? assetId = freezed,Object? name = null,Object? slug = null,Object? measuringUnit = null,Object? type = null,Object? subtype = null,Object? parameter = null,Object? iterationCycle = null,Object? formula = null,Object? script = null,Object? icon = freezed,Object? contentType = freezed,Object? ranges = null,Object? mask = null,Object? parentId = freezed,Object? isInstant = null,Object? hasValidator = null,Object? minValue = freezed,Object? maxValue = freezed,Object? hasHeaders = null,Object? csvSeparator = null,Object? csvHeaders = null,Object? functionId = freezed,Object? assignedAssetsIds = null,Object? maxHistorySearch = freezed,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,assetId: freezed == assetId ? _self.assetId : assetId // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
+as String,measuringUnit: null == measuringUnit ? _self.measuringUnit : measuringUnit // ignore: cast_nullable_to_non_nullable
+as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as SensorType,subtype: null == subtype ? _self.subtype : subtype // ignore: cast_nullable_to_non_nullable
+as SensorSubType,parameter: null == parameter ? _self.parameter : parameter // ignore: cast_nullable_to_non_nullable
+as String,iterationCycle: null == iterationCycle ? _self.iterationCycle : iterationCycle // ignore: cast_nullable_to_non_nullable
+as int,formula: null == formula ? _self.formula : formula // ignore: cast_nullable_to_non_nullable
+as String,script: null == script ? _self.script : script // ignore: cast_nullable_to_non_nullable
+as String,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as MdiRemapIcon?,contentType: freezed == contentType ? _self.contentType : contentType // ignore: cast_nullable_to_non_nullable
+as String?,ranges: null == ranges ? _self.ranges : ranges // ignore: cast_nullable_to_non_nullable
+as List<SensorRangeInput>,mask: null == mask ? _self.mask : mask // ignore: cast_nullable_to_non_nullable
+as List<MaskPointInput>,parentId: freezed == parentId ? _self.parentId : parentId // ignore: cast_nullable_to_non_nullable
+as String?,isInstant: null == isInstant ? _self.isInstant : isInstant // ignore: cast_nullable_to_non_nullable
+as bool,hasValidator: null == hasValidator ? _self.hasValidator : hasValidator // ignore: cast_nullable_to_non_nullable
+as bool,minValue: freezed == minValue ? _self.minValue : minValue // ignore: cast_nullable_to_non_nullable
+as double?,maxValue: freezed == maxValue ? _self.maxValue : maxValue // ignore: cast_nullable_to_non_nullable
+as double?,hasHeaders: null == hasHeaders ? _self.hasHeaders : hasHeaders // ignore: cast_nullable_to_non_nullable
+as bool,csvSeparator: null == csvSeparator ? _self.csvSeparator : csvSeparator // ignore: cast_nullable_to_non_nullable
+as String,csvHeaders: null == csvHeaders ? _self.csvHeaders : csvHeaders // ignore: cast_nullable_to_non_nullable
+as List<String>,functionId: freezed == functionId ? _self.functionId : functionId // ignore: cast_nullable_to_non_nullable
+as String?,assignedAssetsIds: null == assignedAssetsIds ? _self.assignedAssetsIds : assignedAssetsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,maxHistorySearch: freezed == maxHistorySearch ? _self.maxHistorySearch : maxHistorySearch // ignore: cast_nullable_to_non_nullable
+as Duration?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SensorInput].
+extension SensorInputPatterns on SensorInput {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SensorInput value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SensorInput() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SensorInput value)  $default,){
+final _that = this;
+switch (_that) {
+case _SensorInput():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SensorInput value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SensorInput() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? assetId,  String name,  String slug,  String measuringUnit, @JsonKey(unknownEnumValue: SensorType.constant)  SensorType type, @JsonKey(unknownEnumValue: SensorSubType.raw)  SensorSubType subtype,  String parameter,  int iterationCycle,  String formula,  String script, @IconOrNullConverter()  MdiRemapIcon? icon,  String? contentType,  List<SensorRangeInput> ranges,  List<MaskPointInput> mask,  String? parentId,  bool isInstant,  bool hasValidator,  double? minValue,  double? maxValue,  bool hasHeaders,  String csvSeparator,  List<String> csvHeaders,  String? functionId,  List<String> assignedAssetsIds, @DurationOrNullConverter()  Duration? maxHistorySearch)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SensorInput() when $default != null:
+return $default(_that.id,_that.assetId,_that.name,_that.slug,_that.measuringUnit,_that.type,_that.subtype,_that.parameter,_that.iterationCycle,_that.formula,_that.script,_that.icon,_that.contentType,_that.ranges,_that.mask,_that.parentId,_that.isInstant,_that.hasValidator,_that.minValue,_that.maxValue,_that.hasHeaders,_that.csvSeparator,_that.csvHeaders,_that.functionId,_that.assignedAssetsIds,_that.maxHistorySearch);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? assetId,  String name,  String slug,  String measuringUnit, @JsonKey(unknownEnumValue: SensorType.constant)  SensorType type, @JsonKey(unknownEnumValue: SensorSubType.raw)  SensorSubType subtype,  String parameter,  int iterationCycle,  String formula,  String script, @IconOrNullConverter()  MdiRemapIcon? icon,  String? contentType,  List<SensorRangeInput> ranges,  List<MaskPointInput> mask,  String? parentId,  bool isInstant,  bool hasValidator,  double? minValue,  double? maxValue,  bool hasHeaders,  String csvSeparator,  List<String> csvHeaders,  String? functionId,  List<String> assignedAssetsIds, @DurationOrNullConverter()  Duration? maxHistorySearch)  $default,) {final _that = this;
+switch (_that) {
+case _SensorInput():
+return $default(_that.id,_that.assetId,_that.name,_that.slug,_that.measuringUnit,_that.type,_that.subtype,_that.parameter,_that.iterationCycle,_that.formula,_that.script,_that.icon,_that.contentType,_that.ranges,_that.mask,_that.parentId,_that.isInstant,_that.hasValidator,_that.minValue,_that.maxValue,_that.hasHeaders,_that.csvSeparator,_that.csvHeaders,_that.functionId,_that.assignedAssetsIds,_that.maxHistorySearch);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? assetId,  String name,  String slug,  String measuringUnit, @JsonKey(unknownEnumValue: SensorType.constant)  SensorType type, @JsonKey(unknownEnumValue: SensorSubType.raw)  SensorSubType subtype,  String parameter,  int iterationCycle,  String formula,  String script, @IconOrNullConverter()  MdiRemapIcon? icon,  String? contentType,  List<SensorRangeInput> ranges,  List<MaskPointInput> mask,  String? parentId,  bool isInstant,  bool hasValidator,  double? minValue,  double? maxValue,  bool hasHeaders,  String csvSeparator,  List<String> csvHeaders,  String? functionId,  List<String> assignedAssetsIds, @DurationOrNullConverter()  Duration? maxHistorySearch)?  $default,) {final _that = this;
+switch (_that) {
+case _SensorInput() when $default != null:
+return $default(_that.id,_that.assetId,_that.name,_that.slug,_that.measuringUnit,_that.type,_that.subtype,_that.parameter,_that.iterationCycle,_that.formula,_that.script,_that.icon,_that.contentType,_that.ranges,_that.mask,_that.parentId,_that.isInstant,_that.hasValidator,_that.minValue,_that.maxValue,_that.hasHeaders,_that.csvSeparator,_that.csvHeaders,_that.functionId,_that.assignedAssetsIds,_that.maxHistorySearch);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SensorInput extends SensorInput {
+   _SensorInput({this.id, this.assetId, this.name = '', this.slug = '', this.measuringUnit = '', @JsonKey(unknownEnumValue: SensorType.constant) this.type = SensorType.constant, @JsonKey(unknownEnumValue: SensorSubType.raw) this.subtype = SensorSubType.raw, this.parameter = '', this.iterationCycle = 1, this.formula = '', this.script = '', @IconOrNullConverter() this.icon, this.contentType, this.ranges = const [], this.mask = const [], this.parentId, this.isInstant = false, this.hasValidator = false, this.minValue, this.maxValue, this.hasHeaders = false, this.csvSeparator = ',', this.csvHeaders = const [], this.functionId, this.assignedAssetsIds = const [], @DurationOrNullConverter() this.maxHistorySearch}): super._();
+  factory _SensorInput.fromJson(Map<String, dynamic> json) => _$SensorInputFromJson(json);
+
+/// Unique identifier for this sensor, or `null` when creating a new one.
+@override  String? id;
+/// [assetId] is the id of the asset this sensor belongs to.
+@override  String? assetId;
+/// [name] of the sensor. Defaults to an empty string.
+@override@JsonKey()  String name;
+/// [slug] of the sensor. Defaults to an empty string.
+@override@JsonKey()  String slug;
+/// [measuringUnit] of the sensor. Defaults to an empty string.
+@override@JsonKey()  String measuringUnit;
+/// [type] of the sensor. Defaults to [SensorType.constant].
+@override@JsonKey(unknownEnumValue: SensorType.constant)  SensorType type;
+/// [subtype] of the sensor. Defaults to [SensorSubType.raw].
+@override@JsonKey(unknownEnumValue: SensorSubType.raw)  SensorSubType subtype;
+/// [parameter] of the sensor. Defaults to an empty string.
+@override@JsonKey()  String parameter;
+/// [iterationCycle] of the sensor. Defaults to `1`.
+@override@JsonKey()  int iterationCycle;
+/// [formula] is the LCL formula to execute. Defaults to an empty string.
+@override@JsonKey()  String formula;
+/// [script] is the script to execute. Defaults to an empty string.
+@override@JsonKey()  String script;
+/// [icon] of the sensor.
+@override@IconOrNullConverter()  MdiRemapIcon? icon;
+/// [contentType] is the content type of the sensor.
+@override  String? contentType;
+/// [ranges] of the sensor. Defaults to an empty list.
+@override@JsonKey()  List<SensorRangeInput> ranges;
+/// [mask] of the sensor. Defaults to an empty list.
+@override@JsonKey()  List<MaskPointInput> mask;
+/// [parentId] is the id of the parent sensor.
+@override  String? parentId;
+/// [isInstant] indicates if the sensor is an instant sensor. Defaults to `false`.
+@override@JsonKey()  bool isInstant;
+/// [hasValidator] indicates if the sensor has a [double] validator. Defaults to `false`.
+@override@JsonKey()  bool hasValidator;
+/// [minValue] is the minimum value of the sensor.
+@override  double? minValue;
+/// [maxValue] is the maximum value of the sensor.
+@override  double? maxValue;
+/// [hasHeaders] indicates if the CSV has headers inside of the message. Defaults to `false`.
+@override@JsonKey()  bool hasHeaders;
+/// [csvSeparator] is the separator of the CSV. Defaults to `,`.
+@override@JsonKey()  String csvSeparator;
+/// [csvHeaders] is the list of names of the columns of the CSV. Defaults to an empty list.
+@override@JsonKey()  List<String> csvHeaders;
+/// [functionId] is the id of the Function of the sensor.
+@override  String? functionId;
+/// [assignedAssetsIds] is the list of assets ids assigned to this sensor. Defaults to an empty list.
+@override@JsonKey()  List<String> assignedAssetsIds;
+/// [maxHistorySearch] defines the maximum search interval for the history of the sensor.
+@override@DurationOrNullConverter()  Duration? maxHistorySearch;
+
+/// Create a copy of SensorInput
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SensorInputCopyWith<_SensorInput> get copyWith => __$SensorInputCopyWithImpl<_SensorInput>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SensorInputToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'SensorInput(id: $id, assetId: $assetId, name: $name, slug: $slug, measuringUnit: $measuringUnit, type: $type, subtype: $subtype, parameter: $parameter, iterationCycle: $iterationCycle, formula: $formula, script: $script, icon: $icon, contentType: $contentType, ranges: $ranges, mask: $mask, parentId: $parentId, isInstant: $isInstant, hasValidator: $hasValidator, minValue: $minValue, maxValue: $maxValue, hasHeaders: $hasHeaders, csvSeparator: $csvSeparator, csvHeaders: $csvHeaders, functionId: $functionId, assignedAssetsIds: $assignedAssetsIds, maxHistorySearch: $maxHistorySearch)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SensorInputCopyWith<$Res> implements $SensorInputCopyWith<$Res> {
+  factory _$SensorInputCopyWith(_SensorInput value, $Res Function(_SensorInput) _then) = __$SensorInputCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id, String? assetId, String name, String slug, String measuringUnit,@JsonKey(unknownEnumValue: SensorType.constant) SensorType type,@JsonKey(unknownEnumValue: SensorSubType.raw) SensorSubType subtype, String parameter, int iterationCycle, String formula, String script,@IconOrNullConverter() MdiRemapIcon? icon, String? contentType, List<SensorRangeInput> ranges, List<MaskPointInput> mask, String? parentId, bool isInstant, bool hasValidator, double? minValue, double? maxValue, bool hasHeaders, String csvSeparator, List<String> csvHeaders, String? functionId, List<String> assignedAssetsIds,@DurationOrNullConverter() Duration? maxHistorySearch
+});
+
+
+
+
+}
+/// @nodoc
+class __$SensorInputCopyWithImpl<$Res>
+    implements _$SensorInputCopyWith<$Res> {
+  __$SensorInputCopyWithImpl(this._self, this._then);
+
+  final _SensorInput _self;
+  final $Res Function(_SensorInput) _then;
+
+/// Create a copy of SensorInput
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? assetId = freezed,Object? name = null,Object? slug = null,Object? measuringUnit = null,Object? type = null,Object? subtype = null,Object? parameter = null,Object? iterationCycle = null,Object? formula = null,Object? script = null,Object? icon = freezed,Object? contentType = freezed,Object? ranges = null,Object? mask = null,Object? parentId = freezed,Object? isInstant = null,Object? hasValidator = null,Object? minValue = freezed,Object? maxValue = freezed,Object? hasHeaders = null,Object? csvSeparator = null,Object? csvHeaders = null,Object? functionId = freezed,Object? assignedAssetsIds = null,Object? maxHistorySearch = freezed,}) {
+  return _then(_SensorInput(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,assetId: freezed == assetId ? _self.assetId : assetId // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
+as String,measuringUnit: null == measuringUnit ? _self.measuringUnit : measuringUnit // ignore: cast_nullable_to_non_nullable
+as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as SensorType,subtype: null == subtype ? _self.subtype : subtype // ignore: cast_nullable_to_non_nullable
+as SensorSubType,parameter: null == parameter ? _self.parameter : parameter // ignore: cast_nullable_to_non_nullable
+as String,iterationCycle: null == iterationCycle ? _self.iterationCycle : iterationCycle // ignore: cast_nullable_to_non_nullable
+as int,formula: null == formula ? _self.formula : formula // ignore: cast_nullable_to_non_nullable
+as String,script: null == script ? _self.script : script // ignore: cast_nullable_to_non_nullable
+as String,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as MdiRemapIcon?,contentType: freezed == contentType ? _self.contentType : contentType // ignore: cast_nullable_to_non_nullable
+as String?,ranges: null == ranges ? _self.ranges : ranges // ignore: cast_nullable_to_non_nullable
+as List<SensorRangeInput>,mask: null == mask ? _self.mask : mask // ignore: cast_nullable_to_non_nullable
+as List<MaskPointInput>,parentId: freezed == parentId ? _self.parentId : parentId // ignore: cast_nullable_to_non_nullable
+as String?,isInstant: null == isInstant ? _self.isInstant : isInstant // ignore: cast_nullable_to_non_nullable
+as bool,hasValidator: null == hasValidator ? _self.hasValidator : hasValidator // ignore: cast_nullable_to_non_nullable
+as bool,minValue: freezed == minValue ? _self.minValue : minValue // ignore: cast_nullable_to_non_nullable
+as double?,maxValue: freezed == maxValue ? _self.maxValue : maxValue // ignore: cast_nullable_to_non_nullable
+as double?,hasHeaders: null == hasHeaders ? _self.hasHeaders : hasHeaders // ignore: cast_nullable_to_non_nullable
+as bool,csvSeparator: null == csvSeparator ? _self.csvSeparator : csvSeparator // ignore: cast_nullable_to_non_nullable
+as String,csvHeaders: null == csvHeaders ? _self.csvHeaders : csvHeaders // ignore: cast_nullable_to_non_nullable
+as List<String>,functionId: freezed == functionId ? _self.functionId : functionId // ignore: cast_nullable_to_non_nullable
+as String?,assignedAssetsIds: null == assignedAssetsIds ? _self.assignedAssetsIds : assignedAssetsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,maxHistorySearch: freezed == maxHistorySearch ? _self.maxHistorySearch : maxHistorySearch // ignore: cast_nullable_to_non_nullable
 as Duration?,
   ));
 }

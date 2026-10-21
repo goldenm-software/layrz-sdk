@@ -88,6 +88,7 @@ export 'src/presets/presets.dart';
 export 'src/realtime/realtime.dart';
 export 'src/references/references.dart';
 export 'src/report_template/report_template.dart';
+export 'src/scripting/scripting.dart';
 export 'src/sensors/sensors.dart';
 export 'src/simulation/simulation.dart';
 export 'src/tag/tag.dart';

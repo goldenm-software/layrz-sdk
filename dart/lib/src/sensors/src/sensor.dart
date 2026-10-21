@@ -7,6 +7,9 @@ part of '../sensors.dart';
 /// [csvSeparator]). Use [SensorInput] for creating or updating sensors.
 @freezed
 abstract class Sensor with _$Sensor {
+  /// Private constructor used by the code generator.
+  const Sensor._();
+
   const factory Sensor({
     /// [id] of the sensor. Must be unique along of all sensors of the asset.
     required String id,
@@ -124,94 +127,244 @@ abstract class Sensor with _$Sensor {
 
   /// Deserializes a [Sensor] from a JSON map.
   factory Sensor.fromJson(Map<String, dynamic> json) => _$SensorFromJson(json);
+
+  // coverage:ignore-start
+  /// GraphQL fragment with the fields shared by every [Sensor] selection.
+  ///
+  /// Only selects fields that exist on the backend `Sensor` type. Global-only associations
+  /// (`assignedAssetsIds`, `assignedAssets`) are added by the callers that need them.
+  static GqlFragment get fragment => GqlFragment(
+    name: 'sensorFragment',
+    onType: 'Sensor',
+    fields: [
+      GqlField(name: 'id'),
+      GqlField(name: 'name'),
+      GqlField(name: 'slug'),
+      GqlField(name: 'qrCode'),
+      GqlField(name: 'icon'),
+      GqlField(name: 'measuringUnit'),
+      GqlField(name: 'type'),
+      GqlField(name: 'subtype'),
+      GqlField(name: 'parameter'),
+      GqlField(name: 'formula'),
+      GqlField(name: 'script'),
+      GqlField(name: 'iterationCycle'),
+      GqlField(name: 'isInstant'),
+      GqlField(name: 'mask')
+        ..add(GqlField(name: 'text'))
+        ..add(GqlField(name: 'color'))
+        ..add(GqlField(name: 'value'))
+        ..add(GqlField(name: 'icon'))
+        ..add(GqlField(name: 'duration')),
+      GqlField(name: 'parentId'),
+      GqlField(name: 'ranges')
+        ..add(GqlField(name: 'x'))
+        ..add(GqlField(name: 'y')),
+      GqlField(name: 'hasValidator'),
+      GqlField(name: 'minValue'),
+      GqlField(name: 'maxValue'),
+      GqlField(name: 'hasHeaders'),
+      GqlField(name: 'csvHeaders'),
+      GqlField(name: 'csvSeparator'),
+      GqlField(name: 'contentType'),
+      GqlField(name: 'functionId'),
+      GqlField(name: 'maxHistorySearch'),
+      GqlField(name: 'access', fragment: Access.idFragment),
+    ],
+  );
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Fetches every global sensor visible to the authenticated user.
+  ///
+  /// Uses a lightweight selection: the base [fragment] plus `assignedAssetsIds` and the id and name of
+  /// each assigned asset. Authentication is carried solely via the connector's `Authorization` header.
+  ///
+  /// Returns the list of sensors, or an empty list on any error ([onResponse] receives the status).
+  static Future<List<Sensor>> fetchAll({
+    /// The API token for authentication. Obtain via the `login` mutation on the GraphQL API.
+    required String apiToken,
+
+    /// The Layrz GraphQL API endpoint (e.g., `https://api.example.com/graphql`).
+    required Uri uri,
+
+    /// Optional callback invoked with the [ApiStatus] of the response when the status is not ok.
+    void Function(ApiStatus status)? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.query(
+        GqlQuery(variables: [], name: 'globalSensors')..add(
+          GqlField(name: 'globalSensors')
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(_sensorGlobalResultField(light: true)),
+        ),
+        _sensorListDecoder,
+      );
+
+      if (response.status != .ok) {
+        onResponse?.call(response.status);
+        return [];
+      }
+
+      return response.result ?? [];
+    } catch (e, stack) {
+      Log.critical(
+        "layrz_sdk/Sensor/fetchAll(): General exception => $e\n$stack",
+      );
+      return [];
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Fetches a single global sensor by [id], including its assigned assets with their avatar.
+  ///
+  /// Authentication is carried solely via the connector's `Authorization` header.
+  ///
+  /// Returns the sensor, or `null` when it does not exist or on any error ([onResponse] receives the status).
+  static Future<Sensor?> fetch({
+    /// The identifier of the sensor to fetch.
+    required String id,
+
+    /// The API token for authentication. Obtain via the `login` mutation on the GraphQL API.
+    required String apiToken,
+
+    /// The Layrz GraphQL API endpoint (e.g., `https://api.example.com/graphql`).
+    required Uri uri,
+
+    /// Optional callback invoked with the [ApiStatus] of the response when the status is not ok.
+    void Function(ApiStatus status)? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.query(
+        GqlQuery(
+          variables: [
+            GqlVariable(name: 'id', type: .id, isRequired: true, value: id),
+          ],
+          name: 'globalSensors',
+        )..add(
+          GqlField(name: 'globalSensors', args: {'id': 'id'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(_sensorGlobalResultField()),
+        ),
+        (json) {
+          final resultList = json as List<dynamic>?;
+          if (resultList == null || resultList.isEmpty) {
+            Log.warning("layrz_sdk/Sensor/fetch(): No result in list");
+            return null;
+          }
+          return _sensorDecoder(resultList.first);
+        },
+      );
+
+      if (response.status != .ok) {
+        onResponse?.call(response.status);
+        return null;
+      }
+
+      return response.result;
+    } catch (e, stack) {
+      Log.critical(
+        "layrz_sdk/Sensor/fetch(): General exception => $e\n$stack",
+      );
+      return null;
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Deletes the sensors identified by [ids].
+  ///
+  /// Sends `deleteGlobalSensors` when [isGlobal] is true, or `deleteSensors` (nested sensors) otherwise.
+  /// Authentication is carried solely via the connector's `Authorization` header.
+  ///
+  /// Returns `true` when the server reports success, `false` otherwise ([onResponse] receives the status).
+  static Future<bool> deleteMultiple({
+    /// The identifiers of the sensors to delete.
+    required List<String> ids,
+
+    /// The API token for authentication. Obtain via the `login` mutation on the GraphQL API.
+    required String apiToken,
+
+    /// The Layrz GraphQL API endpoint (e.g., `https://api.example.com/graphql`).
+    required Uri uri,
+
+    /// Whether the sensors are global (default) or nested under an asset.
+    bool isGlobal = true,
+
+    /// Optional callback invoked with the [ApiStatus] of the response when the status is not ok.
+    void Function(ApiStatus status)? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    final operation = isGlobal ? 'deleteGlobalSensors' : 'deleteSensors';
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          variables: [
+            GqlVariable(
+              name: 'ids',
+              type: .list(of: .id),
+              isRequired: true,
+              value: ids,
+            ),
+          ],
+          name: operation,
+        )..add(
+          GqlField(name: operation, args: {'ids': 'ids'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors')),
+        ),
+      );
+
+      if (response.status != .ok) {
+        onResponse?.call(response.status);
+        return false;
+      }
+
+      return true;
+    } catch (e, stack) {
+      Log.critical(
+        "layrz_sdk/Sensor/deleteMultiple(): General exception => $e\n$stack",
+      );
+      return false;
+    }
+  }
+  // coverage:ignore-end
 }
 
-/// Mutable input data for creating or updating a [Sensor].
+// coverage:ignore-start
+/// Builds the `result` field for global sensor selections: the base fragment plus the assigned assets.
 ///
-/// [SensorInput] mirrors the fields of [Sensor] but is mutable and provides sensible defaults,
-/// making it suitable for form binding before submission.
-@unfreezed
-abstract class SensorInput with _$SensorInput {
-  factory SensorInput({
-    /// Unique identifier for this sensor, or `null` when creating a new one.
-    String? id,
+/// When [light] is true only the id and name of each asset are selected, otherwise the mode and dynamic
+/// avatar are included as well.
+GqlField _sensorGlobalResultField({bool light = false}) {
+  final assets = GqlField(name: 'assignedAssets')
+    ..add(GqlField(name: 'id'))
+    ..add(GqlField(name: 'name'));
+  if (!light) {
+    assets
+      ..add(GqlField(name: 'mode'))
+      ..add(GqlField(name: 'dynamicIcon', fragment: Avatar.fragment));
+  }
 
-    /// [assetId] is the id of the asset this sensor belongs to.
-    String? assetId,
+  return GqlField(name: 'result', fragment: Sensor.fragment)
+    ..add(GqlField(name: 'assignedAssetsIds'))
+    ..add(assets);
+}
+// coverage:ignore-end
 
-    /// [name] of the sensor. Defaults to an empty string.
-    @Default('') String name,
+Sensor _sensorDecoder(Object? json) {
+  return Sensor.fromJson(Map<String, dynamic>.from(json as Map));
+}
 
-    /// [slug] of the sensor. Defaults to an empty string.
-    @Default('') String slug,
-
-    /// [measuringUnit] of the sensor. Defaults to an empty string.
-    @Default('') String measuringUnit,
-
-    /// [type] of the sensor. Defaults to [SensorType.constant].
-    @JsonKey(unknownEnumValue: SensorType.constant) @Default(SensorType.constant) SensorType type,
-
-    /// [subtype] of the sensor. Defaults to [SensorSubType.raw].
-    @JsonKey(unknownEnumValue: SensorSubType.raw) @Default(SensorSubType.raw) SensorSubType subtype,
-
-    /// [parameter] of the sensor. Defaults to an empty string.
-    @Default('') String parameter,
-
-    /// [iterationCycle] of the sensor. Defaults to `1`.
-    @Default(1) int iterationCycle,
-
-    /// [formula] is the LCL formula to execute. Defaults to an empty string.
-    @Default('') String formula,
-
-    /// [script] is the script to execute. Defaults to an empty string.
-    @Default('') String script,
-
-    /// [icon] of the sensor.
-    @IconOrNullConverter() MdiRemapIcon? icon,
-
-    /// [contentType] is the content type of the sensor.
-    String? contentType,
-
-    /// [ranges] of the sensor. Defaults to an empty list.
-    @Default([]) List<SensorRangeInput> ranges,
-
-    /// [mask] of the sensor. Defaults to an empty list.
-    @Default([]) List<MaskPointInput> mask,
-
-    /// [parentId] is the id of the parent sensor.
-    String? parentId,
-
-    /// [isInstant] indicates if the sensor is an instant sensor. Defaults to `false`.
-    @Default(false) bool isInstant,
-
-    /// [hasValidator] indicates if the sensor has a [double] validator. Defaults to `false`.
-    @Default(false) bool hasValidator,
-
-    /// [minValue] is the minimum value of the sensor.
-    double? minValue,
-
-    /// [maxValue] is the maximum value of the sensor.
-    double? maxValue,
-
-    /// [hasHeaders] indicates if the CSV has headers inside of the message. Defaults to `false`.
-    @Default(false) bool hasHeaders,
-
-    /// [csvSeparator] is the separator of the CSV. Defaults to `,`.
-    @Default(',') String csvSeparator,
-
-    /// [csvHeaders] is the list of names of the columns of the CSV. Defaults to an empty list.
-    @Default([]) List<String> csvHeaders,
-
-    /// [functionId] is the id of the Function of the sensor.
-    String? functionId,
-
-    /// [assignedAssetsIds] is the list of assets ids assigned to this sensor. Defaults to an empty list.
-    @Default([]) List<String> assignedAssetsIds,
-
-    /// [maxHistorySearch] defines the maximum search interval for the history of the sensor.
-    @DurationOrNullConverter() Duration? maxHistorySearch,
-  }) = _SensorInput;
-
-  /// Deserializes a [SensorInput] from a JSON map.
-  factory SensorInput.fromJson(Map<String, dynamic> json) => _$SensorInputFromJson(json);
+List<Sensor> _sensorListDecoder(Object? json) {
+  return List<Sensor>.from(
+    (json as List? ?? []).map(
+      (e) => Sensor.fromJson(Map<String, dynamic>.from(e as Map)),
+    ),
+  );
 }

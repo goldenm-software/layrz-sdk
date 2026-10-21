@@ -5,14 +5,20 @@
 /// types a [Sensor] is built from: [SensorRange] for linear interval conversions, [MaskPoint] for
 /// value-to-presentation overrides, and [SensorType] and [SensorSubType] for classifying the
 /// sensor's execution behavior.
+///
+/// [Sensor] exposes API callers to fetch, delete (global or nested) sensors, and [SensorInput] is its mutable
+/// counterpart with a `save` caller to create or update them.
 library;
 
 import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:layrz_logging/layrz_logging.dart';
 import 'package:layrz_sdk/src/access/access.dart';
+import 'package:layrz_sdk/src/api/api.dart';
 import 'package:layrz_sdk/src/asset/asset.dart';
 import 'package:layrz_sdk/src/ats/ats.dart';
+import 'package:layrz_sdk/src/avatar/avatar.dart';
 import 'package:layrz_sdk/src/converters/converters.dart';
 import 'package:layrz_sdk/src/icons/icons.dart';
 
@@ -25,3 +31,4 @@ part 'src/mask.dart';
 part 'src/type.dart';
 part 'src/subtype.dart';
 part 'src/data_type.dart';
+part 'src/sensor_input.dart';
