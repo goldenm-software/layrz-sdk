@@ -76,6 +76,10 @@ enum SensorSubType {
   /// [python] is deprecated.
   @JsonValue('PYTHON')
   python,
+
+  /// [v8] is a JavaScript (V8) script execution.
+  @JsonValue('V8')
+  v8,
   ;
 
   /// Returns the JSON representation of this subtype value (e.g., `RAW`, `INTERVAL`).
