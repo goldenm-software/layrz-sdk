@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.17.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* Added sensor API callers to the `sensors` module: `Sensor.fetchAll`, `Sensor.fetch` and `Sensor.deleteMultiple` for global sensors (or nested ones with `isGlobal: false`), and `SensorInput.save` to create or update global or nested sensors. Added `Sensor.fragment`.
+* Added `SensorSubType.v8`.
+* Added the `scripting` module with the `Scripting` callers `lintLcl`, `lintPython`, `runLcl` and `runPython`, the `LintError` model and the `PythonScope` and `PythonSource` enums.
+
+### Go
+
+* No changes in this release.
+
 ## 4.16.0
 
 ### Python
