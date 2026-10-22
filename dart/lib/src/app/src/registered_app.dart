@@ -112,8 +112,9 @@ abstract class RegisteredApp with _$RegisteredApp {
   // coverage:ignore-start
   /// Fetches all registered apps from the server.
   ///
-  /// Returns a list of [RegisteredApp] with the required contextual
-  /// information. Authentication is carried solely via the connector's
+  /// Returns a list of [RegisteredApp] with a lightweight selection (including
+  /// [isCustomized], [technology] and [legalInformation]) plus [extraFields].
+  /// Use [fetch] for the full record. Authentication is carried solely via the connector's
   /// `Authorization` header, built from [apiToken].
   ///
   /// Optional callback invoked with the raw status code string of the
@@ -134,6 +135,9 @@ abstract class RegisteredApp with _$RegisteredApp {
     /// Optional callback invoked with the raw status code string of the
     /// response.
     void Function(String statusCode)? onResponse,
+
+    /// [extraFields] is the list of additional fields to fetch from the API, if any.
+    List<GqlField>? extraFields,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
     try {
@@ -147,6 +151,9 @@ abstract class RegisteredApp with _$RegisteredApp {
                 ..add(GqlField(name: 'name'))
                 ..add(GqlField(name: 'nickname'))
                 ..add(GqlField(name: 'sourceId'))
+                ..add(GqlField(name: 'isCustomized'))
+                ..add(GqlField(name: 'technology'))
+                ..add(GqlField(name: 'legalInformation', fragment: AppLegal.fragment))
                 ..add(GqlField(name: 'designInformation', fragment: AppDesign.reducedFragment))
                 ..add(
                   GqlField(name: 'instances')
@@ -155,7 +162,8 @@ abstract class RegisteredApp with _$RegisteredApp {
                     ..add(GqlField(name: 'platform'))
                     ..add(GqlField(name: 'host'))
                     ..add(GqlField(name: 'status')),
-                ),
+                )
+                ..fields.addAll(extraFields ?? const []),
             ),
         ),
         _registeredAppListDecoder,

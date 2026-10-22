@@ -6,7 +6,7 @@
 library;
 
 import 'package:collection/collection.dart';
-import 'package:flutter/widgets.dart' show Color;
+import 'package:flutter/widgets.dart' show Color, ValueChanged;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:layrz_logging/layrz_logging.dart';
 import 'package:layrz_sdk/src/access/access.dart';
@@ -26,4 +26,6 @@ part 'outbound.g.dart';
 part 'src/protocol.dart';
 part 'src/protocol_input.dart';
 part 'src/service.dart';
+part 'src/service_input.dart';
+part 'src/ats_exit_structure_type.dart';
 part 'src/metrics.dart';

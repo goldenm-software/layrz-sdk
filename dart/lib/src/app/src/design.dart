@@ -1,5 +1,11 @@
 part of '../app.dart';
 
+/// Fallback main and login background color of an app, matching the backend default.
+const Color kAppDefaultColor = Color(0xFF001E60);
+
+/// Fallback title and body font name of an app, loaded from Google Fonts.
+const String kAppDefaultFontName = 'Fira Sans Condensed';
+
 /// The visual design configuration of a [RegisteredApp].
 ///
 /// [AppDesign] defines the app's color, theme, iconography, login screen,
@@ -153,4 +159,36 @@ abstract class AppDesignInput with _$AppDesignInput {
 
   /// Deserializes an [AppDesignInput] from a JSON map.
   factory AppDesignInput.fromJson(Map<String, dynamic> json) => _$AppDesignInputFromJson(json);
+
+  /// Builds the editable copy of [design], filling every missing value with the backend defaults.
+  ///
+  /// The main and login colors default to [kAppDefaultColor], the theme to [AppTheme.custom], the login
+  /// to a [BackgroundMode.solid] [LayoutDesign.right] layout and both fonts to the Google font
+  /// `Fira Sans Condensed`.
+  factory AppDesignInput.fromDesign(AppDesign? design) {
+    final login = design?.login;
+    return AppDesignInput(
+      theme: design?.theme ?? AppTheme.custom,
+      mainColor: design?.mainColor ?? kAppDefaultColor,
+      favicons: AppThemedAssetInput(normal: design?.favicons.normal ?? '', white: design?.favicons.white ?? ''),
+      logos: AppThemedAssetInput(normal: design?.logos.normal ?? '', white: design?.logos.white ?? ''),
+      login: AppLoginDesignInput(
+        backgroundColor: login?.backgroundColor ?? kAppDefaultColor,
+        backgroundImage: login?.backgroundImage,
+        mode: login?.mode ?? BackgroundMode.solid,
+        description: login?.description,
+        design: login?.design ?? LayoutDesign.right,
+      ),
+      titleFont: AppFontInput(
+        source: design?.titleFont?.source ?? FontSource.google,
+        name: design?.titleFont?.name ?? kAppDefaultFontName,
+        uri: design?.titleFont?.uri,
+      ),
+      bodyFont: AppFontInput(
+        source: design?.bodyFont?.source ?? FontSource.google,
+        name: design?.bodyFont?.name ?? kAppDefaultFontName,
+        uri: design?.bodyFont?.uri,
+      ),
+    );
+  }
 }

@@ -57,4 +57,13 @@ abstract class AppLegalInput with _$AppLegalInput {
 
   /// Deserializes an [AppLegalInput] from a JSON map.
   factory AppLegalInput.fromJson(Map<String, dynamic> json) => _$AppLegalInputFromJson(json);
+
+  /// Builds the editable copy of [legal], defaulting every missing field to an empty string.
+  factory AppLegalInput.fromLegal(AppLegal? legal) {
+    return AppLegalInput(
+      companyName: legal?.companyName ?? '',
+      companyUrl: legal?.companyUrl ?? '',
+      privacyPolicy: legal?.privacyPolicy ?? '',
+    );
+  }
 }

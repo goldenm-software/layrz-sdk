@@ -4,6 +4,8 @@ part of '../outbound.dart';
 /// [OutboundProtocol], carrying its own credentials, structure and access rules.
 @freezed
 abstract class OutboundService with _$OutboundService {
+  const OutboundService._();
+
   const factory OutboundService({
     /// [id] is the ID of the entity. This ID is unique.
     required String id,
@@ -53,7 +55,407 @@ abstract class OutboundService with _$OutboundService {
 
   /// [fromJson] builds an [OutboundService] from a decoded JSON [json] map.
   factory OutboundService.fromJson(Map<String, dynamic> json) => _$OutboundServiceFromJson(json);
+
+  /// Maximum nesting of [OutboundStructure.nested] accepted by the backend (`STRUCTURE_MAX_DEPTH`).
+  static const int structureMaxDepth = 5;
+
+  // coverage:ignore-start
+  /// GraphQL fragment definition for querying outbound service fields.
+  ///
+  /// Selects the editable fields, a lightweight [protocol], [access] and the [structure] spelled out to
+  /// [structureMaxDepth] nested levels (GraphQL has no recursive fragments). The resolved [assets] and
+  /// [groups] are only selected by [fetch].
+  static GqlFragment get fragment => GqlFragment(
+    name: 'outboundServiceFragment',
+    onType: 'OutboundService',
+    fields: [
+      GqlField(name: 'id'),
+      GqlField(name: 'name'),
+      GqlField(name: 'credentials'),
+      GqlField(name: 'protocolId'),
+      GqlField(name: 'protocol', fragment: _protocolFragment),
+      GqlField(name: 'structure', fields: _structureFields(structureMaxDepth + 1)),
+      GqlField(name: 'isEnabled'),
+      GqlField(name: 'token'),
+      GqlField(name: 'assetsIds'),
+      GqlField(name: 'groupsIds'),
+      GqlField(name: 'access', fragment: Access.idFragment),
+      GqlField(name: 'atsModel'),
+    ],
+  );
+
+  /// The [protocol] fields needed to label a service without fetching the protocols.
+  static GqlFragment get _protocolFragment => GqlFragment(
+    name: 'outboundServiceProtocolFragment',
+    onType: 'OutboundProtocol',
+    fields: [
+      GqlField(name: 'id'),
+      GqlField(name: 'name'),
+      GqlField(name: 'color'),
+      GqlField(name: 'isEnabled'),
+    ],
+  );
+
+  static List<GqlField> _structureFields(int depth) => [
+    GqlField(name: 'field'),
+    GqlField(name: 'type'),
+    GqlField(name: 'value'),
+    GqlField(name: 'source'),
+    if (depth > 1) GqlField(name: 'nested', fields: _structureFields(depth - 1)),
+  ];
+
+  /// The resolved [assets] and [groups] (with their assets) selected by [fetch].
+  static List<GqlField> get _relationFields {
+    List<GqlField> assetFields() => [
+      GqlField(name: 'id'),
+      GqlField(name: 'name'),
+      GqlField(name: 'dynamicIcon', fragment: Avatar.fragment),
+    ];
+
+    return [
+      GqlField(name: 'assets', fields: assetFields()),
+      GqlField(
+        name: 'groups',
+        fields: [
+          GqlField(name: 'id'),
+          GqlField(name: 'name'),
+          GqlField(name: 'color'),
+          GqlField(name: 'dynamicIcon', fragment: Avatar.fragment),
+          GqlField(name: 'assets', fields: assetFields()),
+        ],
+      ),
+    ];
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Fetches all outbound services available to the authenticated user, scoped to [appId] when set.
+  ///
+  /// Selects the [fragment]; add any other field with [extraFields]. Use [fetch] for the full record.
+  /// Returns an empty list on any error. Errors are logged internally.
+  static Future<List<OutboundService>> fetchAll({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz GraphQL API endpoint.
+    required Uri uri,
+
+    /// [appId] is the ID of the app used to filter the services, if any.
+    String? appId,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [extraFields] is the list of additional fields to fetch from the API, if any.
+    List<GqlField>? extraFields,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    const queryName = 'outboundServices';
+    try {
+      final response = await connector.query(
+        GqlQuery(
+          name: queryName,
+          variables: [GqlVariable(name: 'appId', value: appId, type: .id)],
+        )..add(
+          GqlField(name: queryName, args: {'appId': 'appId'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(GqlField(name: 'result', fragment: fragment, fields: [...?extraFields])),
+        ),
+        _outboundServiceListDecoder,
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/OutboundService/fetchAll(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+        return [];
+      }
+
+      return response.result ?? [];
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/OutboundService/fetchAll(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return [];
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Fetches the full record of this service: the [fragment] plus the resolved [assets] and [groups]
+  /// (with their assets). Not scoped to an app.
+  ///
+  /// Returns `null` when the service is not found or on any error; a missing service reports
+  /// [ApiStatus.notfound] through [onResponse].
+  Future<OutboundService?> fetch({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz GraphQL API endpoint.
+    required Uri uri,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    const queryName = 'outboundServices';
+    try {
+      final response = await connector.query(
+        GqlQuery(
+          name: queryName,
+          variables: [GqlVariable(name: 'id', value: id, type: .id, isRequired: true)],
+        )..add(
+          GqlField(name: queryName, args: {'id': 'id'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(GqlField(name: 'result', fragment: fragment, fields: _relationFields)),
+        ),
+        _outboundServiceListDecoder,
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/OutboundService/fetch(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+        return null;
+      }
+
+      final result = response.result ?? [];
+      if (result.isEmpty) {
+        onResponse?.call(.notfound);
+        return null;
+      }
+
+      return result.first;
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/OutboundService/fetch(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return null;
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Deletes the outbound services with the given [ids]. Not scoped to an app.
+  ///
+  /// Returns `true` when the API reports success, `false` otherwise.
+  static Future<bool> deleteMany({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz GraphQL API endpoint.
+    required Uri uri,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [ids] are the IDs of the services to delete.
+    required List<String> ids,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    const mutationName = 'deleteOutboundServices';
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          name: mutationName,
+          variables: [
+            GqlVariable(
+              name: 'ids',
+              value: ids,
+              type: .list(of: .id, isRequired: true),
+              isRequired: true,
+            ),
+          ],
+        )..add(
+          GqlField(name: mutationName, args: {'ids': 'ids'})..add(GqlField(name: 'status')),
+        ),
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/OutboundService/deleteMany(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+        return false;
+      }
+
+      return true;
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/OutboundService/deleteMany(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return false;
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Enables or disables the transmission of this service.
+  ///
+  /// Returns the [ApiStatus] of the request.
+  Future<ApiStatus> toggle({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz GraphQL API endpoint.
+    required Uri uri,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    const mutationName = 'toggleOutboundService';
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          name: mutationName,
+          variables: [GqlVariable(name: 'id', value: id, type: .id, isRequired: true)],
+        )..add(
+          GqlField(name: mutationName, args: {'id': 'id'})..add(GqlField(name: 'status')),
+        ),
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/OutboundService/toggle(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+      }
+
+      return response.status;
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/OutboundService/toggle(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return .internalError;
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Imports the services [ids] into the app [appId].
+  ///
+  /// Returns the [ApiStatus] of the request.
+  static Future<ApiStatus> importIntoApp({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz GraphQL API endpoint.
+    required Uri uri,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [appId] is the ID of the app that receives the services.
+    required String appId,
+
+    /// [ids] are the IDs of the services to import.
+    required List<String> ids,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    const mutationName = 'importServicesIntoApp';
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          name: mutationName,
+          variables: [
+            GqlVariable(name: 'appId', value: appId, type: .id, isRequired: true),
+            GqlVariable(
+              name: 'servicesIds',
+              value: ids,
+              type: .list(of: .id, isRequired: true),
+              isRequired: true,
+            ),
+          ],
+        )..add(
+          GqlField(name: mutationName, args: {'appId': 'appId', 'servicesIds': 'servicesIds'})
+            ..add(GqlField(name: 'status')),
+        ),
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/OutboundService/importIntoApp(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+      }
+
+      return response.status;
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/OutboundService/importIntoApp(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return .internalError;
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Generates the integration manual of the service [serviceId] in the app [appId].
+  ///
+  /// Returns the [ApiStatus] and the URI of the generated PDF; an empty result reports
+  /// [ApiStatus.notfound].
+  static Future<(ApiStatus, String?)> generateManual({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz GraphQL API endpoint.
+    required Uri uri,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [serviceId] is the ID of the service.
+    required String serviceId,
+
+    /// [appId] is the ID of the app the manual is generated for.
+    required String appId,
+
+    /// [languageId] overrides the language of the user, if set.
+    String? languageId,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    const mutationName = 'generateManualForOutboundService';
+    try {
+      final response = await connector.mutate<String?>(
+        GqlMutation(
+          name: mutationName,
+          variables: [
+            GqlVariable(name: 'serviceId', value: serviceId, type: .id, isRequired: true),
+            GqlVariable(name: 'appId', value: appId, type: .id, isRequired: true),
+            GqlVariable(name: 'languageId', value: languageId, type: .id),
+          ],
+        )..add(
+          GqlField(
+              name: mutationName,
+              args: {'serviceId': 'serviceId', 'appId': 'appId', 'languageId': 'languageId'},
+            )
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(GqlField(name: 'result')),
+        ),
+        (json) => json as String?,
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/OutboundService/generateManual(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+        return (response.status, null);
+      }
+
+      final result = response.result;
+      if (result == null || result.isEmpty) {
+        onResponse?.call(.notfound);
+        return (ApiStatus.notfound, null);
+      }
+
+      return (ApiStatus.ok, result);
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/OutboundService/generateManual(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return (ApiStatus.internalError, null);
+    }
+  }
+  // coverage:ignore-end
 }
+
+/// [_outboundServiceListDecoder] decodes a raw listing `result` payload into a list of [OutboundService].
+List<OutboundService> _outboundServiceListDecoder(Object? json) {
+  return [for (final e in json as List? ?? []) OutboundService.fromJson(Map<String, dynamic>.from(e as Map))];
+}
+
+/// [_outboundServiceDecoder] decodes a single raw `result` payload into an [OutboundService].
+OutboundService _outboundServiceDecoder(Object? json) =>
+    OutboundService.fromJson(Map<String, dynamic>.from(json as Map));
 
 /// [OutboundStructure] describes a single mapped field of an [OutboundService]'s outbound
 /// payload, only used for Omega REST outbound protocol.

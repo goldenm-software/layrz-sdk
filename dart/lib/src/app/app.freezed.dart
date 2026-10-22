@@ -3314,6 +3314,612 @@ as List<RegisteredApp>?,
 
 
 /// @nodoc
+mixin _$RegisteredAppInput {
+
+/// The ID of the registered app, `null` when registering a new one.
+ String? get id;/// The ID of the registered app, `null` when registering a new one.
+ set id(String? value);/// The name of the app.
+ String get name;/// The name of the app.
+ set name(String value);/// The nickname of the app.
+ String get nickname;/// The nickname of the app.
+ set nickname(String value);/// The ID of the [AvailableApp] this app is based on.
+ String get sourceId;/// The ID of the [AvailableApp] this app is based on.
+ set sourceId(String value);/// Whether the app is customized. UI only, never sent to the API.
+@JsonKey(includeToJson: false) bool get isCustomized;/// Whether the app is customized. UI only, never sent to the API.
+@JsonKey(includeToJson: false) set isCustomized(bool value);/// The legal information of the app.
+ AppLegalInput get legalInformation;/// The legal information of the app.
+ set legalInformation(AppLegalInput value);/// The design information of the app.
+ AppDesignInput get designInformation;/// The design information of the app.
+ set designInformation(AppDesignInput value);/// The instances requested on registration. Never sent when editing.
+ List<AppInstanceInput> get instances;/// The instances requested on registration. Never sent when editing.
+ set instances(List<AppInstanceInput> value);
+/// Create a copy of RegisteredAppInput
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RegisteredAppInputCopyWith<RegisteredAppInput> get copyWith => _$RegisteredAppInputCopyWithImpl<RegisteredAppInput>(this as RegisteredAppInput, _$identity);
+
+  /// Serializes this RegisteredAppInput to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'RegisteredAppInput(id: $id, name: $name, nickname: $nickname, sourceId: $sourceId, isCustomized: $isCustomized, legalInformation: $legalInformation, designInformation: $designInformation, instances: $instances)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $RegisteredAppInputCopyWith<$Res>  {
+  factory $RegisteredAppInputCopyWith(RegisteredAppInput value, $Res Function(RegisteredAppInput) _then) = _$RegisteredAppInputCopyWithImpl;
+@useResult
+$Res call({
+ String? id, String name, String nickname, String sourceId,@JsonKey(includeToJson: false) bool isCustomized, AppLegalInput legalInformation, AppDesignInput designInformation, List<AppInstanceInput> instances
+});
+
+
+$AppLegalInputCopyWith<$Res> get legalInformation;$AppDesignInputCopyWith<$Res> get designInformation;
+
+}
+/// @nodoc
+class _$RegisteredAppInputCopyWithImpl<$Res>
+    implements $RegisteredAppInputCopyWith<$Res> {
+  _$RegisteredAppInputCopyWithImpl(this._self, this._then);
+
+  final RegisteredAppInput _self;
+  final $Res Function(RegisteredAppInput) _then;
+
+/// Create a copy of RegisteredAppInput
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? nickname = null,Object? sourceId = null,Object? isCustomized = null,Object? legalInformation = null,Object? designInformation = null,Object? instances = null,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,nickname: null == nickname ? _self.nickname : nickname // ignore: cast_nullable_to_non_nullable
+as String,sourceId: null == sourceId ? _self.sourceId : sourceId // ignore: cast_nullable_to_non_nullable
+as String,isCustomized: null == isCustomized ? _self.isCustomized : isCustomized // ignore: cast_nullable_to_non_nullable
+as bool,legalInformation: null == legalInformation ? _self.legalInformation : legalInformation // ignore: cast_nullable_to_non_nullable
+as AppLegalInput,designInformation: null == designInformation ? _self.designInformation : designInformation // ignore: cast_nullable_to_non_nullable
+as AppDesignInput,instances: null == instances ? _self.instances : instances // ignore: cast_nullable_to_non_nullable
+as List<AppInstanceInput>,
+  ));
+}
+/// Create a copy of RegisteredAppInput
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AppLegalInputCopyWith<$Res> get legalInformation {
+  
+  return $AppLegalInputCopyWith<$Res>(_self.legalInformation, (value) {
+    return _then(_self.copyWith(legalInformation: value));
+  });
+}/// Create a copy of RegisteredAppInput
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AppDesignInputCopyWith<$Res> get designInformation {
+  
+  return $AppDesignInputCopyWith<$Res>(_self.designInformation, (value) {
+    return _then(_self.copyWith(designInformation: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [RegisteredAppInput].
+extension RegisteredAppInputPatterns on RegisteredAppInput {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _RegisteredAppInput value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _RegisteredAppInput() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _RegisteredAppInput value)  $default,){
+final _that = this;
+switch (_that) {
+case _RegisteredAppInput():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _RegisteredAppInput value)?  $default,){
+final _that = this;
+switch (_that) {
+case _RegisteredAppInput() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name,  String nickname,  String sourceId, @JsonKey(includeToJson: false)  bool isCustomized,  AppLegalInput legalInformation,  AppDesignInput designInformation,  List<AppInstanceInput> instances)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _RegisteredAppInput() when $default != null:
+return $default(_that.id,_that.name,_that.nickname,_that.sourceId,_that.isCustomized,_that.legalInformation,_that.designInformation,_that.instances);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name,  String nickname,  String sourceId, @JsonKey(includeToJson: false)  bool isCustomized,  AppLegalInput legalInformation,  AppDesignInput designInformation,  List<AppInstanceInput> instances)  $default,) {final _that = this;
+switch (_that) {
+case _RegisteredAppInput():
+return $default(_that.id,_that.name,_that.nickname,_that.sourceId,_that.isCustomized,_that.legalInformation,_that.designInformation,_that.instances);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name,  String nickname,  String sourceId, @JsonKey(includeToJson: false)  bool isCustomized,  AppLegalInput legalInformation,  AppDesignInput designInformation,  List<AppInstanceInput> instances)?  $default,) {final _that = this;
+switch (_that) {
+case _RegisteredAppInput() when $default != null:
+return $default(_that.id,_that.name,_that.nickname,_that.sourceId,_that.isCustomized,_that.legalInformation,_that.designInformation,_that.instances);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _RegisteredAppInput extends RegisteredAppInput {
+   _RegisteredAppInput({this.id, this.name = '', this.nickname = '', required this.sourceId, @JsonKey(includeToJson: false) this.isCustomized = false, required this.legalInformation, required this.designInformation, this.instances = const []}): super._();
+  factory _RegisteredAppInput.fromJson(Map<String, dynamic> json) => _$RegisteredAppInputFromJson(json);
+
+/// The ID of the registered app, `null` when registering a new one.
+@override  String? id;
+/// The name of the app.
+@override@JsonKey()  String name;
+/// The nickname of the app.
+@override@JsonKey()  String nickname;
+/// The ID of the [AvailableApp] this app is based on.
+@override  String sourceId;
+/// Whether the app is customized. UI only, never sent to the API.
+@override@JsonKey(includeToJson: false)  bool isCustomized;
+/// The legal information of the app.
+@override  AppLegalInput legalInformation;
+/// The design information of the app.
+@override  AppDesignInput designInformation;
+/// The instances requested on registration. Never sent when editing.
+@override@JsonKey()  List<AppInstanceInput> instances;
+
+/// Create a copy of RegisteredAppInput
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$RegisteredAppInputCopyWith<_RegisteredAppInput> get copyWith => __$RegisteredAppInputCopyWithImpl<_RegisteredAppInput>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$RegisteredAppInputToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'RegisteredAppInput(id: $id, name: $name, nickname: $nickname, sourceId: $sourceId, isCustomized: $isCustomized, legalInformation: $legalInformation, designInformation: $designInformation, instances: $instances)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$RegisteredAppInputCopyWith<$Res> implements $RegisteredAppInputCopyWith<$Res> {
+  factory _$RegisteredAppInputCopyWith(_RegisteredAppInput value, $Res Function(_RegisteredAppInput) _then) = __$RegisteredAppInputCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id, String name, String nickname, String sourceId,@JsonKey(includeToJson: false) bool isCustomized, AppLegalInput legalInformation, AppDesignInput designInformation, List<AppInstanceInput> instances
+});
+
+
+@override $AppLegalInputCopyWith<$Res> get legalInformation;@override $AppDesignInputCopyWith<$Res> get designInformation;
+
+}
+/// @nodoc
+class __$RegisteredAppInputCopyWithImpl<$Res>
+    implements _$RegisteredAppInputCopyWith<$Res> {
+  __$RegisteredAppInputCopyWithImpl(this._self, this._then);
+
+  final _RegisteredAppInput _self;
+  final $Res Function(_RegisteredAppInput) _then;
+
+/// Create a copy of RegisteredAppInput
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? nickname = null,Object? sourceId = null,Object? isCustomized = null,Object? legalInformation = null,Object? designInformation = null,Object? instances = null,}) {
+  return _then(_RegisteredAppInput(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,nickname: null == nickname ? _self.nickname : nickname // ignore: cast_nullable_to_non_nullable
+as String,sourceId: null == sourceId ? _self.sourceId : sourceId // ignore: cast_nullable_to_non_nullable
+as String,isCustomized: null == isCustomized ? _self.isCustomized : isCustomized // ignore: cast_nullable_to_non_nullable
+as bool,legalInformation: null == legalInformation ? _self.legalInformation : legalInformation // ignore: cast_nullable_to_non_nullable
+as AppLegalInput,designInformation: null == designInformation ? _self.designInformation : designInformation // ignore: cast_nullable_to_non_nullable
+as AppDesignInput,instances: null == instances ? _self.instances : instances // ignore: cast_nullable_to_non_nullable
+as List<AppInstanceInput>,
+  ));
+}
+
+/// Create a copy of RegisteredAppInput
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AppLegalInputCopyWith<$Res> get legalInformation {
+  
+  return $AppLegalInputCopyWith<$Res>(_self.legalInformation, (value) {
+    return _then(_self.copyWith(legalInformation: value));
+  });
+}/// Create a copy of RegisteredAppInput
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AppDesignInputCopyWith<$Res> get designInformation {
+  
+  return $AppDesignInputCopyWith<$Res>(_self.designInformation, (value) {
+    return _then(_self.copyWith(designInformation: value));
+  });
+}
+}
+
+
+/// @nodoc
+mixin _$AppWithoutCustomizationInput {
+
+/// The ID of the registered app, `null` when registering a new one.
+ String? get id;/// The ID of the registered app, `null` when registering a new one.
+ set id(String? value);/// The ID of the [AvailableApp] this app is based on.
+ String get sourceId;/// The ID of the [AvailableApp] this app is based on.
+ set sourceId(String value);/// The nickname of the app.
+ String get nickname;/// The nickname of the app.
+ set nickname(String value);/// The subdomain of the web instance.
+ String get subdomain;/// The subdomain of the web instance.
+ set subdomain(String value);/// The domain of the web instance. Defaults to `layrz.app`.
+ String get domain;/// The domain of the web instance. Defaults to `layrz.app`.
+ set domain(String value);
+/// Create a copy of AppWithoutCustomizationInput
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AppWithoutCustomizationInputCopyWith<AppWithoutCustomizationInput> get copyWith => _$AppWithoutCustomizationInputCopyWithImpl<AppWithoutCustomizationInput>(this as AppWithoutCustomizationInput, _$identity);
+
+  /// Serializes this AppWithoutCustomizationInput to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'AppWithoutCustomizationInput(id: $id, sourceId: $sourceId, nickname: $nickname, subdomain: $subdomain, domain: $domain)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AppWithoutCustomizationInputCopyWith<$Res>  {
+  factory $AppWithoutCustomizationInputCopyWith(AppWithoutCustomizationInput value, $Res Function(AppWithoutCustomizationInput) _then) = _$AppWithoutCustomizationInputCopyWithImpl;
+@useResult
+$Res call({
+ String? id, String sourceId, String nickname, String subdomain, String domain
+});
+
+
+
+
+}
+/// @nodoc
+class _$AppWithoutCustomizationInputCopyWithImpl<$Res>
+    implements $AppWithoutCustomizationInputCopyWith<$Res> {
+  _$AppWithoutCustomizationInputCopyWithImpl(this._self, this._then);
+
+  final AppWithoutCustomizationInput _self;
+  final $Res Function(AppWithoutCustomizationInput) _then;
+
+/// Create a copy of AppWithoutCustomizationInput
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? sourceId = null,Object? nickname = null,Object? subdomain = null,Object? domain = null,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,sourceId: null == sourceId ? _self.sourceId : sourceId // ignore: cast_nullable_to_non_nullable
+as String,nickname: null == nickname ? _self.nickname : nickname // ignore: cast_nullable_to_non_nullable
+as String,subdomain: null == subdomain ? _self.subdomain : subdomain // ignore: cast_nullable_to_non_nullable
+as String,domain: null == domain ? _self.domain : domain // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [AppWithoutCustomizationInput].
+extension AppWithoutCustomizationInputPatterns on AppWithoutCustomizationInput {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AppWithoutCustomizationInput value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AppWithoutCustomizationInput() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AppWithoutCustomizationInput value)  $default,){
+final _that = this;
+switch (_that) {
+case _AppWithoutCustomizationInput():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AppWithoutCustomizationInput value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AppWithoutCustomizationInput() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String sourceId,  String nickname,  String subdomain,  String domain)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AppWithoutCustomizationInput() when $default != null:
+return $default(_that.id,_that.sourceId,_that.nickname,_that.subdomain,_that.domain);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String sourceId,  String nickname,  String subdomain,  String domain)  $default,) {final _that = this;
+switch (_that) {
+case _AppWithoutCustomizationInput():
+return $default(_that.id,_that.sourceId,_that.nickname,_that.subdomain,_that.domain);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String sourceId,  String nickname,  String subdomain,  String domain)?  $default,) {final _that = this;
+switch (_that) {
+case _AppWithoutCustomizationInput() when $default != null:
+return $default(_that.id,_that.sourceId,_that.nickname,_that.subdomain,_that.domain);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _AppWithoutCustomizationInput extends AppWithoutCustomizationInput {
+   _AppWithoutCustomizationInput({this.id, required this.sourceId, this.nickname = '', this.subdomain = '', this.domain = 'layrz.app'}): super._();
+  factory _AppWithoutCustomizationInput.fromJson(Map<String, dynamic> json) => _$AppWithoutCustomizationInputFromJson(json);
+
+/// The ID of the registered app, `null` when registering a new one.
+@override  String? id;
+/// The ID of the [AvailableApp] this app is based on.
+@override  String sourceId;
+/// The nickname of the app.
+@override@JsonKey()  String nickname;
+/// The subdomain of the web instance.
+@override@JsonKey()  String subdomain;
+/// The domain of the web instance. Defaults to `layrz.app`.
+@override@JsonKey()  String domain;
+
+/// Create a copy of AppWithoutCustomizationInput
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AppWithoutCustomizationInputCopyWith<_AppWithoutCustomizationInput> get copyWith => __$AppWithoutCustomizationInputCopyWithImpl<_AppWithoutCustomizationInput>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$AppWithoutCustomizationInputToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'AppWithoutCustomizationInput(id: $id, sourceId: $sourceId, nickname: $nickname, subdomain: $subdomain, domain: $domain)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AppWithoutCustomizationInputCopyWith<$Res> implements $AppWithoutCustomizationInputCopyWith<$Res> {
+  factory _$AppWithoutCustomizationInputCopyWith(_AppWithoutCustomizationInput value, $Res Function(_AppWithoutCustomizationInput) _then) = __$AppWithoutCustomizationInputCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id, String sourceId, String nickname, String subdomain, String domain
+});
+
+
+
+
+}
+/// @nodoc
+class __$AppWithoutCustomizationInputCopyWithImpl<$Res>
+    implements _$AppWithoutCustomizationInputCopyWith<$Res> {
+  __$AppWithoutCustomizationInputCopyWithImpl(this._self, this._then);
+
+  final _AppWithoutCustomizationInput _self;
+  final $Res Function(_AppWithoutCustomizationInput) _then;
+
+/// Create a copy of AppWithoutCustomizationInput
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? sourceId = null,Object? nickname = null,Object? subdomain = null,Object? domain = null,}) {
+  return _then(_AppWithoutCustomizationInput(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,sourceId: null == sourceId ? _self.sourceId : sourceId // ignore: cast_nullable_to_non_nullable
+as String,nickname: null == nickname ? _self.nickname : nickname // ignore: cast_nullable_to_non_nullable
+as String,subdomain: null == subdomain ? _self.subdomain : subdomain // ignore: cast_nullable_to_non_nullable
+as String,domain: null == domain ? _self.domain : domain // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$AppBuild {
 
 /// The unique identifier of the build.
@@ -5958,6 +6564,294 @@ class __$DnsConfigurationCopyWithImpl<$Res>
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,value: freezed == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as String?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$AppInstanceInput {
+
+/// The ID of the instance, `null` when requesting a new one.
+ String? get id;/// The ID of the instance, `null` when requesting a new one.
+ set id(String? value);/// The ID of the [RegisteredApp] that owns the instance.
+ String get appId;/// The ID of the [RegisteredApp] that owns the instance.
+ set appId(String value);/// The platform of the instance.
+@JsonKey(unknownEnumValue: AppPlatform.web) AppPlatform get platform;/// The platform of the instance.
+@JsonKey(unknownEnumValue: AppPlatform.web) set platform(AppPlatform value);/// The app identifier (bundle or package id). Ignored for [AppPlatform.web].
+ String get appIdentifier;/// The app identifier (bundle or package id). Ignored for [AppPlatform.web].
+ set appIdentifier(String value);/// The developer name. Only used for [AppPlatform.windows].
+ String get developerName;/// The developer name. Only used for [AppPlatform.windows].
+ set developerName(String value);/// The developer identifier. Only used for [AppPlatform.windows].
+ String get developerIdentifier;/// The developer identifier. Only used for [AppPlatform.windows].
+ set developerIdentifier(String value);/// The host of the instance. Only used for [AppPlatform.web].
+ String get host;/// The host of the instance. Only used for [AppPlatform.web].
+ set host(String value);
+/// Create a copy of AppInstanceInput
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AppInstanceInputCopyWith<AppInstanceInput> get copyWith => _$AppInstanceInputCopyWithImpl<AppInstanceInput>(this as AppInstanceInput, _$identity);
+
+  /// Serializes this AppInstanceInput to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'AppInstanceInput(id: $id, appId: $appId, platform: $platform, appIdentifier: $appIdentifier, developerName: $developerName, developerIdentifier: $developerIdentifier, host: $host)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AppInstanceInputCopyWith<$Res>  {
+  factory $AppInstanceInputCopyWith(AppInstanceInput value, $Res Function(AppInstanceInput) _then) = _$AppInstanceInputCopyWithImpl;
+@useResult
+$Res call({
+ String? id, String appId,@JsonKey(unknownEnumValue: AppPlatform.web) AppPlatform platform, String appIdentifier, String developerName, String developerIdentifier, String host
+});
+
+
+
+
+}
+/// @nodoc
+class _$AppInstanceInputCopyWithImpl<$Res>
+    implements $AppInstanceInputCopyWith<$Res> {
+  _$AppInstanceInputCopyWithImpl(this._self, this._then);
+
+  final AppInstanceInput _self;
+  final $Res Function(AppInstanceInput) _then;
+
+/// Create a copy of AppInstanceInput
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? appId = null,Object? platform = null,Object? appIdentifier = null,Object? developerName = null,Object? developerIdentifier = null,Object? host = null,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,appId: null == appId ? _self.appId : appId // ignore: cast_nullable_to_non_nullable
+as String,platform: null == platform ? _self.platform : platform // ignore: cast_nullable_to_non_nullable
+as AppPlatform,appIdentifier: null == appIdentifier ? _self.appIdentifier : appIdentifier // ignore: cast_nullable_to_non_nullable
+as String,developerName: null == developerName ? _self.developerName : developerName // ignore: cast_nullable_to_non_nullable
+as String,developerIdentifier: null == developerIdentifier ? _self.developerIdentifier : developerIdentifier // ignore: cast_nullable_to_non_nullable
+as String,host: null == host ? _self.host : host // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [AppInstanceInput].
+extension AppInstanceInputPatterns on AppInstanceInput {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AppInstanceInput value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AppInstanceInput() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AppInstanceInput value)  $default,){
+final _that = this;
+switch (_that) {
+case _AppInstanceInput():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AppInstanceInput value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AppInstanceInput() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String appId, @JsonKey(unknownEnumValue: AppPlatform.web)  AppPlatform platform,  String appIdentifier,  String developerName,  String developerIdentifier,  String host)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AppInstanceInput() when $default != null:
+return $default(_that.id,_that.appId,_that.platform,_that.appIdentifier,_that.developerName,_that.developerIdentifier,_that.host);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String appId, @JsonKey(unknownEnumValue: AppPlatform.web)  AppPlatform platform,  String appIdentifier,  String developerName,  String developerIdentifier,  String host)  $default,) {final _that = this;
+switch (_that) {
+case _AppInstanceInput():
+return $default(_that.id,_that.appId,_that.platform,_that.appIdentifier,_that.developerName,_that.developerIdentifier,_that.host);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String appId, @JsonKey(unknownEnumValue: AppPlatform.web)  AppPlatform platform,  String appIdentifier,  String developerName,  String developerIdentifier,  String host)?  $default,) {final _that = this;
+switch (_that) {
+case _AppInstanceInput() when $default != null:
+return $default(_that.id,_that.appId,_that.platform,_that.appIdentifier,_that.developerName,_that.developerIdentifier,_that.host);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _AppInstanceInput extends AppInstanceInput {
+   _AppInstanceInput({this.id, required this.appId, @JsonKey(unknownEnumValue: AppPlatform.web) required this.platform, this.appIdentifier = '', this.developerName = '', this.developerIdentifier = '', this.host = ''}): super._();
+  factory _AppInstanceInput.fromJson(Map<String, dynamic> json) => _$AppInstanceInputFromJson(json);
+
+/// The ID of the instance, `null` when requesting a new one.
+@override  String? id;
+/// The ID of the [RegisteredApp] that owns the instance.
+@override  String appId;
+/// The platform of the instance.
+@override@JsonKey(unknownEnumValue: AppPlatform.web)  AppPlatform platform;
+/// The app identifier (bundle or package id). Ignored for [AppPlatform.web].
+@override@JsonKey()  String appIdentifier;
+/// The developer name. Only used for [AppPlatform.windows].
+@override@JsonKey()  String developerName;
+/// The developer identifier. Only used for [AppPlatform.windows].
+@override@JsonKey()  String developerIdentifier;
+/// The host of the instance. Only used for [AppPlatform.web].
+@override@JsonKey()  String host;
+
+/// Create a copy of AppInstanceInput
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AppInstanceInputCopyWith<_AppInstanceInput> get copyWith => __$AppInstanceInputCopyWithImpl<_AppInstanceInput>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$AppInstanceInputToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'AppInstanceInput(id: $id, appId: $appId, platform: $platform, appIdentifier: $appIdentifier, developerName: $developerName, developerIdentifier: $developerIdentifier, host: $host)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AppInstanceInputCopyWith<$Res> implements $AppInstanceInputCopyWith<$Res> {
+  factory _$AppInstanceInputCopyWith(_AppInstanceInput value, $Res Function(_AppInstanceInput) _then) = __$AppInstanceInputCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id, String appId,@JsonKey(unknownEnumValue: AppPlatform.web) AppPlatform platform, String appIdentifier, String developerName, String developerIdentifier, String host
+});
+
+
+
+
+}
+/// @nodoc
+class __$AppInstanceInputCopyWithImpl<$Res>
+    implements _$AppInstanceInputCopyWith<$Res> {
+  __$AppInstanceInputCopyWithImpl(this._self, this._then);
+
+  final _AppInstanceInput _self;
+  final $Res Function(_AppInstanceInput) _then;
+
+/// Create a copy of AppInstanceInput
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? appId = null,Object? platform = null,Object? appIdentifier = null,Object? developerName = null,Object? developerIdentifier = null,Object? host = null,}) {
+  return _then(_AppInstanceInput(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,appId: null == appId ? _self.appId : appId // ignore: cast_nullable_to_non_nullable
+as String,platform: null == platform ? _self.platform : platform // ignore: cast_nullable_to_non_nullable
+as AppPlatform,appIdentifier: null == appIdentifier ? _self.appIdentifier : appIdentifier // ignore: cast_nullable_to_non_nullable
+as String,developerName: null == developerName ? _self.developerName : developerName // ignore: cast_nullable_to_non_nullable
+as String,developerIdentifier: null == developerIdentifier ? _self.developerIdentifier : developerIdentifier // ignore: cast_nullable_to_non_nullable
+as String,host: null == host ? _self.host : host // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

@@ -78,6 +78,8 @@ part of '../triggers.dart';
 /// Indicates the days of the week what will execute the trigger.
 @unfreezed
 abstract class TriggerInput with _$TriggerInput {
+  const TriggerInput._();
+
   /// Constructs a mutable [TriggerInput].
   factory TriggerInput({
     /// ID of the trigger entity. This ID is unique.
@@ -93,20 +95,16 @@ abstract class TriggerInput with _$TriggerInput {
     String? timezoneId,
 
     /// Mode of activation.
-    @JsonKey(unknownEnumValue: TriggerType.formula)
-    @Default(TriggerType.formula)
-    TriggerType kind,
+    @JsonKey(unknownEnumValue: TriggerType.formula) @Default(TriggerType.formula) TriggerType kind,
 
     /// Mode of activation / disparator for [TriggerType.presenceInGeofences].
-    @JsonKey(unknownEnumValue: TriggerGeofenceDetectionMode.both)
-    TriggerGeofenceDetectionMode? geofenceKind,
+    @JsonKey(unknownEnumValue: TriggerGeofenceDetectionMode.both) TriggerGeofenceDetectionMode? geofenceKind,
 
     /// Case kind if trigger generates a case.
     @JsonKey(unknownEnumValue: CaseType.onFollow) CaseType? caseKind,
 
     /// Case comment pattern if trigger generates a case.
-    @JsonKey(unknownEnumValue: CaseCommentPattern.contains)
-    CaseCommentPattern? caseCommentPattern,
+    @JsonKey(unknownEnumValue: CaseCommentPattern.contains) CaseCommentPattern? caseCommentPattern,
 
     /// Case comment pattern if trigger generates a case.
     String? caseCommentPatternValue,
@@ -121,9 +119,7 @@ abstract class TriggerInput with _$TriggerInput {
     @Default(false) bool isPlainCrontab,
 
     /// Indicates the days of the week what will execute the trigger.
-    @JsonKey(unknownEnumValue: Weekday.monday)
-    @Default(Weekday.values)
-    List<Weekday> weekdays,
+    @JsonKey(unknownEnumValue: Weekday.monday) @Default(Weekday.values) List<Weekday> weekdays,
 
     /// Layrz Language formula
     String? formula,
@@ -140,9 +136,7 @@ abstract class TriggerInput with _$TriggerInput {
     @ColorConverter() @Default(Color(0xFFF44336)) Color color,
 
     /// Visual event effects to use in Monitor Center events received.
-    @JsonKey(unknownEnumValue: CaseEventEffect.none)
-    @Default(CaseEventEffect.none)
-    CaseEventEffect visualEventEffect,
+    @JsonKey(unknownEnumValue: CaseEventEffect.none) @Default(CaseEventEffect.none) CaseEventEffect visualEventEffect,
 
     /// Care protocol linked to the trigger. This is the rules to follow in the case reception. It can be null.
     String? careProtocolId,
@@ -215,6 +209,86 @@ abstract class TriggerInput with _$TriggerInput {
   }) = _TriggerInput;
 
   /// Deserializes a [TriggerInput] from a JSON map.
-  factory TriggerInput.fromJson(Map<String, dynamic> json) =>
-      _$TriggerInputFromJson(json);
+  factory TriggerInput.fromJson(Map<String, dynamic> json) => _$TriggerInputFromJson(json);
+
+  // coverage:ignore-start
+  /// Creates the trigger when [id] is `null`, otherwise updates it.
+  ///
+  /// Returns the [ApiStatus], the field errors (if any) and the saved [Trigger].
+  Future<StandardResponse<Trigger>> save({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz GraphQL API endpoint.
+    required Uri uri,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [variant] selects the standard or Mappit mutation.
+    TriggerVariant variant = .standard,
+  }) async {
+    final connector = LayrzConnector(apiToken: apiToken, uri: uri);
+    final mutationName = _getSaveMutationNameFromVariant(
+      variant,
+      isAdd: id == null,
+    );
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          name: mutationName,
+          variables: [
+            GqlVariable(
+              name: 'data',
+              value: toJson(),
+              type: .input(of: 'TriggerInput'),
+              isRequired: true,
+            ),
+          ],
+          fields: [
+            GqlField(name: mutationName, args: {'data': 'data'})
+              ..add(GqlField(name: 'status'))
+              ..add(GqlField(name: 'errors'))
+              ..add(
+                GqlField(
+                  name: 'result',
+                  fragment: Trigger.fragment,
+                  fields: Trigger._detailFields,
+                ),
+              ),
+          ],
+        ),
+        _triggerDecoder,
+      );
+
+      if (response.status != .ok) {
+        onResponse?.call(response.status);
+        return (response.status, response.errors, null);
+      }
+
+      return (response.status, null, response.result);
+    } catch (err, stack) {
+      Log.critical(
+        "layrz_sdk/TriggerInput/save(): General exception => $err\n$stack",
+      );
+      onResponse?.call(.internalError);
+      return (ApiStatus.internalError, null, null);
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  static String _getSaveMutationNameFromVariant(
+    TriggerVariant variant, {
+    bool isAdd = false,
+  }) {
+    switch (variant) {
+      case .mappit:
+        return isAdd ? 'addMappitTrigger' : 'editMappitTrigger';
+      case .standard:
+        return isAdd ? 'addTrigger' : 'editTrigger';
+    }
+  }
+
+  // coverage:ignore-end
 }

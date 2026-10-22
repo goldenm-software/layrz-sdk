@@ -8,16 +8,16 @@ part of '../inbound_structure.dart';
 abstract class InboundStructure with _$InboundStructure {
   const factory InboundStructure({
     /// [hasPosition] indicates if the payload includes a position.
-    required bool hasPosition,
+    @Default(false) bool hasPosition,
 
     /// [position] is the structure of the position fields, present when [hasPosition] is `true`.
-    required InboundPositionStructure? position,
+    InboundPositionStructure? position,
 
     /// [hasPayload] indicates if the payload includes custom fields.
-    required bool hasPayload,
+    @Default(false) bool hasPayload,
 
     /// [payload] is the list of custom payload field definitions.
-    required List<InboundPayloadStructure> payload,
+    @Default([]) List<InboundPayloadStructure> payload,
   }) = _InboundStructure;
 
   /// [fromJson] builds an [InboundStructure] from a decoded JSON [json] map.

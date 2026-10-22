@@ -12,6 +12,10 @@
 /// instances, plus [CustomReport] (which forms a circular reference with
 /// [RegisteredApp] and therefore lives in this same library).
 ///
+/// [RegisteredAppInput], [AppWithoutCustomizationInput] and [AppInstanceInput]
+/// register, edit and request instances of a [RegisteredApp] through their
+/// `save` methods.
+///
 /// [InternalRegisteredApp] and [InternalAppInstance] are the goldenm/admin
 /// counterparts of [RegisteredApp]/[AppInstance], populated on
 /// [AvailableApp.implementations] when fetched with `isGoldenm: true`.
@@ -41,10 +45,12 @@ part 'src/internal_app_instance.dart';
 part 'src/internal_registered_app.dart';
 part 'src/push_device.dart';
 part 'src/registered_app.dart';
+part 'src/registered_app_input.dart';
 part 'src/build.dart';
 part 'src/design.dart';
 part 'src/font.dart';
 part 'src/instance.dart';
+part 'src/instance_input.dart';
 part 'src/legal.dart';
 part 'src/login.dart';
 part 'src/asset.dart';

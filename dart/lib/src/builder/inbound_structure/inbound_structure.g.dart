@@ -8,18 +8,21 @@ part of 'inbound_structure.dart';
 
 _InboundStructure _$InboundStructureFromJson(Map<String, dynamic> json) =>
     _InboundStructure(
-      hasPosition: json['hasPosition'] as bool,
+      hasPosition: json['hasPosition'] as bool? ?? false,
       position: json['position'] == null
           ? null
           : InboundPositionStructure.fromJson(
               json['position'] as Map<String, dynamic>,
             ),
-      hasPayload: json['hasPayload'] as bool,
-      payload: (json['payload'] as List<dynamic>)
-          .map(
-            (e) => InboundPayloadStructure.fromJson(e as Map<String, dynamic>),
-          )
-          .toList(),
+      hasPayload: json['hasPayload'] as bool? ?? false,
+      payload:
+          (json['payload'] as List<dynamic>?)
+              ?.map(
+                (e) =>
+                    InboundPayloadStructure.fromJson(e as Map<String, dynamic>),
+              )
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$InboundStructureToJson(_InboundStructure instance) =>

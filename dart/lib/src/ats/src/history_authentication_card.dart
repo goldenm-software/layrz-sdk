@@ -8,6 +8,8 @@ part of '../ats.dart';
 /// to at the time.
 @freezed
 abstract class AtsHistoryAuthenticationCard with _$AtsHistoryAuthenticationCard {
+  const AtsHistoryAuthenticationCard._();
+
   /// Constructs an immutable [AtsHistoryAuthenticationCard].
   const factory AtsHistoryAuthenticationCard({
     /// The unique identifier of this history entry.
@@ -34,6 +36,78 @@ abstract class AtsHistoryAuthenticationCard with _$AtsHistoryAuthenticationCard 
   /// Deserializes an [AtsHistoryAuthenticationCard] from a JSON map.
   factory AtsHistoryAuthenticationCard.fromJson(Map<String, dynamic> json) =>
       _$AtsHistoryAuthenticationCardFromJson(json);
+
+  // coverage:ignore-start
+  /// The fields of an [AtsHistoryAuthenticationCard] selected by [AtsAuthenticationCard.fetch].
+  static List<GqlField> get fields => [
+    GqlField(name: 'id'),
+    GqlField(name: 'operation'),
+    _atsCardAssetField(),
+    _atsCardUserField('owner'),
+    _atsCardUserField('createdBy'),
+    GqlField(name: 'createdAt'),
+  ];
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Fetches the command sent by this entry and the device answer (`getCommandResult`).
+  ///
+  /// Only meaningful for [AtsHistoryAuthenticationCardOperation.commandResult] entries. Returns `null` when the
+  /// result is not found or on any error; a missing result reports [ApiStatus.notfound] through [onResponse].
+  Future<AtsCommandResult?> fetchCommandResult({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz ATS GraphQL API endpoint.
+    required Uri uri,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.query(
+        GqlQuery(
+          name: 'getCommandResult',
+          variables: [
+            GqlVariable(name: 'historyId', value: id, type: .id, isRequired: true),
+          ],
+        )..add(
+          GqlField(name: 'getCommandResult', args: {'historyId': 'historyId'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(
+              GqlField(
+                name: 'result',
+                fields: [
+                  GqlField(name: 'request'),
+                  GqlField(name: 'response'),
+                  GqlField(name: 'executedAt'),
+                ],
+              ),
+            ),
+        ),
+        (json) => json is Map ? AtsCommandResult.fromJson(Map<String, dynamic>.from(json)) : null,
+      );
+
+      if (response.status != .ok) {
+        Log.warning(
+          "layrz_sdk/AtsHistoryAuthenticationCard/fetchCommandResult(): API returned status ${response.status}",
+        );
+        onResponse?.call(response.status);
+        return null;
+      }
+
+      final result = response.result;
+      if (result == null) onResponse?.call(.notfound);
+      return result;
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/AtsHistoryAuthenticationCard/fetchCommandResult(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return null;
+    }
+  }
+  // coverage:ignore-end
 }
 
 /// The kind of operation recorded by an [AtsHistoryAuthenticationCard].

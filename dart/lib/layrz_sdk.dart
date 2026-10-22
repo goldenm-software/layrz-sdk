@@ -25,6 +25,7 @@
 /// - [notifications] — In-app notification models: [LayrzNotification].
 /// - [permissions] — Generic permission models for access control.
 /// - [realtime] — Typed envelope for realtime/websocket messages.
+/// - [report_job] — Callers to start and poll asynchronous report jobs.
 /// - [simulation] — Simulation cycle catalog for the Layrz Cycle Scripting language.
 /// - [tag] — Tag model with [TagInput] and [TagVariant] to list, fetch, save and delete tags.
 /// - [time_of_day] — A framework-independent [TimeOfDay] class for time-of-day values.
@@ -88,6 +89,7 @@ export 'src/presets/presets.dart';
 export 'src/realtime/realtime.dart';
 export 'src/references/references.dart';
 export 'src/report_template/report_template.dart';
+export 'src/report_job/report_job.dart';
 export 'src/scripting/scripting.dart';
 export 'src/sensors/sensors.dart';
 export 'src/simulation/simulation.dart';

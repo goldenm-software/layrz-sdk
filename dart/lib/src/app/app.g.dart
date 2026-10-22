@@ -392,6 +392,57 @@ Map<String, dynamic> _$CustomReportToJson(_CustomReport instance) =>
       'allowedApps': instance.allowedApps?.map((e) => e.toJson()).toList(),
     };
 
+_RegisteredAppInput _$RegisteredAppInputFromJson(Map<String, dynamic> json) =>
+    _RegisteredAppInput(
+      id: json['id'] as String?,
+      name: json['name'] as String? ?? '',
+      nickname: json['nickname'] as String? ?? '',
+      sourceId: json['sourceId'] as String,
+      isCustomized: json['isCustomized'] as bool? ?? false,
+      legalInformation: AppLegalInput.fromJson(
+        json['legalInformation'] as Map<String, dynamic>,
+      ),
+      designInformation: AppDesignInput.fromJson(
+        json['designInformation'] as Map<String, dynamic>,
+      ),
+      instances:
+          (json['instances'] as List<dynamic>?)
+              ?.map((e) => AppInstanceInput.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+    );
+
+Map<String, dynamic> _$RegisteredAppInputToJson(_RegisteredAppInput instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'nickname': instance.nickname,
+      'sourceId': instance.sourceId,
+      'legalInformation': instance.legalInformation.toJson(),
+      'designInformation': instance.designInformation.toJson(),
+      'instances': instance.instances.map((e) => e.toJson()).toList(),
+    };
+
+_AppWithoutCustomizationInput _$AppWithoutCustomizationInputFromJson(
+  Map<String, dynamic> json,
+) => _AppWithoutCustomizationInput(
+  id: json['id'] as String?,
+  sourceId: json['sourceId'] as String,
+  nickname: json['nickname'] as String? ?? '',
+  subdomain: json['subdomain'] as String? ?? '',
+  domain: json['domain'] as String? ?? 'layrz.app',
+);
+
+Map<String, dynamic> _$AppWithoutCustomizationInputToJson(
+  _AppWithoutCustomizationInput instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'sourceId': instance.sourceId,
+  'nickname': instance.nickname,
+  'subdomain': instance.subdomain,
+  'domain': instance.domain,
+};
+
 _AppBuild _$AppBuildFromJson(Map<String, dynamic> json) => _AppBuild(
   id: json['id'] as String,
   buildName: json['buildName'] as String,
@@ -649,6 +700,32 @@ _DnsConfiguration _$DnsConfigurationFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$DnsConfigurationToJson(_DnsConfiguration instance) =>
     <String, dynamic>{'name': instance.name, 'value': instance.value};
+
+_AppInstanceInput _$AppInstanceInputFromJson(Map<String, dynamic> json) =>
+    _AppInstanceInput(
+      id: json['id'] as String?,
+      appId: json['appId'] as String,
+      platform: $enumDecode(
+        _$AppPlatformEnumMap,
+        json['platform'],
+        unknownValue: AppPlatform.web,
+      ),
+      appIdentifier: json['appIdentifier'] as String? ?? '',
+      developerName: json['developerName'] as String? ?? '',
+      developerIdentifier: json['developerIdentifier'] as String? ?? '',
+      host: json['host'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$AppInstanceInputToJson(_AppInstanceInput instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'appId': instance.appId,
+      'platform': instance.platform.toJson(),
+      'appIdentifier': instance.appIdentifier,
+      'developerName': instance.developerName,
+      'developerIdentifier': instance.developerIdentifier,
+      'host': instance.host,
+    };
 
 _AppLegal _$AppLegalFromJson(Map<String, dynamic> json) => _AppLegal(
   companyName: json['companyName'] as String,

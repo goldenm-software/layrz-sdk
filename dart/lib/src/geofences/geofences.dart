@@ -4,7 +4,9 @@
 /// writing geofence entities, [GeoPoint] and [GeofencePoint] (with its
 /// [GeofencePointInput] variant) for representing geographic coordinates, and
 /// the supporting [GeofenceMode], [GeofenceCategory], [GeofenceVariant], and
-/// [ExportFormat] enumerations used to classify and export geofences.
+/// [ExportFormat] enumerations used to classify and export geofences. It also
+/// provides [ExternalResource] and [ExternalGeofence] for importing geofences
+/// from Wialon, and [ReverseGeocode] for resolving coordinates to addresses.
 library;
 
 import 'package:collection/collection.dart';
@@ -32,3 +34,5 @@ part 'src/variant.dart';
 part 'src/point.dart';
 part 'src/geofence.dart';
 part 'src/geofence_input.dart';
+part 'src/external.dart';
+part 'src/reverse_geocode.dart';
