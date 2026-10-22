@@ -1307,8 +1307,8 @@ return $default(_that.id,_that.name,_that.credentials,_that.externalAccountId,_t
 /// @nodoc
 @JsonSerializable()
 
-class _InboundService implements InboundService {
-  const _InboundService({required this.id, required this.name, @DynamicMapConverterNullable() this.credentials, this.externalAccountId, @DurationOrNullConverter() this.updateTime, this.protocol, this.protocolId, this.isEnabled, this.token, this.structure, this.access, this.webhookStructure});
+class _InboundService extends InboundService {
+  const _InboundService({required this.id, required this.name, @DynamicMapConverterNullable() this.credentials, this.externalAccountId, @DurationOrNullConverter() this.updateTime, this.protocol, this.protocolId, this.isEnabled, this.token, this.structure, this.access, this.webhookStructure}): super._();
   factory _InboundService.fromJson(Map<String, dynamic> json) => _$InboundServiceFromJson(json);
 
 /// [id] is the ID of the entity. This ID is unique.
@@ -1452,8 +1452,12 @@ mixin _$InboundServiceInput {
  set id(String? value);/// [name] is the assigned service name, cannot be translated for other languages.
  String get name;/// [name] is the assigned service name, cannot be translated for other languages.
  set name(String value);/// [credentials] is the credential object, check the documentation for more information.
-@DynamicMapConverter() Map<String, dynamic> get credentials;/// [credentials] is the credential object, check the documentation for more information.
-@DynamicMapConverter() set credentials(Map<String, dynamic> value);/// [externalAccountId] is the ID of the external account.
+///
+/// [InboundServiceInput.fromJson] deep copies it, so `fromJson(input.toJson())` is a safe copy.
+@_InboundCredentialsConverter() Map<String, dynamic> get credentials;/// [credentials] is the credential object, check the documentation for more information.
+///
+/// [InboundServiceInput.fromJson] deep copies it, so `fromJson(input.toJson())` is a safe copy.
+@_InboundCredentialsConverter() set credentials(Map<String, dynamic> value);/// [externalAccountId] is the ID of the external account.
  String? get externalAccountId;/// [externalAccountId] is the ID of the external account.
  set externalAccountId(String? value);/// [protocolId] is the ID of the protocol.
  String? get protocolId;/// [protocolId] is the ID of the protocol.
@@ -1485,7 +1489,7 @@ abstract mixin class $InboundServiceInputCopyWith<$Res>  {
   factory $InboundServiceInputCopyWith(InboundServiceInput value, $Res Function(InboundServiceInput) _then) = _$InboundServiceInputCopyWithImpl;
 @useResult
 $Res call({
- String? id, String name,@DynamicMapConverter() Map<String, dynamic> credentials, String? externalAccountId, String? protocolId, InboundStructureInput structure
+ String? id, String name,@_InboundCredentialsConverter() Map<String, dynamic> credentials, String? externalAccountId, String? protocolId, InboundStructureInput structure
 });
 
 
@@ -1604,7 +1608,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name, @DynamicMapConverter()  Map<String, dynamic> credentials,  String? externalAccountId,  String? protocolId,  InboundStructureInput structure)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name, @_InboundCredentialsConverter()  Map<String, dynamic> credentials,  String? externalAccountId,  String? protocolId,  InboundStructureInput structure)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _InboundServiceInput() when $default != null:
 return $default(_that.id,_that.name,_that.credentials,_that.externalAccountId,_that.protocolId,_that.structure);case _:
@@ -1625,7 +1629,7 @@ return $default(_that.id,_that.name,_that.credentials,_that.externalAccountId,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name, @DynamicMapConverter()  Map<String, dynamic> credentials,  String? externalAccountId,  String? protocolId,  InboundStructureInput structure)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name, @_InboundCredentialsConverter()  Map<String, dynamic> credentials,  String? externalAccountId,  String? protocolId,  InboundStructureInput structure)  $default,) {final _that = this;
 switch (_that) {
 case _InboundServiceInput():
 return $default(_that.id,_that.name,_that.credentials,_that.externalAccountId,_that.protocolId,_that.structure);case _:
@@ -1645,7 +1649,7 @@ return $default(_that.id,_that.name,_that.credentials,_that.externalAccountId,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name, @DynamicMapConverter()  Map<String, dynamic> credentials,  String? externalAccountId,  String? protocolId,  InboundStructureInput structure)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name, @_InboundCredentialsConverter()  Map<String, dynamic> credentials,  String? externalAccountId,  String? protocolId,  InboundStructureInput structure)?  $default,) {final _that = this;
 switch (_that) {
 case _InboundServiceInput() when $default != null:
 return $default(_that.id,_that.name,_that.credentials,_that.externalAccountId,_that.protocolId,_that.structure);case _:
@@ -1659,8 +1663,8 @@ return $default(_that.id,_that.name,_that.credentials,_that.externalAccountId,_t
 /// @nodoc
 @JsonSerializable()
 
-class _InboundServiceInput implements InboundServiceInput {
-   _InboundServiceInput({this.id, this.name = '', @DynamicMapConverter() this.credentials = const <String, dynamic>{}, this.externalAccountId, this.protocolId, required this.structure});
+class _InboundServiceInput extends InboundServiceInput {
+   _InboundServiceInput({this.id, this.name = '', @_InboundCredentialsConverter() this.credentials = const <String, dynamic>{}, this.externalAccountId, this.protocolId, required this.structure}): super._();
   factory _InboundServiceInput.fromJson(Map<String, dynamic> json) => _$InboundServiceInputFromJson(json);
 
 /// [id] is the ID of the entity. This ID is unique. Should be null when creating a new entity.
@@ -1668,7 +1672,9 @@ class _InboundServiceInput implements InboundServiceInput {
 /// [name] is the assigned service name, cannot be translated for other languages.
 @override@JsonKey()  String name;
 /// [credentials] is the credential object, check the documentation for more information.
-@override@JsonKey()@DynamicMapConverter()  Map<String, dynamic> credentials;
+///
+/// [InboundServiceInput.fromJson] deep copies it, so `fromJson(input.toJson())` is a safe copy.
+@override@JsonKey()@_InboundCredentialsConverter()  Map<String, dynamic> credentials;
 /// [externalAccountId] is the ID of the external account.
 @override  String? externalAccountId;
 /// [protocolId] is the ID of the protocol.
@@ -1702,7 +1708,7 @@ abstract mixin class _$InboundServiceInputCopyWith<$Res> implements $InboundServ
   factory _$InboundServiceInputCopyWith(_InboundServiceInput value, $Res Function(_InboundServiceInput) _then) = __$InboundServiceInputCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String name,@DynamicMapConverter() Map<String, dynamic> credentials, String? externalAccountId, String? protocolId, InboundStructureInput structure
+ String? id, String name,@_InboundCredentialsConverter() Map<String, dynamic> credentials, String? externalAccountId, String? protocolId, InboundStructureInput structure
 });
 
 

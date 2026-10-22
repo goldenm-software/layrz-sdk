@@ -228,17 +228,17 @@ return $default(_that.hasPosition,_that.position,_that.hasPayload,_that.payload)
 @JsonSerializable()
 
 class _InboundStructure implements InboundStructure {
-  const _InboundStructure({required this.hasPosition, required this.position, required this.hasPayload, required this.payload});
+  const _InboundStructure({this.hasPosition = false, this.position, this.hasPayload = false, this.payload = const []});
   factory _InboundStructure.fromJson(Map<String, dynamic> json) => _$InboundStructureFromJson(json);
 
 /// [hasPosition] indicates if the payload includes a position.
-@override final  bool hasPosition;
+@override@JsonKey() final  bool hasPosition;
 /// [position] is the structure of the position fields, present when [hasPosition] is `true`.
 @override final  InboundPositionStructure? position;
 /// [hasPayload] indicates if the payload includes custom fields.
-@override final  bool hasPayload;
+@override@JsonKey() final  bool hasPayload;
 /// [payload] is the list of custom payload field definitions.
-@override final  List<InboundPayloadStructure> payload;
+@override@JsonKey() final  List<InboundPayloadStructure> payload;
 
 /// Create a copy of InboundStructure
 /// with the given fields replaced by the non-null parameter values.

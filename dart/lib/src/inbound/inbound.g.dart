@@ -310,7 +310,7 @@ _InboundServiceInput _$InboundServiceInputFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String? ?? '',
       credentials: json['credentials'] == null
           ? const <String, dynamic>{}
-          : const DynamicMapConverter().fromJson(json['credentials']),
+          : const _InboundCredentialsConverter().fromJson(json['credentials']),
       externalAccountId: json['externalAccountId'] as String?,
       protocolId: json['protocolId'] as String?,
       structure: InboundStructureInput.fromJson(
@@ -323,7 +323,9 @@ Map<String, dynamic> _$InboundServiceInputToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  'credentials': const DynamicMapConverter().toJson(instance.credentials),
+  'credentials': const _InboundCredentialsConverter().toJson(
+    instance.credentials,
+  ),
   'externalAccountId': instance.externalAccountId,
   'protocolId': instance.protocolId,
   'structure': instance.structure.toJson(),
