@@ -631,6 +631,11 @@ abstract class OperationInput with _$OperationInput {
   /// Deserializes an [OperationInput] from a JSON map.
   factory OperationInput.fromJson(Map<String, dynamic> json) => _$OperationInputFromJson(json);
 
+  /// Builds the editable input of [operation], keeping the external account that
+  /// [Operation] serializes as `accountId`.
+  factory OperationInput.fromOperation(Operation operation) =>
+      OperationInput.fromJson(operation.toJson())..externalAccountId = operation.externalAccountId;
+
   // coverage:ignore-start
   /// Creates or updates this operation on the server, depending on whether
   /// [id] is null.
@@ -642,6 +647,7 @@ abstract class OperationInput with _$OperationInput {
   ///
   /// Optional callback invoked with the raw status code string of the
   /// response.
+  @Deprecated('Use saveWithResponse, which also returns the field errors of a rejected save.')
   Future<Operation?> save({
     /// The API token for authentication. Obtain via the `login` mutation
     /// on the GraphQL API.
@@ -654,6 +660,31 @@ abstract class OperationInput with _$OperationInput {
     /// Optional callback invoked with the raw status code string of the
     /// response.
     void Function(String statusCode)? onResponse,
+
+    /// The product variant of the operations module.
+    OperationVariant variant = .standard,
+  }) async {
+    final (_, _, operation) = await saveWithResponse(
+      apiToken: apiToken,
+      uri: uri,
+      variant: variant,
+      onResponse: onResponse == null ? null : (status) => onResponse(status.toJson()),
+    );
+    return operation;
+  }
+
+  /// Creates or updates this operation on the server, depending on whether
+  /// [id] is null, and returns the status, the field errors of a rejected save
+  /// and the saved [Operation] with full details.
+  Future<StandardResponse<Operation>> saveWithResponse({
+    /// The API token for authentication.
+    required String apiToken,
+
+    /// The Layrz GraphQL API endpoint.
+    required Uri uri,
+
+    /// Invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
 
     /// The product variant of the operations module.
     OperationVariant variant = .standard,
@@ -682,18 +713,20 @@ abstract class OperationInput with _$OperationInput {
       );
 
       if (response.status != .ok) {
-        onResponse?.call(response.status.toJson());
-        return null;
+        onResponse?.call(response.status);
+        return (response.status, response.errors, null);
       }
 
       if (response.result == null) {
-        Log.warning("layrz_sdk/OperationInput/save(): No result in list");
-        return null;
+        Log.warning("layrz_sdk/OperationInput/saveWithResponse(): No result in list");
+        onResponse?.call(.internalError);
+        return (ApiStatus.internalError, null, null);
       }
-      return response.result;
+      return (ApiStatus.ok, null, response.result);
     } catch (e, stack) {
-      Log.critical("layrz_sdk/OperationInput/save(): General exception => $e\n$stack");
-      return null;
+      Log.critical("layrz_sdk/OperationInput/saveWithResponse(): General exception => $e\n$stack");
+      onResponse?.call(.internalError);
+      return (ApiStatus.internalError, null, null);
     }
   }
   // coverage:ignore-end
