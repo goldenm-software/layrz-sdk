@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.18.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* Fixed `LayrzChart.delete`, which called a non-existent `deleteChart` mutation. It now calls `deleteCharts` with the chart ID, like `LayrzChart.deleteMultiple`. The public signature is unchanged.
+* Added `ChartDataSource.coreProcesses` (`CORE_PROCESSES`), including its `pythonSource` mapping. `ChartDataSource.lastMessages` is kept for compatibility.
+
+### Go
+
+* No changes in this release.
+
 ## 4.17.0
 
 ### Python
