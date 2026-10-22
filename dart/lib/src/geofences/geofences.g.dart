@@ -216,3 +216,21 @@ Map<String, dynamic> _$GeofenceInputToJson(_GeofenceInput instance) =>
       'customFields': instance.customFields.map((e) => e.toJson()).toList(),
       'assetId': instance.assetId,
     };
+
+_ExternalResource _$ExternalResourceFromJson(Map<String, dynamic> json) =>
+    _ExternalResource(
+      wialonId: json['wialonId'] as String,
+      name: json['name'] as String,
+    );
+
+Map<String, dynamic> _$ExternalResourceToJson(_ExternalResource instance) =>
+    <String, dynamic>{'wialonId': instance.wialonId, 'name': instance.name};
+
+_ExternalGeofence _$ExternalGeofenceFromJson(Map<String, dynamic> json) =>
+    _ExternalGeofence(
+      wialonId: json['wialonId'] as String,
+      name: json['name'] as String,
+    );
+
+Map<String, dynamic> _$ExternalGeofenceToJson(_ExternalGeofence instance) =>
+    <String, dynamic>{'wialonId': instance.wialonId, 'name': instance.name};
