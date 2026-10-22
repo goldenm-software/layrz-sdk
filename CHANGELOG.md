@@ -1,5 +1,29 @@
 # Changelog
 
+## 4.19.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* Added trigger API callers to the `triggers` module: `Trigger.fetchAll` (lightweight `id name code kind isPaused` plus `extraFields`), `Trigger.fetch` (full record with `access`), `TriggerInput.save`, `Trigger.deleteMany`, `Trigger.toggle` (`toggleTriggerState`) and `TriggerActivation.fetchLast10` (`last10TriggerActivations`). Added `Trigger.fragment` and the `TriggerVariant` enum (`standard`, `mappit`).
+* Added inbound service API callers: `InboundService.fetchAll` (lightweight `fragment` plus `extraFields`), `fetch` (`detailedFragment`), `toggle`, `generateManual` and `deleteMany`; `InboundServiceInput.save` (add/edit) and `InboundServiceInput.fromInboundService`. `InboundServiceInput.fromJson` deep-copies `credentials`.
+* `InboundStructure` defaults `hasPosition`/`hasPayload` to `false` and `payload` to `[]`, so a `null` or missing value from the backend decodes.
+* Added outbound service API callers: `OutboundService.fetchAll`, `fetch`, `deleteMany`, `toggle`, `importIntoApp` and `generateManual`, plus `OutboundService.fragment` and `structureMaxDepth`. Added `OutboundServiceInput` (`save`, `fromService`, `copy`), `OutboundStructureInput` (`fromStructure`) and the `AtsStreamExitStructureType` enum.
+* Added the `report_job` module: `ReportJob.run`, `ReportJob.poll` and `ReportJobPollResult`.
+* Added ATS authentication card operations: `AtsAuthenticationCard.fetchAll`, `fetch`, `assignToUser`, `assignByRangeToUser`, `unassignMany`, `unsuspendMany` and `uploadFromFile` (with `parseUploadResponse`, `uploadErrorRows` and `uploadRowErrorsKey`), and `AtsHistoryAuthenticationCard.fetchCommandResult`. Added `AtsAssignCardsResult` and `AtsCommandResult`.
+* Added NS Tecnologia licenses: `AtsNsLicense` (`fetchAll`, `fetch`, `deleteMany`), `AtsNsLicenseInput.save`, `AtsNsAddress`/`AtsNsAddressInput`, the `AtsNsStatus`/`AtsNsProjectId`/`AtsIcmsType` enums and the `AtsNsCountryState`/`AtsNsCity` catalogs with `fetchAll`.
+* Added `RegisteredAppInput`, `AppWithoutCustomizationInput` and `AppInstanceInput` with `save` (`editApp`/`registerAppWithCustomization`, `registerAppWithoutCustomization`, `requestInstance`), returning field errors. Added `AppLegalInput.fromLegal`, `AppDesignInput.fromDesign`, `kAppDefaultColor` and `kAppDefaultFontName`.
+* Added `OperationInput.saveWithResponse`, which returns `StandardResponse<Operation>` with the field errors of a rejected save, and `OperationInput.fromOperation`, which keeps the external account that `Operation` serializes as `accountId`. `OperationInput.save` is deprecated in favor of `saveWithResponse`.
+* `RegisteredApp.fetchAll` now selects `isCustomized`, `technology` and `legalInformation`, and accepts `extraFields`.
+* The remaining ATS models moved from `layrz_models`: authentication identifiers, bookings, events, feedback messages, exits, entries, manifest and CACL inputs, monitors, SIL trailers and unloading orders, stock closings, and their enums and converters. Names, fields and JSON shape are unchanged.
+* Added `AtsNsStatusOrNullConverter`.
+* Added `AtsStreamExitStructureType.isCustom`; `AtsStreamExitStructureType.fromJson` falls back to `constant` for unknown values.
+* Added `OutboundServiceInput.token`, serialized only when set.
+* Added `ExternalResource` (`fetchAll`), `ExternalGeofence` (`fetchAll`, `import` returning `StandardResponse<void>` with the field errors) and `ReverseGeocode.fetchAddresses` to the `geofences` module, moved from `layrz_models`.
+
 ## 4.18.0
 
 ### Python
