@@ -187,9 +187,9 @@ abstract class LayrzChart with _$LayrzChart {
               value: [id],
             ),
           ],
-          name: 'deleteChart',
+          name: 'deleteCharts',
         )..add(
-          GqlField(name: 'deleteChart', args: {'ids': 'ids'})
+          GqlField(name: 'deleteCharts', args: {'ids': 'ids'})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors')),
         ),

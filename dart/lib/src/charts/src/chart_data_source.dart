@@ -19,6 +19,10 @@ enum ChartDataSource {
   @JsonValue('CHECKPOINTS')
   checkpoints,
 
+  /// Core processes data source.
+  @JsonValue('CORE_PROCESSES')
+  coreProcesses,
+
   /// ATS operations data source.
   @JsonValue('ATS_OPERATIONS')
   atsOperations,
@@ -56,6 +60,8 @@ enum ChartDataSource {
         return "CASES";
       case ChartDataSource.checkpoints:
         return "CHECKPOINTS";
+      case ChartDataSource.coreProcesses:
+        return "CORE_PROCESSES";
       case ChartDataSource.atsOperations:
         return "ATS_OPERATIONS";
       case ChartDataSource.atsPurchaseOrders:

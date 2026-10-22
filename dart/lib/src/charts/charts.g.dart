@@ -86,6 +86,7 @@ const _$ChartDataSourceEnumMap = {
   ChartDataSource.events: 'EVENTS',
   ChartDataSource.cases: 'CASES',
   ChartDataSource.checkpoints: 'CHECKPOINTS',
+  ChartDataSource.coreProcesses: 'CORE_PROCESSES',
   ChartDataSource.atsOperations: 'ATS_OPERATIONS',
   ChartDataSource.atsPurchaseOrders: 'ATS_PURCHASEORDERS',
   ChartDataSource.lastMessages: 'LAST_MESSAGES',

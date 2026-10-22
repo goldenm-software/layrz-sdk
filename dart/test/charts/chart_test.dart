@@ -310,4 +310,46 @@ void main() {
       expect(input.enableLttb, equals(true));
     });
   });
+
+  group('ChartDataSource Tests', () {
+    test('coreProcesses serializes to CORE_PROCESSES', () {
+      expect(ChartDataSource.coreProcesses.toJson(), equals('CORE_PROCESSES'));
+      expect(ChartDataSource.coreProcesses.toString(), equals('CORE_PROCESSES'));
+    });
+
+    test('coreProcesses fromJson', () {
+      expect(ChartDataSource.fromJson('CORE_PROCESSES'), equals(ChartDataSource.coreProcesses));
+    });
+
+    test('coreProcesses pythonSource', () {
+      expect(ChartDataSource.coreProcesses.pythonSource, equals('CORE_PROCESSES'));
+    });
+
+    test('lastMessages is preserved', () {
+      expect(ChartDataSource.lastMessages.toJson(), equals('LAST_MESSAGES'));
+      expect(ChartDataSource.lastMessages.pythonSource, equals('LAST_MESSAGES'));
+    });
+
+    test('LayrzChart roundtrip json with coreProcesses', () {
+      const original = LayrzChart(id: 'chart-cp', name: 'Core', dataSource: ChartDataSource.coreProcesses);
+      final json = original.toJson();
+      expect(json['dataSource'], equals('CORE_PROCESSES'));
+      expect(LayrzChart.fromJson(json).dataSource, equals(ChartDataSource.coreProcesses));
+    });
+
+    test('LayrzChartInput roundtrip json with coreProcesses', () {
+      final original = LayrzChartInput(name: 'Core', dataSource: ChartDataSource.coreProcesses);
+      final json = original.toJson();
+      expect(json['dataSource'], equals('CORE_PROCESSES'));
+      expect(LayrzChartInput.fromJson(json).dataSource, equals(ChartDataSource.coreProcesses));
+    });
+  });
+
+  group('LayrzChart.delete Tests', () {
+    test('delete returns false when the endpoint is unreachable', () async {
+      const chart = LayrzChart(id: 'chart-del', name: 'Delete me');
+      final result = await chart.delete(apiToken: 'token', uri: Uri.parse('http://127.0.0.1:1/graphql'));
+      expect(result, isFalse);
+    });
+  });
 }
