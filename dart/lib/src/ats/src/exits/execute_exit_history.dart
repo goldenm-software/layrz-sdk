@@ -26,6 +26,63 @@ abstract class AtsExecuteExitHistory with _$AtsExecuteExitHistory {
   }) = _AtsExecuteExitHistory;
 
   factory AtsExecuteExitHistory.fromJson(Map<String, dynamic> json) => _$AtsExecuteExitHistoryFromJson(json);
+
+  // coverage:ignore-start
+  /// The fields of an [AtsExecuteExitHistory] selected by [fetchAll].
+  static List<GqlField> get fields => [
+    GqlField(name: 'id'),
+    GqlField(name: 'generatedBy'),
+    GqlField(name: 'fromAsset'),
+    GqlField(name: 'toAsset'),
+    GqlField(name: 'createdAt'),
+    GqlField(name: 'errorResponse'),
+    GqlField(name: 'status'),
+  ];
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Fetches the exit executions of the pumps [fromAssetIds] (`exitExecutions`) in the range [startAt]-[endAt].
+  ///
+  /// Selects [fields] plus [extraFields]. An item that does not decode is logged and skipped. Returns an empty list
+  /// on any error.
+  static Future<List<AtsExecuteExitHistory>> fetchAll({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz ATS GraphQL API endpoint.
+    required Uri uri,
+
+    /// [fromAssetIds] are the IDs of the pumps to filter by, if any.
+    List<String>? fromAssetIds,
+
+    /// [startAt] is the start of the range, if any.
+    DateTime? startAt,
+
+    /// [endAt] is the end of the range, if any.
+    DateTime? endAt,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [extraFields] is the list of additional fields to fetch from the API, if any.
+    List<GqlField>? extraFields,
+  }) {
+    return _atsFetchMonitorEntities(
+      operation: 'exitExecutions',
+      caller: 'AtsExecuteExitHistory/fetchAll',
+      fields: [...fields, ...?extraFields],
+      fromJson: AtsExecuteExitHistory.fromJson,
+      apiToken: apiToken,
+      uri: uri,
+      assetsArg: 'fromAssetIds',
+      assetsType: .list(of: .id, isRequired: true),
+      assetsIds: fromAssetIds,
+      startAt: startAt,
+      endAt: endAt,
+      onResponse: onResponse,
+    );
+  }
+  // coverage:ignore-end
 }
 
 enum AtsExitExecuteStatus {

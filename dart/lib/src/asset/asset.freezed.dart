@@ -4798,6 +4798,286 @@ as String?,
 
 
 /// @nodoc
+mixin _$AssetSensorImage {
+
+/// [fileId] is the Layrz Drive file ID.
+ String get fileId;/// [sensorId] is the ID of the sensor that produced the image.
+ String get sensorId;/// [serial] is the serial of the image, if any.
+ String? get serial;/// [lastModified] is when the image was last modified.
+@TimestampOrNullConverter() DateTime? get lastModified;
+/// Create a copy of AssetSensorImage
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AssetSensorImageCopyWith<AssetSensorImage> get copyWith => _$AssetSensorImageCopyWithImpl<AssetSensorImage>(this as AssetSensorImage, _$identity);
+
+  /// Serializes this AssetSensorImage to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AssetSensorImage&&(identical(other.fileId, fileId) || other.fileId == fileId)&&(identical(other.sensorId, sensorId) || other.sensorId == sensorId)&&(identical(other.serial, serial) || other.serial == serial)&&(identical(other.lastModified, lastModified) || other.lastModified == lastModified));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,fileId,sensorId,serial,lastModified);
+
+@override
+String toString() {
+  return 'AssetSensorImage(fileId: $fileId, sensorId: $sensorId, serial: $serial, lastModified: $lastModified)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AssetSensorImageCopyWith<$Res>  {
+  factory $AssetSensorImageCopyWith(AssetSensorImage value, $Res Function(AssetSensorImage) _then) = _$AssetSensorImageCopyWithImpl;
+@useResult
+$Res call({
+ String fileId, String sensorId, String? serial,@TimestampOrNullConverter() DateTime? lastModified
+});
+
+
+
+
+}
+/// @nodoc
+class _$AssetSensorImageCopyWithImpl<$Res>
+    implements $AssetSensorImageCopyWith<$Res> {
+  _$AssetSensorImageCopyWithImpl(this._self, this._then);
+
+  final AssetSensorImage _self;
+  final $Res Function(AssetSensorImage) _then;
+
+/// Create a copy of AssetSensorImage
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? fileId = null,Object? sensorId = null,Object? serial = freezed,Object? lastModified = freezed,}) {
+  return _then(_self.copyWith(
+fileId: null == fileId ? _self.fileId : fileId // ignore: cast_nullable_to_non_nullable
+as String,sensorId: null == sensorId ? _self.sensorId : sensorId // ignore: cast_nullable_to_non_nullable
+as String,serial: freezed == serial ? _self.serial : serial // ignore: cast_nullable_to_non_nullable
+as String?,lastModified: freezed == lastModified ? _self.lastModified : lastModified // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [AssetSensorImage].
+extension AssetSensorImagePatterns on AssetSensorImage {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AssetSensorImage value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AssetSensorImage() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AssetSensorImage value)  $default,){
+final _that = this;
+switch (_that) {
+case _AssetSensorImage():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AssetSensorImage value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AssetSensorImage() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String fileId,  String sensorId,  String? serial, @TimestampOrNullConverter()  DateTime? lastModified)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AssetSensorImage() when $default != null:
+return $default(_that.fileId,_that.sensorId,_that.serial,_that.lastModified);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String fileId,  String sensorId,  String? serial, @TimestampOrNullConverter()  DateTime? lastModified)  $default,) {final _that = this;
+switch (_that) {
+case _AssetSensorImage():
+return $default(_that.fileId,_that.sensorId,_that.serial,_that.lastModified);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String fileId,  String sensorId,  String? serial, @TimestampOrNullConverter()  DateTime? lastModified)?  $default,) {final _that = this;
+switch (_that) {
+case _AssetSensorImage() when $default != null:
+return $default(_that.fileId,_that.sensorId,_that.serial,_that.lastModified);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _AssetSensorImage implements AssetSensorImage {
+  const _AssetSensorImage({required this.fileId, required this.sensorId, this.serial, @TimestampOrNullConverter() this.lastModified});
+  factory _AssetSensorImage.fromJson(Map<String, dynamic> json) => _$AssetSensorImageFromJson(json);
+
+/// [fileId] is the Layrz Drive file ID.
+@override final  String fileId;
+/// [sensorId] is the ID of the sensor that produced the image.
+@override final  String sensorId;
+/// [serial] is the serial of the image, if any.
+@override final  String? serial;
+/// [lastModified] is when the image was last modified.
+@override@TimestampOrNullConverter() final  DateTime? lastModified;
+
+/// Create a copy of AssetSensorImage
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AssetSensorImageCopyWith<_AssetSensorImage> get copyWith => __$AssetSensorImageCopyWithImpl<_AssetSensorImage>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$AssetSensorImageToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AssetSensorImage&&(identical(other.fileId, fileId) || other.fileId == fileId)&&(identical(other.sensorId, sensorId) || other.sensorId == sensorId)&&(identical(other.serial, serial) || other.serial == serial)&&(identical(other.lastModified, lastModified) || other.lastModified == lastModified));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,fileId,sensorId,serial,lastModified);
+
+@override
+String toString() {
+  return 'AssetSensorImage(fileId: $fileId, sensorId: $sensorId, serial: $serial, lastModified: $lastModified)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AssetSensorImageCopyWith<$Res> implements $AssetSensorImageCopyWith<$Res> {
+  factory _$AssetSensorImageCopyWith(_AssetSensorImage value, $Res Function(_AssetSensorImage) _then) = __$AssetSensorImageCopyWithImpl;
+@override @useResult
+$Res call({
+ String fileId, String sensorId, String? serial,@TimestampOrNullConverter() DateTime? lastModified
+});
+
+
+
+
+}
+/// @nodoc
+class __$AssetSensorImageCopyWithImpl<$Res>
+    implements _$AssetSensorImageCopyWith<$Res> {
+  __$AssetSensorImageCopyWithImpl(this._self, this._then);
+
+  final _AssetSensorImage _self;
+  final $Res Function(_AssetSensorImage) _then;
+
+/// Create a copy of AssetSensorImage
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? fileId = null,Object? sensorId = null,Object? serial = freezed,Object? lastModified = freezed,}) {
+  return _then(_AssetSensorImage(
+fileId: null == fileId ? _self.fileId : fileId // ignore: cast_nullable_to_non_nullable
+as String,sensorId: null == sensorId ? _self.sensorId : sensorId // ignore: cast_nullable_to_non_nullable
+as String,serial: freezed == serial ? _self.serial : serial // ignore: cast_nullable_to_non_nullable
+as String?,lastModified: freezed == lastModified ? _self.lastModified : lastModified // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$StaticPosition {
 
 /// [latitude] is the latitude of the asset.

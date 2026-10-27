@@ -249,12 +249,7 @@ abstract class Trigger with _$Trigger {
       'shouldStack',
     ])
       GqlField(name: name),
-    GqlField(
-      name: 'manualActionFields',
-      fields: [
-        for (final name in ['question', 'answer', 'minValue', 'maxValue', 'choices']) GqlField(name: name),
-      ],
-    ),
+    _manualActionFieldsField,
     for (final name in [
       'assetsIds',
       'tagsAssetsIds',
@@ -266,6 +261,15 @@ abstract class Trigger with _$Trigger {
     ])
       GqlField(name: name),
   ];
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  static GqlField get _manualActionFieldsField => GqlField(
+    name: 'manualActionFields',
+    fields: [
+      for (final name in ['question', 'answer', 'minValue', 'maxValue', 'choices']) GqlField(name: name),
+    ],
+  );
   // coverage:ignore-end
 
   // coverage:ignore-start
@@ -513,6 +517,173 @@ abstract class Trigger with _$Trigger {
   // coverage:ignore-end
 
   // coverage:ignore-start
+  /// Fetches the manual action triggers available for the asset [assetId] with
+  /// `findManualTriggersFromAsset`.
+  ///
+  /// Selects the lightweight [fragment] plus [manualActionFields]. Returns an empty list on any error.
+  static Future<List<Trigger>> fetchManualFromAsset({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz GraphQL API endpoint.
+    required Uri uri,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [assetId] is the ID of the asset to find the manual triggers for.
+    required String assetId,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    const queryName = 'findManualTriggersFromAsset';
+    try {
+      final response = await connector.query(
+        GqlQuery(
+          name: queryName,
+          variables: [
+            GqlVariable(name: 'assetId', value: assetId, type: .id, isRequired: true),
+          ],
+        )..add(
+          GqlField(name: queryName, args: {'assetId': 'assetId'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(
+              GqlField(
+                name: 'result',
+                fragment: fragment,
+                fields: [_manualActionFieldsField],
+              ),
+            ),
+        ),
+        _triggerListDecoder,
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/Trigger/fetchManualFromAsset(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+        return [];
+      }
+
+      return response.result ?? [];
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/Trigger/fetchManualFromAsset(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return [];
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Fetches the assets (`id name`) this manual action trigger can be activated for with
+  /// `findAssetsFromManualTrigger`.
+  ///
+  /// Returns an empty list on any error.
+  Future<List<Asset>> fetchManualAssets({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz GraphQL API endpoint.
+    required Uri uri,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    const queryName = 'findAssetsFromManualTrigger';
+    try {
+      final response = await connector.query(
+        GqlQuery(
+          name: queryName,
+          variables: [
+            GqlVariable(name: 'triggerId', value: id, type: .id, isRequired: true),
+          ],
+        )..add(
+          GqlField(name: queryName, args: {'triggerId': 'triggerId'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(
+              GqlField(
+                name: 'result',
+                fields: [
+                  GqlField(name: 'id'),
+                  GqlField(name: 'name'),
+                ],
+              ),
+            ),
+        ),
+        _manualAssetListDecoder,
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/Trigger/fetchManualAssets(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+        return [];
+      }
+
+      return response.result ?? [];
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/Trigger/fetchManualAssets(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return [];
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Registers a manual activation of this trigger for the asset [assetId] with
+  /// `registerManualTriggerActivation`.
+  ///
+  /// [data] maps each [CareTask.question] of [manualActionFields] to its answer. Returns the status and,
+  /// on a rejected request, the field errors keyed `manualActionFields.<index>`.
+  Future<StandardResponse<void>> registerManualActivation({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz GraphQL API endpoint.
+    required Uri uri,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [assetId] is the ID of the asset the activation is registered for.
+    required String assetId,
+
+    /// [data] are the answers keyed by question.
+    required Map<String, dynamic> data,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    const mutationName = 'registerManualTriggerActivation';
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          name: mutationName,
+          variables: [
+            GqlVariable(name: 'triggerId', value: id, type: .id, isRequired: true),
+            GqlVariable(name: 'assetId', value: assetId, type: .id, isRequired: true),
+            GqlVariable(name: 'data', value: data, type: .json, isRequired: true),
+          ],
+        )..add(
+          GqlField(name: mutationName, args: {'triggerId': 'triggerId', 'assetId': 'assetId', 'data': 'data'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors')),
+        ),
+      );
+
+      if (response.status != .ok) {
+        onResponse?.call(response.status);
+        return (response.status, response.errors, null);
+      }
+
+      return (ApiStatus.ok, null, null);
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/Trigger/registerManualActivation(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return (ApiStatus.internalError, null, null);
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
   static String _getQueryNameFromVariant(TriggerVariant variant) {
     switch (variant) {
       case .mappit:
@@ -545,3 +716,12 @@ List<Trigger> _triggerListDecoder(Object? json) {
 
 /// [_triggerDecoder] decodes a single raw `result` payload into a [Trigger].
 Trigger _triggerDecoder(Object? json) => Trigger.fromJson(Map<String, dynamic>.from(json as Map));
+
+/// [_manualAssetListDecoder] decodes the `result` of `findAssetsFromManualTrigger` into a list of [Asset].
+List<Asset> _manualAssetListDecoder(Object? json) {
+  return List<Asset>.from(
+    (json as List? ?? []).map(
+      (e) => Asset.fromJson(Map<String, dynamic>.from(e as Map)),
+    ),
+  );
+}
