@@ -638,6 +638,26 @@ Map<String, dynamic> _$AssetLoginInfoInputToJson(
   'username': instance.username,
 };
 
+_AssetSensorImage _$AssetSensorImageFromJson(Map<String, dynamic> json) =>
+    _AssetSensorImage(
+      fileId: json['fileId'] as String,
+      sensorId: json['sensorId'] as String,
+      serial: json['serial'] as String?,
+      lastModified: const TimestampOrNullConverter().fromJson(
+        json['lastModified'] as num?,
+      ),
+    );
+
+Map<String, dynamic> _$AssetSensorImageToJson(_AssetSensorImage instance) =>
+    <String, dynamic>{
+      'fileId': instance.fileId,
+      'sensorId': instance.sensorId,
+      'serial': instance.serial,
+      'lastModified': const TimestampOrNullConverter().toJson(
+        instance.lastModified,
+      ),
+    };
+
 _StaticPosition _$StaticPositionFromJson(Map<String, dynamic> json) =>
     _StaticPosition(
       latitude: (json['latitude'] as num?)?.toDouble(),

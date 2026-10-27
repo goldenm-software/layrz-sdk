@@ -5,6 +5,7 @@
 /// - [account_launcher] — Input models for the account launcher wizard templates.
 /// - [api] — API status codes and response structures.
 /// - [app] — Application platform enum for identifying client platforms.
+/// - [asset] — Asset model with [AssetInput] and [AssetVariant] to list, fetch, save, clone and delete assets.
 /// - [avatar] — Avatar utilities for managing user and resource images.
 /// - [builder/flespi] — Flespi ACL structure definitions for inbound protocols.
 /// - [builder/webhook] — Webhook structure definitions for inbound protocols.
