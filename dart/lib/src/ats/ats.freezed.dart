@@ -28709,8 +28709,8 @@ return $default(_that.id,_that.name,_that.color,_that.icon,_that.isFavorite,_tha
 /// @nodoc
 @JsonSerializable()
 
-class _AtsMonitor implements AtsMonitor {
-  const _AtsMonitor({required this.id, required this.name, @ColorOrNullConverter() this.color, @IconOrNullConverter() this.icon, this.isFavorite = false, this.assets = const [], this.assetsIds = const [], this.gridStructure = const [], this.charts = const [], this.chartsIds = const [], this.access = const [], this.owner, this.analyticsGridStructure});
+class _AtsMonitor extends AtsMonitor {
+  const _AtsMonitor({required this.id, required this.name, @ColorOrNullConverter() this.color, @IconOrNullConverter() this.icon, this.isFavorite = false, this.assets = const [], this.assetsIds = const [], this.gridStructure = const [], this.charts = const [], this.chartsIds = const [], this.access = const [], this.owner, this.analyticsGridStructure}): super._();
   factory _AtsMonitor.fromJson(Map<String, dynamic> json) => _$AtsMonitorFromJson(json);
 
 /// ID of the entity. This ID is unique.
@@ -29043,8 +29043,8 @@ return $default(_that.id,_that.name,_that.appId,_that.icon,_that.color,_that.isF
 /// @nodoc
 @JsonSerializable()
 
-class _AtsMonitorInput implements AtsMonitorInput {
-   _AtsMonitorInput({this.id, this.name, this.appId, @IconOrNullConverter() this.icon, @ColorOrNullConverter() this.color, this.isFavorite = false, this.assetsIds = const [], this.gridStructure = const [], this.chartsIds = const [], this.analyticsGridStructure});
+class _AtsMonitorInput extends AtsMonitorInput {
+   _AtsMonitorInput({this.id, this.name, this.appId, @IconOrNullConverter() this.icon, @ColorOrNullConverter() this.color, this.isFavorite = false, this.assetsIds = const [], this.gridStructure = const [], this.chartsIds = const [], this.analyticsGridStructure}): super._();
   factory _AtsMonitorInput.fromJson(Map<String, dynamic> json) => _$AtsMonitorInputFromJson(json);
 
 /// ID of the entity. This ID is unique.
@@ -30518,6 +30518,359 @@ as int,
 }
 
 
+}
+
+
+/// @nodoc
+mixin _$AtsRecalculation {
+
+/// The unique identifier of the recalculation.
+ String? get id;/// The [User] who requested the recalculation.
+ User? get user;/// The ID of the user who requested the recalculation.
+ String? get userId;/// The start of the recalculated range.
+@TimestampOrNullConverter() DateTime? get startAt;/// The end of the recalculated range.
+@TimestampOrNullConverter() DateTime? get endAt;/// When the recalculation was generated.
+@TimestampOrNullConverter() DateTime? get at;/// Whether the recalculation finished.
+ bool get isFinished;/// The assets selected to recalculate.
+ List<Asset> get assets;/// The operation linked to the recalculation, if any.
+ AtsOperation? get operation;
+/// Create a copy of AtsRecalculation
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AtsRecalculationCopyWith<AtsRecalculation> get copyWith => _$AtsRecalculationCopyWithImpl<AtsRecalculation>(this as AtsRecalculation, _$identity);
+
+  /// Serializes this AtsRecalculation to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AtsRecalculation&&(identical(other.id, id) || other.id == id)&&(identical(other.user, user) || other.user == user)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.startAt, startAt) || other.startAt == startAt)&&(identical(other.endAt, endAt) || other.endAt == endAt)&&(identical(other.at, at) || other.at == at)&&(identical(other.isFinished, isFinished) || other.isFinished == isFinished)&&const DeepCollectionEquality().equals(other.assets, assets)&&(identical(other.operation, operation) || other.operation == operation));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,user,userId,startAt,endAt,at,isFinished,const DeepCollectionEquality().hash(assets),operation);
+
+@override
+String toString() {
+  return 'AtsRecalculation(id: $id, user: $user, userId: $userId, startAt: $startAt, endAt: $endAt, at: $at, isFinished: $isFinished, assets: $assets, operation: $operation)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AtsRecalculationCopyWith<$Res>  {
+  factory $AtsRecalculationCopyWith(AtsRecalculation value, $Res Function(AtsRecalculation) _then) = _$AtsRecalculationCopyWithImpl;
+@useResult
+$Res call({
+ String? id, User? user, String? userId,@TimestampOrNullConverter() DateTime? startAt,@TimestampOrNullConverter() DateTime? endAt,@TimestampOrNullConverter() DateTime? at, bool isFinished, List<Asset> assets, AtsOperation? operation
+});
+
+
+$UserCopyWith<$Res>? get user;$AtsOperationCopyWith<$Res>? get operation;
+
+}
+/// @nodoc
+class _$AtsRecalculationCopyWithImpl<$Res>
+    implements $AtsRecalculationCopyWith<$Res> {
+  _$AtsRecalculationCopyWithImpl(this._self, this._then);
+
+  final AtsRecalculation _self;
+  final $Res Function(AtsRecalculation) _then;
+
+/// Create a copy of AtsRecalculation
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? user = freezed,Object? userId = freezed,Object? startAt = freezed,Object? endAt = freezed,Object? at = freezed,Object? isFinished = null,Object? assets = null,Object? operation = freezed,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as User?,userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as String?,startAt: freezed == startAt ? _self.startAt : startAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,endAt: freezed == endAt ? _self.endAt : endAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,at: freezed == at ? _self.at : at // ignore: cast_nullable_to_non_nullable
+as DateTime?,isFinished: null == isFinished ? _self.isFinished : isFinished // ignore: cast_nullable_to_non_nullable
+as bool,assets: null == assets ? _self.assets : assets // ignore: cast_nullable_to_non_nullable
+as List<Asset>,operation: freezed == operation ? _self.operation : operation // ignore: cast_nullable_to_non_nullable
+as AtsOperation?,
+  ));
+}
+/// Create a copy of AtsRecalculation
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserCopyWith<$Res>? get user {
+    if (_self.user == null) {
+    return null;
+  }
+
+  return $UserCopyWith<$Res>(_self.user!, (value) {
+    return _then(_self.copyWith(user: value));
+  });
+}/// Create a copy of AtsRecalculation
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AtsOperationCopyWith<$Res>? get operation {
+    if (_self.operation == null) {
+    return null;
+  }
+
+  return $AtsOperationCopyWith<$Res>(_self.operation!, (value) {
+    return _then(_self.copyWith(operation: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [AtsRecalculation].
+extension AtsRecalculationPatterns on AtsRecalculation {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AtsRecalculation value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AtsRecalculation() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AtsRecalculation value)  $default,){
+final _that = this;
+switch (_that) {
+case _AtsRecalculation():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AtsRecalculation value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AtsRecalculation() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  User? user,  String? userId, @TimestampOrNullConverter()  DateTime? startAt, @TimestampOrNullConverter()  DateTime? endAt, @TimestampOrNullConverter()  DateTime? at,  bool isFinished,  List<Asset> assets,  AtsOperation? operation)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AtsRecalculation() when $default != null:
+return $default(_that.id,_that.user,_that.userId,_that.startAt,_that.endAt,_that.at,_that.isFinished,_that.assets,_that.operation);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  User? user,  String? userId, @TimestampOrNullConverter()  DateTime? startAt, @TimestampOrNullConverter()  DateTime? endAt, @TimestampOrNullConverter()  DateTime? at,  bool isFinished,  List<Asset> assets,  AtsOperation? operation)  $default,) {final _that = this;
+switch (_that) {
+case _AtsRecalculation():
+return $default(_that.id,_that.user,_that.userId,_that.startAt,_that.endAt,_that.at,_that.isFinished,_that.assets,_that.operation);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  User? user,  String? userId, @TimestampOrNullConverter()  DateTime? startAt, @TimestampOrNullConverter()  DateTime? endAt, @TimestampOrNullConverter()  DateTime? at,  bool isFinished,  List<Asset> assets,  AtsOperation? operation)?  $default,) {final _that = this;
+switch (_that) {
+case _AtsRecalculation() when $default != null:
+return $default(_that.id,_that.user,_that.userId,_that.startAt,_that.endAt,_that.at,_that.isFinished,_that.assets,_that.operation);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _AtsRecalculation implements AtsRecalculation {
+  const _AtsRecalculation({this.id, this.user, this.userId, @TimestampOrNullConverter() this.startAt, @TimestampOrNullConverter() this.endAt, @TimestampOrNullConverter() this.at, this.isFinished = false, this.assets = const [], this.operation});
+  factory _AtsRecalculation.fromJson(Map<String, dynamic> json) => _$AtsRecalculationFromJson(json);
+
+/// The unique identifier of the recalculation.
+@override final  String? id;
+/// The [User] who requested the recalculation.
+@override final  User? user;
+/// The ID of the user who requested the recalculation.
+@override final  String? userId;
+/// The start of the recalculated range.
+@override@TimestampOrNullConverter() final  DateTime? startAt;
+/// The end of the recalculated range.
+@override@TimestampOrNullConverter() final  DateTime? endAt;
+/// When the recalculation was generated.
+@override@TimestampOrNullConverter() final  DateTime? at;
+/// Whether the recalculation finished.
+@override@JsonKey() final  bool isFinished;
+/// The assets selected to recalculate.
+@override@JsonKey() final  List<Asset> assets;
+/// The operation linked to the recalculation, if any.
+@override final  AtsOperation? operation;
+
+/// Create a copy of AtsRecalculation
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AtsRecalculationCopyWith<_AtsRecalculation> get copyWith => __$AtsRecalculationCopyWithImpl<_AtsRecalculation>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$AtsRecalculationToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AtsRecalculation&&(identical(other.id, id) || other.id == id)&&(identical(other.user, user) || other.user == user)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.startAt, startAt) || other.startAt == startAt)&&(identical(other.endAt, endAt) || other.endAt == endAt)&&(identical(other.at, at) || other.at == at)&&(identical(other.isFinished, isFinished) || other.isFinished == isFinished)&&const DeepCollectionEquality().equals(other.assets, assets)&&(identical(other.operation, operation) || other.operation == operation));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,user,userId,startAt,endAt,at,isFinished,const DeepCollectionEquality().hash(assets),operation);
+
+@override
+String toString() {
+  return 'AtsRecalculation(id: $id, user: $user, userId: $userId, startAt: $startAt, endAt: $endAt, at: $at, isFinished: $isFinished, assets: $assets, operation: $operation)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AtsRecalculationCopyWith<$Res> implements $AtsRecalculationCopyWith<$Res> {
+  factory _$AtsRecalculationCopyWith(_AtsRecalculation value, $Res Function(_AtsRecalculation) _then) = __$AtsRecalculationCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id, User? user, String? userId,@TimestampOrNullConverter() DateTime? startAt,@TimestampOrNullConverter() DateTime? endAt,@TimestampOrNullConverter() DateTime? at, bool isFinished, List<Asset> assets, AtsOperation? operation
+});
+
+
+@override $UserCopyWith<$Res>? get user;@override $AtsOperationCopyWith<$Res>? get operation;
+
+}
+/// @nodoc
+class __$AtsRecalculationCopyWithImpl<$Res>
+    implements _$AtsRecalculationCopyWith<$Res> {
+  __$AtsRecalculationCopyWithImpl(this._self, this._then);
+
+  final _AtsRecalculation _self;
+  final $Res Function(_AtsRecalculation) _then;
+
+/// Create a copy of AtsRecalculation
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? user = freezed,Object? userId = freezed,Object? startAt = freezed,Object? endAt = freezed,Object? at = freezed,Object? isFinished = null,Object? assets = null,Object? operation = freezed,}) {
+  return _then(_AtsRecalculation(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as User?,userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as String?,startAt: freezed == startAt ? _self.startAt : startAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,endAt: freezed == endAt ? _self.endAt : endAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,at: freezed == at ? _self.at : at // ignore: cast_nullable_to_non_nullable
+as DateTime?,isFinished: null == isFinished ? _self.isFinished : isFinished // ignore: cast_nullable_to_non_nullable
+as bool,assets: null == assets ? _self.assets : assets // ignore: cast_nullable_to_non_nullable
+as List<Asset>,operation: freezed == operation ? _self.operation : operation // ignore: cast_nullable_to_non_nullable
+as AtsOperation?,
+  ));
+}
+
+/// Create a copy of AtsRecalculation
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserCopyWith<$Res>? get user {
+    if (_self.user == null) {
+    return null;
+  }
+
+  return $UserCopyWith<$Res>(_self.user!, (value) {
+    return _then(_self.copyWith(user: value));
+  });
+}/// Create a copy of AtsRecalculation
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AtsOperationCopyWith<$Res>? get operation {
+    if (_self.operation == null) {
+    return null;
+  }
+
+  return $AtsOperationCopyWith<$Res>(_self.operation!, (value) {
+    return _then(_self.copyWith(operation: value));
+  });
+}
 }
 
 

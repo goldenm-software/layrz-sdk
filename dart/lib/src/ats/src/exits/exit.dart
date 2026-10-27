@@ -72,4 +72,111 @@ abstract class AtsExit with _$AtsExit {
 
   /// Deserializes an [AtsExit] from a JSON map.
   factory AtsExit.fromJson(Map<String, dynamic> json) => _$AtsExitFromJson(json);
+
+  // coverage:ignore-start
+  /// The fields of an [AtsExit] selected by [fetchAll]: pump, attendant, vehicle with its cards, flux and tank volumes.
+  static List<GqlField> get fields => [
+    GqlField(name: 'id'),
+    GqlField(name: 'identifier'),
+    GqlField(name: 'fromAssetId'),
+    GqlField(
+      name: 'fromAsset',
+      fields: [
+        GqlField(name: 'id'),
+        GqlField(name: 'name'),
+      ],
+    ),
+    GqlField(name: 'attendantName'),
+    GqlField(name: 'attendantId'),
+    GqlField(name: 'toAssetId'),
+    GqlField(
+      name: 'toAsset',
+      fields: [
+        GqlField(name: 'id'),
+        GqlField(name: 'name'),
+        GqlField(
+          name: 'authenticationCardCardboard',
+          fields: [
+            GqlField(name: 'id'),
+            GqlField(name: 'number'),
+            GqlField(name: 'externalIdentifier'),
+            GqlField(name: 'externalIdentifierHex'),
+            GqlField(name: 'typeId'),
+          ],
+        ),
+        GqlField(
+          name: 'authenticationCardNfc',
+          fields: [
+            GqlField(name: 'id'),
+            GqlField(name: 'number'),
+            GqlField(name: 'externalIdentifier'),
+            GqlField(name: 'externalIdentifierHex'),
+            GqlField(name: 'typeId'),
+          ],
+        ),
+        GqlField(
+          name: 'authenticationCardTag',
+          fields: [
+            GqlField(name: 'id'),
+            GqlField(name: 'number'),
+            GqlField(name: 'externalIdentifier'),
+            GqlField(name: 'externalIdentifierHex'),
+            GqlField(name: 'typeId'),
+          ],
+        ),
+      ],
+    ),
+    GqlField(name: 'toAssetMileage'),
+    GqlField(name: 'totalLiters'),
+    GqlField(name: 'initialFluxometer'),
+    GqlField(name: 'finalFluxometer'),
+    GqlField(name: 'startAt'),
+    GqlField(name: 'endAt'),
+    GqlField(name: 'totalTimeDuration'),
+    GqlField(name: 'initialTankVolume'),
+    GqlField(name: 'finalTankVolume'),
+  ];
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Fetches the exits of the pumps [assetsIds] (`exits`) in the range [startAt]-[endAt].
+  ///
+  /// Selects [fields] plus [extraFields]. An item that does not decode is logged and skipped. Returns an empty list
+  /// on any error.
+  static Future<List<AtsExit>> fetchAll({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz ATS GraphQL API endpoint.
+    required Uri uri,
+
+    /// [assetsIds] are the IDs of the assets to filter by, if any.
+    List<String>? assetsIds,
+
+    /// [startAt] is the start of the range, if any.
+    DateTime? startAt,
+
+    /// [endAt] is the end of the range, if any.
+    DateTime? endAt,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [extraFields] is the list of additional fields to fetch from the API, if any.
+    List<GqlField>? extraFields,
+  }) {
+    return _atsFetchMonitorEntities(
+      operation: 'exits',
+      caller: 'AtsExit/fetchAll',
+      fields: [...fields, ...?extraFields],
+      fromJson: AtsExit.fromJson,
+      apiToken: apiToken,
+      uri: uri,
+      assetsIds: assetsIds,
+      startAt: startAt,
+      endAt: endAt,
+      onResponse: onResponse,
+    );
+  }
+  // coverage:ignore-end
 }

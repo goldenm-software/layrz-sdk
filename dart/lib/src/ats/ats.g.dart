@@ -3557,6 +3557,42 @@ Map<String, dynamic> _$AtsGridDimensionInputToJson(
   _AtsGridDimensionInput instance,
 ) => <String, dynamic>{'width': instance.width, 'height': instance.height};
 
+_AtsRecalculation _$AtsRecalculationFromJson(Map<String, dynamic> json) =>
+    _AtsRecalculation(
+      id: json['id'] as String?,
+      user: json['user'] == null
+          ? null
+          : User.fromJson(json['user'] as Map<String, dynamic>),
+      userId: json['userId'] as String?,
+      startAt: const TimestampOrNullConverter().fromJson(
+        json['startAt'] as num?,
+      ),
+      endAt: const TimestampOrNullConverter().fromJson(json['endAt'] as num?),
+      at: const TimestampOrNullConverter().fromJson(json['at'] as num?),
+      isFinished: json['isFinished'] as bool? ?? false,
+      assets:
+          (json['assets'] as List<dynamic>?)
+              ?.map((e) => Asset.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      operation: json['operation'] == null
+          ? null
+          : AtsOperation.fromJson(json['operation'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$AtsRecalculationToJson(_AtsRecalculation instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'user': instance.user?.toJson(),
+      'userId': instance.userId,
+      'startAt': const TimestampOrNullConverter().toJson(instance.startAt),
+      'endAt': const TimestampOrNullConverter().toJson(instance.endAt),
+      'at': const TimestampOrNullConverter().toJson(instance.at),
+      'isFinished': instance.isFinished,
+      'assets': instance.assets.map((e) => e.toJson()).toList(),
+      'operation': instance.operation?.toJson(),
+    };
+
 _StockClosing _$StockClosingFromJson(
   Map<String, dynamic> json,
 ) => _StockClosing(

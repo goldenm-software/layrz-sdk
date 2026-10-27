@@ -177,4 +177,88 @@ abstract class AtsPurchaseOrder with _$AtsPurchaseOrder {
 
   /// from json factory
   factory AtsPurchaseOrder.fromJson(Map<String, dynamic> json) => _$AtsPurchaseOrderFromJson(json);
+
+  // coverage:ignore-start
+  /// The fields of an [AtsPurchaseOrder] selected by [fetchAll]: totals, products, seller, transport.
+  static List<GqlField> get fields => [
+    GqlField(name: 'id'),
+    GqlField(name: 'orderId'),
+    GqlField(name: 'purchasedAt'),
+    GqlField(name: 'assetId'),
+    GqlField(
+      name: 'total',
+      fields: [GqlField(name: 'total')],
+    ),
+    GqlField(
+      name: 'productsInformation',
+      fields: [
+        GqlField(name: 'quantity'),
+        GqlField(name: 'subcategory'),
+      ],
+    ),
+    GqlField(
+      name: 'sellerInformation',
+      fields: [
+        GqlField(name: 'cnpj'),
+        GqlField(name: 'name'),
+      ],
+    ),
+    GqlField(
+      name: 'transportInformation',
+      fields: [
+        GqlField(name: 'cnpj'),
+        GqlField(name: 'name'),
+      ],
+    ),
+    GqlField(
+      name: 'transportAsset',
+      fields: [
+        GqlField(name: 'id'),
+        GqlField(name: 'name'),
+      ],
+    ),
+  ];
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Fetches the purchase orders of the assets [assetsIds] (`purchaseOrders`) in the range [startAt]-[endAt].
+  ///
+  /// Selects [fields] plus [extraFields]. An item that does not decode is logged and skipped. Returns an empty list
+  /// on any error.
+  static Future<List<AtsPurchaseOrder>> fetchAll({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Layrz ATS GraphQL API endpoint.
+    required Uri uri,
+
+    /// [assetsIds] are the IDs of the assets to filter by, if any.
+    List<String>? assetsIds,
+
+    /// [startAt] is the start of the range, if any.
+    DateTime? startAt,
+
+    /// [endAt] is the end of the range, if any.
+    DateTime? endAt,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [extraFields] is the list of additional fields to fetch from the API, if any.
+    List<GqlField>? extraFields,
+  }) {
+    return _atsFetchMonitorEntities(
+      operation: 'purchaseOrders',
+      caller: 'AtsPurchaseOrder/fetchAll',
+      fields: [...fields, ...?extraFields],
+      fromJson: AtsPurchaseOrder.fromJson,
+      apiToken: apiToken,
+      uri: uri,
+      assetsIds: assetsIds,
+      startAt: startAt,
+      endAt: endAt,
+      onResponse: onResponse,
+    );
+  }
+  // coverage:ignore-end
 }
