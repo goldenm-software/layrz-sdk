@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.20.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* Added asset API callers: `Asset.fetchAll` (listing selection per variant plus `extraFields`), `Asset.fetch` (full record, optional `withStorageTerminalRelations` for ATS), `AssetInput.save` (add/edit), `Asset.deleteMany`, `Asset.clone` and `Asset.updateWidgets` (`updateAssetWidgets`). Added the `AssetVariant` enum (`standard`, `ats`, `mappit`, `tenvioWarehouses`; Tenvio uses the standard operations) and `AssetInput.toVariantJson`, which drops the ATS and Mappit keys the other input types reject; `geofencesIds` is ATS-only, so other variants never send it and the backend keeps the asset's geofence links.
+* Added asset operations: `Asset.fetchParameters` (`assetParameters`), `Asset.fetchSensorsLastUpdate` (`sensorsLastUpdate`), `Asset.fetchSensorImages` (`driveImagesFromSensors`, new `AssetSensorImage` model), `Asset.setSensorValue` (`setAssetSensorValue`), `Asset.convertSensorToGlobal` (`convertSensorToGlobalSensor`), `Asset.linkGlobalSensor` (`linkAssetToGlobalSensor`) and `Asset.loginAsSeller` (Mappit). ATS API only: `Asset.recalculateEntities`, `Asset.downloadAtsUploadFormat` (`downloadAssetsFormat`), `Asset.uploadAtsFromFile` (`uploadAssetsFromFile`) and `Asset.uploadAtsExitsFromFile` (`uploadExitsFile`), with `Asset.parseUploadResponse`.
+* Added manual trigger callers to the `triggers` module: `Trigger.fetchManualFromAsset` (`findManualTriggersFromAsset`, lightweight fields plus `manualActionFields`), `Trigger.fetchManualAssets` (`findAssetsFromManualTrigger`, assets `id name`) and `Trigger.registerManualActivation` (`registerManualTriggerActivation`, answers as `Json`, returns `StandardResponse<void>` with the field errors).
+* Added ATS monitor callers: `AtsMonitor.fetchAll` (`monitors`, optional `appId`/`id`), `AtsMonitor.deleteMany` (`deleteMonitors`) and `AtsMonitorInput.save` (`addMonitor`/`editMonitor`), plus the monitor card list callers `AtsPurchaseOrder.fetchAll` (`purchaseOrders`), `AtsEntry.fetchAll` (`entries`), `AtsExit.fetchAll` (`exits`), `AtsExecuteExitHistory.fetchAll` (`exitExecutions`, `fromAssetIds`) and `AtsRecalculation.fetchAll` (`recalculations`, `assetsIds`), each filtered by assets and dates with a `fields` selection plus `extraFields`. Added the `AtsRecalculation` model.
+
 ## 4.19.0
 
 ### Python
