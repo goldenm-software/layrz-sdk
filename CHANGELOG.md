@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* Added `MappitRecalculate.fetchAll` (`mappitRecalculates`, optional `limit`/`offset`, `fields` selection with the asset and requester plus `extraFields`) and `MappitRecalculate.request` (`requestMappitRecalc`, returns `StandardResponse<void>` with the field errors).
+* Added Mappit assignment callers, each returning `bool`: `Asset.assignToMappitUser` (`mappitAssignAssetsToUser`), `Tag.assignToMappitUser` (`assignMappitTagsToUser`), `Geofence.assignToMappitUser` (`assignMappitGeofencesToUser`), `MappitRoute.assignToUser` (`assignMappitRoutesToUser`) and `MappitRoute.assignToSeller` (`assignMappitRouteToSeller`; a `null` route unassigns it).
+* `Asset.fetchSensorsLastUpdate` accepts `variant`; `AssetVariant.mappit` uses `mappitSensorsLastUpdate`. The default keeps `sensorsLastUpdate`.
+* Added `DeviceCommand.fetchAllMappit` (`mappitDeviceCommands`, filtered by `protocolsIds`/`modelsIds`, optional `includeGlobals`).
+* Added `RegisteredApp.fetchAllMappit` (`mappitRegisteredApps`, optional `appIdentifier`), selecting the legal and design information and the instances with their builds.
+* Added `Timezone.fetchAll` (`timezones`, token optional).
+* `Geofence` reduced fragment selects `ownerId` and `owner` for `GeofenceVariant.mappit`.
+* `User.fetchAll` selects `references` (`id`, `name`, `category`) for the Mappit variants.
+* Fixed `GeofenceVariant.mappit` delete mutation name: `deleteMappitGeofences`.
+
 ## 4.21.0
 
 ### Python

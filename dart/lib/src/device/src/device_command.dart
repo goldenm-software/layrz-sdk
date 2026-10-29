@@ -247,6 +247,95 @@ abstract class DeviceCommand with _$DeviceCommand {
 
   // coverage:ignore-end
   // coverage:ignore-start
+  /// Fetches the command templates of the protocols [protocolsIds] and models [modelsIds]
+  /// (`mappitDeviceCommands`, Mappit and public APIs).
+  ///
+  /// Selects `id name source protocolId modelId` plus [extraFields]. Returns an empty list on any error.
+  static Future<List<DeviceCommand>> fetchAllMappit({
+    /// [apiToken] is the API token to use for the request.
+    required String apiToken,
+
+    /// [uri] is the Mappit (or public Layrz) GraphQL API endpoint.
+    required Uri uri,
+
+    /// [protocolsIds] filters the commands by protocol.
+    List<String>? protocolsIds,
+
+    /// [modelsIds] filters the commands by model.
+    List<String>? modelsIds,
+
+    /// [includeGlobals] also returns the global commands when `true`.
+    bool? includeGlobals,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [extraFields] is a list of extra fields to include in the query.
+    List<GqlField>? extraFields,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.query(
+        GqlQuery(
+          name: 'mappitDeviceCommands',
+          variables: [
+            if (protocolsIds != null)
+              GqlVariable(
+                name: 'protocolsIds',
+                value: protocolsIds,
+                type: .list(of: .id),
+              ),
+            if (modelsIds != null)
+              GqlVariable(
+                name: 'modelsIds',
+                value: modelsIds,
+                type: .list(of: .id),
+              ),
+            if (includeGlobals != null) GqlVariable(name: 'includeGlobals', value: includeGlobals, type: .boolean),
+          ],
+        )..add(
+          GqlField(
+              name: 'mappitDeviceCommands',
+              args: {
+                if (protocolsIds != null) 'protocolsIds': 'protocolsIds',
+                if (modelsIds != null) 'modelsIds': 'modelsIds',
+                if (includeGlobals != null) 'includeGlobals': 'includeGlobals',
+              },
+            )
+            ..add(GqlField(name: 'status'))
+            ..add(
+              GqlField(
+                name: 'result',
+                fields: [
+                  GqlField(name: 'id'),
+                  GqlField(name: 'name'),
+                  GqlField(name: 'source'),
+                  GqlField(name: 'protocolId'),
+                  GqlField(name: 'modelId'),
+                  ...?extraFields,
+                ],
+              ),
+            ),
+        ),
+        _deviceCommandListDecoder,
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/DeviceCommand/fetchAllMappit(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+        return [];
+      }
+
+      return response.result ?? [];
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/DeviceCommand/fetchAllMappit(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return [];
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
   /// [fetch] is a GraphQL query that fetches a single [DeviceCommand] entity by its [id].
   Future<DeviceCommand?> fetch({
     /// [apiToken] is the API token to use for the request.

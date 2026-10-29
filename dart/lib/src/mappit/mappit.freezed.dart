@@ -5119,8 +5119,8 @@ return $default(_that.id,_that.assetId,_that.asset,_that.requestedById,_that.req
 /// @nodoc
 @JsonSerializable()
 
-class _MappitRecalculate implements MappitRecalculate {
-  const _MappitRecalculate({required this.id, required this.assetId, this.asset, required this.requestedById, this.requestedBy, required this.requestedByIp, this.progress = 0, @TimestampConverter() required this.requestedAt, @TimestampConverter() required this.recalcStartAt, @TimestampConverter() required this.recalcEndAt, @JsonKey(unknownEnumValue: MappitRecalculateStatus.scheduled) required this.status});
+class _MappitRecalculate extends MappitRecalculate {
+  const _MappitRecalculate({required this.id, required this.assetId, this.asset, required this.requestedById, this.requestedBy, required this.requestedByIp, this.progress = 0, @TimestampConverter() required this.requestedAt, @TimestampConverter() required this.recalcStartAt, @TimestampConverter() required this.recalcEndAt, @JsonKey(unknownEnumValue: MappitRecalculateStatus.scheduled) required this.status}): super._();
   factory _MappitRecalculate.fromJson(Map<String, dynamic> json) => _$MappitRecalculateFromJson(json);
 
 /// [id] represents the ID of the recalculate request. In UUIDv4 format.

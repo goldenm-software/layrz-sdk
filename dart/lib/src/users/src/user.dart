@@ -487,6 +487,17 @@ abstract class User with _$User {
                   GqlField(name: 'planId'),
                   GqlField(name: 'dynamicAvatar', fragment: Avatar.fragment),
                   if (variant == .sdm) GqlField(name: 'sdmCode'),
+                  // Mappit tells customers and operators apart by their reference category.
+                  if (const <UserVariant>[.mappitOperator, .mappitCustomer, .mappitSupervisor, .mappitEmployee, .mappitSeller]
+                      .contains(variant))
+                    GqlField(
+                      name: 'references',
+                      fields: [
+                        GqlField(name: 'id'),
+                        GqlField(name: 'name'),
+                        GqlField(name: 'category'),
+                      ],
+                    ),
                 ],
               ),
             ),

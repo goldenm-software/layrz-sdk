@@ -58,7 +58,7 @@ enum GeofenceVariant {
       case .standard:
         return 'deleteGeofence';
       case .mappit:
-        return 'deleteMappitGeofence';
+        return 'deleteMappitGeofences';
       case .ats:
         return 'deleteAtsGeofence';
     }

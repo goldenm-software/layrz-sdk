@@ -9,7 +9,8 @@
 /// [MappitFreeDay] (with its [MappitFreeDayInput]) covers the dates on which
 /// linked sellers do not work. [MappitProfile], [MappitHomeConfig] (with its ranges), [PolygonDetails],
 /// [ContainedRouteCategory], [MappitRecalculate], [MappitReportInput] and [MappitReportMultiInput] are the
-/// remaining Mappit models ported from layrz_models.
+/// remaining Mappit models ported from layrz_models. [MappitRecalculate] lists and requests recalculations, and
+/// [MappitRoute] also assigns routes to users and sellers.
 library;
 
 import 'package:collection/collection.dart';
