@@ -6,6 +6,12 @@ List<ExternalResource> _externalResourceListDecoder(Object? json) {
   );
 }
 
+List<ExternalGeofenceGroup> _externalGeofenceGroupListDecoder(Object? json) {
+  return List<ExternalGeofenceGroup>.from(
+    (json as List? ?? []).map((e) => ExternalGeofenceGroup.fromJson(Map<String, dynamic>.from(e as Map))),
+  );
+}
+
 List<ExternalGeofence> _externalGeofenceListDecoder(Object? json) {
   return List<ExternalGeofence>.from(
     (json as List? ?? []).map((e) => ExternalGeofence.fromJson(Map<String, dynamic>.from(e as Map))),
@@ -232,6 +238,86 @@ abstract class ExternalGeofence with _$ExternalGeofence {
       Log.critical("layrz_sdk/ExternalGeofence/import(): General exception => $e\n$stack");
       onResponse?.call(ApiStatus.internalError);
       return (ApiStatus.internalError, null, null);
+    }
+  }
+
+  // coverage:ignore-end
+}
+
+/// A geofence group of an external Wialon resource, imported into Mappit as a route.
+@freezed
+abstract class ExternalGeofenceGroup with _$ExternalGeofenceGroup {
+  /// Private constructor used by the code generator.
+  const ExternalGeofenceGroup._();
+
+  /// Constructs an immutable [ExternalGeofenceGroup].
+  const factory ExternalGeofenceGroup({
+    /// The group identifier in Wialon.
+    required String wialonId,
+
+    /// The group name in Wialon.
+    required String name,
+  }) = _ExternalGeofenceGroup;
+
+  /// Deserializes an [ExternalGeofenceGroup] from a JSON map.
+  factory ExternalGeofenceGroup.fromJson(Map<String, dynamic> json) => _$ExternalGeofenceGroupFromJson(json);
+
+  // coverage:ignore-start
+  /// Fetches the geofence groups of the Wialon resource [wialonResourceId] in the external account
+  /// [externalAccountId] through the `externalGeofencesGroups` query.
+  ///
+  /// [onResponse] receives the status of a failing response. Returns an empty list on any error.
+  static Future<List<ExternalGeofenceGroup>> fetchAll({
+    /// The external account to read the groups from.
+    required String externalAccountId,
+
+    /// The Wialon resource that holds the groups.
+    required String wialonResourceId,
+
+    /// The API token for authentication.
+    required String apiToken,
+
+    /// The Layrz GraphQL API endpoint.
+    required Uri uri,
+
+    /// Called with the status of a failing response.
+    ValueChanged<ApiStatus>? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.query(
+        GqlQuery(
+          name: 'externalGeofencesGroups',
+          variables: [
+            GqlVariable(name: 'externalAccountId', type: .id, isRequired: true, value: externalAccountId),
+            GqlVariable(name: 'resourceId', type: .id, isRequired: true, value: wialonResourceId),
+          ],
+        )..add(
+          GqlField(
+              name: 'externalGeofencesGroups',
+              args: {'externalAccountId': 'externalAccountId', 'resourceId': 'resourceId'},
+            )
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(
+              GqlField(name: 'result')
+                ..add(GqlField(name: 'wialonId'))
+                ..add(GqlField(name: 'name')),
+            ),
+        ),
+        _externalGeofenceGroupListDecoder,
+      );
+
+      if (response.status != .ok) {
+        onResponse?.call(response.status);
+        return [];
+      }
+
+      return response.result ?? [];
+    } catch (e, stack) {
+      Log.critical("layrz_sdk/ExternalGeofenceGroup/fetchAll(): General exception => $e\n$stack");
+      onResponse?.call(ApiStatus.internalError);
+      return [];
     }
   }
 

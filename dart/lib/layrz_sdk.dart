@@ -21,6 +21,7 @@
 /// - [icons] — Material Design Icons registry with name-based lookup.
 /// - [inbound] — Inbound protocol definitions: connection, credentials, and configuration structures.
 /// - [link_shortcut] — Link shortcut and link shortcut input models for short, redirecting URLs.
+/// - [mappit] — Mappit models: [MappitRoute] with [MappitRouteInput] to list, fetch, save, delete, export and import routes.
 /// - [mfa] — Multi-factor authentication models: MFA methods and passkeys.
 /// - [model] — Device model catalog: [Model], [HwModel], firmware, and Zigbee parameters.
 /// - [notifications] — In-app notification models: [LayrzNotification].

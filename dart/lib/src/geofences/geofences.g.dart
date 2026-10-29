@@ -234,3 +234,14 @@ _ExternalGeofence _$ExternalGeofenceFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ExternalGeofenceToJson(_ExternalGeofence instance) =>
     <String, dynamic>{'wialonId': instance.wialonId, 'name': instance.name};
+
+_ExternalGeofenceGroup _$ExternalGeofenceGroupFromJson(
+  Map<String, dynamic> json,
+) => _ExternalGeofenceGroup(
+  wialonId: json['wialonId'] as String,
+  name: json['name'] as String,
+);
+
+Map<String, dynamic> _$ExternalGeofenceGroupToJson(
+  _ExternalGeofenceGroup instance,
+) => <String, dynamic>{'wialonId': instance.wialonId, 'name': instance.name};

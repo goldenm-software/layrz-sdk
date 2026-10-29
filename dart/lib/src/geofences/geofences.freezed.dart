@@ -2323,4 +2323,274 @@ as String,
 
 }
 
+
+/// @nodoc
+mixin _$ExternalGeofenceGroup {
+
+/// The group identifier in Wialon.
+ String get wialonId;/// The group name in Wialon.
+ String get name;
+/// Create a copy of ExternalGeofenceGroup
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ExternalGeofenceGroupCopyWith<ExternalGeofenceGroup> get copyWith => _$ExternalGeofenceGroupCopyWithImpl<ExternalGeofenceGroup>(this as ExternalGeofenceGroup, _$identity);
+
+  /// Serializes this ExternalGeofenceGroup to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExternalGeofenceGroup&&(identical(other.wialonId, wialonId) || other.wialonId == wialonId)&&(identical(other.name, name) || other.name == name));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,wialonId,name);
+
+@override
+String toString() {
+  return 'ExternalGeofenceGroup(wialonId: $wialonId, name: $name)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ExternalGeofenceGroupCopyWith<$Res>  {
+  factory $ExternalGeofenceGroupCopyWith(ExternalGeofenceGroup value, $Res Function(ExternalGeofenceGroup) _then) = _$ExternalGeofenceGroupCopyWithImpl;
+@useResult
+$Res call({
+ String wialonId, String name
+});
+
+
+
+
+}
+/// @nodoc
+class _$ExternalGeofenceGroupCopyWithImpl<$Res>
+    implements $ExternalGeofenceGroupCopyWith<$Res> {
+  _$ExternalGeofenceGroupCopyWithImpl(this._self, this._then);
+
+  final ExternalGeofenceGroup _self;
+  final $Res Function(ExternalGeofenceGroup) _then;
+
+/// Create a copy of ExternalGeofenceGroup
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? wialonId = null,Object? name = null,}) {
+  return _then(_self.copyWith(
+wialonId: null == wialonId ? _self.wialonId : wialonId // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ExternalGeofenceGroup].
+extension ExternalGeofenceGroupPatterns on ExternalGeofenceGroup {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ExternalGeofenceGroup value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ExternalGeofenceGroup() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ExternalGeofenceGroup value)  $default,){
+final _that = this;
+switch (_that) {
+case _ExternalGeofenceGroup():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ExternalGeofenceGroup value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ExternalGeofenceGroup() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String wialonId,  String name)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ExternalGeofenceGroup() when $default != null:
+return $default(_that.wialonId,_that.name);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String wialonId,  String name)  $default,) {final _that = this;
+switch (_that) {
+case _ExternalGeofenceGroup():
+return $default(_that.wialonId,_that.name);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String wialonId,  String name)?  $default,) {final _that = this;
+switch (_that) {
+case _ExternalGeofenceGroup() when $default != null:
+return $default(_that.wialonId,_that.name);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ExternalGeofenceGroup extends ExternalGeofenceGroup {
+  const _ExternalGeofenceGroup({required this.wialonId, required this.name}): super._();
+  factory _ExternalGeofenceGroup.fromJson(Map<String, dynamic> json) => _$ExternalGeofenceGroupFromJson(json);
+
+/// The group identifier in Wialon.
+@override final  String wialonId;
+/// The group name in Wialon.
+@override final  String name;
+
+/// Create a copy of ExternalGeofenceGroup
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ExternalGeofenceGroupCopyWith<_ExternalGeofenceGroup> get copyWith => __$ExternalGeofenceGroupCopyWithImpl<_ExternalGeofenceGroup>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ExternalGeofenceGroupToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExternalGeofenceGroup&&(identical(other.wialonId, wialonId) || other.wialonId == wialonId)&&(identical(other.name, name) || other.name == name));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,wialonId,name);
+
+@override
+String toString() {
+  return 'ExternalGeofenceGroup(wialonId: $wialonId, name: $name)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ExternalGeofenceGroupCopyWith<$Res> implements $ExternalGeofenceGroupCopyWith<$Res> {
+  factory _$ExternalGeofenceGroupCopyWith(_ExternalGeofenceGroup value, $Res Function(_ExternalGeofenceGroup) _then) = __$ExternalGeofenceGroupCopyWithImpl;
+@override @useResult
+$Res call({
+ String wialonId, String name
+});
+
+
+
+
+}
+/// @nodoc
+class __$ExternalGeofenceGroupCopyWithImpl<$Res>
+    implements _$ExternalGeofenceGroupCopyWith<$Res> {
+  __$ExternalGeofenceGroupCopyWithImpl(this._self, this._then);
+
+  final _ExternalGeofenceGroup _self;
+  final $Res Function(_ExternalGeofenceGroup) _then;
+
+/// Create a copy of ExternalGeofenceGroup
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? wialonId = null,Object? name = null,}) {
+  return _then(_ExternalGeofenceGroup(
+wialonId: null == wialonId ? _self.wialonId : wialonId // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
 // dart format on
