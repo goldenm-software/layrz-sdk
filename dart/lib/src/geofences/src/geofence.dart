@@ -93,26 +93,39 @@ abstract class Geofence with _$Geofence {
   /// GraphQL fragment covering the fields returned by a listing query
   /// (`fetchAll`), before the heavier `assetsInside`/`access` sub-selections
   /// added by [fragment].
-  static GqlFragment reducedFragment([GeofenceVariant variant = .standard]) =>
-      GqlFragment(
-          name: 'geofenceFragment',
-          onType: variant == .standard ? 'Geofence' : 'MappitGeofence',
-        )
-        ..add(GqlField(name: 'id'))
-        ..add(GqlField(name: 'name'))
-        ..add(GqlField(name: 'description'))
-        ..add(GqlField(name: 'mode'))
-        ..add(GqlField(name: 'color'))
-        ..add(GqlField(name: 'radius'))
-        ..add(GqlField(name: 'category'))
-        ..add(GqlField(name: 'childrenIds'))
-        ..add(GqlField(name: 'customFields', fragment: CustomField.fragment))
+  static GqlFragment reducedFragment([GeofenceVariant variant = .standard]) {
+    final fragment =
+        GqlFragment(
+            name: 'geofenceFragment',
+            onType: variant == .standard ? 'Geofence' : 'MappitGeofence',
+          )
+          ..add(GqlField(name: 'id'))
+          ..add(GqlField(name: 'name'))
+          ..add(GqlField(name: 'description'))
+          ..add(GqlField(name: 'mode'))
+          ..add(GqlField(name: 'color'))
+          ..add(GqlField(name: 'radius'))
+          ..add(GqlField(name: 'category'))
+          ..add(GqlField(name: 'childrenIds'))
+          ..add(GqlField(name: 'customFields', fragment: CustomField.fragment))
+          ..add(
+            GqlField(name: 'path')
+              ..add(GqlField(name: 'latitude'))
+              ..add(GqlField(name: 'longitude')),
+          )
+          ..add(GqlField(name: 'assetId'));
+    // The Mappit customer is the geofence owner.
+    if (variant == .mappit) {
+      fragment
+        ..add(GqlField(name: 'ownerId'))
         ..add(
-          GqlField(name: 'path')
-            ..add(GqlField(name: 'latitude'))
-            ..add(GqlField(name: 'longitude')),
-        )
-        ..add(GqlField(name: 'assetId'));
+          GqlField(name: 'owner')
+            ..add(GqlField(name: 'id'))
+            ..add(GqlField(name: 'name')),
+        );
+    }
+    return fragment;
+  }
   // coverage:ignore-end
 
   // coverage:ignore-start
@@ -613,6 +626,58 @@ abstract class Geofence with _$Geofence {
       Log.critical("layrz_sdk/Geofence/saveMappitCustomFields(): General exception => $e\n$stack");
       onResponse?.call(ApiStatus.internalError);
       return (ApiStatus.internalError, null, null);
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Gives the user [userId] access to the geofences [geofencesIds]
+  /// (`assignMappitGeofencesToUser`, Mappit and public APIs).
+  ///
+  /// Returns `true` when the API answers ok.
+  static Future<bool> assignToMappitUser({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Mappit (or public Layrz) GraphQL API endpoint.
+    required Uri uri,
+
+    /// [geofencesIds] are the IDs of the geofences to assign.
+    required List<String> geofencesIds,
+
+    /// [userId] is the ID of the user that receives the geofences.
+    required String userId,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          name: 'assignMappitGeofencesToUser',
+          variables: [
+            GqlVariable(name: 'geofencesIds', value: geofencesIds, type: .list(of: .id), isRequired: true),
+            GqlVariable(name: 'userId', value: userId, type: .id, isRequired: true),
+          ],
+        )..add(
+          GqlField(name: 'assignMappitGeofencesToUser', args: {'geofencesIds': 'geofencesIds', 'userId': 'userId'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors')),
+        ),
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/Geofence/assignToMappitUser(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+        return false;
+      }
+
+      return true;
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/Geofence/assignToMappitUser(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return false;
     }
   }
   // coverage:ignore-end

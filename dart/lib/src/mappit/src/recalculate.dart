@@ -1,7 +1,11 @@
 part of '../mappit.dart';
 
+/// A Mappit recalculation request: reprocesses the messages of an [asset] between [recalcStartAt] and
+/// [recalcEndAt]. List them with [fetchAll] and queue a new one with [request].
 @freezed
 abstract class MappitRecalculate with _$MappitRecalculate {
+  const MappitRecalculate._();
+
   const factory MappitRecalculate({
     /// [id] represents the ID of the recalculate request. In UUIDv4 format.
     required String id,
@@ -38,6 +42,164 @@ abstract class MappitRecalculate with _$MappitRecalculate {
   }) = _MappitRecalculate;
 
   factory MappitRecalculate.fromJson(Map<String, dynamic> json) => _$MappitRecalculateFromJson(json);
+
+  // coverage:ignore-start
+  /// The selection used by [fetchAll]: the request with its asset and requester.
+  static List<GqlField> get fields => [
+    GqlField(name: 'id'),
+    GqlField(name: 'assetId'),
+    GqlField(
+      name: 'asset',
+      fields: [
+        GqlField(name: 'id'),
+        GqlField(name: 'name'),
+        GqlField(name: 'mode'),
+        GqlField(name: 'dynamicIcon', fragment: Avatar.fragment),
+      ],
+    ),
+    GqlField(name: 'requestedById'),
+    GqlField(
+      name: 'requestedBy',
+      fields: [
+        GqlField(name: 'id'),
+        GqlField(name: 'name'),
+        GqlField(name: 'dynamicAvatar', fragment: Avatar.fragment),
+      ],
+    ),
+    GqlField(name: 'requestedAt'),
+    GqlField(name: 'requestedByIp'),
+    GqlField(name: 'recalcStartAt'),
+    GqlField(name: 'recalcEndAt'),
+    GqlField(name: 'status'),
+  ];
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Fetches the recalculation requests, newest first (`mappitRecalculates`, Mappit and public APIs).
+  ///
+  /// [limit] and [offset] paginate (the API defaults are 100 and 0). Selects [fields] plus [extraFields].
+  /// Returns an empty list on any error.
+  static Future<List<MappitRecalculate>> fetchAll({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Mappit (or public Layrz) GraphQL API endpoint.
+    required Uri uri,
+
+    /// [limit] is the maximum number of requests to return.
+    int? limit,
+
+    /// [offset] is the pagination offset.
+    int? offset,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [extraFields] is the list of additional fields to fetch from the API, if any.
+    List<GqlField>? extraFields,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.query(
+        GqlQuery(
+          name: 'mappitRecalculates',
+          variables: [
+            if (limit != null) GqlVariable(name: 'limit', value: limit, type: .int),
+            if (offset != null) GqlVariable(name: 'offset', value: offset, type: .int),
+          ],
+        )..add(
+          GqlField(
+              name: 'mappitRecalculates',
+              args: {
+                if (limit != null) 'limit': 'limit',
+                if (offset != null) 'offset': 'offset',
+              },
+            )
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(GqlField(name: 'result', fields: [...fields, ...?extraFields])),
+        ),
+        _mappitRecalculateListDecoder,
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/MappitRecalculate/fetchAll(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+        return [];
+      }
+
+      return response.result ?? [];
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/MappitRecalculate/fetchAll(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return [];
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Queues a recalculation of the asset [assetId] between [startAt] and [endAt] (`requestMappitRecalc`).
+  ///
+  /// Returns the status and, on a rejected request, the field errors (for example `outsideRange` when
+  /// [startAt] is after [endAt]).
+  static Future<StandardResponse<void>> request({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Mappit (or public Layrz) GraphQL API endpoint.
+    required Uri uri,
+
+    /// [assetId] is the ID of the asset to recalculate.
+    required String assetId,
+
+    /// [startAt] is the start of the range to recalculate.
+    required DateTime startAt,
+
+    /// [endAt] is the end of the range to recalculate.
+    required DateTime endAt,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          name: 'requestMappitRecalc',
+          variables: [
+            GqlVariable(name: 'assetId', value: assetId, type: .id, isRequired: true),
+            GqlVariable(name: 'startAt', value: startAt.millisecondsSinceEpoch ~/ 1000, type: .unix, isRequired: true),
+            GqlVariable(name: 'endAt', value: endAt.millisecondsSinceEpoch ~/ 1000, type: .unix, isRequired: true),
+          ],
+        )..add(
+          GqlField(
+              name: 'requestMappitRecalc',
+              args: {'assetId': 'assetId', 'startAt': 'startAt', 'endAt': 'endAt'},
+            )
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors')),
+        ),
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/MappitRecalculate/request(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+        return (response.status, response.errors, null);
+      }
+
+      return (ApiStatus.ok, null, null);
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/MappitRecalculate/request(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return (ApiStatus.internalError, null, null);
+    }
+  }
+  // coverage:ignore-end
+}
+
+List<MappitRecalculate> _mappitRecalculateListDecoder(Object? json) {
+  if (json is! List) return [];
+  return [for (final item in json) MappitRecalculate.fromJson(Map<String, dynamic>.from(item as Map))];
 }
 
 @JsonEnum(alwaysCreate: true)

@@ -399,6 +399,113 @@ abstract class MappitRoute with _$MappitRoute {
     }
   }
   // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Gives the user [userId] access to the routes [routesIds] (`assignMappitRoutesToUser`).
+  ///
+  /// Returns `true` when the API answers ok.
+  static Future<bool> assignToUser({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Mappit (or public Layrz) GraphQL API endpoint.
+    required Uri uri,
+
+    /// [routesIds] are the IDs of the routes to assign.
+    required List<String> routesIds,
+
+    /// [userId] is the ID of the user that receives the routes.
+    required String userId,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          name: 'assignMappitRoutesToUser',
+          variables: [
+            GqlVariable(
+              name: 'routesIds',
+              value: routesIds,
+              type: .list(of: .id),
+              isRequired: true,
+            ),
+            GqlVariable(name: 'userId', value: userId, type: .id, isRequired: true),
+          ],
+        )..add(
+          GqlField(name: 'assignMappitRoutesToUser', args: {'routesIds': 'routesIds', 'userId': 'userId'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors')),
+        ),
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/MappitRoute/assignToUser(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+        return false;
+      }
+
+      return true;
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/MappitRoute/assignToUser(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return false;
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Sets the main route of the seller [sellerId] to [routeId] (`assignMappitRouteToSeller`).
+  ///
+  /// A `null` [routeId] unassigns the seller's route. Returns `true` when the API answers ok.
+  static Future<bool> assignToSeller({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Mappit (or public Layrz) GraphQL API endpoint.
+    required Uri uri,
+
+    /// [sellerId] is the ID of the seller (asset).
+    required String sellerId,
+
+    /// [routeId] is the ID of the route to assign, or `null` to unassign it.
+    String? routeId,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          name: 'assignMappitRouteToSeller',
+          variables: [
+            GqlVariable(name: 'sellerId', value: sellerId, type: .id, isRequired: true),
+            GqlVariable(name: 'routeId', value: routeId, type: .id),
+          ],
+        )..add(
+          GqlField(name: 'assignMappitRouteToSeller', args: {'sellerId': 'sellerId', 'routeId': 'routeId'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors')),
+        ),
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/MappitRoute/assignToSeller(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+        return false;
+      }
+
+      return true;
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/MappitRoute/assignToSeller(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return false;
+    }
+  }
+  // coverage:ignore-end
 }
 
 /// Decodes a raw listing `result` payload into a list of [MappitRoute].

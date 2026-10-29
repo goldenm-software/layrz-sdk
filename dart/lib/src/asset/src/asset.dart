@@ -590,7 +590,7 @@ abstract class Asset with _$Asset {
 
   // coverage:ignore-start
   /// [fetchSensorsLastUpdate] fetches when each sensor of the [assetsIds] was last updated, as
-  /// `assetId -> slug -> lastUpdate`. Returns null on failure.
+  /// `assetId -> slug -> lastUpdate`. [variant] `mappit` uses `mappitSensorsLastUpdate`. Returns null on failure.
   static Future<Map<String, Map<String, DateTime>>?> fetchSensorsLastUpdate({
     /// [apiToken] is the API token to authenticate the request
     required String apiToken,
@@ -603,12 +603,16 @@ abstract class Asset with _$Asset {
 
     /// [onResponse] is the callback to handle the response status
     ValueChanged<ApiStatus>? onResponse,
+
+    /// [variant] selects the standard or Mappit query.
+    AssetVariant variant = .standard,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    final queryName = variant == .mappit ? 'mappitSensorsLastUpdate' : 'sensorsLastUpdate';
     try {
       final response = await connector.query(
         GqlQuery(
-          name: 'sensorsLastUpdate',
+          name: queryName,
           variables: [
             GqlVariable(
               name: 'assetsIds',
@@ -618,7 +622,7 @@ abstract class Asset with _$Asset {
             ),
           ],
         )..add(
-          GqlField(name: 'sensorsLastUpdate', args: {'assetsIds': 'assetsIds'})
+          GqlField(name: queryName, args: {'assetsIds': 'assetsIds'})
             ..add(GqlField(name: 'status'))
             ..add(
               GqlField(name: 'result')
@@ -993,6 +997,62 @@ abstract class Asset with _$Asset {
     };
     return (status, errors, null);
   }
+
+  // coverage:ignore-start
+  /// Gives the user [userId] access to the assets [assetsIds] (`mappitAssignAssetsToUser`, Mappit and public APIs).
+  ///
+  /// Returns `true` when the API answers ok.
+  static Future<bool> assignToMappitUser({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Mappit (or public Layrz) GraphQL API endpoint.
+    required Uri uri,
+
+    /// [assetsIds] are the IDs of the assets to assign.
+    required List<String> assetsIds,
+
+    /// [userId] is the ID of the user that receives the assets.
+    required String userId,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          name: 'mappitAssignAssetsToUser',
+          variables: [
+            GqlVariable(
+              name: 'assetsIds',
+              value: assetsIds,
+              type: .list(of: .id),
+              isRequired: true,
+            ),
+            GqlVariable(name: 'userId', value: userId, type: .id, isRequired: true),
+          ],
+        )..add(
+          GqlField(name: 'mappitAssignAssetsToUser', args: {'assetsIds': 'assetsIds', 'userId': 'userId'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors')),
+        ),
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/Asset/assignToMappitUser(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+        return false;
+      }
+
+      return true;
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/Asset/assignToMappitUser(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return false;
+    }
+  }
+  // coverage:ignore-end
 }
 
 /// Mutable input data for creating or updating an [Asset].

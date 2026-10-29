@@ -183,6 +183,96 @@ abstract class RegisteredApp with _$RegisteredApp {
   // coverage:ignore-end
 
   // coverage:ignore-start
+  /// Fetches the registered apps visible to the authenticated user (`mappitRegisteredApps`, Mappit and public APIs).
+  ///
+  /// [appIdentifier] keeps only the apps built from that source (for example
+  /// [AppInternalIdentifier.analyticsDashboard]). Selects the identity, legal and design information and the
+  /// [instances] with their builds, plus [extraFields]. Returns an empty list on any error.
+  static Future<List<RegisteredApp>> fetchAllMappit({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Mappit (or public Layrz) GraphQL API endpoint.
+    required Uri uri,
+
+    /// [appIdentifier] filters the apps by their source identifier.
+    AppInternalIdentifier? appIdentifier,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+
+    /// [extraFields] is the list of additional fields to fetch from the API, if any.
+    List<GqlField>? extraFields,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.query(
+        GqlQuery(
+          name: 'mappitRegisteredApps',
+          variables: [
+            if (appIdentifier != null)
+              GqlVariable(
+                name: 'appIdentifier',
+                value: appIdentifier.toJson(),
+                type: .enum_(of: 'InternalIdentifier'),
+              ),
+          ],
+        )..add(
+          GqlField(
+              name: 'mappitRegisteredApps',
+              args: {if (appIdentifier != null) 'appIdentifier': 'appIdentifier'},
+            )
+            ..add(GqlField(name: 'status'))
+            ..add(
+              GqlField(
+                name: 'result',
+                fields: [
+                  GqlField(name: 'id'),
+                  GqlField(name: 'name'),
+                  GqlField(name: 'nickname'),
+                  GqlField(name: 'technology'),
+                  GqlField(name: 'sourceId'),
+                  GqlField(name: 'legalInformation', fragment: AppLegal.fragment),
+                  GqlField(name: 'designInformation', fragment: AppDesign.fragment),
+                  GqlField(
+                    name: 'instances',
+                    fields: [
+                      GqlField(name: 'id'),
+                      GqlField(name: 'appId'),
+                      GqlField(name: 'platform'),
+                      GqlField(name: 'appIdentifier'),
+                      GqlField(name: 'developerName'),
+                      GqlField(name: 'developerIdentifier'),
+                      GqlField(name: 'host'),
+                      GqlField(name: 'status'),
+                      GqlField(name: 'migrationStatus'),
+                      GqlField(name: 'builds', fragment: AppBuild.fragment),
+                    ],
+                  ),
+                  ...?extraFields,
+                ],
+              ),
+            ),
+        ),
+        _registeredAppListDecoder,
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/RegisteredApp/fetchAllMappit(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+        return [];
+      }
+
+      return response.result ?? [];
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/RegisteredApp/fetchAllMappit(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return [];
+    }
+  }
+  // coverage:ignore-end
+
+  // coverage:ignore-start
   /// Fetches a single registered app by its [id] from the server.
   ///
   /// Returns a [RegisteredApp] with the required contextual information, or

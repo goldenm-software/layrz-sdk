@@ -438,8 +438,7 @@ abstract class Tag with _$Tag {
             ),
           ],
         )..add(
-          GqlField(name: mutationName, args: {'ids': 'ids'})
-            ..add(GqlField(name: 'status')),
+          GqlField(name: mutationName, args: {'ids': 'ids'})..add(GqlField(name: 'status')),
         ),
       );
 
@@ -482,6 +481,62 @@ abstract class Tag with _$Tag {
   }
 
   // coverage:ignore-end
+
+  // coverage:ignore-start
+  /// Gives the user [userId] access to the tags [tagsIds] (`assignMappitTagsToUser`, Mappit and public APIs).
+  ///
+  /// Returns `true` when the API answers ok.
+  static Future<bool> assignToMappitUser({
+    /// [apiToken] is the API token for authentication.
+    required String apiToken,
+
+    /// [uri] is the Mappit (or public Layrz) GraphQL API endpoint.
+    required Uri uri,
+
+    /// [tagsIds] are the IDs of the tags to assign.
+    required List<String> tagsIds,
+
+    /// [userId] is the ID of the user that receives the tags.
+    required String userId,
+
+    /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
+    ValueChanged<ApiStatus>? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          name: 'assignMappitTagsToUser',
+          variables: [
+            GqlVariable(
+              name: 'tagsIds',
+              value: tagsIds,
+              type: .list(of: .id),
+              isRequired: true,
+            ),
+            GqlVariable(name: 'userId', value: userId, type: .id, isRequired: true),
+          ],
+        )..add(
+          GqlField(name: 'assignMappitTagsToUser', args: {'tagsIds': 'tagsIds', 'userId': 'userId'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors')),
+        ),
+      );
+
+      if (response.status != .ok) {
+        Log.warning("layrz_sdk/Tag/assignToMappitUser(): API returned status ${response.status}");
+        onResponse?.call(response.status);
+        return false;
+      }
+
+      return true;
+    } catch (err, stack) {
+      Log.critical("layrz_sdk/Tag/assignToMappitUser(): General exception => $err\n$stack");
+      onResponse?.call(.internalError);
+      return false;
+    }
+  }
+  // coverage:ignore-end
 }
 
 /// [_tagListDecoder] decodes a raw listing `result` payload into a list of [Tag].
@@ -494,5 +549,4 @@ List<Tag> _tagListDecoder(Object? json) {
 }
 
 /// [_tagDecoder] decodes a single raw `result` payload into a [Tag].
-Tag _tagDecoder(Object? json) =>
-    Tag.fromJson(Map<String, dynamic>.from(json as Map));
+Tag _tagDecoder(Object? json) => Tag.fromJson(Map<String, dynamic>.from(json as Map));
