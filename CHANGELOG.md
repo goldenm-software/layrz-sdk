@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.21.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* Added Mappit route API callers (Mappit API only): `MappitRoute.fetchAll` (`mappitRoutes`, lightweight `fragment` with `geofencesIds`, `ownerId` and `currentSeller`, plus `extraFields`), `MappitRoute.fetch` (geofences with custom fields, secondary sellers and the assignments history), `MappitRoute.deleteMany` (`deleteMappitRoutes`), `MappitRoute.export` (`exportMappitRoute`) and `MappitRoute.importFromWialon` (`importMappitGeofencesGroupsFromWialon`). Added `MappitRouteInput` (`save` through `addMappitRoute`/`editMappitRoute`, `fromRoute`).
+* Added `ExternalGeofenceGroup` with `fetchAll` (`externalGeofencesGroups`) and `Geofence.saveMappitCustomFields` (`editMappitGeofenceCustomFields`, Mappit API only).
+* Added `MappitFreeDay` with `fetchAll` (`mappitFreeDays`, `seePast`, `extraFields`), `fetch`, `deleteMany` (`deleteMappitFreeDays`) and `assignToSellers` (`assignMappitFreeDaysToSellers`), and `MappitFreeDayInput` (`save` through `addMappitFreeDay`/`editMappitFreeDay`, `fromFreeDay`).
+* Ported the remaining Mappit models from `layrz_models` (same names, fields and JSON shape): `MappitProfile`, `MappitProfileGeofence`, `MappitHomeConfig`, `MappitDurationRange`, `MappitIntRange`, `MappitDoubleRange`, `PolygonDetails`, `ContainedRouteCategory`, `MappitRecalculate`, `MappitRecalculateStatus`, `MappitReportInput` and `MappitReportMultiInput`. Material colors are replaced by their `Color` values. Requires `layrz_models` 3.47.0, which removes its copies.
+* Added `Geofence.exportMappit` (`exportMappitGeofences`, Mappit and public APIs): exports every visible Mappit geofence to an Excel file and returns its URL.
+* Fixed `Geofence.export` and `Geofence.exportMany`: the `format` variable is now declared as `GeofenceExportFormat!` instead of `String!`, which the API rejected.
+* Fixed `LayrzConnector.query` and `LayrzConnector.mutate` throwing when the API sends `errors` as a list: the status now reaches the caller (and its `onResponse`), and `errors` is empty unless it is a field map.
+
 ## 4.20.0
 
 ### Python
