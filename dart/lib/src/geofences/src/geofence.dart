@@ -431,7 +431,7 @@ abstract class Geofence with _$Geofence {
               isRequired: true,
               value: [id],
             ),
-            GqlVariable(name: 'format', type: .string, isRequired: true, value: format.toString()),
+            GqlVariable(name: 'format', type: .enum_(of: 'GeofenceExportFormat'), isRequired: true, value: format.toString()),
           ],
           name: 'exportGeofences',
         )..add(
@@ -498,7 +498,7 @@ abstract class Geofence with _$Geofence {
               isRequired: true,
               value: ids,
             ),
-            GqlVariable(name: 'format', type: .string, isRequired: true, value: format.toString()),
+            GqlVariable(name: 'format', type: .enum_(of: 'GeofenceExportFormat'), isRequired: true, value: format.toString()),
           ],
           name: 'exportGeofences',
         )..add(
@@ -518,6 +518,101 @@ abstract class Geofence with _$Geofence {
     } catch (e, stack) {
       Log.critical("layrz_sdk/Geofence/exportMany(): General exception => $e\n$stack");
       return null;
+    }
+  }
+  // coverage:ignore-end
+
+  /// Exports every Mappit geofence to a Microsoft Excel file through `exportMappitGeofences`.
+  ///
+  /// Returns the file URL, or `null` on any error.
+  static Future<String?> exportMappit({
+    /// The API token for authentication. Obtain via the `login` mutation
+    /// on the GraphQL API.
+    required String apiToken,
+
+    /// The Mappit (or public) GraphQL API endpoint.
+    required Uri uri,
+
+    /// Optional callback invoked with the status code when the export fails.
+    void Function(String statusCode)? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.mutate(
+        GqlMutation(name: 'exportMappitGeofences')..add(
+          GqlField(name: 'exportMappitGeofences')
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors'))
+            ..add(GqlField(name: 'result')),
+        ),
+        (json) => json as String?,
+      );
+
+      if (response.status != .ok) {
+        onResponse?.call(response.status.toJson());
+        return null;
+      }
+      return response.result;
+    } catch (e, stack) {
+      Log.critical("layrz_sdk/Geofence/exportMappit(): General exception => $e\n$stack");
+      onResponse?.call(ApiStatus.internalError.toJson());
+      return null;
+    }
+  }
+
+  // coverage:ignore-start
+  /// Replaces the custom fields of the geofence [geofenceId] with [customFields] through the Mappit
+  /// `editMappitGeofenceCustomFields` mutation (Mappit API only).
+  ///
+  /// Field errors are keyed by the custom field index, e.g. `0.name`. Returns the status and, on a
+  /// rejected request, the field errors.
+  static Future<StandardResponse<void>> saveMappitCustomFields({
+    /// The ID of the geofence to update.
+    required String geofenceId,
+
+    /// The full list of custom fields the geofence keeps.
+    required List<CustomFieldInput> customFields,
+
+    /// The API token for authentication.
+    required String apiToken,
+
+    /// The Mappit GraphQL API endpoint.
+    required Uri uri,
+
+    /// Called with the status of a failing response.
+    ValueChanged<ApiStatus>? onResponse,
+  }) async {
+    final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    try {
+      final response = await connector.mutate(
+        GqlMutation(
+          name: 'editMappitGeofenceCustomFields',
+          variables: [
+            GqlVariable(name: 'geofenceId', type: .id, isRequired: true, value: geofenceId),
+            GqlVariable(
+              name: 'data',
+              type: .list(of: .input(of: 'CustomFieldInput')),
+              isRequired: true,
+              value: [for (final field in customFields) field.toJson()],
+            ),
+          ],
+        )..add(
+          GqlField(name: 'editMappitGeofenceCustomFields', args: {'geofenceId': 'geofenceId', 'data': 'data'})
+            ..add(GqlField(name: 'status'))
+            ..add(GqlField(name: 'errors')),
+        ),
+      );
+
+      if (response.status != .ok) {
+        onResponse?.call(response.status);
+        return (response.status, response.errors, null);
+      }
+
+      return (ApiStatus.ok, null, null);
+    } catch (e, stack) {
+      Log.critical("layrz_sdk/Geofence/saveMappitCustomFields(): General exception => $e\n$stack");
+      onResponse?.call(ApiStatus.internalError);
+      return (ApiStatus.internalError, null, null);
     }
   }
   // coverage:ignore-end

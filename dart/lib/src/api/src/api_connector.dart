@@ -235,7 +235,7 @@ class LayrzConnector {
     return ApiResponse<T, Map<String, dynamic>>.fromJson(
       extracted,
       fromJsonResult ?? (json) => json as T,
-      (json) => json as Map<String, dynamic>,
+      _decodeErrors,
     );
   }
 
@@ -271,9 +271,13 @@ class LayrzConnector {
     return ApiResponse<T, Map<String, dynamic>>.fromJson(
       extracted,
       fromJsonResult ?? (json) => json as T,
-      (json) => json as Map<String, dynamic>,
+      _decodeErrors,
     );
   }
+
+  /// [_decodeErrors] keeps field errors (a map) and drops other shapes, such as a list of messages, so the
+  /// response status still reaches the caller.
+  static Map<String, dynamic> _decodeErrors(Object? json) => json is Map<String, dynamic> ? json : {};
 
   /// [_extractData] is a helper method to extract the data from the response based on the operation name.
   Map<String, dynamic>? _extractData(Gql gql, Map<String, dynamic> data) {

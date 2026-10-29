@@ -5,7 +5,7 @@
 /// [GeofencePointInput] variant) for representing geographic coordinates, and
 /// the supporting [GeofenceMode], [GeofenceCategory], [GeofenceVariant], and
 /// [ExportFormat] enumerations used to classify and export geofences. It also
-/// provides [ExternalResource] and [ExternalGeofence] for importing geofences
+/// provides [ExternalResource], [ExternalGeofence] and [ExternalGeofenceGroup] for importing geofences
 /// from Wialon, and [ReverseGeocode] for resolving coordinates to addresses.
 library;
 
