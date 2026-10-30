@@ -38,6 +38,7 @@ part 'src/ns/license_input.dart';
 part 'src/ns/catalogs.dart';
 part 'src/ats_outbound_services/ats_stream_model.dart';
 part 'src/exits/from_app.dart';
+part 'src/exits/connection_type.dart';
 part 'src/reception/reception_type.dart';
 part 'src/reception/reception_input.dart';
 part 'src/reception/reception_product.dart';

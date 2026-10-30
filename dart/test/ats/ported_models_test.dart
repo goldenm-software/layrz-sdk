@@ -361,6 +361,39 @@ void main() {
       expect(names, containsAll(['createdAt', 'parentAsset']));
     });
 
+    test('AtsExit reads its creation date, parent asset, connection and platform', () {
+      final exit = AtsExit.fromJson({
+        'id': '900',
+        'createdAt': 1700002900,
+        'parentAsset': {'id': '5', 'name': 'Base Norte'},
+        'connectionType': 'BLUETOOTH',
+        'fromApp': 'ATSMOBILE',
+        'generatedById': '77',
+        'generatedBy': {'id': '77', 'name': 'Ana Souza'},
+      });
+
+      expect(exit.createdAt, DateTime.fromMillisecondsSinceEpoch(1700002900 * 1000));
+      expect(exit.parentAsset?.name, 'Base Norte');
+      expect(exit.connectionType, AtsExitConnectionType.bluetooth);
+      expect(exit.fromApp, AtsFromApp.atsMobile);
+      expect(exit.generatedById, '77');
+      expect(exit.generatedBy?.name, 'Ana Souza');
+      expect(exit.toJson()['connectionType'], 'BLUETOOTH');
+      expect(exit.toJson()['fromApp'], 'ATSMOBILE');
+    });
+
+    test('AtsExitConnectionType falls back to undefined for unknown values', () {
+      expect(AtsExitConnectionType.fromJson('WIFI'), AtsExitConnectionType.wifi);
+      expect(AtsExitConnectionType.fromJson('LOCAL'), AtsExitConnectionType.local);
+      expect(AtsExitConnectionType.fromJson('SATELLITE'), AtsExitConnectionType.undefined);
+    });
+
+    test('AtsExit fields ask for the creation date, parent asset, connection and platform', () {
+      final names = AtsExit.fields.map((field) => field.name).toList();
+
+      expect(names, containsAll(['createdAt', 'parentAsset', 'connectionType', 'fromApp', 'generatedById', 'generatedBy']));
+    });
+
     test('AtsEntryUnloadInput', () {
       _expectRoundTrip({
         'id': '400',

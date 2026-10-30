@@ -35,7 +35,13 @@ mixin _$AtsExit {
  double? get finalTankVolume;/// The unit price per liter of the exit.
  double? get price;/// The name of the attendant who performed the exit.
  String? get attendantName;/// The identifier of the attendant who performed the exit.
- String? get attendantId;
+ String? get attendantId;/// The creation date of the exit.
+@TimestampOrNullConverter() DateTime? get createdAt;/// The base (supply point or storage terminal) of the exit pump.
+ Asset? get parentAsset;/// How the device that registered the exit was connected.
+@AtsExitConnectionTypeOrNullConverter() AtsExitConnectionType? get connectionType;/// The application that registered the exit.
+@AtsFromAppOrNullConverter() AtsFromApp? get fromApp;/// The ID of the user who started the exit from an app; `null` for card exits.
+ String? get generatedById;/// The user who started the exit from an app; `null` for card exits.
+ User? get generatedBy;
 /// Create a copy of AtsExit
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,16 +54,16 @@ $AtsExitCopyWith<AtsExit> get copyWith => _$AtsExitCopyWithImpl<AtsExit>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AtsExit&&(identical(other.id, id) || other.id == id)&&(identical(other.identifier, identifier) || other.identifier == identifier)&&(identical(other.fromAssetId, fromAssetId) || other.fromAssetId == fromAssetId)&&(identical(other.fromAsset, fromAsset) || other.fromAsset == fromAsset)&&(identical(other.toAssetId, toAssetId) || other.toAssetId == toAssetId)&&(identical(other.toAsset, toAsset) || other.toAsset == toAsset)&&(identical(other.errorPercent, errorPercent) || other.errorPercent == errorPercent)&&(identical(other.totalLiters, totalLiters) || other.totalLiters == totalLiters)&&(identical(other.toAssetMileage, toAssetMileage) || other.toAssetMileage == toAssetMileage)&&(identical(other.startAt, startAt) || other.startAt == startAt)&&(identical(other.endAt, endAt) || other.endAt == endAt)&&(identical(other.totalTime, totalTime) || other.totalTime == totalTime)&&(identical(other.totalTimeDuration, totalTimeDuration) || other.totalTimeDuration == totalTimeDuration)&&(identical(other.initialFluxometer, initialFluxometer) || other.initialFluxometer == initialFluxometer)&&(identical(other.finalFluxometer, finalFluxometer) || other.finalFluxometer == finalFluxometer)&&(identical(other.initialTankVolume, initialTankVolume) || other.initialTankVolume == initialTankVolume)&&(identical(other.finalTankVolume, finalTankVolume) || other.finalTankVolume == finalTankVolume)&&(identical(other.price, price) || other.price == price)&&(identical(other.attendantName, attendantName) || other.attendantName == attendantName)&&(identical(other.attendantId, attendantId) || other.attendantId == attendantId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AtsExit&&(identical(other.id, id) || other.id == id)&&(identical(other.identifier, identifier) || other.identifier == identifier)&&(identical(other.fromAssetId, fromAssetId) || other.fromAssetId == fromAssetId)&&(identical(other.fromAsset, fromAsset) || other.fromAsset == fromAsset)&&(identical(other.toAssetId, toAssetId) || other.toAssetId == toAssetId)&&(identical(other.toAsset, toAsset) || other.toAsset == toAsset)&&(identical(other.errorPercent, errorPercent) || other.errorPercent == errorPercent)&&(identical(other.totalLiters, totalLiters) || other.totalLiters == totalLiters)&&(identical(other.toAssetMileage, toAssetMileage) || other.toAssetMileage == toAssetMileage)&&(identical(other.startAt, startAt) || other.startAt == startAt)&&(identical(other.endAt, endAt) || other.endAt == endAt)&&(identical(other.totalTime, totalTime) || other.totalTime == totalTime)&&(identical(other.totalTimeDuration, totalTimeDuration) || other.totalTimeDuration == totalTimeDuration)&&(identical(other.initialFluxometer, initialFluxometer) || other.initialFluxometer == initialFluxometer)&&(identical(other.finalFluxometer, finalFluxometer) || other.finalFluxometer == finalFluxometer)&&(identical(other.initialTankVolume, initialTankVolume) || other.initialTankVolume == initialTankVolume)&&(identical(other.finalTankVolume, finalTankVolume) || other.finalTankVolume == finalTankVolume)&&(identical(other.price, price) || other.price == price)&&(identical(other.attendantName, attendantName) || other.attendantName == attendantName)&&(identical(other.attendantId, attendantId) || other.attendantId == attendantId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.parentAsset, parentAsset) || other.parentAsset == parentAsset)&&(identical(other.connectionType, connectionType) || other.connectionType == connectionType)&&(identical(other.fromApp, fromApp) || other.fromApp == fromApp)&&(identical(other.generatedById, generatedById) || other.generatedById == generatedById)&&(identical(other.generatedBy, generatedBy) || other.generatedBy == generatedBy));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,identifier,fromAssetId,fromAsset,toAssetId,toAsset,errorPercent,totalLiters,toAssetMileage,startAt,endAt,totalTime,totalTimeDuration,initialFluxometer,finalFluxometer,initialTankVolume,finalTankVolume,price,attendantName,attendantId]);
+int get hashCode => Object.hashAll([runtimeType,id,identifier,fromAssetId,fromAsset,toAssetId,toAsset,errorPercent,totalLiters,toAssetMileage,startAt,endAt,totalTime,totalTimeDuration,initialFluxometer,finalFluxometer,initialTankVolume,finalTankVolume,price,attendantName,attendantId,createdAt,parentAsset,connectionType,fromApp,generatedById,generatedBy]);
 
 @override
 String toString() {
-  return 'AtsExit(id: $id, identifier: $identifier, fromAssetId: $fromAssetId, fromAsset: $fromAsset, toAssetId: $toAssetId, toAsset: $toAsset, errorPercent: $errorPercent, totalLiters: $totalLiters, toAssetMileage: $toAssetMileage, startAt: $startAt, endAt: $endAt, totalTime: $totalTime, totalTimeDuration: $totalTimeDuration, initialFluxometer: $initialFluxometer, finalFluxometer: $finalFluxometer, initialTankVolume: $initialTankVolume, finalTankVolume: $finalTankVolume, price: $price, attendantName: $attendantName, attendantId: $attendantId)';
+  return 'AtsExit(id: $id, identifier: $identifier, fromAssetId: $fromAssetId, fromAsset: $fromAsset, toAssetId: $toAssetId, toAsset: $toAsset, errorPercent: $errorPercent, totalLiters: $totalLiters, toAssetMileage: $toAssetMileage, startAt: $startAt, endAt: $endAt, totalTime: $totalTime, totalTimeDuration: $totalTimeDuration, initialFluxometer: $initialFluxometer, finalFluxometer: $finalFluxometer, initialTankVolume: $initialTankVolume, finalTankVolume: $finalTankVolume, price: $price, attendantName: $attendantName, attendantId: $attendantId, createdAt: $createdAt, parentAsset: $parentAsset, connectionType: $connectionType, fromApp: $fromApp, generatedById: $generatedById, generatedBy: $generatedBy)';
 }
 
 
@@ -68,11 +74,11 @@ abstract mixin class $AtsExitCopyWith<$Res>  {
   factory $AtsExitCopyWith(AtsExit value, $Res Function(AtsExit) _then) = _$AtsExitCopyWithImpl;
 @useResult
 $Res call({
- String? id, int? identifier, String? fromAssetId, Asset? fromAsset, String? toAssetId, Asset? toAsset, double? errorPercent, double? totalLiters, double? toAssetMileage,@TimestampOrNullConverter() DateTime? startAt,@TimestampOrNullConverter() DateTime? endAt, String? totalTime,@DurationOrNullConverter() Duration? totalTimeDuration, double? initialFluxometer, double? finalFluxometer, double? initialTankVolume, double? finalTankVolume, double? price, String? attendantName, String? attendantId
+ String? id, int? identifier, String? fromAssetId, Asset? fromAsset, String? toAssetId, Asset? toAsset, double? errorPercent, double? totalLiters, double? toAssetMileage,@TimestampOrNullConverter() DateTime? startAt,@TimestampOrNullConverter() DateTime? endAt, String? totalTime,@DurationOrNullConverter() Duration? totalTimeDuration, double? initialFluxometer, double? finalFluxometer, double? initialTankVolume, double? finalTankVolume, double? price, String? attendantName, String? attendantId,@TimestampOrNullConverter() DateTime? createdAt, Asset? parentAsset,@AtsExitConnectionTypeOrNullConverter() AtsExitConnectionType? connectionType,@AtsFromAppOrNullConverter() AtsFromApp? fromApp, String? generatedById, User? generatedBy
 });
 
 
-$AssetCopyWith<$Res>? get fromAsset;$AssetCopyWith<$Res>? get toAsset;
+$AssetCopyWith<$Res>? get fromAsset;$AssetCopyWith<$Res>? get toAsset;$AssetCopyWith<$Res>? get parentAsset;$UserCopyWith<$Res>? get generatedBy;
 
 }
 /// @nodoc
@@ -85,7 +91,7 @@ class _$AtsExitCopyWithImpl<$Res>
 
 /// Create a copy of AtsExit
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? identifier = freezed,Object? fromAssetId = freezed,Object? fromAsset = freezed,Object? toAssetId = freezed,Object? toAsset = freezed,Object? errorPercent = freezed,Object? totalLiters = freezed,Object? toAssetMileage = freezed,Object? startAt = freezed,Object? endAt = freezed,Object? totalTime = freezed,Object? totalTimeDuration = freezed,Object? initialFluxometer = freezed,Object? finalFluxometer = freezed,Object? initialTankVolume = freezed,Object? finalTankVolume = freezed,Object? price = freezed,Object? attendantName = freezed,Object? attendantId = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? identifier = freezed,Object? fromAssetId = freezed,Object? fromAsset = freezed,Object? toAssetId = freezed,Object? toAsset = freezed,Object? errorPercent = freezed,Object? totalLiters = freezed,Object? toAssetMileage = freezed,Object? startAt = freezed,Object? endAt = freezed,Object? totalTime = freezed,Object? totalTimeDuration = freezed,Object? initialFluxometer = freezed,Object? finalFluxometer = freezed,Object? initialTankVolume = freezed,Object? finalTankVolume = freezed,Object? price = freezed,Object? attendantName = freezed,Object? attendantId = freezed,Object? createdAt = freezed,Object? parentAsset = freezed,Object? connectionType = freezed,Object? fromApp = freezed,Object? generatedById = freezed,Object? generatedBy = freezed,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,identifier: freezed == identifier ? _self.identifier : identifier // ignore: cast_nullable_to_non_nullable
@@ -107,7 +113,13 @@ as double?,finalTankVolume: freezed == finalTankVolume ? _self.finalTankVolume :
 as double?,price: freezed == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
 as double?,attendantName: freezed == attendantName ? _self.attendantName : attendantName // ignore: cast_nullable_to_non_nullable
 as String?,attendantId: freezed == attendantId ? _self.attendantId : attendantId // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,parentAsset: freezed == parentAsset ? _self.parentAsset : parentAsset // ignore: cast_nullable_to_non_nullable
+as Asset?,connectionType: freezed == connectionType ? _self.connectionType : connectionType // ignore: cast_nullable_to_non_nullable
+as AtsExitConnectionType?,fromApp: freezed == fromApp ? _self.fromApp : fromApp // ignore: cast_nullable_to_non_nullable
+as AtsFromApp?,generatedById: freezed == generatedById ? _self.generatedById : generatedById // ignore: cast_nullable_to_non_nullable
+as String?,generatedBy: freezed == generatedBy ? _self.generatedBy : generatedBy // ignore: cast_nullable_to_non_nullable
+as User?,
   ));
 }
 /// Create a copy of AtsExit
@@ -133,6 +145,30 @@ $AssetCopyWith<$Res>? get toAsset {
 
   return $AssetCopyWith<$Res>(_self.toAsset!, (value) {
     return _then(_self.copyWith(toAsset: value));
+  });
+}/// Create a copy of AtsExit
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AssetCopyWith<$Res>? get parentAsset {
+    if (_self.parentAsset == null) {
+    return null;
+  }
+
+  return $AssetCopyWith<$Res>(_self.parentAsset!, (value) {
+    return _then(_self.copyWith(parentAsset: value));
+  });
+}/// Create a copy of AtsExit
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserCopyWith<$Res>? get generatedBy {
+    if (_self.generatedBy == null) {
+    return null;
+  }
+
+  return $UserCopyWith<$Res>(_self.generatedBy!, (value) {
+    return _then(_self.copyWith(generatedBy: value));
   });
 }
 }
@@ -216,10 +252,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  int? identifier,  String? fromAssetId,  Asset? fromAsset,  String? toAssetId,  Asset? toAsset,  double? errorPercent,  double? totalLiters,  double? toAssetMileage, @TimestampOrNullConverter()  DateTime? startAt, @TimestampOrNullConverter()  DateTime? endAt,  String? totalTime, @DurationOrNullConverter()  Duration? totalTimeDuration,  double? initialFluxometer,  double? finalFluxometer,  double? initialTankVolume,  double? finalTankVolume,  double? price,  String? attendantName,  String? attendantId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  int? identifier,  String? fromAssetId,  Asset? fromAsset,  String? toAssetId,  Asset? toAsset,  double? errorPercent,  double? totalLiters,  double? toAssetMileage, @TimestampOrNullConverter()  DateTime? startAt, @TimestampOrNullConverter()  DateTime? endAt,  String? totalTime, @DurationOrNullConverter()  Duration? totalTimeDuration,  double? initialFluxometer,  double? finalFluxometer,  double? initialTankVolume,  double? finalTankVolume,  double? price,  String? attendantName,  String? attendantId, @TimestampOrNullConverter()  DateTime? createdAt,  Asset? parentAsset, @AtsExitConnectionTypeOrNullConverter()  AtsExitConnectionType? connectionType, @AtsFromAppOrNullConverter()  AtsFromApp? fromApp,  String? generatedById,  User? generatedBy)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AtsExit() when $default != null:
-return $default(_that.id,_that.identifier,_that.fromAssetId,_that.fromAsset,_that.toAssetId,_that.toAsset,_that.errorPercent,_that.totalLiters,_that.toAssetMileage,_that.startAt,_that.endAt,_that.totalTime,_that.totalTimeDuration,_that.initialFluxometer,_that.finalFluxometer,_that.initialTankVolume,_that.finalTankVolume,_that.price,_that.attendantName,_that.attendantId);case _:
+return $default(_that.id,_that.identifier,_that.fromAssetId,_that.fromAsset,_that.toAssetId,_that.toAsset,_that.errorPercent,_that.totalLiters,_that.toAssetMileage,_that.startAt,_that.endAt,_that.totalTime,_that.totalTimeDuration,_that.initialFluxometer,_that.finalFluxometer,_that.initialTankVolume,_that.finalTankVolume,_that.price,_that.attendantName,_that.attendantId,_that.createdAt,_that.parentAsset,_that.connectionType,_that.fromApp,_that.generatedById,_that.generatedBy);case _:
   return orElse();
 
 }
@@ -237,10 +273,10 @@ return $default(_that.id,_that.identifier,_that.fromAssetId,_that.fromAsset,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  int? identifier,  String? fromAssetId,  Asset? fromAsset,  String? toAssetId,  Asset? toAsset,  double? errorPercent,  double? totalLiters,  double? toAssetMileage, @TimestampOrNullConverter()  DateTime? startAt, @TimestampOrNullConverter()  DateTime? endAt,  String? totalTime, @DurationOrNullConverter()  Duration? totalTimeDuration,  double? initialFluxometer,  double? finalFluxometer,  double? initialTankVolume,  double? finalTankVolume,  double? price,  String? attendantName,  String? attendantId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  int? identifier,  String? fromAssetId,  Asset? fromAsset,  String? toAssetId,  Asset? toAsset,  double? errorPercent,  double? totalLiters,  double? toAssetMileage, @TimestampOrNullConverter()  DateTime? startAt, @TimestampOrNullConverter()  DateTime? endAt,  String? totalTime, @DurationOrNullConverter()  Duration? totalTimeDuration,  double? initialFluxometer,  double? finalFluxometer,  double? initialTankVolume,  double? finalTankVolume,  double? price,  String? attendantName,  String? attendantId, @TimestampOrNullConverter()  DateTime? createdAt,  Asset? parentAsset, @AtsExitConnectionTypeOrNullConverter()  AtsExitConnectionType? connectionType, @AtsFromAppOrNullConverter()  AtsFromApp? fromApp,  String? generatedById,  User? generatedBy)  $default,) {final _that = this;
 switch (_that) {
 case _AtsExit():
-return $default(_that.id,_that.identifier,_that.fromAssetId,_that.fromAsset,_that.toAssetId,_that.toAsset,_that.errorPercent,_that.totalLiters,_that.toAssetMileage,_that.startAt,_that.endAt,_that.totalTime,_that.totalTimeDuration,_that.initialFluxometer,_that.finalFluxometer,_that.initialTankVolume,_that.finalTankVolume,_that.price,_that.attendantName,_that.attendantId);case _:
+return $default(_that.id,_that.identifier,_that.fromAssetId,_that.fromAsset,_that.toAssetId,_that.toAsset,_that.errorPercent,_that.totalLiters,_that.toAssetMileage,_that.startAt,_that.endAt,_that.totalTime,_that.totalTimeDuration,_that.initialFluxometer,_that.finalFluxometer,_that.initialTankVolume,_that.finalTankVolume,_that.price,_that.attendantName,_that.attendantId,_that.createdAt,_that.parentAsset,_that.connectionType,_that.fromApp,_that.generatedById,_that.generatedBy);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -257,10 +293,10 @@ return $default(_that.id,_that.identifier,_that.fromAssetId,_that.fromAsset,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  int? identifier,  String? fromAssetId,  Asset? fromAsset,  String? toAssetId,  Asset? toAsset,  double? errorPercent,  double? totalLiters,  double? toAssetMileage, @TimestampOrNullConverter()  DateTime? startAt, @TimestampOrNullConverter()  DateTime? endAt,  String? totalTime, @DurationOrNullConverter()  Duration? totalTimeDuration,  double? initialFluxometer,  double? finalFluxometer,  double? initialTankVolume,  double? finalTankVolume,  double? price,  String? attendantName,  String? attendantId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  int? identifier,  String? fromAssetId,  Asset? fromAsset,  String? toAssetId,  Asset? toAsset,  double? errorPercent,  double? totalLiters,  double? toAssetMileage, @TimestampOrNullConverter()  DateTime? startAt, @TimestampOrNullConverter()  DateTime? endAt,  String? totalTime, @DurationOrNullConverter()  Duration? totalTimeDuration,  double? initialFluxometer,  double? finalFluxometer,  double? initialTankVolume,  double? finalTankVolume,  double? price,  String? attendantName,  String? attendantId, @TimestampOrNullConverter()  DateTime? createdAt,  Asset? parentAsset, @AtsExitConnectionTypeOrNullConverter()  AtsExitConnectionType? connectionType, @AtsFromAppOrNullConverter()  AtsFromApp? fromApp,  String? generatedById,  User? generatedBy)?  $default,) {final _that = this;
 switch (_that) {
 case _AtsExit() when $default != null:
-return $default(_that.id,_that.identifier,_that.fromAssetId,_that.fromAsset,_that.toAssetId,_that.toAsset,_that.errorPercent,_that.totalLiters,_that.toAssetMileage,_that.startAt,_that.endAt,_that.totalTime,_that.totalTimeDuration,_that.initialFluxometer,_that.finalFluxometer,_that.initialTankVolume,_that.finalTankVolume,_that.price,_that.attendantName,_that.attendantId);case _:
+return $default(_that.id,_that.identifier,_that.fromAssetId,_that.fromAsset,_that.toAssetId,_that.toAsset,_that.errorPercent,_that.totalLiters,_that.toAssetMileage,_that.startAt,_that.endAt,_that.totalTime,_that.totalTimeDuration,_that.initialFluxometer,_that.finalFluxometer,_that.initialTankVolume,_that.finalTankVolume,_that.price,_that.attendantName,_that.attendantId,_that.createdAt,_that.parentAsset,_that.connectionType,_that.fromApp,_that.generatedById,_that.generatedBy);case _:
   return null;
 
 }
@@ -272,7 +308,7 @@ return $default(_that.id,_that.identifier,_that.fromAssetId,_that.fromAsset,_tha
 @JsonSerializable()
 
 class _AtsExit implements AtsExit {
-  const _AtsExit({this.id, this.identifier, this.fromAssetId, this.fromAsset, this.toAssetId, this.toAsset, this.errorPercent, this.totalLiters, this.toAssetMileage, @TimestampOrNullConverter() this.startAt, @TimestampOrNullConverter() this.endAt, this.totalTime, @DurationOrNullConverter() this.totalTimeDuration, this.initialFluxometer, this.finalFluxometer, this.initialTankVolume, this.finalTankVolume, this.price, this.attendantName, this.attendantId});
+  const _AtsExit({this.id, this.identifier, this.fromAssetId, this.fromAsset, this.toAssetId, this.toAsset, this.errorPercent, this.totalLiters, this.toAssetMileage, @TimestampOrNullConverter() this.startAt, @TimestampOrNullConverter() this.endAt, this.totalTime, @DurationOrNullConverter() this.totalTimeDuration, this.initialFluxometer, this.finalFluxometer, this.initialTankVolume, this.finalTankVolume, this.price, this.attendantName, this.attendantId, @TimestampOrNullConverter() this.createdAt, this.parentAsset, @AtsExitConnectionTypeOrNullConverter() this.connectionType, @AtsFromAppOrNullConverter() this.fromApp, this.generatedById, this.generatedBy});
   factory _AtsExit.fromJson(Map<String, dynamic> json) => _$AtsExitFromJson(json);
 
 /// The unique identifier of the exit.
@@ -315,6 +351,18 @@ class _AtsExit implements AtsExit {
 @override final  String? attendantName;
 /// The identifier of the attendant who performed the exit.
 @override final  String? attendantId;
+/// The creation date of the exit.
+@override@TimestampOrNullConverter() final  DateTime? createdAt;
+/// The base (supply point or storage terminal) of the exit pump.
+@override final  Asset? parentAsset;
+/// How the device that registered the exit was connected.
+@override@AtsExitConnectionTypeOrNullConverter() final  AtsExitConnectionType? connectionType;
+/// The application that registered the exit.
+@override@AtsFromAppOrNullConverter() final  AtsFromApp? fromApp;
+/// The ID of the user who started the exit from an app; `null` for card exits.
+@override final  String? generatedById;
+/// The user who started the exit from an app; `null` for card exits.
+@override final  User? generatedBy;
 
 /// Create a copy of AtsExit
 /// with the given fields replaced by the non-null parameter values.
@@ -329,16 +377,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AtsExit&&(identical(other.id, id) || other.id == id)&&(identical(other.identifier, identifier) || other.identifier == identifier)&&(identical(other.fromAssetId, fromAssetId) || other.fromAssetId == fromAssetId)&&(identical(other.fromAsset, fromAsset) || other.fromAsset == fromAsset)&&(identical(other.toAssetId, toAssetId) || other.toAssetId == toAssetId)&&(identical(other.toAsset, toAsset) || other.toAsset == toAsset)&&(identical(other.errorPercent, errorPercent) || other.errorPercent == errorPercent)&&(identical(other.totalLiters, totalLiters) || other.totalLiters == totalLiters)&&(identical(other.toAssetMileage, toAssetMileage) || other.toAssetMileage == toAssetMileage)&&(identical(other.startAt, startAt) || other.startAt == startAt)&&(identical(other.endAt, endAt) || other.endAt == endAt)&&(identical(other.totalTime, totalTime) || other.totalTime == totalTime)&&(identical(other.totalTimeDuration, totalTimeDuration) || other.totalTimeDuration == totalTimeDuration)&&(identical(other.initialFluxometer, initialFluxometer) || other.initialFluxometer == initialFluxometer)&&(identical(other.finalFluxometer, finalFluxometer) || other.finalFluxometer == finalFluxometer)&&(identical(other.initialTankVolume, initialTankVolume) || other.initialTankVolume == initialTankVolume)&&(identical(other.finalTankVolume, finalTankVolume) || other.finalTankVolume == finalTankVolume)&&(identical(other.price, price) || other.price == price)&&(identical(other.attendantName, attendantName) || other.attendantName == attendantName)&&(identical(other.attendantId, attendantId) || other.attendantId == attendantId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AtsExit&&(identical(other.id, id) || other.id == id)&&(identical(other.identifier, identifier) || other.identifier == identifier)&&(identical(other.fromAssetId, fromAssetId) || other.fromAssetId == fromAssetId)&&(identical(other.fromAsset, fromAsset) || other.fromAsset == fromAsset)&&(identical(other.toAssetId, toAssetId) || other.toAssetId == toAssetId)&&(identical(other.toAsset, toAsset) || other.toAsset == toAsset)&&(identical(other.errorPercent, errorPercent) || other.errorPercent == errorPercent)&&(identical(other.totalLiters, totalLiters) || other.totalLiters == totalLiters)&&(identical(other.toAssetMileage, toAssetMileage) || other.toAssetMileage == toAssetMileage)&&(identical(other.startAt, startAt) || other.startAt == startAt)&&(identical(other.endAt, endAt) || other.endAt == endAt)&&(identical(other.totalTime, totalTime) || other.totalTime == totalTime)&&(identical(other.totalTimeDuration, totalTimeDuration) || other.totalTimeDuration == totalTimeDuration)&&(identical(other.initialFluxometer, initialFluxometer) || other.initialFluxometer == initialFluxometer)&&(identical(other.finalFluxometer, finalFluxometer) || other.finalFluxometer == finalFluxometer)&&(identical(other.initialTankVolume, initialTankVolume) || other.initialTankVolume == initialTankVolume)&&(identical(other.finalTankVolume, finalTankVolume) || other.finalTankVolume == finalTankVolume)&&(identical(other.price, price) || other.price == price)&&(identical(other.attendantName, attendantName) || other.attendantName == attendantName)&&(identical(other.attendantId, attendantId) || other.attendantId == attendantId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.parentAsset, parentAsset) || other.parentAsset == parentAsset)&&(identical(other.connectionType, connectionType) || other.connectionType == connectionType)&&(identical(other.fromApp, fromApp) || other.fromApp == fromApp)&&(identical(other.generatedById, generatedById) || other.generatedById == generatedById)&&(identical(other.generatedBy, generatedBy) || other.generatedBy == generatedBy));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,identifier,fromAssetId,fromAsset,toAssetId,toAsset,errorPercent,totalLiters,toAssetMileage,startAt,endAt,totalTime,totalTimeDuration,initialFluxometer,finalFluxometer,initialTankVolume,finalTankVolume,price,attendantName,attendantId]);
+int get hashCode => Object.hashAll([runtimeType,id,identifier,fromAssetId,fromAsset,toAssetId,toAsset,errorPercent,totalLiters,toAssetMileage,startAt,endAt,totalTime,totalTimeDuration,initialFluxometer,finalFluxometer,initialTankVolume,finalTankVolume,price,attendantName,attendantId,createdAt,parentAsset,connectionType,fromApp,generatedById,generatedBy]);
 
 @override
 String toString() {
-  return 'AtsExit(id: $id, identifier: $identifier, fromAssetId: $fromAssetId, fromAsset: $fromAsset, toAssetId: $toAssetId, toAsset: $toAsset, errorPercent: $errorPercent, totalLiters: $totalLiters, toAssetMileage: $toAssetMileage, startAt: $startAt, endAt: $endAt, totalTime: $totalTime, totalTimeDuration: $totalTimeDuration, initialFluxometer: $initialFluxometer, finalFluxometer: $finalFluxometer, initialTankVolume: $initialTankVolume, finalTankVolume: $finalTankVolume, price: $price, attendantName: $attendantName, attendantId: $attendantId)';
+  return 'AtsExit(id: $id, identifier: $identifier, fromAssetId: $fromAssetId, fromAsset: $fromAsset, toAssetId: $toAssetId, toAsset: $toAsset, errorPercent: $errorPercent, totalLiters: $totalLiters, toAssetMileage: $toAssetMileage, startAt: $startAt, endAt: $endAt, totalTime: $totalTime, totalTimeDuration: $totalTimeDuration, initialFluxometer: $initialFluxometer, finalFluxometer: $finalFluxometer, initialTankVolume: $initialTankVolume, finalTankVolume: $finalTankVolume, price: $price, attendantName: $attendantName, attendantId: $attendantId, createdAt: $createdAt, parentAsset: $parentAsset, connectionType: $connectionType, fromApp: $fromApp, generatedById: $generatedById, generatedBy: $generatedBy)';
 }
 
 
@@ -349,11 +397,11 @@ abstract mixin class _$AtsExitCopyWith<$Res> implements $AtsExitCopyWith<$Res> {
   factory _$AtsExitCopyWith(_AtsExit value, $Res Function(_AtsExit) _then) = __$AtsExitCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, int? identifier, String? fromAssetId, Asset? fromAsset, String? toAssetId, Asset? toAsset, double? errorPercent, double? totalLiters, double? toAssetMileage,@TimestampOrNullConverter() DateTime? startAt,@TimestampOrNullConverter() DateTime? endAt, String? totalTime,@DurationOrNullConverter() Duration? totalTimeDuration, double? initialFluxometer, double? finalFluxometer, double? initialTankVolume, double? finalTankVolume, double? price, String? attendantName, String? attendantId
+ String? id, int? identifier, String? fromAssetId, Asset? fromAsset, String? toAssetId, Asset? toAsset, double? errorPercent, double? totalLiters, double? toAssetMileage,@TimestampOrNullConverter() DateTime? startAt,@TimestampOrNullConverter() DateTime? endAt, String? totalTime,@DurationOrNullConverter() Duration? totalTimeDuration, double? initialFluxometer, double? finalFluxometer, double? initialTankVolume, double? finalTankVolume, double? price, String? attendantName, String? attendantId,@TimestampOrNullConverter() DateTime? createdAt, Asset? parentAsset,@AtsExitConnectionTypeOrNullConverter() AtsExitConnectionType? connectionType,@AtsFromAppOrNullConverter() AtsFromApp? fromApp, String? generatedById, User? generatedBy
 });
 
 
-@override $AssetCopyWith<$Res>? get fromAsset;@override $AssetCopyWith<$Res>? get toAsset;
+@override $AssetCopyWith<$Res>? get fromAsset;@override $AssetCopyWith<$Res>? get toAsset;@override $AssetCopyWith<$Res>? get parentAsset;@override $UserCopyWith<$Res>? get generatedBy;
 
 }
 /// @nodoc
@@ -366,7 +414,7 @@ class __$AtsExitCopyWithImpl<$Res>
 
 /// Create a copy of AtsExit
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? identifier = freezed,Object? fromAssetId = freezed,Object? fromAsset = freezed,Object? toAssetId = freezed,Object? toAsset = freezed,Object? errorPercent = freezed,Object? totalLiters = freezed,Object? toAssetMileage = freezed,Object? startAt = freezed,Object? endAt = freezed,Object? totalTime = freezed,Object? totalTimeDuration = freezed,Object? initialFluxometer = freezed,Object? finalFluxometer = freezed,Object? initialTankVolume = freezed,Object? finalTankVolume = freezed,Object? price = freezed,Object? attendantName = freezed,Object? attendantId = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? identifier = freezed,Object? fromAssetId = freezed,Object? fromAsset = freezed,Object? toAssetId = freezed,Object? toAsset = freezed,Object? errorPercent = freezed,Object? totalLiters = freezed,Object? toAssetMileage = freezed,Object? startAt = freezed,Object? endAt = freezed,Object? totalTime = freezed,Object? totalTimeDuration = freezed,Object? initialFluxometer = freezed,Object? finalFluxometer = freezed,Object? initialTankVolume = freezed,Object? finalTankVolume = freezed,Object? price = freezed,Object? attendantName = freezed,Object? attendantId = freezed,Object? createdAt = freezed,Object? parentAsset = freezed,Object? connectionType = freezed,Object? fromApp = freezed,Object? generatedById = freezed,Object? generatedBy = freezed,}) {
   return _then(_AtsExit(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,identifier: freezed == identifier ? _self.identifier : identifier // ignore: cast_nullable_to_non_nullable
@@ -388,7 +436,13 @@ as double?,finalTankVolume: freezed == finalTankVolume ? _self.finalTankVolume :
 as double?,price: freezed == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
 as double?,attendantName: freezed == attendantName ? _self.attendantName : attendantName // ignore: cast_nullable_to_non_nullable
 as String?,attendantId: freezed == attendantId ? _self.attendantId : attendantId // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,parentAsset: freezed == parentAsset ? _self.parentAsset : parentAsset // ignore: cast_nullable_to_non_nullable
+as Asset?,connectionType: freezed == connectionType ? _self.connectionType : connectionType // ignore: cast_nullable_to_non_nullable
+as AtsExitConnectionType?,fromApp: freezed == fromApp ? _self.fromApp : fromApp // ignore: cast_nullable_to_non_nullable
+as AtsFromApp?,generatedById: freezed == generatedById ? _self.generatedById : generatedById // ignore: cast_nullable_to_non_nullable
+as String?,generatedBy: freezed == generatedBy ? _self.generatedBy : generatedBy // ignore: cast_nullable_to_non_nullable
+as User?,
   ));
 }
 
@@ -415,6 +469,30 @@ $AssetCopyWith<$Res>? get toAsset {
 
   return $AssetCopyWith<$Res>(_self.toAsset!, (value) {
     return _then(_self.copyWith(toAsset: value));
+  });
+}/// Create a copy of AtsExit
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AssetCopyWith<$Res>? get parentAsset {
+    if (_self.parentAsset == null) {
+    return null;
+  }
+
+  return $AssetCopyWith<$Res>(_self.parentAsset!, (value) {
+    return _then(_self.copyWith(parentAsset: value));
+  });
+}/// Create a copy of AtsExit
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserCopyWith<$Res>? get generatedBy {
+    if (_self.generatedBy == null) {
+    return null;
+  }
+
+  return $UserCopyWith<$Res>(_self.generatedBy!, (value) {
+    return _then(_self.copyWith(generatedBy: value));
   });
 }
 }

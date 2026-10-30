@@ -33,6 +33,22 @@ _AtsExit _$AtsExitFromJson(Map<String, dynamic> json) => _AtsExit(
   price: (json['price'] as num?)?.toDouble(),
   attendantName: json['attendantName'] as String?,
   attendantId: json['attendantId'] as String?,
+  createdAt: const TimestampOrNullConverter().fromJson(
+    json['createdAt'] as num?,
+  ),
+  parentAsset: json['parentAsset'] == null
+      ? null
+      : Asset.fromJson(json['parentAsset'] as Map<String, dynamic>),
+  connectionType: const AtsExitConnectionTypeOrNullConverter().fromJson(
+    json['connectionType'] as String?,
+  ),
+  fromApp: const AtsFromAppOrNullConverter().fromJson(
+    json['fromApp'] as String?,
+  ),
+  generatedById: json['generatedById'] as String?,
+  generatedBy: json['generatedBy'] == null
+      ? null
+      : User.fromJson(json['generatedBy'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$AtsExitToJson(_AtsExit instance) => <String, dynamic>{
@@ -58,6 +74,14 @@ Map<String, dynamic> _$AtsExitToJson(_AtsExit instance) => <String, dynamic>{
   'price': instance.price,
   'attendantName': instance.attendantName,
   'attendantId': instance.attendantId,
+  'createdAt': const TimestampOrNullConverter().toJson(instance.createdAt),
+  'parentAsset': instance.parentAsset?.toJson(),
+  'connectionType': const AtsExitConnectionTypeOrNullConverter().toJson(
+    instance.connectionType,
+  ),
+  'fromApp': const AtsFromAppOrNullConverter().toJson(instance.fromApp),
+  'generatedById': instance.generatedById,
+  'generatedBy': instance.generatedBy?.toJson(),
 };
 
 _AtsAuthenticationCard _$AtsAuthenticationCardFromJson(
