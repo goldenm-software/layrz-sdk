@@ -1225,6 +1225,12 @@ _AtsEntry _$AtsEntryFromJson(Map<String, dynamic> json) => _AtsEntry(
   finalCorrectionFactor: (json['finalCorrectionFactor'] as num?)?.toDouble(),
   totalExits: (json['totalExits'] as num?)?.toDouble(),
   totalExits20: (json['totalExits20'] as num?)?.toDouble(),
+  createdAt: const TimestampOrNullConverter().fromJson(
+    json['createdAt'] as num?,
+  ),
+  parentAsset: json['parentAsset'] == null
+      ? null
+      : Asset.fromJson(json['parentAsset'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$AtsEntryToJson(_AtsEntry instance) => <String, dynamic>{
@@ -1260,6 +1266,8 @@ Map<String, dynamic> _$AtsEntryToJson(_AtsEntry instance) => <String, dynamic>{
   'finalCorrectionFactor': instance.finalCorrectionFactor,
   'totalExits': instance.totalExits,
   'totalExits20': instance.totalExits20,
+  'createdAt': const TimestampOrNullConverter().toJson(instance.createdAt),
+  'parentAsset': instance.parentAsset?.toJson(),
 };
 
 _AtsVolume _$AtsVolumeFromJson(Map<String, dynamic> json) => _AtsVolume(

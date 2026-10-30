@@ -342,6 +342,25 @@ void main() {
       _expectRoundTrip({'fromAssetId': '30', 'toAssetId': '31'}, (json) => AtsExecuteLoadInput.fromJson(json).toJson());
     });
 
+    test('AtsEntry reads its creation date and parent asset', () {
+      final entry = AtsEntry.fromJson({
+        'id': '400',
+        'createdAt': 1700002900,
+        'parentAsset': {'id': '5', 'name': 'Base Norte'},
+      });
+
+      expect(entry.createdAt, DateTime.fromMillisecondsSinceEpoch(1700002900 * 1000));
+      expect(entry.parentAsset?.id, '5');
+      expect(entry.parentAsset?.name, 'Base Norte');
+      expect(entry.toJson()['createdAt'], 1700002900);
+    });
+
+    test('AtsEntry fields ask for the creation date and parent asset', () {
+      final names = AtsEntry.fields.map((field) => field.name).toList();
+
+      expect(names, containsAll(['createdAt', 'parentAsset']));
+    });
+
     test('AtsEntryUnloadInput', () {
       _expectRoundTrip({
         'id': '400',
