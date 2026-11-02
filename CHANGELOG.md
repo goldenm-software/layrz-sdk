@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.23.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* `AtsEntry` adds `createdAt` and `parentAsset` (the base of the entry tank), both selected by `AtsEntry.fields`.
+* `AtsExit` adds `createdAt`, `parentAsset`, `connectionType`, `fromApp`, `generatedById` and `generatedBy` (the user who started the exit from an app), all selected by `AtsExit.fields`.
+* Added `AtsExitConnectionType` (`wifi`, `bluetooth`, `local`, `undefined`); unknown values parse as `undefined`.
+
+### Go
+
+* No changes in this release.
+
 ## 4.22.0
 
 ### Python
