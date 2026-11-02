@@ -108,6 +108,12 @@ abstract class AtsEntry with _$AtsEntry {
 
     /// `totalExits20` is the total exits at 20 degrees associated with the entry.
     double? totalExits20,
+
+    /// `createdAt` is the creation date of the entry.
+    @TimestampOrNullConverter() DateTime? createdAt,
+
+    /// `parentAsset` is the base (supply point, convoy or storage terminal) of the entry tank.
+    Asset? parentAsset,
   }) = _AtsEntry;
 
   /// fromJson creates a new `AtsEntry` from a JSON object.
@@ -132,6 +138,14 @@ abstract class AtsEntry with _$AtsEntry {
     GqlField(name: 'newTankLevel'),
     GqlField(name: 'startAt'),
     GqlField(name: 'endAt'),
+    GqlField(name: 'createdAt'),
+    GqlField(
+      name: 'parentAsset',
+      fields: [
+        GqlField(name: 'id'),
+        GqlField(name: 'name'),
+      ],
+    ),
     GqlField(name: 'fuelAnp'),
     GqlField(name: 'isLinked'),
     GqlField(name: 'temperature'),

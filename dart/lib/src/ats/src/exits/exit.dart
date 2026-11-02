@@ -68,6 +68,24 @@ abstract class AtsExit with _$AtsExit {
 
     /// The identifier of the attendant who performed the exit.
     String? attendantId,
+
+    /// The creation date of the exit.
+    @TimestampOrNullConverter() DateTime? createdAt,
+
+    /// The base (supply point or storage terminal) of the exit pump.
+    Asset? parentAsset,
+
+    /// How the device that registered the exit was connected.
+    @AtsExitConnectionTypeOrNullConverter() AtsExitConnectionType? connectionType,
+
+    /// The application that registered the exit.
+    @AtsFromAppOrNullConverter() AtsFromApp? fromApp,
+
+    /// The ID of the user who started the exit from an app; `null` for card exits.
+    String? generatedById,
+
+    /// The user who started the exit from an app; `null` for card exits.
+    User? generatedBy,
   }) = _AtsExit;
 
   /// Deserializes an [AtsExit] from a JSON map.
@@ -88,6 +106,24 @@ abstract class AtsExit with _$AtsExit {
     ),
     GqlField(name: 'attendantName'),
     GqlField(name: 'attendantId'),
+    GqlField(name: 'createdAt'),
+    GqlField(
+      name: 'parentAsset',
+      fields: [
+        GqlField(name: 'id'),
+        GqlField(name: 'name'),
+      ],
+    ),
+    GqlField(name: 'connectionType'),
+    GqlField(name: 'fromApp'),
+    GqlField(name: 'generatedById'),
+    GqlField(
+      name: 'generatedBy',
+      fields: [
+        GqlField(name: 'id'),
+        GqlField(name: 'name'),
+      ],
+    ),
     GqlField(name: 'toAssetId'),
     GqlField(
       name: 'toAsset',
