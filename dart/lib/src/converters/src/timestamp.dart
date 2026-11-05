@@ -22,6 +22,33 @@ class TimestampOrNullConverter implements JsonConverter<DateTime?, num?> {
   }
 }
 
+/// A [JsonConverter] like [TimestampOrNullConverter] that also accepts the timestamp as a numeric [String].
+///
+/// The API serializes the `Unix` scalar of some fields as text (for example `"1631723578.06322"`), where
+/// [TimestampOrNullConverter] would fail the cast to [num]. Reads either a [num] or a numeric [String] (seconds since
+/// Unix epoch) and returns `null` for `null` or for a text that is not a number. Writes seconds as a [num].
+class LooseTimestampOrNullConverter implements JsonConverter<DateTime?, Object?> {
+  /// Creates a [LooseTimestampOrNullConverter].
+  const LooseTimestampOrNullConverter();
+
+  @override
+  DateTime? fromJson(Object? json) {
+    final seconds = switch (json) {
+      num value => value,
+      String text => num.tryParse(text),
+      _ => null,
+    };
+    if (seconds == null) return null;
+    return DateTime.fromMillisecondsSinceEpoch((seconds * 1000).toInt());
+  }
+
+  @override
+  Object? toJson(DateTime? object) {
+    if (object == null) return null;
+    return object.millisecondsSinceEpoch / 1000;
+  }
+}
+
 /// A [JsonConverter] that converts between [DateTime] and [num].
 ///
 /// Converts from JSON numeric values (seconds since Unix epoch) to Dart

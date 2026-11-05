@@ -7,6 +7,19 @@ GqlField _assetIconField(String name) => GqlField(name: name)
   ..add(GqlField(name: 'emoji'))
   ..add(GqlField(name: 'icon'));
 
+/// Audit selection: when the asset was created/last updated and by which user (`id` and `name` only, the minimum
+/// a [User] needs). Not selected by the Mappit variant, whose asset type does not expose them.
+List<GqlField> get _assetAuditFields => [
+  GqlField(name: 'createdAt'),
+  GqlField(name: 'createdBy')
+    ..add(GqlField(name: 'id'))
+    ..add(GqlField(name: 'name')),
+  GqlField(name: 'updatedAt'),
+  GqlField(name: 'updatedBy')
+    ..add(GqlField(name: 'id'))
+    ..add(GqlField(name: 'name')),
+];
+
 List<GqlField> get _assetLabourHourFields => [
   GqlField(name: 'id'),
   GqlField(name: 'weekday'),
@@ -34,6 +47,7 @@ List<GqlField> get _assetWidgetFields => [
 List<GqlField> _assetBaseFields(AssetVariant variant) => [
   GqlField(name: 'id'),
   GqlField(name: 'name'),
+  if (variant != .mappit) ..._assetAuditFields,
   GqlField(name: 'plate'),
   GqlField(name: 'vin'),
   GqlField(name: 'kindId'),
