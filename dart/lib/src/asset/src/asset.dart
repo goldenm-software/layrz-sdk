@@ -190,6 +190,22 @@ abstract class Asset with _$Asset {
     /// [isSuspended] if the asset is suspended.
     bool? isSuspended,
 
+    /// [createdAt] is the date and time when the asset was created. Read-only; only selected by the ATS and standard
+    /// variants.
+    @LooseTimestampOrNullConverter() DateTime? createdAt,
+
+    /// [createdBy] is the user who created the asset, with only its `id` and `name` selected. Read-only; only
+    /// selected by the ATS and standard variants.
+    User? createdBy,
+
+    /// [updatedAt] is the date and time when the asset was last updated. Read-only; only selected by the ATS and
+    /// standard variants.
+    @LooseTimestampOrNullConverter() DateTime? updatedAt,
+
+    /// [updatedBy] is the user who last edited the asset, with only its `id` and `name` selected. Read-only; only
+    /// selected by the ATS and standard variants.
+    User? updatedBy,
+
     /// [authenticationCardCardboardId] is the cardboard ID of the authentication card id.
     String? authenticationCardCardboardId,
 

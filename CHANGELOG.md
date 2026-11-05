@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.24.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* `Asset` adds the audit fields `createdAt`, `createdBy`, `updatedAt` and `updatedBy`. `createdAt` and `updatedAt` are nullable `DateTime`s and `createdBy` and `updatedBy` are nullable `User`s with only `id` and `name` selected.
+* Added `LooseTimestampOrNullConverter`, a `TimestampOrNullConverter` that also accepts the timestamp as a numeric string. The API returns the `Unix` scalar of the asset audit dates as text (for example `"1631723578.06322"`), which `TimestampOrNullConverter` rejects with a cast error.
+* The ATS and standard asset selections (`Asset.fetchAll`, `Asset.fetch`, clone and `AssetInput.save`) now request the audit fields. The Mappit selection does not, since its asset type does not expose them.
+
+### Go
+
+* No changes in this release.
+
 ## 4.23.0
 
 ### Python

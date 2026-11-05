@@ -147,6 +147,14 @@ _Asset _$AssetFromJson(Map<String, dynamic> json) => _Asset(
       ?.map((e) => e as String)
       .toList(),
   isSuspended: json['isSuspended'] as bool?,
+  createdAt: const LooseTimestampOrNullConverter().fromJson(json['createdAt']),
+  createdBy: json['createdBy'] == null
+      ? null
+      : User.fromJson(json['createdBy'] as Map<String, dynamic>),
+  updatedAt: const LooseTimestampOrNullConverter().fromJson(json['updatedAt']),
+  updatedBy: json['updatedBy'] == null
+      ? null
+      : User.fromJson(json['updatedBy'] as Map<String, dynamic>),
   authenticationCardCardboardId:
       json['authenticationCardCardboardId'] as String?,
   authenticationCardTagId: json['authenticationCardTagId'] as String?,
@@ -243,6 +251,10 @@ Map<String, dynamic> _$AssetToJson(_Asset instance) => <String, dynamic>{
   'geofences': instance.geofences?.map((e) => e.toJson()).toList(),
   'mappitSecondaryRoutesIds': instance.mappitSecondaryRoutesIds,
   'isSuspended': instance.isSuspended,
+  'createdAt': const LooseTimestampOrNullConverter().toJson(instance.createdAt),
+  'createdBy': instance.createdBy?.toJson(),
+  'updatedAt': const LooseTimestampOrNullConverter().toJson(instance.updatedAt),
+  'updatedBy': instance.updatedBy?.toJson(),
   'authenticationCardCardboardId': instance.authenticationCardCardboardId,
   'authenticationCardTagId': instance.authenticationCardTagId,
   'authenticationCardNfcId': instance.authenticationCardNfcId,
