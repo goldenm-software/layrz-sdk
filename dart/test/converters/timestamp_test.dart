@@ -232,4 +232,36 @@ void main() {
       expect(converter.fromJson('2000-06-15'), DateTime(2000, 6, 15));
     });
   });
+
+  group('LooseTimestampOrNullConverter', () {
+    const converter = LooseTimestampOrNullConverter();
+
+    test('fromJson reads seconds as a number', () {
+      expect(converter.fromJson(1609459200), DateTime.fromMillisecondsSinceEpoch(1609459200000));
+      expect(converter.fromJson(1609459200.5), DateTime.fromMillisecondsSinceEpoch(1609459200500));
+    });
+
+    test('fromJson reads seconds as a numeric string, as the API returns the Unix scalar', () {
+      expect(converter.fromJson('1609459200'), DateTime.fromMillisecondsSinceEpoch(1609459200000));
+      expect(converter.fromJson('1631723578.06322'), DateTime.fromMillisecondsSinceEpoch(1631723578063));
+    });
+
+    test('fromJson returns null for null and for text that is not a number', () {
+      expect(converter.fromJson(null), isNull);
+      expect(converter.fromJson(''), isNull);
+      expect(converter.fromJson('not a date'), isNull);
+      expect(converter.fromJson(true), isNull);
+    });
+
+    test('toJson writes seconds as a number', () {
+      expect(converter.toJson(DateTime.fromMillisecondsSinceEpoch(1609459200000)), 1609459200);
+      expect(converter.toJson(null), isNull);
+    });
+
+    test('round-trip preserves the timestamp', () {
+      final original = DateTime.fromMillisecondsSinceEpoch(1631723578063);
+
+      expect(converter.fromJson(converter.toJson(original)), original);
+    });
+  });
 }
