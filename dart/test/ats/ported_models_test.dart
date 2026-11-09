@@ -20,7 +20,10 @@ dynamic _dropNulls(dynamic value) {
   return value;
 }
 
-void _expectRoundTrip(Map<String, dynamic> json, Map<String, dynamic> Function(Map<String, dynamic>) roundTrip) {
+void _expectRoundTrip(
+  Map<String, dynamic> json,
+  Map<String, dynamic> Function(Map<String, dynamic>) roundTrip,
+) {
   expect(_normalize(roundTrip(json)), _normalize(json));
 }
 
@@ -90,7 +93,11 @@ Map<String, dynamic> _purchaseOrderJson() => {
   'hasRawXml': true,
   'invoiceType': 'NFe',
   'invoiceId': '13231012345678000199550010001234561000123456',
-  'parentInvoice': {'id': '100', 'invoiceType': 'CTe', 'operations': <dynamic>[]},
+  'parentInvoice': {
+    'id': '100',
+    'invoiceType': 'CTe',
+    'operations': <dynamic>[],
+  },
   'ideInformation': {
     'ideType': '1',
     'serie': '1',
@@ -162,7 +169,11 @@ Map<String, dynamic> _loadingParamsFormJson() => {
   'modality': 'SETA',
   'inpm': 99.3,
   'destinyInformation': [
-    {'capacity': 20000.0, 'replesnishOrWithdraw': 150.0, 'destinyInformationSetaVerification': 'UP'},
+    {
+      'capacity': 20000.0,
+      'replesnishOrWithdraw': 150.0,
+      'destinyInformationSetaVerification': 'UP',
+    },
   ],
   'balanceParams': {
     'initialWeight': 15000.0,
@@ -194,11 +205,17 @@ Map<String, dynamic> _loadingParamsFormJson() => {
 void main() {
   group('Ported ATS models JSON round-trip', () {
     test('AtsPurchaseOrder', () {
-      _expectRoundTrip(_purchaseOrderJson(), (json) => AtsPurchaseOrder.fromJson(json).toJson());
+      _expectRoundTrip(
+        _purchaseOrderJson(),
+        (json) => AtsPurchaseOrder.fromJson(json).toJson(),
+      );
     });
 
     test('AtsReception', () {
-      _expectRoundTrip(_receptionJson(), (json) => AtsReception.fromJson(json).toJson());
+      _expectRoundTrip(
+        _receptionJson(),
+        (json) => AtsReception.fromJson(json).toJson(),
+      );
     });
 
     test('AtsOperation', () {
@@ -230,19 +247,34 @@ void main() {
         ],
         'totalQuantity': 30000.0,
         'productsInformation': [
-          {'category': 'DELIVERY_TO_RESELLER', 'quantity': 15000.0, 'subcategory': 'S10', 'fuelType': 'DIESEL'},
+          {
+            'category': 'DELIVERY_TO_RESELLER',
+            'quantity': 15000.0,
+            'subcategory': 'S10',
+            'fuelType': 'DIESEL',
+          },
         ],
         'ctes': ['cte-1'],
         'caclFormsIds': ['cacl-1'],
         'history': [
-          {'status': 'DELIVERED', 'createdAt': 1700009000, 'assetId': '12', 'bookedFor': 1700008000},
+          {
+            'status': 'DELIVERED',
+            'createdAt': 1700009000,
+            'assetId': '12',
+            'bookedFor': 1700008000,
+          },
         ],
         'minEta': 1700008000,
         'etaStatus': 'HIGH_ACCURACY',
         'terminalEntryAt': 1700001000,
         'terminalExitAt': 1700002000,
         'mdfeId': '77',
-        'mdfe': {'id': '77', 'manifestId': 'M-77', 'createdAt': 1700000000, 'updatedAt': 1700000100},
+        'mdfe': {
+          'id': '77',
+          'manifestId': 'M-77',
+          'createdAt': 1700000000,
+          'updatedAt': 1700000100,
+        },
         'mdfes': [
           {'id': '77', 'manifestId': 'M-77'},
         ],
@@ -296,7 +328,10 @@ void main() {
     });
 
     test('AtsLoadingParamsForm', () {
-      _expectRoundTrip(_loadingParamsFormJson(), (json) => AtsLoadingParamsForm.fromJson(json).toJson());
+      _expectRoundTrip(
+        _loadingParamsFormJson(),
+        (json) => AtsLoadingParamsForm.fromJson(json).toJson(),
+      );
     });
 
     test('AtsLoadingParamsFormInput', () {
@@ -322,7 +357,11 @@ void main() {
         'correctionFactor': 0.9965,
         'liquidWeight': 13000.0,
         'destinyInformation': [
-          {'capacity': 20000.0, 'replesnishOrWithdraw': 150.0, 'destinyInformationSetaVerification': 'DOWN'},
+          {
+            'capacity': 20000.0,
+            'replesnishOrWithdraw': 150.0,
+            'destinyInformationSetaVerification': 'DOWN',
+          },
         ],
       }, (json) => AtsLoadingParamsFormInput.fromJson(json).toJson());
     });
@@ -339,7 +378,10 @@ void main() {
     });
 
     test('AtsExecuteLoadInput', () {
-      _expectRoundTrip({'fromAssetId': '30', 'toAssetId': '31'}, (json) => AtsExecuteLoadInput.fromJson(json).toJson());
+      _expectRoundTrip({
+        'fromAssetId': '30',
+        'toAssetId': '31',
+      }, (json) => AtsExecuteLoadInput.fromJson(json).toJson());
     });
 
     test('AtsEntry reads its creation date and parent asset', () {
@@ -349,7 +391,10 @@ void main() {
         'parentAsset': {'id': '5', 'name': 'Base Norte'},
       });
 
-      expect(entry.createdAt, DateTime.fromMillisecondsSinceEpoch(1700002900 * 1000));
+      expect(
+        entry.createdAt,
+        DateTime.fromMillisecondsSinceEpoch(1700002900 * 1000),
+      );
       expect(entry.parentAsset?.id, '5');
       expect(entry.parentAsset?.name, 'Base Norte');
       expect(entry.toJson()['createdAt'], 1700002900);
@@ -361,38 +406,69 @@ void main() {
       expect(names, containsAll(['createdAt', 'parentAsset']));
     });
 
-    test('AtsExit reads its creation date, parent asset, connection and platform', () {
-      final exit = AtsExit.fromJson({
-        'id': '900',
-        'createdAt': 1700002900,
-        'parentAsset': {'id': '5', 'name': 'Base Norte'},
-        'connectionType': 'BLUETOOTH',
-        'fromApp': 'ATSMOBILE',
-        'generatedById': '77',
-        'generatedBy': {'id': '77', 'name': 'Ana Souza'},
-      });
+    test(
+      'AtsExit reads its creation date, parent asset, connection and platform',
+      () {
+        final exit = AtsExit.fromJson({
+          'id': '900',
+          'createdAt': 1700002900,
+          'parentAsset': {'id': '5', 'name': 'Base Norte'},
+          'connectionType': 'BLUETOOTH',
+          'fromApp': 'ATSMOBILE',
+          'generatedById': '77',
+          'generatedBy': {'id': '77', 'name': 'Ana Souza'},
+        });
 
-      expect(exit.createdAt, DateTime.fromMillisecondsSinceEpoch(1700002900 * 1000));
-      expect(exit.parentAsset?.name, 'Base Norte');
-      expect(exit.connectionType, AtsExitConnectionType.bluetooth);
-      expect(exit.fromApp, AtsFromApp.atsMobile);
-      expect(exit.generatedById, '77');
-      expect(exit.generatedBy?.name, 'Ana Souza');
-      expect(exit.toJson()['connectionType'], 'BLUETOOTH');
-      expect(exit.toJson()['fromApp'], 'ATSMOBILE');
-    });
+        expect(
+          exit.createdAt,
+          DateTime.fromMillisecondsSinceEpoch(1700002900 * 1000),
+        );
+        expect(exit.parentAsset?.name, 'Base Norte');
+        expect(exit.connectionType, AtsExitConnectionType.bluetooth);
+        expect(exit.fromApp, AtsFromApp.atsMobile);
+        expect(exit.generatedById, '77');
+        expect(exit.generatedBy?.name, 'Ana Souza');
+        expect(exit.toJson()['connectionType'], 'BLUETOOTH');
+        expect(exit.toJson()['fromApp'], 'ATSMOBILE');
+      },
+    );
 
-    test('AtsExitConnectionType falls back to undefined for unknown values', () {
-      expect(AtsExitConnectionType.fromJson('WIFI'), AtsExitConnectionType.wifi);
-      expect(AtsExitConnectionType.fromJson('LOCAL'), AtsExitConnectionType.local);
-      expect(AtsExitConnectionType.fromJson('SATELLITE'), AtsExitConnectionType.undefined);
-    });
+    test(
+      'AtsExitConnectionType falls back to undefined for unknown values',
+      () {
+        expect(
+          AtsExitConnectionType.fromJson('WIFI'),
+          AtsExitConnectionType.wifi,
+        );
+        expect(
+          AtsExitConnectionType.fromJson('LOCAL'),
+          AtsExitConnectionType.local,
+        );
+        expect(
+          AtsExitConnectionType.fromJson('SATELLITE'),
+          AtsExitConnectionType.undefined,
+        );
+      },
+    );
 
-    test('AtsExit fields ask for the creation date, parent asset, connection and platform', () {
-      final names = AtsExit.fields.map((field) => field.name).toList();
+    test(
+      'AtsExit fields ask for the creation date, parent asset, connection and platform',
+      () {
+        final names = AtsExit.fields.map((field) => field.name).toList();
 
-      expect(names, containsAll(['createdAt', 'parentAsset', 'connectionType', 'fromApp', 'generatedById', 'generatedBy']));
-    });
+        expect(
+          names,
+          containsAll([
+            'createdAt',
+            'parentAsset',
+            'connectionType',
+            'fromApp',
+            'generatedById',
+            'generatedBy',
+          ]),
+        );
+      },
+    );
 
     test('AtsEntryUnloadInput', () {
       _expectRoundTrip({
@@ -433,8 +509,16 @@ void main() {
           {
             'trailerPlate': 'XYZ9K87',
             'compartments': [
-              {'compartmentNumber': 1, 'dischargeVolume': 5000, 'productCode': 6},
-              {'compartmentNumber': 2, 'dischargeVolume': 10000, 'productCode': 4},
+              {
+                'compartmentNumber': 1,
+                'dischargeVolume': 5000,
+                'productCode': 6,
+              },
+              {
+                'compartmentNumber': 2,
+                'dischargeVolume': 10000,
+                'productCode': 4,
+              },
             ],
           },
         ],
@@ -453,6 +537,43 @@ void main() {
   });
 
   group('Ported ATS enums', () {
+    test('AtsFuelSubType fromStock maps stock family labels', () {
+      expect(AtsFuelSubType.fromStock('S10'), AtsFuelSubType.dieselS10A);
+      expect(AtsFuelSubType.fromStock('s500'), AtsFuelSubType.dieselS500ComunA);
+      expect(
+        AtsFuelSubType.fromStock(' DIESELS10 '),
+        AtsFuelSubType.dieselS10A,
+      );
+      expect(
+        AtsFuelSubType.fromStock('DIESELS500'),
+        AtsFuelSubType.dieselS500ComunA,
+      );
+      expect(AtsFuelSubType.fromStock('GASOLINE'), AtsFuelSubType.unknown);
+      expect(AtsFuelSubType.fromStock(null), AtsFuelSubType.unknown);
+    });
+
+    test('AtsFuelSubType toStock groups each diesel family', () {
+      expect(AtsFuelSubType.dieselS10BAditivado.toStock(), 'S10');
+      expect(AtsFuelSubType.dieselS500BAditivado.toStock(), 'S500');
+      expect(AtsFuelSubType.ethanol.toStock(), isNull);
+      for (final value in AtsFuelSubType.values.where(
+        (v) => v.toStock() != null,
+      )) {
+        expect(
+          AtsFuelSubType.fromStock(value.toStock()).getColor(),
+          value.getColor(),
+        );
+      }
+    });
+
+    test('AtsFuelSubTypeStockConverter round-trips stock labels', () {
+      const converter = AtsFuelSubTypeStockConverter();
+      expect(converter.fromJson('S10'), AtsFuelSubType.dieselS10A);
+      expect(converter.fromJson(null), isNull);
+      expect(converter.toJson(AtsFuelSubType.dieselS500ComunB), 'S500');
+      expect(converter.toJson(null), isNull);
+    });
+
     test('AtsFuelSubType toJson/fromJson for every value', () {
       for (final value in AtsFuelSubType.values) {
         expect(AtsFuelSubType.fromJson(value.toJson()), value);
@@ -477,7 +598,8 @@ void main() {
       }
     });
 
-    AtsCommandExecuteHistoryInput parse(Map<String, dynamic> json) => AtsCommandExecuteHistoryInput.fromJson(json);
+    AtsCommandExecuteHistoryInput parse(Map<String, dynamic> json) =>
+        AtsCommandExecuteHistoryInput.fromJson(json);
 
     test('AtsCommandExecutionType toJson/fromJson for every value', () {
       const wire = {
@@ -493,7 +615,10 @@ void main() {
         expect(parsed.commandType, entry.key);
         expect(parsed.toJson()['commandType'], entry.value);
       }
-      expect(parse({'commandType': 'OTHER'}).commandType, AtsCommandExecutionType.unknown);
+      expect(
+        parse({'commandType': 'OTHER'}).commandType,
+        AtsCommandExecutionType.unknown,
+      );
     });
 
     test('AtsCommandExecutionStatus toJson/fromJson for every value', () {
@@ -510,7 +635,10 @@ void main() {
         expect(parsed.status, entry.key);
         expect(parsed.toJson()['status'], entry.value);
       }
-      expect(parse({'status': 'OTHER'}).status, AtsCommandExecutionStatus.unknown);
+      expect(
+        parse({'status': 'OTHER'}).status,
+        AtsCommandExecutionStatus.unknown,
+      );
     });
 
     test('AtsCommunicationMethod toJson/fromJson for every value', () {
@@ -527,7 +655,10 @@ void main() {
         expect(parsed.communicationMethod, entry.key);
         expect(parsed.toJson()['communicationMethod'], entry.value);
       }
-      expect(parse({'communicationMethod': 'OTHER'}).communicationMethod, AtsCommunicationMethod.unknown);
+      expect(
+        parse({'communicationMethod': 'OTHER'}).communicationMethod,
+        AtsCommunicationMethod.unknown,
+      );
     });
   });
 }
