@@ -58,6 +58,9 @@ class LinkedAssetEntityConverter implements JsonConverter<LinkedAssetEntity, Str
 /// its geofences.
 @freezed
 abstract class LinkedAssetToCheckpointId with _$LinkedAssetToCheckpointId {
+  /// Private constructor used by the code generator.
+  const LinkedAssetToCheckpointId._();
+
   /// Constructs an immutable [LinkedAssetToCheckpointId].
   const factory LinkedAssetToCheckpointId({
     /// ID of the linked asset or tag.
@@ -69,4 +72,12 @@ abstract class LinkedAssetToCheckpointId with _$LinkedAssetToCheckpointId {
 
   /// Deserializes a [LinkedAssetToCheckpointId] from a JSON map.
   factory LinkedAssetToCheckpointId.fromJson(Map<String, dynamic> json) => _$LinkedAssetToCheckpointIdFromJson(json);
+
+  // coverage:ignore-start
+  /// GraphQL fragment covering the fields of a [LinkedAssetToCheckpointId].
+  static GqlFragment get fragment =>
+      GqlFragment(name: 'linkedAssetToCheckpointIdFragment', onType: 'LinkedAssetToCheckpointId')
+        ..add(GqlField(name: 'itemId'))
+        ..add(GqlField(name: 'entity'));
+  // coverage:ignore-end
 }

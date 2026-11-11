@@ -230,8 +230,8 @@ return $default(_that.id,_that.geofenceId,_that.geofence,_that.time,_that.kind);
 /// @nodoc
 @JsonSerializable()
 
-class _Waypoint implements Waypoint {
-  const _Waypoint({required this.id, this.geofenceId, this.geofence, this.time, @WaypointKindOrNullConverter() this.kind});
+class _Waypoint extends Waypoint {
+  const _Waypoint({required this.id, this.geofenceId, this.geofence, this.time, @WaypointKindOrNullConverter() this.kind}): super._();
   factory _Waypoint.fromJson(Map<String, dynamic> json) => _$WaypointFromJson(json);
 
 /// ID of the waypoint entity. This ID is unique.
@@ -522,8 +522,8 @@ return $default(_that.itemId,_that.entity);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _LinkedAssetToCheckpointId implements LinkedAssetToCheckpointId {
-  const _LinkedAssetToCheckpointId({required this.itemId, @LinkedAssetEntityConverter() required this.entity});
+class _LinkedAssetToCheckpointId extends LinkedAssetToCheckpointId {
+  const _LinkedAssetToCheckpointId({required this.itemId, @LinkedAssetEntityConverter() required this.entity}): super._();
   factory _LinkedAssetToCheckpointId.fromJson(Map<String, dynamic> json) => _$LinkedAssetToCheckpointIdFromJson(json);
 
 /// ID of the linked asset or tag.
@@ -802,8 +802,8 @@ return $default(_that.id,_that.name,_that.assetId,_that.waypoints,_that.isActive
 /// @nodoc
 @JsonSerializable()
 
-class _Checkpoint implements Checkpoint {
-  const _Checkpoint({required this.id, required this.name, this.assetId, this.waypoints, this.isActive, this.access, this.linkedAssetsIds});
+class _Checkpoint extends Checkpoint {
+  const _Checkpoint({required this.id, required this.name, this.assetId, this.waypoints, this.isActive, this.access, this.linkedAssetsIds}): super._();
   factory _Checkpoint.fromJson(Map<String, dynamic> json) => _$CheckpointFromJson(json);
 
 /// ID of the checkpoint entity. This ID is unique.
@@ -897,11 +897,15 @@ mixin _$CheckpointInput {
  String? get name;/// Name of the checkpoint, or null if not set.
  set name(String? value);/// Asset tag ID of the checkpoint, or null if not linked.
  String? get assetId;/// Asset tag ID of the checkpoint, or null if not linked.
- set assetId(String? value);/// List of waypoints in the checkpoint. See [Waypoint] for more information. Defaults to an
+ set assetId(String? value);/// List of waypoints in the checkpoint. See [Waypoint] for more information. Deprecated by the
+/// backend: use [waypoints] instead. Defaults to an empty list.
+@Deprecated('Use waypoints instead.') List<Waypoint>? get waypointsJson;/// List of waypoints in the checkpoint. See [Waypoint] for more information. Deprecated by the
+/// backend: use [waypoints] instead. Defaults to an empty list.
+@Deprecated('Use waypoints instead.') set waypointsJson(List<Waypoint>? value);/// List of waypoints in the checkpoint. See [Waypoint] for more information. Defaults to an
 /// empty list.
- List<Waypoint>? get waypointsJson;/// List of waypoints in the checkpoint. See [Waypoint] for more information. Defaults to an
+ List<Waypoint>? get waypoints;/// List of waypoints in the checkpoint. See [Waypoint] for more information. Defaults to an
 /// empty list.
- set waypointsJson(List<Waypoint>? value);/// IDs of the linked assets or tags. See [LinkedAssetToCheckpointId] for more information.
+ set waypoints(List<Waypoint>? value);/// IDs of the linked assets or tags. See [LinkedAssetToCheckpointId] for more information.
 /// Defaults to an empty list.
  List<LinkedAssetToCheckpointId>? get linkedAssetsIds;/// IDs of the linked assets or tags. See [LinkedAssetToCheckpointId] for more information.
 /// Defaults to an empty list.
@@ -920,7 +924,7 @@ $CheckpointInputCopyWith<CheckpointInput> get copyWith => _$CheckpointInputCopyW
 
 @override
 String toString() {
-  return 'CheckpointInput(id: $id, name: $name, assetId: $assetId, waypointsJson: $waypointsJson, linkedAssetsIds: $linkedAssetsIds)';
+  return 'CheckpointInput(id: $id, name: $name, assetId: $assetId, waypointsJson: $waypointsJson, waypoints: $waypoints, linkedAssetsIds: $linkedAssetsIds)';
 }
 
 
@@ -931,7 +935,7 @@ abstract mixin class $CheckpointInputCopyWith<$Res>  {
   factory $CheckpointInputCopyWith(CheckpointInput value, $Res Function(CheckpointInput) _then) = _$CheckpointInputCopyWithImpl;
 @useResult
 $Res call({
- String? id, String? name, String? assetId, List<Waypoint>? waypointsJson, List<LinkedAssetToCheckpointId>? linkedAssetsIds
+ String? id, String? name, String? assetId,@Deprecated('Use waypoints instead.') List<Waypoint>? waypointsJson, List<Waypoint>? waypoints, List<LinkedAssetToCheckpointId>? linkedAssetsIds
 });
 
 
@@ -948,12 +952,13 @@ class _$CheckpointInputCopyWithImpl<$Res>
 
 /// Create a copy of CheckpointInput
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = freezed,Object? assetId = freezed,Object? waypointsJson = freezed,Object? linkedAssetsIds = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = freezed,Object? assetId = freezed,Object? waypointsJson = freezed,Object? waypoints = freezed,Object? linkedAssetsIds = freezed,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,assetId: freezed == assetId ? _self.assetId : assetId // ignore: cast_nullable_to_non_nullable
 as String?,waypointsJson: freezed == waypointsJson ? _self.waypointsJson : waypointsJson // ignore: cast_nullable_to_non_nullable
+as List<Waypoint>?,waypoints: freezed == waypoints ? _self.waypoints : waypoints // ignore: cast_nullable_to_non_nullable
 as List<Waypoint>?,linkedAssetsIds: freezed == linkedAssetsIds ? _self.linkedAssetsIds : linkedAssetsIds // ignore: cast_nullable_to_non_nullable
 as List<LinkedAssetToCheckpointId>?,
   ));
@@ -1040,10 +1045,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? name,  String? assetId,  List<Waypoint>? waypointsJson,  List<LinkedAssetToCheckpointId>? linkedAssetsIds)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? name,  String? assetId, @Deprecated('Use waypoints instead.')  List<Waypoint>? waypointsJson,  List<Waypoint>? waypoints,  List<LinkedAssetToCheckpointId>? linkedAssetsIds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CheckpointInput() when $default != null:
-return $default(_that.id,_that.name,_that.assetId,_that.waypointsJson,_that.linkedAssetsIds);case _:
+return $default(_that.id,_that.name,_that.assetId,_that.waypointsJson,_that.waypoints,_that.linkedAssetsIds);case _:
   return orElse();
 
 }
@@ -1061,10 +1066,10 @@ return $default(_that.id,_that.name,_that.assetId,_that.waypointsJson,_that.link
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? name,  String? assetId,  List<Waypoint>? waypointsJson,  List<LinkedAssetToCheckpointId>? linkedAssetsIds)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? name,  String? assetId, @Deprecated('Use waypoints instead.')  List<Waypoint>? waypointsJson,  List<Waypoint>? waypoints,  List<LinkedAssetToCheckpointId>? linkedAssetsIds)  $default,) {final _that = this;
 switch (_that) {
 case _CheckpointInput():
-return $default(_that.id,_that.name,_that.assetId,_that.waypointsJson,_that.linkedAssetsIds);case _:
+return $default(_that.id,_that.name,_that.assetId,_that.waypointsJson,_that.waypoints,_that.linkedAssetsIds);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1081,10 +1086,10 @@ return $default(_that.id,_that.name,_that.assetId,_that.waypointsJson,_that.link
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? name,  String? assetId,  List<Waypoint>? waypointsJson,  List<LinkedAssetToCheckpointId>? linkedAssetsIds)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? name,  String? assetId, @Deprecated('Use waypoints instead.')  List<Waypoint>? waypointsJson,  List<Waypoint>? waypoints,  List<LinkedAssetToCheckpointId>? linkedAssetsIds)?  $default,) {final _that = this;
 switch (_that) {
 case _CheckpointInput() when $default != null:
-return $default(_that.id,_that.name,_that.assetId,_that.waypointsJson,_that.linkedAssetsIds);case _:
+return $default(_that.id,_that.name,_that.assetId,_that.waypointsJson,_that.waypoints,_that.linkedAssetsIds);case _:
   return null;
 
 }
@@ -1095,8 +1100,8 @@ return $default(_that.id,_that.name,_that.assetId,_that.waypointsJson,_that.link
 /// @nodoc
 @JsonSerializable()
 
-class _CheckpointInput implements CheckpointInput {
-   _CheckpointInput({this.id, this.name, this.assetId, this.waypointsJson = const [], this.linkedAssetsIds = const []});
+class _CheckpointInput extends CheckpointInput {
+   _CheckpointInput({this.id, this.name, this.assetId, @Deprecated('Use waypoints instead.') this.waypointsJson = const [], this.waypoints = const [], this.linkedAssetsIds = const []}): super._();
   factory _CheckpointInput.fromJson(Map<String, dynamic> json) => _$CheckpointInputFromJson(json);
 
 /// ID of the checkpoint entity, or null when creating a new one. This ID is unique.
@@ -1105,9 +1110,12 @@ class _CheckpointInput implements CheckpointInput {
 @override  String? name;
 /// Asset tag ID of the checkpoint, or null if not linked.
 @override  String? assetId;
+/// List of waypoints in the checkpoint. See [Waypoint] for more information. Deprecated by the
+/// backend: use [waypoints] instead. Defaults to an empty list.
+@override@JsonKey()@Deprecated('Use waypoints instead.')  List<Waypoint>? waypointsJson;
 /// List of waypoints in the checkpoint. See [Waypoint] for more information. Defaults to an
 /// empty list.
-@override@JsonKey()  List<Waypoint>? waypointsJson;
+@override@JsonKey()  List<Waypoint>? waypoints;
 /// IDs of the linked assets or tags. See [LinkedAssetToCheckpointId] for more information.
 /// Defaults to an empty list.
 @override@JsonKey()  List<LinkedAssetToCheckpointId>? linkedAssetsIds;
@@ -1127,7 +1135,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'CheckpointInput(id: $id, name: $name, assetId: $assetId, waypointsJson: $waypointsJson, linkedAssetsIds: $linkedAssetsIds)';
+  return 'CheckpointInput(id: $id, name: $name, assetId: $assetId, waypointsJson: $waypointsJson, waypoints: $waypoints, linkedAssetsIds: $linkedAssetsIds)';
 }
 
 
@@ -1138,7 +1146,7 @@ abstract mixin class _$CheckpointInputCopyWith<$Res> implements $CheckpointInput
   factory _$CheckpointInputCopyWith(_CheckpointInput value, $Res Function(_CheckpointInput) _then) = __$CheckpointInputCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String? name, String? assetId, List<Waypoint>? waypointsJson, List<LinkedAssetToCheckpointId>? linkedAssetsIds
+ String? id, String? name, String? assetId,@Deprecated('Use waypoints instead.') List<Waypoint>? waypointsJson, List<Waypoint>? waypoints, List<LinkedAssetToCheckpointId>? linkedAssetsIds
 });
 
 
@@ -1155,12 +1163,13 @@ class __$CheckpointInputCopyWithImpl<$Res>
 
 /// Create a copy of CheckpointInput
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = freezed,Object? assetId = freezed,Object? waypointsJson = freezed,Object? linkedAssetsIds = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = freezed,Object? assetId = freezed,Object? waypointsJson = freezed,Object? waypoints = freezed,Object? linkedAssetsIds = freezed,}) {
   return _then(_CheckpointInput(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,assetId: freezed == assetId ? _self.assetId : assetId // ignore: cast_nullable_to_non_nullable
 as String?,waypointsJson: freezed == waypointsJson ? _self.waypointsJson : waypointsJson // ignore: cast_nullable_to_non_nullable
+as List<Waypoint>?,waypoints: freezed == waypoints ? _self.waypoints : waypoints // ignore: cast_nullable_to_non_nullable
 as List<Waypoint>?,linkedAssetsIds: freezed == linkedAssetsIds ? _self.linkedAssetsIds : linkedAssetsIds // ignore: cast_nullable_to_non_nullable
 as List<LinkedAssetToCheckpointId>?,
   ));

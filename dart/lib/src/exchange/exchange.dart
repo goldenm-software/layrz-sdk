@@ -23,3 +23,4 @@ part 'exchange.g.dart';
 part 'src/protocol.dart';
 part 'src/protocol_input.dart';
 part 'src/service.dart';
+part 'src/service_input.dart';

@@ -36,6 +36,22 @@ Map<String, dynamic> _$VisionProfileToJson(_VisionProfile instance) =>
       'lastMeasurement': instance.lastMeasurement?.toJson(),
     };
 
+_VisionProfileInput _$VisionProfileInputFromJson(Map<String, dynamic> json) =>
+    _VisionProfileInput(
+      id: json['id'] as String?,
+      name: json['name'] as String? ?? '',
+      protocolId: json['protocolId'] as String?,
+      config: json['config'] as Map<String, dynamic>? ?? const {},
+    );
+
+Map<String, dynamic> _$VisionProfileInputToJson(_VisionProfileInput instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'protocolId': instance.protocolId,
+      'config': instance.config,
+    };
+
 _VisionProtocol _$VisionProtocolFromJson(Map<String, dynamic> json) =>
     _VisionProtocol(
       id: json['id'] as String,
