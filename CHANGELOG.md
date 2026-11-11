@@ -1,5 +1,25 @@
 # Changelog
 
+## 4.25.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* `presets`: `Preset` adds `fragment`, `detailFragment`, `Preset.fetchAll`, `Preset.fetch` and `Preset.deleteMultiple`. Added `PresetInput` with `save` (creates or edits a preset).
+* `vision_profile`: `VisionProfile` adds `fullFragment`, `VisionProfile.fetch` and `VisionProfile.deleteMultiple`. Added `VisionProfileInput` with `save`.
+* `exchange`: `ExchangeService` adds `fragment`, `ExchangeService.fetchAll`, `ExchangeService.fetch`, `ExchangeService.deleteMultiple` and `ExchangeService.toggle`. Added `ExchangeServiceInput` with `save`.
+* `checkpoint`: `Checkpoint` adds `fragment`, `Checkpoint.fetchAll`, `Checkpoint.fetch` and `Checkpoint.deleteMultiple`; `Waypoint` and `LinkedAssetToCheckpointId` add their own `fragment`. `CheckpointInput` adds `save`, `toRequestJson` and the new `waypoints` field. `CheckpointInput.waypointsJson` is now `@Deprecated` (use `waypoints`); when `waypoints` is empty it is still used as a fallback.
+* `locator` (new module): added `Locator`, `LocatorInput`, `LocatorBoundary`, `LocatorBoundaryPoint`, `LocatorBoundaryInput`, `LocatorBoundaryPointInput` and `LocatorMqttConfig`. `Locator` provides `lightFragment`, `fragment`, `Locator.fetchAll`, `Locator.fetch`, `expire` and `Locator.expireMultiple`; `LocatorInput` provides `save` and `simulateLink`. `Locator.createdAt` and `Locator.updatedAt` are nullable, and so are `LocatorMqttConfig.host`, `port` and `topic`.
+* `poi` (new module): added `Poi` and `PoiInput`. `Poi` provides `fragment`, `Poi.fetchAll`, `Poi.fetch` and `Poi.deleteMultiple`; `PoiInput` provides `save`.
+* `Poi` and `Locator` are now provided by `layrz_sdk` instead of only by `layrz_models`.
+
+### Go
+
+* No changes in this release.
+
 ## 4.24.0
 
 ### Python
