@@ -25,6 +25,10 @@ class Device(BaseModel):
     default=None,
   )
   protocol: str = Field(description='Defines the protocol of the device')
+  model: str | None = Field(
+    description='Defines the hardware model name of the device (e.g. MST01). None when the device has no model',
+    default=None,
+  )
   is_primary: bool = Field(default=False, description='Defines if the device is the primary device')
 
   @field_validator('is_primary', mode='before')
