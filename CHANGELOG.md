@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.26.0
+
+### Python
+
+* `Device` adds the optional `model` field (`str | None`, default `None`): the hardware model name of the device (e.g. `MST01`).
+
+### Dart
+
+* No changes in this release.
+
+### Go
+
+* `Device` adds the optional `Model` field (`*string`, JSON `model`, omitted when nil): the hardware model name of the device (e.g. `MST01`).
+
 ## 4.25.0
 
 ### Python

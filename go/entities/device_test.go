@@ -2,6 +2,7 @@ package entities
 
 import (
 	"encoding/json"
+	"strings"
 	"testing"
 )
 
@@ -111,6 +112,41 @@ func TestDeviceMinimal(t *testing.T) {
 
 	if device.Modbus != nil {
 		t.Error("Expected Modbus to be nil")
+	}
+}
+
+func TestDeviceModel(t *testing.T) {
+	t.Log("Running tests for Device model, present and absent")
+	var device Device
+	if err := json.Unmarshal([]byte(`{"id": 1, "ident": "AA", "protocol": "mst", "model": "MST01"}`), &device); err != nil {
+		t.Fatalf("Failed to unmarshal Device: %v", err)
+	}
+	if device.Model == nil || *device.Model != "MST01" {
+		t.Fatalf("Expected Model 'MST01', got %v", device.Model)
+	}
+
+	marshaled, err := json.Marshal(device)
+	if err != nil {
+		t.Fatalf("Failed to marshal Device: %v", err)
+	}
+	var fields map[string]any
+	if err := json.Unmarshal(marshaled, &fields); err != nil {
+		t.Fatalf("Failed to unmarshal marshaled Device: %v", err)
+	}
+	if fields["model"] != "MST01" {
+		t.Errorf("Expected marshaled model 'MST01', got %v", fields["model"])
+	}
+
+	var noModel Device
+	if err := json.Unmarshal([]byte(`{"id": 2, "ident": "BB"}`), &noModel); err != nil {
+		t.Fatalf("Failed to unmarshal Device: %v", err)
+	}
+	if noModel.Model != nil {
+		t.Errorf("Expected Model to be nil, got %v", *noModel.Model)
+	}
+	omitted, _ := json.Marshal(noModel)
+	if strings.Contains(string(omitted), "model") {
+		t.Errorf("Expected model to be omitted, got %s", omitted)
 	}
 }
 
