@@ -358,6 +358,276 @@ $VisionGaugeResultCopyWith<$Res>? get lastMeasurement {
 
 
 /// @nodoc
+mixin _$VisionProfileInput {
+
+/// [id] ID of the profile entity. This ID is unique. Null when creating a new profile.
+ String? get id;/// [id] ID of the profile entity. This ID is unique. Null when creating a new profile.
+ set id(String? value);/// [name] Name of the profile. The backend types this field as `ID`, it is handled as a String.
+ String get name;/// [name] Name of the profile. The backend types this field as `ID`, it is handled as a String.
+ set name(String value);/// [protocolId] ID of the [VisionProtocol] used by this profile.
+ String? get protocolId;/// [protocolId] ID of the [VisionProtocol] used by this profile.
+ set protocolId(String? value);/// [config] Protocol-specific configuration of the profile.
+ Map<String, dynamic> get config;/// [config] Protocol-specific configuration of the profile.
+ set config(Map<String, dynamic> value);
+/// Create a copy of VisionProfileInput
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$VisionProfileInputCopyWith<VisionProfileInput> get copyWith => _$VisionProfileInputCopyWithImpl<VisionProfileInput>(this as VisionProfileInput, _$identity);
+
+  /// Serializes this VisionProfileInput to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'VisionProfileInput(id: $id, name: $name, protocolId: $protocolId, config: $config)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $VisionProfileInputCopyWith<$Res>  {
+  factory $VisionProfileInputCopyWith(VisionProfileInput value, $Res Function(VisionProfileInput) _then) = _$VisionProfileInputCopyWithImpl;
+@useResult
+$Res call({
+ String? id, String name, String? protocolId, Map<String, dynamic> config
+});
+
+
+
+
+}
+/// @nodoc
+class _$VisionProfileInputCopyWithImpl<$Res>
+    implements $VisionProfileInputCopyWith<$Res> {
+  _$VisionProfileInputCopyWithImpl(this._self, this._then);
+
+  final VisionProfileInput _self;
+  final $Res Function(VisionProfileInput) _then;
+
+/// Create a copy of VisionProfileInput
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? protocolId = freezed,Object? config = null,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,protocolId: freezed == protocolId ? _self.protocolId : protocolId // ignore: cast_nullable_to_non_nullable
+as String?,config: null == config ? _self.config : config // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [VisionProfileInput].
+extension VisionProfileInputPatterns on VisionProfileInput {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _VisionProfileInput value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _VisionProfileInput() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _VisionProfileInput value)  $default,){
+final _that = this;
+switch (_that) {
+case _VisionProfileInput():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _VisionProfileInput value)?  $default,){
+final _that = this;
+switch (_that) {
+case _VisionProfileInput() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name,  String? protocolId,  Map<String, dynamic> config)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _VisionProfileInput() when $default != null:
+return $default(_that.id,_that.name,_that.protocolId,_that.config);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name,  String? protocolId,  Map<String, dynamic> config)  $default,) {final _that = this;
+switch (_that) {
+case _VisionProfileInput():
+return $default(_that.id,_that.name,_that.protocolId,_that.config);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name,  String? protocolId,  Map<String, dynamic> config)?  $default,) {final _that = this;
+switch (_that) {
+case _VisionProfileInput() when $default != null:
+return $default(_that.id,_that.name,_that.protocolId,_that.config);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _VisionProfileInput extends VisionProfileInput {
+   _VisionProfileInput({this.id, this.name = '', this.protocolId, this.config = const {}}): super._();
+  factory _VisionProfileInput.fromJson(Map<String, dynamic> json) => _$VisionProfileInputFromJson(json);
+
+/// [id] ID of the profile entity. This ID is unique. Null when creating a new profile.
+@override  String? id;
+/// [name] Name of the profile. The backend types this field as `ID`, it is handled as a String.
+@override@JsonKey()  String name;
+/// [protocolId] ID of the [VisionProtocol] used by this profile.
+@override  String? protocolId;
+/// [config] Protocol-specific configuration of the profile.
+@override@JsonKey()  Map<String, dynamic> config;
+
+/// Create a copy of VisionProfileInput
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$VisionProfileInputCopyWith<_VisionProfileInput> get copyWith => __$VisionProfileInputCopyWithImpl<_VisionProfileInput>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$VisionProfileInputToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'VisionProfileInput(id: $id, name: $name, protocolId: $protocolId, config: $config)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$VisionProfileInputCopyWith<$Res> implements $VisionProfileInputCopyWith<$Res> {
+  factory _$VisionProfileInputCopyWith(_VisionProfileInput value, $Res Function(_VisionProfileInput) _then) = __$VisionProfileInputCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id, String name, String? protocolId, Map<String, dynamic> config
+});
+
+
+
+
+}
+/// @nodoc
+class __$VisionProfileInputCopyWithImpl<$Res>
+    implements _$VisionProfileInputCopyWith<$Res> {
+  __$VisionProfileInputCopyWithImpl(this._self, this._then);
+
+  final _VisionProfileInput _self;
+  final $Res Function(_VisionProfileInput) _then;
+
+/// Create a copy of VisionProfileInput
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? protocolId = freezed,Object? config = null,}) {
+  return _then(_VisionProfileInput(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,protocolId: freezed == protocolId ? _self.protocolId : protocolId // ignore: cast_nullable_to_non_nullable
+as String?,config: null == config ? _self.config : config // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$VisionProtocol {
 
 /// [id] is the ID of the entity. This ID is unique.

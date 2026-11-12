@@ -942,8 +942,8 @@ return $default(_that.id,_that.name,_that.credentials,_that.protocol,_that.proto
 /// @nodoc
 @JsonSerializable()
 
-class _ExchangeService implements ExchangeService {
-  const _ExchangeService({required this.id, required this.name, this.credentials, this.protocol, this.protocolId, this.isEnabled, this.assetsIds, this.assets, this.tagsIds, this.tags, this.access, this.geofencesIds, this.geofences, this.geofencesGroupsIds, this.geofencesGroups});
+class _ExchangeService extends ExchangeService {
+  const _ExchangeService({required this.id, required this.name, this.credentials, this.protocol, this.protocolId, this.isEnabled, this.assetsIds, this.assets, this.tagsIds, this.tags, this.access, this.geofencesIds, this.geofences, this.geofencesGroupsIds, this.geofencesGroups}): super._();
   factory _ExchangeService.fromJson(Map<String, dynamic> json) => _$ExchangeServiceFromJson(json);
 
 /// Is the ID of the entity. This ID is unique.
@@ -1061,6 +1061,309 @@ $ExchangeProtocolCopyWith<$Res>? get protocol {
     return _then(_self.copyWith(protocol: value));
   });
 }
+}
+
+
+/// @nodoc
+mixin _$ExchangeServiceInput {
+
+/// Unique identifier of the service, or null when creating a new one.
+ String? get id;/// Unique identifier of the service, or null when creating a new one.
+ set id(String? value);/// Name of the service. Defaults to an empty string.
+ String get name;/// Name of the service. Defaults to an empty string.
+ set name(String value);/// Credentials object, driven by the required fields of the selected protocol. Defaults to an
+/// empty map.
+ Map<String, dynamic> get credentials;/// Credentials object, driven by the required fields of the selected protocol. Defaults to an
+/// empty map.
+ set credentials(Map<String, dynamic> value);/// ID of the [ExchangeProtocol] driving the service.
+ String? get protocolId;/// ID of the [ExchangeProtocol] driving the service.
+ set protocolId(String? value);/// Indicates if the service is enabled. Defaults to true.
+ bool get isEnabled;/// Indicates if the service is enabled. Defaults to true.
+ set isEnabled(bool value);/// IDs of the assets linked to the service. Defaults to an empty list.
+ List<String> get assetsIds;/// IDs of the assets linked to the service. Defaults to an empty list.
+ set assetsIds(List<String> value);/// IDs of the tags (groups) linked to the service. Defaults to an empty list.
+ List<String> get tagsIds;/// IDs of the tags (groups) linked to the service. Defaults to an empty list.
+ set tagsIds(List<String> value);/// IDs of the geofences linked to the service. Defaults to an empty list.
+ List<String> get geofencesIds;/// IDs of the geofences linked to the service. Defaults to an empty list.
+ set geofencesIds(List<String> value);/// IDs of the tags, as geofence groups, linked to the service. Defaults to an empty list.
+ List<String> get geofencesGroupsIds;/// IDs of the tags, as geofence groups, linked to the service. Defaults to an empty list.
+ set geofencesGroupsIds(List<String> value);
+/// Create a copy of ExchangeServiceInput
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ExchangeServiceInputCopyWith<ExchangeServiceInput> get copyWith => _$ExchangeServiceInputCopyWithImpl<ExchangeServiceInput>(this as ExchangeServiceInput, _$identity);
+
+  /// Serializes this ExchangeServiceInput to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'ExchangeServiceInput(id: $id, name: $name, credentials: $credentials, protocolId: $protocolId, isEnabled: $isEnabled, assetsIds: $assetsIds, tagsIds: $tagsIds, geofencesIds: $geofencesIds, geofencesGroupsIds: $geofencesGroupsIds)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ExchangeServiceInputCopyWith<$Res>  {
+  factory $ExchangeServiceInputCopyWith(ExchangeServiceInput value, $Res Function(ExchangeServiceInput) _then) = _$ExchangeServiceInputCopyWithImpl;
+@useResult
+$Res call({
+ String? id, String name, Map<String, dynamic> credentials, String? protocolId, bool isEnabled, List<String> assetsIds, List<String> tagsIds, List<String> geofencesIds, List<String> geofencesGroupsIds
+});
+
+
+
+
+}
+/// @nodoc
+class _$ExchangeServiceInputCopyWithImpl<$Res>
+    implements $ExchangeServiceInputCopyWith<$Res> {
+  _$ExchangeServiceInputCopyWithImpl(this._self, this._then);
+
+  final ExchangeServiceInput _self;
+  final $Res Function(ExchangeServiceInput) _then;
+
+/// Create a copy of ExchangeServiceInput
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? credentials = null,Object? protocolId = freezed,Object? isEnabled = null,Object? assetsIds = null,Object? tagsIds = null,Object? geofencesIds = null,Object? geofencesGroupsIds = null,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,credentials: null == credentials ? _self.credentials : credentials // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,protocolId: freezed == protocolId ? _self.protocolId : protocolId // ignore: cast_nullable_to_non_nullable
+as String?,isEnabled: null == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
+as bool,assetsIds: null == assetsIds ? _self.assetsIds : assetsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,tagsIds: null == tagsIds ? _self.tagsIds : tagsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,geofencesIds: null == geofencesIds ? _self.geofencesIds : geofencesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,geofencesGroupsIds: null == geofencesGroupsIds ? _self.geofencesGroupsIds : geofencesGroupsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ExchangeServiceInput].
+extension ExchangeServiceInputPatterns on ExchangeServiceInput {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ExchangeServiceInput value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ExchangeServiceInput() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ExchangeServiceInput value)  $default,){
+final _that = this;
+switch (_that) {
+case _ExchangeServiceInput():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ExchangeServiceInput value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ExchangeServiceInput() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String name,  Map<String, dynamic> credentials,  String? protocolId,  bool isEnabled,  List<String> assetsIds,  List<String> tagsIds,  List<String> geofencesIds,  List<String> geofencesGroupsIds)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ExchangeServiceInput() when $default != null:
+return $default(_that.id,_that.name,_that.credentials,_that.protocolId,_that.isEnabled,_that.assetsIds,_that.tagsIds,_that.geofencesIds,_that.geofencesGroupsIds);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String name,  Map<String, dynamic> credentials,  String? protocolId,  bool isEnabled,  List<String> assetsIds,  List<String> tagsIds,  List<String> geofencesIds,  List<String> geofencesGroupsIds)  $default,) {final _that = this;
+switch (_that) {
+case _ExchangeServiceInput():
+return $default(_that.id,_that.name,_that.credentials,_that.protocolId,_that.isEnabled,_that.assetsIds,_that.tagsIds,_that.geofencesIds,_that.geofencesGroupsIds);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String name,  Map<String, dynamic> credentials,  String? protocolId,  bool isEnabled,  List<String> assetsIds,  List<String> tagsIds,  List<String> geofencesIds,  List<String> geofencesGroupsIds)?  $default,) {final _that = this;
+switch (_that) {
+case _ExchangeServiceInput() when $default != null:
+return $default(_that.id,_that.name,_that.credentials,_that.protocolId,_that.isEnabled,_that.assetsIds,_that.tagsIds,_that.geofencesIds,_that.geofencesGroupsIds);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ExchangeServiceInput extends ExchangeServiceInput {
+   _ExchangeServiceInput({this.id, this.name = '', this.credentials = const {}, this.protocolId, this.isEnabled = true, this.assetsIds = const [], this.tagsIds = const [], this.geofencesIds = const [], this.geofencesGroupsIds = const []}): super._();
+  factory _ExchangeServiceInput.fromJson(Map<String, dynamic> json) => _$ExchangeServiceInputFromJson(json);
+
+/// Unique identifier of the service, or null when creating a new one.
+@override  String? id;
+/// Name of the service. Defaults to an empty string.
+@override@JsonKey()  String name;
+/// Credentials object, driven by the required fields of the selected protocol. Defaults to an
+/// empty map.
+@override@JsonKey()  Map<String, dynamic> credentials;
+/// ID of the [ExchangeProtocol] driving the service.
+@override  String? protocolId;
+/// Indicates if the service is enabled. Defaults to true.
+@override@JsonKey()  bool isEnabled;
+/// IDs of the assets linked to the service. Defaults to an empty list.
+@override@JsonKey()  List<String> assetsIds;
+/// IDs of the tags (groups) linked to the service. Defaults to an empty list.
+@override@JsonKey()  List<String> tagsIds;
+/// IDs of the geofences linked to the service. Defaults to an empty list.
+@override@JsonKey()  List<String> geofencesIds;
+/// IDs of the tags, as geofence groups, linked to the service. Defaults to an empty list.
+@override@JsonKey()  List<String> geofencesGroupsIds;
+
+/// Create a copy of ExchangeServiceInput
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ExchangeServiceInputCopyWith<_ExchangeServiceInput> get copyWith => __$ExchangeServiceInputCopyWithImpl<_ExchangeServiceInput>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ExchangeServiceInputToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'ExchangeServiceInput(id: $id, name: $name, credentials: $credentials, protocolId: $protocolId, isEnabled: $isEnabled, assetsIds: $assetsIds, tagsIds: $tagsIds, geofencesIds: $geofencesIds, geofencesGroupsIds: $geofencesGroupsIds)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ExchangeServiceInputCopyWith<$Res> implements $ExchangeServiceInputCopyWith<$Res> {
+  factory _$ExchangeServiceInputCopyWith(_ExchangeServiceInput value, $Res Function(_ExchangeServiceInput) _then) = __$ExchangeServiceInputCopyWithImpl;
+@override @useResult
+$Res call({
+ String? id, String name, Map<String, dynamic> credentials, String? protocolId, bool isEnabled, List<String> assetsIds, List<String> tagsIds, List<String> geofencesIds, List<String> geofencesGroupsIds
+});
+
+
+
+
+}
+/// @nodoc
+class __$ExchangeServiceInputCopyWithImpl<$Res>
+    implements _$ExchangeServiceInputCopyWith<$Res> {
+  __$ExchangeServiceInputCopyWithImpl(this._self, this._then);
+
+  final _ExchangeServiceInput _self;
+  final $Res Function(_ExchangeServiceInput) _then;
+
+/// Create a copy of ExchangeServiceInput
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? credentials = null,Object? protocolId = freezed,Object? isEnabled = null,Object? assetsIds = null,Object? tagsIds = null,Object? geofencesIds = null,Object? geofencesGroupsIds = null,}) {
+  return _then(_ExchangeServiceInput(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,credentials: null == credentials ? _self.credentials : credentials // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,protocolId: freezed == protocolId ? _self.protocolId : protocolId // ignore: cast_nullable_to_non_nullable
+as String?,isEnabled: null == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
+as bool,assetsIds: null == assetsIds ? _self.assetsIds : assetsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,tagsIds: null == tagsIds ? _self.tagsIds : tagsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,geofencesIds: null == geofencesIds ? _self.geofencesIds : geofencesIds // ignore: cast_nullable_to_non_nullable
+as List<String>,geofencesGroupsIds: null == geofencesGroupsIds ? _self.geofencesGroupsIds : geofencesGroupsIds // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+
 }
 
 // dart format on

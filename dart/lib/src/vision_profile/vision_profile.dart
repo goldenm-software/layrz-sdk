@@ -19,6 +19,7 @@ part 'vision_profile.freezed.dart';
 part 'vision_profile.g.dart';
 
 part 'src/profile.dart';
+part 'src/profile_input.dart';
 part 'src/protocol.dart';
 part 'src/protocol_input.dart';
 part 'src/gauge_result.dart';

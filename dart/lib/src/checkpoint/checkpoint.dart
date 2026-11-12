@@ -5,10 +5,15 @@
 /// stop or pathway segment within a checkpoint, and
 /// [LinkedAssetToCheckpointId] for identifying the assets or tags linked to a
 /// checkpoint.
+///
+/// [Checkpoint] exposes API callers to fetch and delete checkpoints, and [CheckpointInput] is its mutable
+/// counterpart with a `save` caller to create or update them.
 library;
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:layrz_logging/layrz_logging.dart';
 import 'package:layrz_sdk/src/access/access.dart';
+import 'package:layrz_sdk/src/api/api.dart';
 import 'package:layrz_sdk/src/geofences/geofences.dart';
 
 part 'checkpoint.freezed.dart';

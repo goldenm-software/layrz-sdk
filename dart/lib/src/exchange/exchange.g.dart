@@ -140,3 +140,43 @@ Map<String, dynamic> _$ExchangeServiceToJson(
   'geofencesGroupsIds': instance.geofencesGroupsIds,
   'geofencesGroups': instance.geofencesGroups?.map((e) => e.toJson()).toList(),
 };
+
+_ExchangeServiceInput _$ExchangeServiceInputFromJson(
+  Map<String, dynamic> json,
+) => _ExchangeServiceInput(
+  id: json['id'] as String?,
+  name: json['name'] as String? ?? '',
+  credentials: json['credentials'] as Map<String, dynamic>? ?? const {},
+  protocolId: json['protocolId'] as String?,
+  isEnabled: json['isEnabled'] as bool? ?? true,
+  assetsIds:
+      (json['assetsIds'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
+  tagsIds:
+      (json['tagsIds'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
+  geofencesIds:
+      (json['geofencesIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  geofencesGroupsIds:
+      (json['geofencesGroupsIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+);
+
+Map<String, dynamic> _$ExchangeServiceInputToJson(
+  _ExchangeServiceInput instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'credentials': instance.credentials,
+  'protocolId': instance.protocolId,
+  'isEnabled': instance.isEnabled,
+  'assetsIds': instance.assetsIds,
+  'tagsIds': instance.tagsIds,
+  'geofencesIds': instance.geofencesIds,
+  'geofencesGroupsIds': instance.geofencesGroupsIds,
+};

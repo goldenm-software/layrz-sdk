@@ -78,6 +78,11 @@ _CheckpointInput _$CheckpointInputFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Waypoint.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      waypoints:
+          (json['waypoints'] as List<dynamic>?)
+              ?.map((e) => Waypoint.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       linkedAssetsIds:
           (json['linkedAssetsIds'] as List<dynamic>?)
               ?.map(
@@ -96,5 +101,6 @@ Map<String, dynamic> _$CheckpointInputToJson(
   'name': instance.name,
   'assetId': instance.assetId,
   'waypointsJson': instance.waypointsJson?.map((e) => e.toJson()).toList(),
+  'waypoints': instance.waypoints?.map((e) => e.toJson()).toList(),
   'linkedAssetsIds': instance.linkedAssetsIds?.map((e) => e.toJson()).toList(),
 };

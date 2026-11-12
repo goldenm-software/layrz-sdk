@@ -79,6 +79,9 @@ class WaypointKindOrNullConverter implements JsonConverter<WaypointKind?, String
 /// or the travel segment between two stops ([WaypointKind.pathway]).
 @freezed
 abstract class Waypoint with _$Waypoint {
+  /// Private constructor used by the code generator.
+  const Waypoint._();
+
   /// Constructs an immutable [Waypoint].
   const factory Waypoint({
     /// ID of the waypoint entity. This ID is unique.
@@ -100,4 +103,29 @@ abstract class Waypoint with _$Waypoint {
 
   /// Deserializes a [Waypoint] from a JSON map.
   factory Waypoint.fromJson(Map<String, dynamic> json) => _$WaypointFromJson(json);
+
+  // coverage:ignore-start
+  /// GraphQL fragment covering the fields of a [Waypoint], including the reduced selection of its geofence
+  /// (`id`, `name` and `mode`).
+  static GqlFragment get fragment => GqlFragment(name: 'waypointFragment', onType: 'Waypoint')
+    ..add(GqlField(name: 'id'))
+    ..add(GqlField(name: 'geofenceId'))
+    ..add(
+      GqlField(name: 'geofence')
+        ..add(GqlField(name: 'id'))
+        ..add(GqlField(name: 'name'))
+        ..add(GqlField(name: 'mode')),
+    )
+    ..add(GqlField(name: 'time'))
+    ..add(GqlField(name: 'kind'));
+  // coverage:ignore-end
+
+  /// Serializes this [Waypoint] as the backend `WaypointInput`: `id`, `geofenceId`, `time` and `kind`. The nested
+  /// `geofence` is omitted because the input type does not accept it.
+  Map<String, dynamic> toInputJson() => {
+    'id': id,
+    'geofenceId': geofenceId,
+    'time': time,
+    'kind': kind?.toJson(),
+  };
 }
