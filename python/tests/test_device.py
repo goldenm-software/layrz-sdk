@@ -44,6 +44,28 @@ def test_device_minimal() -> None:
   assert device.modbus is None
 
 
+def test_device_model() -> None:
+  data = {
+    'id': 3,
+    'name': 'Sensor',
+    'ident': 'C30000496E76',
+    'protocol': 'generic',
+    'model': 'MST01',
+    'is_primary': True,
+  }
+  device = Device.model_validate(data)
+  assert device.model == 'MST01'
+
+  dumped = device.model_dump(mode='json', by_alias=True)
+  assert dumped['model'] == 'MST01'
+  assert Device.model_validate(dumped).model == 'MST01'
+
+
+def test_device_model_is_optional() -> None:
+  device = Device.model_validate({'id': 4, 'name': 'No model', 'ident': 'x', 'protocol': 'generic'})
+  assert device.model is None
+
+
 def test_device_marshal_roundtrip() -> None:
   data = {
     'id': 1,
