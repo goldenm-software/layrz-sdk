@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.26.1+1
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* `token`: `Token.fetchAll`, `Token.create` and `Token.expire` now type `onResponse` as `void Function(ApiStatus status)?` and pass the `ApiStatus` directly, instead of `void Function(String statusCode)?` with the status JSON string. Breaking for callers passing a `String`-typed callback; use `ApiStatus` instead.
+* `ats`: drop the `material.dart` import; colors are now explicit `Color` values with identical ARGB.
+
+### Go
+
+* No changes in this release.
+
 ## 4.26.1
 
 ### Python
