@@ -52,6 +52,7 @@ part 'src/font.dart';
 part 'src/instance.dart';
 part 'src/instance_input.dart';
 part 'src/legal.dart';
+part 'src/lenient_readers.dart';
 part 'src/login.dart';
 part 'src/asset.dart';
 part 'src/push_secrets.dart';
