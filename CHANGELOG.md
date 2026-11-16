@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Dart
+
+* `device`: `DeviceVariant.mappit` now queries `mappitDevices` in `Device.fetchAll` and `Device.fetch`. On the public `/graphql` endpoint `devices` resolves to the standard schema and returns nothing for Mappit; `/mappit/graphql` does not expose `mappitDevices`.
+* `sensors`: new `SensorVariant` (`standard`, `mappit`). `Sensor.fetchAll`, `Sensor.fetch`, `Sensor.deleteMultiple` and `SensorInput.save` take `variant`; `mappit` uses `mappitGlobalSensors`, `deleteMappitGlobalSensors`, `addMappitGlobalSensor` and `editMappitGlobalSensor`. Nested sensors keep `addSensor`, `editSensor` and `deleteSensors`.
+
 ## 4.26.2
 
 ### Python

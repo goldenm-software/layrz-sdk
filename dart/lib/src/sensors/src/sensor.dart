@@ -175,6 +175,11 @@ abstract class Sensor with _$Sensor {
   // coverage:ignore-end
 
   // coverage:ignore-start
+  /// GraphQL query name for global sensors in the given [variant].
+  static String _queryName(SensorVariant variant) => variant == .mappit ? 'mappitGlobalSensors' : 'globalSensors';
+  // coverage:ignore-end
+
+  // coverage:ignore-start
   /// Fetches every global sensor visible to the authenticated user.
   ///
   /// Uses a lightweight selection: the base [fragment] plus `assignedAssetsIds` and the id and name of
@@ -190,12 +195,15 @@ abstract class Sensor with _$Sensor {
 
     /// Optional callback invoked with the [ApiStatus] of the response when the status is not ok.
     void Function(ApiStatus status)? onResponse,
+
+    /// The variant that selects the GraphQL operation, default is [SensorVariant.standard].
+    SensorVariant variant = .standard,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
     try {
       final response = await connector.query(
-        GqlQuery(variables: [], name: 'globalSensors')..add(
-          GqlField(name: 'globalSensors')
+        GqlQuery(variables: [], name: _queryName(variant))..add(
+          GqlField(name: _queryName(variant))
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(_sensorGlobalResultField(light: true)),
@@ -236,6 +244,9 @@ abstract class Sensor with _$Sensor {
 
     /// Optional callback invoked with the [ApiStatus] of the response when the status is not ok.
     void Function(ApiStatus status)? onResponse,
+
+    /// The variant that selects the GraphQL operation, default is [SensorVariant.standard].
+    SensorVariant variant = .standard,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
     try {
@@ -244,9 +255,9 @@ abstract class Sensor with _$Sensor {
           variables: [
             GqlVariable(name: 'id', type: .id, isRequired: true, value: id),
           ],
-          name: 'globalSensors',
+          name: _queryName(variant),
         )..add(
-          GqlField(name: 'globalSensors', args: {'id': 'id'})
+          GqlField(name: _queryName(variant), args: {'id': 'id'})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(_sensorGlobalResultField()),
@@ -279,7 +290,8 @@ abstract class Sensor with _$Sensor {
   // coverage:ignore-start
   /// Deletes the sensors identified by [ids].
   ///
-  /// Sends `deleteGlobalSensors` when [isGlobal] is true, or `deleteSensors` (nested sensors) otherwise.
+  /// Sends `deleteGlobalSensors` (`deleteMappitGlobalSensors` for [SensorVariant.mappit]) when [isGlobal] is true,
+  /// or `deleteSensors` (nested sensors) otherwise.
   /// Authentication is carried solely via the connector's `Authorization` header.
   ///
   /// Returns `true` when the server reports success, `false` otherwise ([onResponse] receives the status).
@@ -298,9 +310,16 @@ abstract class Sensor with _$Sensor {
 
     /// Optional callback invoked with the [ApiStatus] of the response when the status is not ok.
     void Function(ApiStatus status)? onResponse,
+
+    /// The variant that selects the GraphQL operation, default is [SensorVariant.standard].
+    SensorVariant variant = .standard,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
-    final operation = isGlobal ? 'deleteGlobalSensors' : 'deleteSensors';
+    final operation = !isGlobal
+        ? 'deleteSensors'
+        : variant == .mappit
+        ? 'deleteMappitGlobalSensors'
+        : 'deleteGlobalSensors';
     try {
       final response = await connector.mutate(
         GqlMutation(
