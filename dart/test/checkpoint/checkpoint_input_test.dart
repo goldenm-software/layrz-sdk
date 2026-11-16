@@ -51,9 +51,54 @@ void main() {
       expect(json['kind'], 'POINT');
       expect(json.containsKey('geofence'), isFalse);
     });
+
+    test('sends id null for a waypoint with an empty id', () {
+      final json = Waypoint(id: '', geofenceId: '479054', time: '00:00', kind: WaypointKind.point).toInputJson();
+      expect(json.containsKey('id'), isTrue);
+      expect(json['id'], isNull);
+      expect(json['geofenceId'], '479054');
+      expect(json.containsKey('geofence'), isFalse);
+    });
+
+    test('sends the real id unchanged', () {
+      expect(Waypoint(id: '70448', kind: WaypointKind.point).toInputJson()['id'], '70448');
+    });
   });
 
   group('CheckpointInput.toRequestJson', () {
+    test('sends id null only for new waypoints and keeps the order', () {
+      final input = CheckpointInput(
+        id: 'cp-1',
+        name: 'Route',
+        waypoints: [
+          Waypoint(id: '70448', geofenceId: 'g1', kind: WaypointKind.point),
+          Waypoint(id: '', kind: WaypointKind.pathway),
+          Waypoint(id: '70450', geofenceId: 'g2', kind: WaypointKind.point),
+          Waypoint(id: '', geofenceId: '479054', kind: WaypointKind.point),
+        ],
+      );
+
+      final waypoints = (input.toRequestJson()['waypoints'] as List).cast<Map<String, dynamic>>();
+      expect(waypoints.map((w) => w['id']).toList(), ['70448', null, '70450', null]);
+      expect(waypoints.map((w) => w['kind']).toList(), ['POINT', 'PATHWAY', 'POINT', 'POINT']);
+    });
+
+    test('sends id null for every waypoint of a new checkpoint', () {
+      final input = CheckpointInput(
+        name: 'New',
+        waypoints: [
+          Waypoint(id: '', kind: WaypointKind.pathway),
+          Waypoint(id: '', geofenceId: 'g1', kind: WaypointKind.point),
+        ],
+      );
+
+      final json = input.toRequestJson();
+      expect(json.containsKey('id'), isFalse);
+      final waypoints = (json['waypoints'] as List).cast<Map<String, dynamic>>();
+      expect(waypoints, hasLength(2));
+      expect(waypoints.every((w) => w['id'] == null), isTrue);
+    });
+
     test('sends waypoints without geofence and linked assets as wire values', () {
       final input = CheckpointInput(
         id: 'cp-1',
