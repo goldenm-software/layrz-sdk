@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.26.1
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* `checkpoint`: `Waypoint.toInputJson` (used by `CheckpointInput.save` in `editCheckpoint` and `addCheckpoint`) now sends `id: null` for waypoints without an id, instead of an empty string, which the edit backend cannot convert to a number.
+
+### Go
+
+* No changes in this release.
+
 ## 4.26.0
 
 ### Python
