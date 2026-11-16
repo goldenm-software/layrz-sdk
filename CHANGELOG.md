@@ -1,6 +1,10 @@
 # Changelog
 
-## Unreleased
+## 4.27.0
+
+### Python
+
+* No changes in this release.
 
 ### Dart
 
