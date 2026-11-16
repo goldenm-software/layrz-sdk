@@ -122,8 +122,11 @@ abstract class Waypoint with _$Waypoint {
 
   /// Serializes this [Waypoint] as the backend `WaypointInput`: `id`, `geofenceId`, `time` and `kind`. The nested
   /// `geofence` is omitted because the input type does not accept it.
+  ///
+  /// A waypoint that has not been persisted yet has an empty [id]. It is sent as `null` instead of an empty string,
+  /// because the edit operation converts the id to a number and fails on `""`. Existing ids are sent unchanged.
   Map<String, dynamic> toInputJson() => {
-    'id': id,
+    'id': id.isEmpty ? null : id,
     'geofenceId': geofenceId,
     'time': time,
     'kind': kind?.toJson(),
