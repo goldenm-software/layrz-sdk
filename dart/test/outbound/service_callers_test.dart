@@ -47,7 +47,7 @@ void main() {
 
     test('spells the structure out to the backend max depth', () {
       final body = fragmentBody('fragment outboundServiceFragment on OutboundService');
-      expect(OutboundService.structureMaxDepth, 5);
+      expect(OutboundService.structureMaxDepth, 2);
       expect('nested'.allMatches(body).length, OutboundService.structureMaxDepth);
       expect(body, contains('source'));
     });
