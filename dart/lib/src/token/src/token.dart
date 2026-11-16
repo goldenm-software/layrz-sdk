@@ -60,7 +60,7 @@ abstract class Token with _$Token {
   /// themselves for security.
   ///
   /// The [onResponse] callback, if provided, is invoked with the [ApiStatus]
-  /// response code as a JSON string (e.g., `'OK'`, `'INTERNAL_ERROR'`). This
+  /// returned by the server (e.g., [ApiStatus.ok], [ApiStatus.internalError]). This
   /// allows the caller to observe success or error states without relying on
   /// the return value alone.
   ///
@@ -79,9 +79,9 @@ abstract class Token with _$Token {
     /// `https://api.example.com/graphql`).
     required Uri uri,
 
-    /// Optional callback invoked with the [ApiStatus] response code as a JSON
-    /// string. Called once per invocation, regardless of success or failure.
-    void Function(String statusCode)? onResponse,
+    /// Optional callback invoked with the [ApiStatus] returned by the
+    /// server. Called once per invocation, regardless of success or failure.
+    void Function(ApiStatus status)? onResponse,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
     try {
@@ -99,21 +99,21 @@ abstract class Token with _$Token {
 
       final data = response.data;
       if (data == null) {
-        onResponse?.call(ApiStatus.internalError.toJson());
+        onResponse?.call(ApiStatus.internalError);
         Log.error("layrz_models/Token/fetchAll(): No response from server");
         return [];
       }
 
       final result = data['data']['tokens'];
       if (result == null) {
-        onResponse?.call(ApiStatus.internalError.toJson());
+        onResponse?.call(ApiStatus.internalError);
         Log.error("layrz_models/Token/fetchAll(): No result from server");
         return [];
       }
 
       final status = ApiStatus.fromJson(result['status']);
       if (status != ApiStatus.ok) {
-        onResponse?.call(status.toJson());
+        onResponse?.call(status);
         return [];
       }
 
@@ -138,7 +138,7 @@ abstract class Token with _$Token {
   /// response.
   ///
   /// The [onResponse] callback, if provided, is invoked with the [ApiStatus]
-  /// response code as a JSON string. This allows the caller to observe success
+  /// returned by the server. This allows the caller to observe success
   /// or error states.
   ///
   /// Returns `true` if the server confirmed the token was expired; `false` on
@@ -158,9 +158,9 @@ abstract class Token with _$Token {
     /// `https://api.example.com/graphql`).
     required Uri uri,
 
-    /// Optional callback invoked with the [ApiStatus] response code as a JSON
-    /// string. Called once per invocation, regardless of success or failure.
-    void Function(String statusCode)? onResponse,
+    /// Optional callback invoked with the [ApiStatus] returned by the
+    /// server. Called once per invocation, regardless of success or failure.
+    void Function(ApiStatus status)? onResponse,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
 
@@ -180,21 +180,21 @@ abstract class Token with _$Token {
 
       final data = response.data;
       if (data == null) {
-        onResponse?.call(ApiStatus.internalError.toJson());
+        onResponse?.call(ApiStatus.internalError);
         Log.error("layrz_models/Token/expire(): No response from server");
         return false;
       }
 
       final result = data['data']['expireToken'];
       if (result == null) {
-        onResponse?.call(ApiStatus.internalError.toJson());
+        onResponse?.call(ApiStatus.internalError);
         Log.error("layrz_models/Token/expire(): No result from server");
         return false;
       }
 
       final status = ApiStatus.fromJson(result['status']);
       if (status != ApiStatus.ok) {
-        onResponse?.call(status.toJson());
+        onResponse?.call(status);
         return false;
       }
 
@@ -215,7 +215,7 @@ abstract class Token with _$Token {
   /// (infinite lifetime).
   ///
   /// The [onResponse] callback, if provided, is invoked with the [ApiStatus]
-  /// response code as a JSON string. This allows the caller to observe success
+  /// returned by the server. This allows the caller to observe success
   /// or error states.
   ///
   /// Returns the newly created [Token] (including its ID, token value, issued time,
@@ -241,9 +241,9 @@ abstract class Token with _$Token {
     /// [validBefore] to approximately [duration] from the current server time.
     required Duration? duration,
 
-    /// Optional callback invoked with the [ApiStatus] response code as a JSON
-    /// string. Called once per invocation, regardless of success or failure.
-    void Function(String statusCode)? onResponse,
+    /// Optional callback invoked with the [ApiStatus] returned by the
+    /// server. Called once per invocation, regardless of success or failure.
+    void Function(ApiStatus status)? onResponse,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
 
@@ -264,21 +264,21 @@ abstract class Token with _$Token {
 
       final data = response.data;
       if (data == null) {
-        onResponse?.call(ApiStatus.internalError.toJson());
+        onResponse?.call(ApiStatus.internalError);
         Log.error("layrz_models/Token/createUsingDuration(): No response from server");
         return null;
       }
 
       final result = data['data']['createToken'];
       if (result == null) {
-        onResponse?.call(ApiStatus.internalError.toJson());
+        onResponse?.call(ApiStatus.internalError);
         Log.error("layrz_models/Token/createUsingDuration(): No result from server");
         return null;
       }
 
       final status = ApiStatus.fromJson(result['status']);
       if (status != ApiStatus.ok) {
-        onResponse?.call(status.toJson());
+        onResponse?.call(status);
         return null;
       }
 

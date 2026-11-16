@@ -57,7 +57,7 @@ abstract class OutboundService with _$OutboundService {
   factory OutboundService.fromJson(Map<String, dynamic> json) => _$OutboundServiceFromJson(json);
 
   /// Maximum nesting of [OutboundStructure.nested] accepted by the backend (`STRUCTURE_MAX_DEPTH`).
-  static const int structureMaxDepth = 5;
+  static const int structureMaxDepth = 2;
 
   // coverage:ignore-start
   /// GraphQL fragment definition for querying outbound service fields.

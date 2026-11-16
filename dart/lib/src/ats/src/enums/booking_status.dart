@@ -45,13 +45,13 @@ extension AtsBookingStatusExtension on AtsBookingStatus {
   Color getColor() {
     switch (this) {
       case AtsBookingStatus.pending:
-        return Colors.orange;
+        return const Color(0xFFFF9800); // Colors.orange
       case AtsBookingStatus.scheduled:
-        return Colors.blue;
+        return const Color(0xFF2196F3); // Colors.blue
       case AtsBookingStatus.finished:
-        return Colors.green;
+        return const Color(0xFF4CAF50); // Colors.green
       default:
-        return Colors.red;
+        return const Color(0xFFF44336); // Colors.red
     }
   }
 

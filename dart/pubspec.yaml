@@ -1,6 +1,6 @@
 name: layrz_sdk
 description: "A Flutter SDK for Layrz, providing tools and utilities for integrating Layrz services into your Flutter applications."
-version: 4.26.1
+version: 4.26.2
 homepage: https://github.com/goldenm-software/layrz-sdk
 repository: https://github.com/goldenm-software/layrz-sdk/tree/main/dart
 
@@ -43,6 +43,5 @@ dev_dependencies:
   flutter_test: { sdk: flutter }
   freezed: ^3.2.5
   json_serializable: ^6.11.0
-  test: ^1.26.2
 
 flutter:
