@@ -568,8 +568,9 @@ abstract class Device with _$Device {
   /// [_getQueryNameFromVariant] returns the GraphQL query name for the given [DeviceVariant].
   static String _getQueryNameFromVariant(DeviceVariant variant) {
     switch (variant) {
-      case .ats:
       case .mappit:
+        return 'mappitDevices';
+      case .ats:
       case .standard:
       default:
         return 'devices';

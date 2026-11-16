@@ -97,7 +97,8 @@ abstract class SensorInput with _$SensorInput {
   // coverage:ignore-start
   /// Creates or updates this sensor on the server.
   ///
-  /// Picks the operation from [id] and [isGlobal]: `addGlobalSensor` / `editGlobalSensor` when [isGlobal] is true,
+  /// Picks the operation from [id], [isGlobal] and [variant]: `addGlobalSensor` / `editGlobalSensor` when [isGlobal]
+  /// is true (`addMappitGlobalSensor` / `editMappitGlobalSensor` for [SensorVariant.mappit]),
   /// or `addSensor` / `editSensor` (nested under [assetId]) otherwise. In every case this input is serialized as
   /// the `SensorInput` GraphQL input type. Authentication is carried solely via the connector's `Authorization`
   /// header, built from [apiToken].
@@ -118,12 +119,16 @@ abstract class SensorInput with _$SensorInput {
     /// Optional callback invoked with the [ApiStatus] of the response. Called once per
     /// invocation when the status is not ok.
     void Function(ApiStatus status)? onResponse,
+
+    /// The variant that selects the global sensor operation, default is [SensorVariant.standard].
+    SensorVariant variant = .standard,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
     final isNew = id == null;
+    final isMappit = variant == .mappit;
     final operation = switch ((isNew, isGlobal)) {
-      (true, true) => 'addGlobalSensor',
-      (false, true) => 'editGlobalSensor',
+      (true, true) => isMappit ? 'addMappitGlobalSensor' : 'addGlobalSensor',
+      (false, true) => isMappit ? 'editMappitGlobalSensor' : 'editGlobalSensor',
       (true, false) => 'addSensor',
       (false, false) => 'editSensor',
     };

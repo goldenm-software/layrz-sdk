@@ -32,3 +32,4 @@ part 'src/type.dart';
 part 'src/subtype.dart';
 part 'src/data_type.dart';
 part 'src/sensor_input.dart';
+part 'src/variant.dart';
