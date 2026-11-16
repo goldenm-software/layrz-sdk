@@ -5,8 +5,7 @@
 library;
 
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart' show Colors, IconData;
-import 'package:flutter/widgets.dart' show Color, ValueChanged;
+import 'package:flutter/widgets.dart' show Color, IconData, ValueChanged;
 import 'package:flutter_material_design_icons/flutter_material_design_icons.dart' show MdiIcons;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:layrz_logging/layrz_logging.dart';
