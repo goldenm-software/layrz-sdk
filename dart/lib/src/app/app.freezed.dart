@@ -2515,13 +2515,13 @@ mixin _$RegisteredApp {
 /// requested.
  List<AppInstance>? get instances;/// The list of assets imported into the app, or null when not
 /// requested.
- List<Asset>? get importedAssets;/// The list of devices imported into the app, or null when not
+@JsonKey(readValue: _readLenientAssets) List<Asset>? get importedAssets;/// The list of devices imported into the app, or null when not
 /// requested.
- List<Device>? get importedDevices;/// The list of users imported into the app, or null when not
+@JsonKey(readValue: _readLenientDevices) List<Device>? get importedDevices;/// The list of users imported into the app, or null when not
 /// requested.
  List<User>? get importedUsers;/// The list of users granted access to the app, or null when not
 /// requested.
- List<User>? get keychain;/// The identifier of the source this app was created from.
+@JsonKey(readValue: _readLenientUsers) List<User>? get keychain;/// The identifier of the source this app was created from.
  String get sourceId;/// The owner of the app.
 ///
 /// Important: this field is only available when the query is made from
@@ -2571,7 +2571,7 @@ abstract mixin class $RegisteredAppCopyWith<$Res>  {
   factory $RegisteredAppCopyWith(RegisteredApp value, $Res Function(RegisteredApp) _then) = _$RegisteredAppCopyWithImpl;
 @useResult
 $Res call({
- String id, String name,@JsonKey(unknownEnumValue: AppTechnology.flutter) AppTechnology technology, AppLegal? legalInformation, AppDesign? designInformation, String nickname, bool? isCustomized, List<AppInstance>? instances, List<Asset>? importedAssets, List<Device>? importedDevices, List<User>? importedUsers, List<User>? keychain, String sourceId, User? owner, List<CustomReport>? allowedReports, String? fixedWorkspaceId, Workspace? fixedWorkspace, List<MapLayer> authorizedLayers, PushSecrets? iosPushSecrets, PushSecrets? androidPushSecrets, bool? hasSvcPushSecrets
+ String id, String name,@JsonKey(unknownEnumValue: AppTechnology.flutter) AppTechnology technology, AppLegal? legalInformation, AppDesign? designInformation, String nickname, bool? isCustomized, List<AppInstance>? instances,@JsonKey(readValue: _readLenientAssets) List<Asset>? importedAssets,@JsonKey(readValue: _readLenientDevices) List<Device>? importedDevices, List<User>? importedUsers,@JsonKey(readValue: _readLenientUsers) List<User>? keychain, String sourceId, User? owner, List<CustomReport>? allowedReports, String? fixedWorkspaceId, Workspace? fixedWorkspace, List<MapLayer> authorizedLayers, PushSecrets? iosPushSecrets, PushSecrets? androidPushSecrets, bool? hasSvcPushSecrets
 });
 
 
@@ -2768,7 +2768,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(unknownEnumValue: AppTechnology.flutter)  AppTechnology technology,  AppLegal? legalInformation,  AppDesign? designInformation,  String nickname,  bool? isCustomized,  List<AppInstance>? instances,  List<Asset>? importedAssets,  List<Device>? importedDevices,  List<User>? importedUsers,  List<User>? keychain,  String sourceId,  User? owner,  List<CustomReport>? allowedReports,  String? fixedWorkspaceId,  Workspace? fixedWorkspace,  List<MapLayer> authorizedLayers,  PushSecrets? iosPushSecrets,  PushSecrets? androidPushSecrets,  bool? hasSvcPushSecrets)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(unknownEnumValue: AppTechnology.flutter)  AppTechnology technology,  AppLegal? legalInformation,  AppDesign? designInformation,  String nickname,  bool? isCustomized,  List<AppInstance>? instances, @JsonKey(readValue: _readLenientAssets)  List<Asset>? importedAssets, @JsonKey(readValue: _readLenientDevices)  List<Device>? importedDevices,  List<User>? importedUsers, @JsonKey(readValue: _readLenientUsers)  List<User>? keychain,  String sourceId,  User? owner,  List<CustomReport>? allowedReports,  String? fixedWorkspaceId,  Workspace? fixedWorkspace,  List<MapLayer> authorizedLayers,  PushSecrets? iosPushSecrets,  PushSecrets? androidPushSecrets,  bool? hasSvcPushSecrets)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RegisteredApp() when $default != null:
 return $default(_that.id,_that.name,_that.technology,_that.legalInformation,_that.designInformation,_that.nickname,_that.isCustomized,_that.instances,_that.importedAssets,_that.importedDevices,_that.importedUsers,_that.keychain,_that.sourceId,_that.owner,_that.allowedReports,_that.fixedWorkspaceId,_that.fixedWorkspace,_that.authorizedLayers,_that.iosPushSecrets,_that.androidPushSecrets,_that.hasSvcPushSecrets);case _:
@@ -2789,7 +2789,7 @@ return $default(_that.id,_that.name,_that.technology,_that.legalInformation,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(unknownEnumValue: AppTechnology.flutter)  AppTechnology technology,  AppLegal? legalInformation,  AppDesign? designInformation,  String nickname,  bool? isCustomized,  List<AppInstance>? instances,  List<Asset>? importedAssets,  List<Device>? importedDevices,  List<User>? importedUsers,  List<User>? keychain,  String sourceId,  User? owner,  List<CustomReport>? allowedReports,  String? fixedWorkspaceId,  Workspace? fixedWorkspace,  List<MapLayer> authorizedLayers,  PushSecrets? iosPushSecrets,  PushSecrets? androidPushSecrets,  bool? hasSvcPushSecrets)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(unknownEnumValue: AppTechnology.flutter)  AppTechnology technology,  AppLegal? legalInformation,  AppDesign? designInformation,  String nickname,  bool? isCustomized,  List<AppInstance>? instances, @JsonKey(readValue: _readLenientAssets)  List<Asset>? importedAssets, @JsonKey(readValue: _readLenientDevices)  List<Device>? importedDevices,  List<User>? importedUsers, @JsonKey(readValue: _readLenientUsers)  List<User>? keychain,  String sourceId,  User? owner,  List<CustomReport>? allowedReports,  String? fixedWorkspaceId,  Workspace? fixedWorkspace,  List<MapLayer> authorizedLayers,  PushSecrets? iosPushSecrets,  PushSecrets? androidPushSecrets,  bool? hasSvcPushSecrets)  $default,) {final _that = this;
 switch (_that) {
 case _RegisteredApp():
 return $default(_that.id,_that.name,_that.technology,_that.legalInformation,_that.designInformation,_that.nickname,_that.isCustomized,_that.instances,_that.importedAssets,_that.importedDevices,_that.importedUsers,_that.keychain,_that.sourceId,_that.owner,_that.allowedReports,_that.fixedWorkspaceId,_that.fixedWorkspace,_that.authorizedLayers,_that.iosPushSecrets,_that.androidPushSecrets,_that.hasSvcPushSecrets);case _:
@@ -2809,7 +2809,7 @@ return $default(_that.id,_that.name,_that.technology,_that.legalInformation,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name, @JsonKey(unknownEnumValue: AppTechnology.flutter)  AppTechnology technology,  AppLegal? legalInformation,  AppDesign? designInformation,  String nickname,  bool? isCustomized,  List<AppInstance>? instances,  List<Asset>? importedAssets,  List<Device>? importedDevices,  List<User>? importedUsers,  List<User>? keychain,  String sourceId,  User? owner,  List<CustomReport>? allowedReports,  String? fixedWorkspaceId,  Workspace? fixedWorkspace,  List<MapLayer> authorizedLayers,  PushSecrets? iosPushSecrets,  PushSecrets? androidPushSecrets,  bool? hasSvcPushSecrets)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name, @JsonKey(unknownEnumValue: AppTechnology.flutter)  AppTechnology technology,  AppLegal? legalInformation,  AppDesign? designInformation,  String nickname,  bool? isCustomized,  List<AppInstance>? instances, @JsonKey(readValue: _readLenientAssets)  List<Asset>? importedAssets, @JsonKey(readValue: _readLenientDevices)  List<Device>? importedDevices,  List<User>? importedUsers, @JsonKey(readValue: _readLenientUsers)  List<User>? keychain,  String sourceId,  User? owner,  List<CustomReport>? allowedReports,  String? fixedWorkspaceId,  Workspace? fixedWorkspace,  List<MapLayer> authorizedLayers,  PushSecrets? iosPushSecrets,  PushSecrets? androidPushSecrets,  bool? hasSvcPushSecrets)?  $default,) {final _that = this;
 switch (_that) {
 case _RegisteredApp() when $default != null:
 return $default(_that.id,_that.name,_that.technology,_that.legalInformation,_that.designInformation,_that.nickname,_that.isCustomized,_that.instances,_that.importedAssets,_that.importedDevices,_that.importedUsers,_that.keychain,_that.sourceId,_that.owner,_that.allowedReports,_that.fixedWorkspaceId,_that.fixedWorkspace,_that.authorizedLayers,_that.iosPushSecrets,_that.androidPushSecrets,_that.hasSvcPushSecrets);case _:
@@ -2824,7 +2824,7 @@ return $default(_that.id,_that.name,_that.technology,_that.legalInformation,_tha
 @JsonSerializable()
 
 class _RegisteredApp extends RegisteredApp {
-  const _RegisteredApp({required this.id, required this.name, @JsonKey(unknownEnumValue: AppTechnology.flutter) this.technology = AppTechnology.flutter, this.legalInformation, this.designInformation, required this.nickname, this.isCustomized, this.instances, this.importedAssets, this.importedDevices, this.importedUsers, this.keychain, required this.sourceId, this.owner, this.allowedReports, this.fixedWorkspaceId, this.fixedWorkspace, this.authorizedLayers = const [], this.iosPushSecrets, this.androidPushSecrets, this.hasSvcPushSecrets}): super._();
+  const _RegisteredApp({required this.id, required this.name, @JsonKey(unknownEnumValue: AppTechnology.flutter) this.technology = AppTechnology.flutter, this.legalInformation, this.designInformation, required this.nickname, this.isCustomized, this.instances, @JsonKey(readValue: _readLenientAssets) this.importedAssets, @JsonKey(readValue: _readLenientDevices) this.importedDevices, this.importedUsers, @JsonKey(readValue: _readLenientUsers) this.keychain, required this.sourceId, this.owner, this.allowedReports, this.fixedWorkspaceId, this.fixedWorkspace, this.authorizedLayers = const [], this.iosPushSecrets, this.androidPushSecrets, this.hasSvcPushSecrets}): super._();
   factory _RegisteredApp.fromJson(Map<String, dynamic> json) => _$RegisteredAppFromJson(json);
 
 /// The unique identifier of the app.
@@ -2846,16 +2846,16 @@ class _RegisteredApp extends RegisteredApp {
 @override final  List<AppInstance>? instances;
 /// The list of assets imported into the app, or null when not
 /// requested.
-@override final  List<Asset>? importedAssets;
+@override@JsonKey(readValue: _readLenientAssets) final  List<Asset>? importedAssets;
 /// The list of devices imported into the app, or null when not
 /// requested.
-@override final  List<Device>? importedDevices;
+@override@JsonKey(readValue: _readLenientDevices) final  List<Device>? importedDevices;
 /// The list of users imported into the app, or null when not
 /// requested.
 @override final  List<User>? importedUsers;
 /// The list of users granted access to the app, or null when not
 /// requested.
-@override final  List<User>? keychain;
+@override@JsonKey(readValue: _readLenientUsers) final  List<User>? keychain;
 /// The identifier of the source this app was created from.
 @override final  String sourceId;
 /// The owner of the app.
@@ -2916,7 +2916,7 @@ abstract mixin class _$RegisteredAppCopyWith<$Res> implements $RegisteredAppCopy
   factory _$RegisteredAppCopyWith(_RegisteredApp value, $Res Function(_RegisteredApp) _then) = __$RegisteredAppCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name,@JsonKey(unknownEnumValue: AppTechnology.flutter) AppTechnology technology, AppLegal? legalInformation, AppDesign? designInformation, String nickname, bool? isCustomized, List<AppInstance>? instances, List<Asset>? importedAssets, List<Device>? importedDevices, List<User>? importedUsers, List<User>? keychain, String sourceId, User? owner, List<CustomReport>? allowedReports, String? fixedWorkspaceId, Workspace? fixedWorkspace, List<MapLayer> authorizedLayers, PushSecrets? iosPushSecrets, PushSecrets? androidPushSecrets, bool? hasSvcPushSecrets
+ String id, String name,@JsonKey(unknownEnumValue: AppTechnology.flutter) AppTechnology technology, AppLegal? legalInformation, AppDesign? designInformation, String nickname, bool? isCustomized, List<AppInstance>? instances,@JsonKey(readValue: _readLenientAssets) List<Asset>? importedAssets,@JsonKey(readValue: _readLenientDevices) List<Device>? importedDevices, List<User>? importedUsers,@JsonKey(readValue: _readLenientUsers) List<User>? keychain, String sourceId, User? owner, List<CustomReport>? allowedReports, String? fixedWorkspaceId, Workspace? fixedWorkspace, List<MapLayer> authorizedLayers, PushSecrets? iosPushSecrets, PushSecrets? androidPushSecrets, bool? hasSvcPushSecrets
 });
 
 

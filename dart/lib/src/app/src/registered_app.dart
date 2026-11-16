@@ -36,7 +36,9 @@ abstract class RegisteredApp with _$RegisteredApp {
     required String name,
 
     /// The technology of the app.
-    @JsonKey(unknownEnumValue: AppTechnology.flutter) @Default(AppTechnology.flutter) AppTechnology technology,
+    @JsonKey(unknownEnumValue: AppTechnology.flutter)
+    @Default(AppTechnology.flutter)
+    AppTechnology technology,
 
     /// The legal information of the app.
     AppLegal? legalInformation,
@@ -56,11 +58,11 @@ abstract class RegisteredApp with _$RegisteredApp {
 
     /// The list of assets imported into the app, or null when not
     /// requested.
-    List<Asset>? importedAssets,
+    @JsonKey(readValue: _readLenientAssets) List<Asset>? importedAssets,
 
     /// The list of devices imported into the app, or null when not
     /// requested.
-    List<Device>? importedDevices,
+    @JsonKey(readValue: _readLenientDevices) List<Device>? importedDevices,
 
     /// The list of users imported into the app, or null when not
     /// requested.
@@ -68,7 +70,7 @@ abstract class RegisteredApp with _$RegisteredApp {
 
     /// The list of users granted access to the app, or null when not
     /// requested.
-    List<User>? keychain,
+    @JsonKey(readValue: _readLenientUsers) List<User>? keychain,
 
     /// The identifier of the source this app was created from.
     required String sourceId,
@@ -107,7 +109,8 @@ abstract class RegisteredApp with _$RegisteredApp {
   }) = _RegisteredApp;
 
   /// Deserializes a [RegisteredApp] from a JSON map.
-  factory RegisteredApp.fromJson(Map<String, dynamic> json) => _$RegisteredAppFromJson(json);
+  factory RegisteredApp.fromJson(Map<String, dynamic> json) =>
+      _$RegisteredAppFromJson(json);
 
   // coverage:ignore-start
   /// Fetches all registered apps from the server.
@@ -153,8 +156,18 @@ abstract class RegisteredApp with _$RegisteredApp {
                 ..add(GqlField(name: 'sourceId'))
                 ..add(GqlField(name: 'isCustomized'))
                 ..add(GqlField(name: 'technology'))
-                ..add(GqlField(name: 'legalInformation', fragment: AppLegal.fragment))
-                ..add(GqlField(name: 'designInformation', fragment: AppDesign.reducedFragment))
+                ..add(
+                  GqlField(
+                    name: 'legalInformation',
+                    fragment: AppLegal.fragment,
+                  ),
+                )
+                ..add(
+                  GqlField(
+                    name: 'designInformation',
+                    fragment: AppDesign.reducedFragment,
+                  ),
+                )
                 ..add(
                   GqlField(name: 'instances')
                     ..add(GqlField(name: 'id'))
@@ -176,7 +189,9 @@ abstract class RegisteredApp with _$RegisteredApp {
 
       return response.result ?? [];
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/fetchAll(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/fetchAll(): General exception => $e\n$stack",
+      );
       return [];
     }
   }
@@ -220,7 +235,9 @@ abstract class RegisteredApp with _$RegisteredApp {
         )..add(
           GqlField(
               name: 'mappitRegisteredApps',
-              args: {if (appIdentifier != null) 'appIdentifier': 'appIdentifier'},
+              args: {
+                if (appIdentifier != null) 'appIdentifier': 'appIdentifier',
+              },
             )
             ..add(GqlField(name: 'status'))
             ..add(
@@ -232,8 +249,14 @@ abstract class RegisteredApp with _$RegisteredApp {
                   GqlField(name: 'nickname'),
                   GqlField(name: 'technology'),
                   GqlField(name: 'sourceId'),
-                  GqlField(name: 'legalInformation', fragment: AppLegal.fragment),
-                  GqlField(name: 'designInformation', fragment: AppDesign.fragment),
+                  GqlField(
+                    name: 'legalInformation',
+                    fragment: AppLegal.fragment,
+                  ),
+                  GqlField(
+                    name: 'designInformation',
+                    fragment: AppDesign.fragment,
+                  ),
                   GqlField(
                     name: 'instances',
                     fields: [
@@ -258,14 +281,18 @@ abstract class RegisteredApp with _$RegisteredApp {
       );
 
       if (response.status != .ok) {
-        Log.warning("layrz_sdk/RegisteredApp/fetchAllMappit(): API returned status ${response.status}");
+        Log.warning(
+          "layrz_sdk/RegisteredApp/fetchAllMappit(): API returned status ${response.status}",
+        );
         onResponse?.call(response.status);
         return [];
       }
 
       return response.result ?? [];
     } catch (err, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/fetchAllMappit(): General exception => $err\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/fetchAllMappit(): General exception => $err\n$stack",
+      );
       onResponse?.call(.internalError);
       return [];
     }
@@ -320,7 +347,9 @@ abstract class RegisteredApp with _$RegisteredApp {
 
       return response.result?.first;
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/fetch(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/fetch(): General exception => $e\n$stack",
+      );
       return null;
     }
   }
@@ -371,15 +400,34 @@ abstract class RegisteredApp with _$RegisteredApp {
       ];
 
       if (iosPushSecrets != null) {
-        variables.add(GqlVariable(name: 'iosPushSecrets', type: .string, isRequired: false, value: iosPushSecrets));
+        variables.add(
+          GqlVariable(
+            name: 'iosPushSecrets',
+            type: .string,
+            isRequired: false,
+            value: iosPushSecrets,
+          ),
+        );
       }
       if (androidPushSecrets != null) {
         variables.add(
-          GqlVariable(name: 'androidPushSecrets', type: .string, isRequired: false, value: androidPushSecrets),
+          GqlVariable(
+            name: 'androidPushSecrets',
+            type: .string,
+            isRequired: false,
+            value: androidPushSecrets,
+          ),
         );
       }
       if (svcPushSecrets != null) {
-        variables.add(GqlVariable(name: 'svcPushSecrets', type: .string, isRequired: false, value: svcPushSecrets));
+        variables.add(
+          GqlVariable(
+            name: 'svcPushSecrets',
+            type: .string,
+            isRequired: false,
+            value: svcPushSecrets,
+          ),
+        );
       }
 
       final response = await connector.mutate(
@@ -392,7 +440,8 @@ abstract class RegisteredApp with _$RegisteredApp {
             args: {
               'appId': 'appId',
               if (iosPushSecrets != null) 'iosPushSecrets': 'iosPushSecrets',
-              if (androidPushSecrets != null) 'androidPushSecrets': 'androidPushSecrets',
+              if (androidPushSecrets != null)
+                'androidPushSecrets': 'androidPushSecrets',
               if (svcPushSecrets != null) 'svcPushSecrets': 'svcPushSecrets',
             },
           )..add(GqlField(name: 'status')),
@@ -405,7 +454,9 @@ abstract class RegisteredApp with _$RegisteredApp {
       }
       return true;
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/setPushSecrets(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/setPushSecrets(): General exception => $e\n$stack",
+      );
       return false;
     }
   }
@@ -443,13 +494,25 @@ abstract class RegisteredApp with _$RegisteredApp {
       final response = await connector.mutate(
         GqlMutation(
           variables: [
-            GqlVariable(name: 'appId', type: .id, isRequired: true, value: appId),
-            GqlVariable(name: 'userId', type: .id, isRequired: true, value: userId),
+            GqlVariable(
+              name: 'appId',
+              type: .id,
+              isRequired: true,
+              value: appId,
+            ),
+            GqlVariable(
+              name: 'userId',
+              type: .id,
+              isRequired: true,
+              value: userId,
+            ),
           ],
           name: 'grantAccessToApp',
         )..add(
-          GqlField(name: 'grantAccessToApp', args: {'appId': 'appId', 'userId': 'userId'})
-            ..add(GqlField(name: 'status')),
+          GqlField(
+            name: 'grantAccessToApp',
+            args: {'appId': 'appId', 'userId': 'userId'},
+          )..add(GqlField(name: 'status')),
         ),
       );
 
@@ -459,7 +522,9 @@ abstract class RegisteredApp with _$RegisteredApp {
       }
       return true;
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/grantAccessToApp(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/grantAccessToApp(): General exception => $e\n$stack",
+      );
       return false;
     }
   }
@@ -497,7 +562,12 @@ abstract class RegisteredApp with _$RegisteredApp {
       final response = await connector.mutate(
         GqlMutation(
           variables: [
-            GqlVariable(name: 'appId', type: .id, isRequired: true, value: appId),
+            GqlVariable(
+              name: 'appId',
+              type: .id,
+              isRequired: true,
+              value: appId,
+            ),
             GqlVariable(
               name: 'userIds',
               type: .list(of: .id, isRequired: true),
@@ -520,7 +590,9 @@ abstract class RegisteredApp with _$RegisteredApp {
       }
       return true;
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/grantMultipleAccessToApp(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/grantMultipleAccessToApp(): General exception => $e\n$stack",
+      );
       return false;
     }
   }
@@ -558,13 +630,25 @@ abstract class RegisteredApp with _$RegisteredApp {
       final response = await connector.mutate(
         GqlMutation(
           variables: [
-            GqlVariable(name: 'appId', type: .id, isRequired: true, value: appId),
-            GqlVariable(name: 'userId', type: .id, isRequired: true, value: userId),
+            GqlVariable(
+              name: 'appId',
+              type: .id,
+              isRequired: true,
+              value: appId,
+            ),
+            GqlVariable(
+              name: 'userId',
+              type: .id,
+              isRequired: true,
+              value: userId,
+            ),
           ],
           name: 'revokeAccessToApp',
         )..add(
-          GqlField(name: 'revokeAccessToApp', args: {'appId': 'appId', 'userId': 'userId'})
-            ..add(GqlField(name: 'status')),
+          GqlField(
+            name: 'revokeAccessToApp',
+            args: {'appId': 'appId', 'userId': 'userId'},
+          )..add(GqlField(name: 'status')),
         ),
       );
 
@@ -574,7 +658,9 @@ abstract class RegisteredApp with _$RegisteredApp {
       }
       return true;
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/revokeAccessToApp(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/revokeAccessToApp(): General exception => $e\n$stack",
+      );
       return false;
     }
   }
@@ -612,7 +698,12 @@ abstract class RegisteredApp with _$RegisteredApp {
       final response = await connector.mutate(
         GqlMutation(
           variables: [
-            GqlVariable(name: 'appId', type: .id, isRequired: true, value: appId),
+            GqlVariable(
+              name: 'appId',
+              type: .id,
+              isRequired: true,
+              value: appId,
+            ),
             GqlVariable(
               name: 'assetsIds',
               type: .list(of: .id, isRequired: true),
@@ -635,7 +726,9 @@ abstract class RegisteredApp with _$RegisteredApp {
       }
       return true;
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/importAssetsIntoApp(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/importAssetsIntoApp(): General exception => $e\n$stack",
+      );
       return false;
     }
   }
@@ -673,7 +766,12 @@ abstract class RegisteredApp with _$RegisteredApp {
       final response = await connector.mutate(
         GqlMutation(
           variables: [
-            GqlVariable(name: 'appId', type: .id, isRequired: true, value: appId),
+            GqlVariable(
+              name: 'appId',
+              type: .id,
+              isRequired: true,
+              value: appId,
+            ),
             GqlVariable(
               name: 'assetsIds',
               type: .list(of: .id, isRequired: true),
@@ -696,7 +794,9 @@ abstract class RegisteredApp with _$RegisteredApp {
       }
       return true;
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/revokeAssetsFromApp(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/revokeAssetsFromApp(): General exception => $e\n$stack",
+      );
       return false;
     }
   }
@@ -734,7 +834,12 @@ abstract class RegisteredApp with _$RegisteredApp {
       final response = await connector.mutate(
         GqlMutation(
           variables: [
-            GqlVariable(name: 'appId', type: .id, isRequired: true, value: appId),
+            GqlVariable(
+              name: 'appId',
+              type: .id,
+              isRequired: true,
+              value: appId,
+            ),
             GqlVariable(
               name: 'devicesIds',
               type: .list(of: .id, isRequired: true),
@@ -757,7 +862,9 @@ abstract class RegisteredApp with _$RegisteredApp {
       }
       return true;
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/importDevicesIntoApp(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/importDevicesIntoApp(): General exception => $e\n$stack",
+      );
       return false;
     }
   }
@@ -795,7 +902,12 @@ abstract class RegisteredApp with _$RegisteredApp {
       final response = await connector.mutate(
         GqlMutation(
           variables: [
-            GqlVariable(name: 'appId', type: .id, isRequired: true, value: appId),
+            GqlVariable(
+              name: 'appId',
+              type: .id,
+              isRequired: true,
+              value: appId,
+            ),
             GqlVariable(
               name: 'devicesIds',
               type: .list(of: .id, isRequired: true),
@@ -818,7 +930,9 @@ abstract class RegisteredApp with _$RegisteredApp {
       }
       return true;
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/revokeDevicesFromApp(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/revokeDevicesFromApp(): General exception => $e\n$stack",
+      );
       return false;
     }
   }
@@ -865,7 +979,10 @@ abstract class RegisteredApp with _$RegisteredApp {
           ],
           name: 'registerAppWithoutCustomization',
         )..add(
-          GqlField(name: 'registerAppWithoutCustomization', args: {'data': 'data'})
+          GqlField(
+              name: 'registerAppWithoutCustomization',
+              args: {'data': 'data'},
+            )
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'result', fragment: fragment)),
         ),
@@ -884,7 +1001,9 @@ abstract class RegisteredApp with _$RegisteredApp {
 
       return (response.status, response.errors, response.result);
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/registerWithoutCustomization(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/registerWithoutCustomization(): General exception => $e\n$stack",
+      );
       return (ApiStatus.internalError, null, null);
     }
   }
@@ -950,7 +1069,9 @@ abstract class RegisteredApp with _$RegisteredApp {
 
       return (response.status, response.errors, response.result);
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/registerWithCustomization(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/registerWithCustomization(): General exception => $e\n$stack",
+      );
       return (ApiStatus.internalError, null, null);
     }
   }
@@ -1019,7 +1140,9 @@ abstract class RegisteredApp with _$RegisteredApp {
 
       return (response.status, response.errors, response.result);
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/edit(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/edit(): General exception => $e\n$stack",
+      );
       return (ApiStatus.internalError, null, null);
     }
   }
@@ -1058,7 +1181,8 @@ abstract class RegisteredApp with _$RegisteredApp {
           ],
           name: 'deleteApp',
         )..add(
-          GqlField(name: 'deleteApp', args: {'id': 'id'})..add(GqlField(name: 'status')),
+          GqlField(name: 'deleteApp', args: {'id': 'id'})
+            ..add(GqlField(name: 'status')),
         ),
       );
 
@@ -1068,7 +1192,9 @@ abstract class RegisteredApp with _$RegisteredApp {
       }
       return true;
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/delete(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/delete(): General exception => $e\n$stack",
+      );
       return false;
     }
   }
@@ -1109,7 +1235,12 @@ abstract class RegisteredApp with _$RegisteredApp {
       final response = await connector.mutate(
         GqlMutation(
           variables: [
-            GqlVariable(name: 'appId', type: .string, isRequired: true, value: appId),
+            GqlVariable(
+              name: 'appId',
+              type: .string,
+              isRequired: true,
+              value: appId,
+            ),
             GqlVariable(
               name: 'platform',
               type: .enum_(of: 'AppPlatform'),
@@ -1124,7 +1255,14 @@ abstract class RegisteredApp with _$RegisteredApp {
             ),
           ],
         )..add(
-          GqlField(name: 'loadApp', args: {'platform': 'platform', 'technology': 'technology', 'appId': 'appId'})
+          GqlField(
+              name: 'loadApp',
+              args: {
+                'platform': 'platform',
+                'technology': 'technology',
+                'appId': 'appId',
+              },
+            )
             ..add(GqlField(name: 'status'))
             ..add(
               GqlField(name: 'result')
@@ -1133,11 +1271,23 @@ abstract class RegisteredApp with _$RegisteredApp {
                 ..add(GqlField(name: 'nickname'))
                 ..add(GqlField(name: 'technology'))
                 ..add(GqlField(name: 'sourceId'))
-                ..add(GqlField(name: 'legalInformation', fragment: AppLegal.fragment))
-                ..add(GqlField(name: 'designInformation', fragment: AppDesign.fragment)),
+                ..add(
+                  GqlField(
+                    name: 'legalInformation',
+                    fragment: AppLegal.fragment,
+                  ),
+                )
+                ..add(
+                  GqlField(
+                    name: 'designInformation',
+                    fragment: AppDesign.fragment,
+                  ),
+                ),
             ),
         ),
-        (json) => json != null ? RegisteredApp.fromJson(Map<String, dynamic>.from(json as Map)) : null,
+        (json) => json != null
+            ? RegisteredApp.fromJson(Map<String, dynamic>.from(json as Map))
+            : null,
       );
 
       if (response.status != .ok) {
@@ -1147,7 +1297,9 @@ abstract class RegisteredApp with _$RegisteredApp {
 
       return response.result;
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/load(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/load(): General exception => $e\n$stack",
+      );
       return null;
     }
   }
@@ -1155,29 +1307,32 @@ abstract class RegisteredApp with _$RegisteredApp {
 
   // coverage:ignore-start
   /// The GraphQL fragment for a [RegisteredApp].
-  static GqlFragment get fragment => GqlFragment(name: 'registeredAppFragment', onType: 'RegisteredApp')
-    ..add(GqlField(name: 'id'))
-    ..add(GqlField(name: 'name'))
-    ..add(GqlField(name: 'nickname'))
-    ..add(GqlField(name: 'isCustomized'))
-    ..add(GqlField(name: 'technology'))
-    ..add(GqlField(name: 'sourceId'))
-    ..add(GqlField(name: 'instances', fragment: AppInstance.fragment))
-    ..add(GqlField(name: 'designInformation', fragment: AppDesign.fragment))
-    ..add(GqlField(name: 'legalInformation', fragment: AppLegal.fragment))
-    ..add(GqlField(name: 'iosPushSecrets', fragment: PushSecrets.fragment))
-    ..add(GqlField(name: 'androidPushSecrets', fragment: PushSecrets.fragment))
-    ..add(GqlField(name: 'mapLayers', fragment: MapLayer.fragment))
-    ..add(
-      GqlField(
-        name: 'allowedReports',
-        fields: [
-          GqlField(name: 'id'),
-          GqlField(name: 'code'),
-        ],
-      ),
-    )
-    ..add(GqlField(name: 'hasSvcPushSecrets'));
+  static GqlFragment get fragment =>
+      GqlFragment(name: 'registeredAppFragment', onType: 'RegisteredApp')
+        ..add(GqlField(name: 'id'))
+        ..add(GqlField(name: 'name'))
+        ..add(GqlField(name: 'nickname'))
+        ..add(GqlField(name: 'isCustomized'))
+        ..add(GqlField(name: 'technology'))
+        ..add(GqlField(name: 'sourceId'))
+        ..add(GqlField(name: 'instances', fragment: AppInstance.fragment))
+        ..add(GqlField(name: 'designInformation', fragment: AppDesign.fragment))
+        ..add(GqlField(name: 'legalInformation', fragment: AppLegal.fragment))
+        ..add(GqlField(name: 'iosPushSecrets', fragment: PushSecrets.fragment))
+        ..add(
+          GqlField(name: 'androidPushSecrets', fragment: PushSecrets.fragment),
+        )
+        ..add(GqlField(name: 'mapLayers', fragment: MapLayer.fragment))
+        ..add(
+          GqlField(
+            name: 'allowedReports',
+            fields: [
+              GqlField(name: 'id'),
+              GqlField(name: 'code'),
+            ],
+          ),
+        )
+        ..add(GqlField(name: 'hasSvcPushSecrets'));
   // coverage:ignore-end
 
   // coverage:ignore-start
@@ -1242,7 +1397,9 @@ abstract class RegisteredApp with _$RegisteredApp {
 
       return response.result ?? [];
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/fetchAll(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/fetchAll(): General exception => $e\n$stack",
+      );
       return [];
     }
   }
@@ -1312,7 +1469,10 @@ abstract class RegisteredApp with _$RegisteredApp {
                     fields: [
                       GqlField(name: 'id'),
                       GqlField(name: 'name'),
-                      GqlField(name: 'dynamicAvatar', fragment: Avatar.fragment),
+                      GqlField(
+                        name: 'dynamicAvatar',
+                        fragment: Avatar.fragment,
+                      ),
                     ],
                   ),
                 ],
@@ -1329,7 +1489,9 @@ abstract class RegisteredApp with _$RegisteredApp {
 
       return response.result?.first;
     } catch (e, stack) {
-      Log.critical("layrz_sdk/RegisteredApp/fillAuthorizations(): General exception => $e\n$stack");
+      Log.critical(
+        "layrz_sdk/RegisteredApp/fillAuthorizations(): General exception => $e\n$stack",
+      );
       return null;
     }
   }
@@ -1361,5 +1523,6 @@ abstract class CustomReport with _$CustomReport {
   }) = _CustomReport;
 
   /// Deserializes a [CustomReport] from a JSON map.
-  factory CustomReport.fromJson(Map<String, dynamic> json) => _$CustomReportFromJson(json);
+  factory CustomReport.fromJson(Map<String, dynamic> json) =>
+      _$CustomReportFromJson(json);
 }

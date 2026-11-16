@@ -311,16 +311,17 @@ _RegisteredApp _$RegisteredAppFromJson(
   instances: (json['instances'] as List<dynamic>?)
       ?.map((e) => AppInstance.fromJson(e as Map<String, dynamic>))
       .toList(),
-  importedAssets: (json['importedAssets'] as List<dynamic>?)
+  importedAssets: (_readLenientAssets(json, 'importedAssets') as List<dynamic>?)
       ?.map((e) => Asset.fromJson(e as Map<String, dynamic>))
       .toList(),
-  importedDevices: (json['importedDevices'] as List<dynamic>?)
-      ?.map((e) => Device.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  importedDevices:
+      (_readLenientDevices(json, 'importedDevices') as List<dynamic>?)
+          ?.map((e) => Device.fromJson(e as Map<String, dynamic>))
+          .toList(),
   importedUsers: (json['importedUsers'] as List<dynamic>?)
       ?.map((e) => User.fromJson(e as Map<String, dynamic>))
       .toList(),
-  keychain: (json['keychain'] as List<dynamic>?)
+  keychain: (_readLenientUsers(json, 'keychain') as List<dynamic>?)
       ?.map((e) => User.fromJson(e as Map<String, dynamic>))
       .toList(),
   sourceId: json['sourceId'] as String,
