@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.27.1
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* `app`: `RegisteredApp` now decodes `importedAssets`, `importedDevices` and `keychain` leniently. Entries the API returns with a null `name` (or a null device `ident`) are kept with an empty string instead of failing, so `fillAuthorizations` no longer returns `null` and saving an app does not drop those authorizations.
+
+### Go
+
+* No changes in this release.
+
 ## 4.27.0
 
 ### Python
