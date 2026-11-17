@@ -178,7 +178,8 @@ abstract class Poi with _$Poi {
           variables: [
             GqlVariable(
               name: 'ids',
-              type: .list(of: .id),
+              // The backend declares `[ID!]!`, so each id must be non-null too.
+              type: .list(of: .id, isRequired: true),
               isRequired: true,
               value: ids,
             ),
