@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.27.2
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* `app`: `RegisteredApp.fetchAll` takes `isGoldenm` (default `false`). When `true` it queries `internalRegisteredApps` instead of the deprecated `registeredApps`; `instances.status` is not selected in that mode.
+* `app`: `InternalRegisteredApp.owner` and `RegisteredApp.owner` decode leniently. An owner the API returns with only its `id` is kept with an empty `name` instead of failing, so `AvailableApp.fetchAll(isGoldenm: true)` no longer returns an empty list.
+
+### Go
+
+* No changes in this release.
+
 ## 4.27.1
 
 ### Python
