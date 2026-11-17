@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.27.3
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* `poi`: `Poi.deleteMultiple` declares its `ids` variable as `[ID!]!`, as the backend expects. With `[ID]!` the API rejected the mutation (`Variable "$ids" of type "[ID]!" used in position expecting type "[ID!]!"`) and no point of interest could be deleted.
+
+### Go
+
+* No changes in this release.
+
 ## 4.27.2
 
 ### Python
