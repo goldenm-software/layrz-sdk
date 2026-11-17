@@ -36,7 +36,7 @@ abstract class InternalRegisteredApp with _$InternalRegisteredApp {
     bool? isCustomized,
 
     /// The owner of the app.
-    User? owner,
+    @JsonKey(readValue: _readLenientOwner) User? owner,
 
     /// The list of deployed instances of the app, or null when not
     /// requested.
