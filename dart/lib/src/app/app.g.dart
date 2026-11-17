@@ -250,9 +250,9 @@ _InternalRegisteredApp _$InternalRegisteredAppFromJson(
   nickname: json['nickname'] as String?,
   sourceId: json['sourceId'] as String?,
   isCustomized: json['isCustomized'] as bool?,
-  owner: json['owner'] == null
+  owner: _readLenientOwner(json, 'owner') == null
       ? null
-      : User.fromJson(json['owner'] as Map<String, dynamic>),
+      : User.fromJson(_readLenientOwner(json, 'owner') as Map<String, dynamic>),
   instances: (json['instances'] as List<dynamic>?)
       ?.map((e) => InternalAppInstance.fromJson(e as Map<String, dynamic>))
       .toList(),
@@ -325,9 +325,9 @@ _RegisteredApp _$RegisteredAppFromJson(
       ?.map((e) => User.fromJson(e as Map<String, dynamic>))
       .toList(),
   sourceId: json['sourceId'] as String,
-  owner: json['owner'] == null
+  owner: _readLenientOwner(json, 'owner') == null
       ? null
-      : User.fromJson(json['owner'] as Map<String, dynamic>),
+      : User.fromJson(_readLenientOwner(json, 'owner') as Map<String, dynamic>),
   allowedReports: (json['allowedReports'] as List<dynamic>?)
       ?.map((e) => CustomReport.fromJson(e as Map<String, dynamic>))
       .toList(),

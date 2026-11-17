@@ -63,3 +63,33 @@ Object? _readLenientDevices(Map<dynamic, dynamic> json, String key) {
 Object? _readLenientUsers(Map<dynamic, dynamic> json, String key) {
   return _lenientEntityList(json[key], const ['name']);
 }
+
+/// [_lenientEntity] rewrites a raw JSON entity map so that the non-nullable
+/// string keys in [stringKeys] are never null.
+///
+/// Single-entity counterpart of [_lenientEntityList]: the API returns only the
+/// `id` of an entity the current session cannot see (or that was deleted), so
+/// the map is copied with every key kept and each key in [stringKeys] set to an
+/// empty string when it is null or missing.
+///
+/// Parameters:
+/// - [value]: The raw JSON value read for the field.
+/// - [stringKeys]: The keys that must be non-null strings after the rewrite.
+///
+/// Returns the rewritten map, or [value] untouched when it is not a map.
+Object? _lenientEntity(Object? value, List<String> stringKeys) {
+  if (value is! Map) return value;
+  return (_lenientEntityList([value], stringKeys) as List).first;
+}
+
+/// [_readLenientOwner] reads `owner`, keeping an owner whose `id` or `name` is
+/// null as an empty string. See [_lenientEntity] for the rationale.
+///
+/// Parameters:
+/// - [json]: The parent JSON map.
+/// - [key]: The key being read.
+///
+/// Returns the lenient raw map for the key, or null when absent.
+Object? _readLenientOwner(Map<dynamic, dynamic> json, String key) {
+  return _lenientEntity(json[key], const ['id', 'name']);
+}
