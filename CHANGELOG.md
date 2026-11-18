@@ -1,5 +1,20 @@
 # Changelog
 
+## 4.28.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* `ats`: `AtsFuelSubType.fromStock` maps a stock family label (`S10`, `S500`, also with a `DIESEL` prefix such as `DIESELS10`) to a representative subtype, and `toStock` returns the family label of a subtype (null when it has none). Unrecognized labels return `AtsFuelSubType.unknown`.
+* `ats`: `AtsFuelSubTypeStockConverter` reads and writes those stock labels in JSON models.
+
+### Go
+
+* No changes in this release.
+
 ## 4.27.3
 
 ### Python

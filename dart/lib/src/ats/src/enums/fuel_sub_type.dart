@@ -165,6 +165,43 @@ enum AtsFuelSubType {
   /// get all getLocalKet in comments
 
   ///
+  /// Maps a stock family label to a representative subtype.
+  ///
+  /// The backend names stocks after the `total.stock.<family>` sensor (e.g. `S10`, `S500`), sometimes with a
+  /// `DIESEL` prefix (`DIESELS10`). Every subtype of a family shares its color, so any member represents it.
+  /// Unrecognized labels return [AtsFuelSubType.unknown].
+  static AtsFuelSubType fromStock(String? stock) {
+    final value = (stock ?? '').trim().toUpperCase().replaceFirst(
+      RegExp(r'^DIESEL(?=S\d)'),
+      '',
+    );
+    switch (value) {
+      case 'S10':
+        return AtsFuelSubType.dieselS10A;
+      case 'S500':
+        return AtsFuelSubType.dieselS500ComunA;
+      default:
+        return AtsFuelSubType.unknown;
+    }
+  }
+
+  /// The stock family label of this subtype (`S10`, `S500`), or null when it has none.
+  String? toStock() {
+    switch (this) {
+      case AtsFuelSubType.dieselS10A:
+      case AtsFuelSubType.dieselS10ComunB:
+      case AtsFuelSubType.dieselS10BAditivado:
+        return 'S10';
+      case AtsFuelSubType.dieselS500ComunA:
+      case AtsFuelSubType.dieselS500AAditivado:
+      case AtsFuelSubType.dieselS500ComunB:
+      case AtsFuelSubType.dieselS500BAditivado:
+        return 'S500';
+      default:
+        return null;
+    }
+  }
+
   static AtsFuelSubType fromCProdANP(String? cProdANP) {
     switch (cProdANP) {
       case '420105001':
