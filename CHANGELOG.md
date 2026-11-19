@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.31.1
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* No changes in this release.
+
+### Go
+
+* The Go module was not published as `v4.31.0`, so `4.31.1` ships the `4.31.0` changes for Go, including the **BREAKING** replacement of `OperationPayload.PushServiceAccount` (`json.RawMessage`) by `OperationPayload.PushSecrets` (`*string`, wire key `pushSecrets`). Consumers must decrypt it before use.
+
 ## 4.31.0
 
 ### Python
