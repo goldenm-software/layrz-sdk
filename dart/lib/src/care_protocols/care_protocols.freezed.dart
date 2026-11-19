@@ -555,8 +555,8 @@ return $default(_that.id,_that.name,_that.mode,_that.tasks,_that.pages);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _CareProtocolInput implements CareProtocolInput {
-   _CareProtocolInput({this.id, this.name = "", @JsonKey(unknownEnumValue: CareProtocolMode.simple) this.mode = CareProtocolMode.simple, this.tasks = const [], this.pages = const []});
+class _CareProtocolInput extends CareProtocolInput {
+   _CareProtocolInput({this.id, this.name = "", @JsonKey(unknownEnumValue: CareProtocolMode.simple) this.mode = CareProtocolMode.simple, this.tasks = const [], this.pages = const []}): super._();
   factory _CareProtocolInput.fromJson(Map<String, dynamic> json) => _$CareProtocolInputFromJson(json);
 
 /// [id] is the unique identifier of the care protocol. Omit to create a

@@ -6,33 +6,31 @@ part of 'concierge.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_ConciergeFormBlock _$ConciergeFormBlockFromJson(Map<String, dynamic> json) =>
-    _ConciergeFormBlock(
-      blockType: $enumDecode(
-        _$ConciergeFormBlockTypeEnumMap,
-        json['blockType'],
-        unknownValue: ConciergeFormBlockType.text,
-      ),
-      name: json['name'] as String,
-      configuration: json['configuration'] == null
-          ? null
-          : ConciergeFormBlockConfiguration.fromJson(
-              json['configuration'] as Map<String, dynamic>,
-            ),
-      showWhen: json['showWhen'] == null
-          ? null
-          : ConciergeFormBlockValidator.fromJson(
-              json['showWhen'] as Map<String, dynamic>,
-            ),
-    );
+_ConciergeFormBlock _$ConciergeFormBlockFromJson(Map<String, dynamic> json) => _ConciergeFormBlock(
+  blockType: $enumDecode(
+    _$ConciergeFormBlockTypeEnumMap,
+    json['blockType'],
+    unknownValue: ConciergeFormBlockType.text,
+  ),
+  name: json['name'] as String,
+  configuration: json['configuration'] == null
+      ? null
+      : ConciergeFormBlockConfiguration.fromJson(
+          json['configuration'] as Map<String, dynamic>,
+        ),
+  showWhen: json['showWhen'] == null
+      ? null
+      : ConciergeFormBlockValidator.fromJson(
+          json['showWhen'] as Map<String, dynamic>,
+        ),
+);
 
-Map<String, dynamic> _$ConciergeFormBlockToJson(_ConciergeFormBlock instance) =>
-    <String, dynamic>{
-      'blockType': instance.blockType.toJson(),
-      'name': instance.name,
-      'configuration': instance.configuration?.toJson(),
-      'showWhen': instance.showWhen?.toJson(),
-    };
+Map<String, dynamic> _$ConciergeFormBlockToJson(_ConciergeFormBlock instance) => <String, dynamic>{
+  'blockType': instance.blockType.toJson(),
+  'name': instance.name,
+  'configuration': instance.configuration?.toJson(),
+  'showWhen': instance.showWhen?.toJson(),
+};
 
 const _$ConciergeFormBlockTypeEnumMap = {
   ConciergeFormBlockType.text: 'TEXT',
@@ -49,27 +47,26 @@ const _$ConciergeFormBlockTypeEnumMap = {
   ConciergeFormBlockType.file: 'FILE',
 };
 
-_ConciergeBlockInput _$ConciergeBlockInputFromJson(Map<String, dynamic> json) =>
-    _ConciergeBlockInput(
-      name: json['name'] as String? ?? "",
-      blockType:
-          $enumDecodeNullable(
-            _$ConciergeFormBlockTypeEnumMap,
-            json['blockType'],
-            unknownValue: ConciergeFormBlockType.text,
-          ) ??
-          ConciergeFormBlockType.text,
-      showWhen: json['showWhen'] == null
-          ? null
-          : ConciergeFormBlockDisplayConditionInput.fromJson(
-              json['showWhen'] as Map<String, dynamic>,
-            ),
-      configuration: json['configuration'] == null
-          ? null
-          : ConciergeFormBlockConfigurationInput.fromJson(
-              json['configuration'] as Map<String, dynamic>,
-            ),
-    );
+_ConciergeBlockInput _$ConciergeBlockInputFromJson(Map<String, dynamic> json) => _ConciergeBlockInput(
+  name: json['name'] as String? ?? "",
+  blockType:
+      $enumDecodeNullable(
+        _$ConciergeFormBlockTypeEnumMap,
+        json['blockType'],
+        unknownValue: ConciergeFormBlockType.text,
+      ) ??
+      ConciergeFormBlockType.text,
+  showWhen: json['showWhen'] == null
+      ? null
+      : ConciergeFormBlockDisplayConditionInput.fromJson(
+          json['showWhen'] as Map<String, dynamic>,
+        ),
+  configuration: json['configuration'] == null
+      ? null
+      : ConciergeFormBlockConfigurationInput.fromJson(
+          json['configuration'] as Map<String, dynamic>,
+        ),
+);
 
 Map<String, dynamic> _$ConciergeBlockInputToJson(
   _ConciergeBlockInput instance,
@@ -83,26 +80,26 @@ Map<String, dynamic> _$ConciergeBlockInputToJson(
 _ConciergeForm _$ConciergeFormFromJson(Map<String, dynamic> json) =>
     _ConciergeForm(id: json['id'] as String, name: json['name'] as String);
 
-Map<String, dynamic> _$ConciergeFormToJson(_ConciergeForm instance) =>
-    <String, dynamic>{'id': instance.id, 'name': instance.name};
+Map<String, dynamic> _$ConciergeFormToJson(_ConciergeForm instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+};
 
-_ConciergeFormPage _$ConciergeFormPageFromJson(Map<String, dynamic> json) =>
-    _ConciergeFormPage(
-      title: json['title'] as String,
-      blocks:
-          (json['blocks'] as List<dynamic>?)
-              ?.map(
-                (e) => ConciergeFormBlock.fromJson(e as Map<String, dynamic>),
-              )
-              .toList() ??
-          const <ConciergeFormBlock>[],
-    );
+_ConciergeFormPage _$ConciergeFormPageFromJson(Map<String, dynamic> json) => _ConciergeFormPage(
+  title: json['title'] as String,
+  blocks:
+      (json['blocks'] as List<dynamic>?)
+          ?.map(
+            (e) => ConciergeFormBlock.fromJson(e as Map<String, dynamic>),
+          )
+          .toList() ??
+      const <ConciergeFormBlock>[],
+);
 
-Map<String, dynamic> _$ConciergeFormPageToJson(_ConciergeFormPage instance) =>
-    <String, dynamic>{
-      'title': instance.title,
-      'blocks': instance.blocks.map((e) => e.toJson()).toList(),
-    };
+Map<String, dynamic> _$ConciergeFormPageToJson(_ConciergeFormPage instance) => <String, dynamic>{
+  'title': instance.title,
+  'blocks': instance.blocks.map((e) => e.toJson()).toList(),
+};
 
 _ConciergeFormPageInput _$ConciergeFormPageInputFromJson(
   Map<String, dynamic> json,
@@ -125,38 +122,33 @@ Map<String, dynamic> _$ConciergeFormPageInputToJson(
 _ConciergeFormBlockConfiguration _$ConciergeFormBlockConfigurationFromJson(
   Map<String, dynamic> json,
 ) => _ConciergeFormBlockConfiguration(
-  allowEmpty: json['allowEmpty'] as bool,
-  isInt: json['isInt'] as bool?,
+  allowEmpty: json['allowEmpty'] as bool? ?? false,
+  asInt: json['asInt'] as bool?,
   isMultiple: json['isMultiple'] as bool?,
   max: (json['max'] as num?)?.toDouble(),
   min: (json['min'] as num?)?.toDouble(),
-  choices:
-      (json['choices'] as List<dynamic>?)?.map((e) => e as String).toList() ??
-      const <String>[],
+  choices: (json['choices'] as List<dynamic>?)?.map((e) => e as String).toList() ?? const <String>[],
 );
 
 Map<String, dynamic> _$ConciergeFormBlockConfigurationToJson(
   _ConciergeFormBlockConfiguration instance,
 ) => <String, dynamic>{
   'allowEmpty': instance.allowEmpty,
-  'isInt': instance.isInt,
+  'asInt': instance.asInt,
   'isMultiple': instance.isMultiple,
   'max': instance.max,
   'min': instance.min,
   'choices': instance.choices,
 };
 
-_ConciergeFormBlockConfigurationInput
-_$ConciergeFormBlockConfigurationInputFromJson(Map<String, dynamic> json) =>
+_ConciergeFormBlockConfigurationInput _$ConciergeFormBlockConfigurationInputFromJson(Map<String, dynamic> json) =>
     _ConciergeFormBlockConfigurationInput(
       allowEmpty: json['allowEmpty'] as bool?,
       isMultiple: json['isMultiple'] as bool?,
       min: (json['min'] as num?)?.toDouble(),
       max: (json['max'] as num?)?.toDouble(),
       asInt: json['asInt'] as bool?,
-      choices: (json['choices'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
+      choices: (json['choices'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$ConciergeFormBlockConfigurationInputToJson(
@@ -214,8 +206,7 @@ const _$ConciergeFormDisplayConditionOperatorEnumMap = {
   ConciergeFormDisplayConditionOperator.different: 'DIFFERENT',
 };
 
-_ConciergeFormBlockDisplayConditionInput
-_$ConciergeFormBlockDisplayConditionInputFromJson(Map<String, dynamic> json) =>
+_ConciergeFormBlockDisplayConditionInput _$ConciergeFormBlockDisplayConditionInputFromJson(Map<String, dynamic> json) =>
     _ConciergeFormBlockDisplayConditionInput(
       blockId: (json['blockId'] as num?)?.toInt(),
       min: (json['min'] as num?)?.toDouble(),

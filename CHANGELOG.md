@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.29.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* `care_protocols`: new API callers. `CareProtocol.fragment` (tasks, pages with blocks, associated triggers, counters and ID based access), `CareProtocol.fetchAll` (lightweight selection: `id`, `name`, `mode`, `numOfTasks`, `numOfPages`, `numOfBlocks`), `CareProtocol.fetch` (full fragment by id) and `CareProtocol.deleteMultiple` (declares `$ids: [ID]!`, as the backend does). `CareProtocolInput.save` runs `addCareProtocol` or `editCareProtocol` and removes every nested `null` from the payload, since the backend fails when a block `configuration` arrives as an explicit `null`.
+* `concierge`: **breaking change** in `ConciergeFormBlockConfiguration`. The `isInt` field is renamed to `asInt`, which is the name the backend exposes (`isInt` never existed there, so it was always `null`). Code reading `configuration.isInt` must read `configuration.asInt`; the JSON key changes from `isInt` to `asInt` too.
+* `concierge`: `ConciergeFormBlockConfiguration.allowEmpty` is now `@Default(false)`, so a `null` or missing value sent by the backend no longer fails the decoding.
+
+### Go
+
+* No changes in this release.
+
 ## 4.28.0
 
 ### Python

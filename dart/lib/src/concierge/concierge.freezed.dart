@@ -1462,9 +1462,10 @@ as List<ConciergeBlockInput>,
 /// @nodoc
 mixin _$ConciergeFormBlockConfiguration {
 
-/// Indicates if the field can be submitted without value.
+/// Indicates if the field can be submitted without value. Defaults to `false` when the backend sends `null` or
+/// omits it.
  bool get allowEmpty;/// Indicates if the field is an integer value or a float value.
- bool? get isInt;/// Indicates if the field is a multiple choice.
+ bool? get asInt;/// Indicates if the field is a multiple choice.
  bool? get isMultiple;/// The maximum value of the field, when it is a number.
  double? get max;/// The minimum value of the field, when it is a number.
  double? get min;/// The list of choices, when the field is a select. Defaults to an empty list.
@@ -1481,16 +1482,16 @@ $ConciergeFormBlockConfigurationCopyWith<ConciergeFormBlockConfiguration> get co
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConciergeFormBlockConfiguration&&(identical(other.allowEmpty, allowEmpty) || other.allowEmpty == allowEmpty)&&(identical(other.isInt, isInt) || other.isInt == isInt)&&(identical(other.isMultiple, isMultiple) || other.isMultiple == isMultiple)&&(identical(other.max, max) || other.max == max)&&(identical(other.min, min) || other.min == min)&&const DeepCollectionEquality().equals(other.choices, choices));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConciergeFormBlockConfiguration&&(identical(other.allowEmpty, allowEmpty) || other.allowEmpty == allowEmpty)&&(identical(other.asInt, asInt) || other.asInt == asInt)&&(identical(other.isMultiple, isMultiple) || other.isMultiple == isMultiple)&&(identical(other.max, max) || other.max == max)&&(identical(other.min, min) || other.min == min)&&const DeepCollectionEquality().equals(other.choices, choices));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,allowEmpty,isInt,isMultiple,max,min,const DeepCollectionEquality().hash(choices));
+int get hashCode => Object.hash(runtimeType,allowEmpty,asInt,isMultiple,max,min,const DeepCollectionEquality().hash(choices));
 
 @override
 String toString() {
-  return 'ConciergeFormBlockConfiguration(allowEmpty: $allowEmpty, isInt: $isInt, isMultiple: $isMultiple, max: $max, min: $min, choices: $choices)';
+  return 'ConciergeFormBlockConfiguration(allowEmpty: $allowEmpty, asInt: $asInt, isMultiple: $isMultiple, max: $max, min: $min, choices: $choices)';
 }
 
 
@@ -1501,7 +1502,7 @@ abstract mixin class $ConciergeFormBlockConfigurationCopyWith<$Res>  {
   factory $ConciergeFormBlockConfigurationCopyWith(ConciergeFormBlockConfiguration value, $Res Function(ConciergeFormBlockConfiguration) _then) = _$ConciergeFormBlockConfigurationCopyWithImpl;
 @useResult
 $Res call({
- bool allowEmpty, bool? isInt, bool? isMultiple, double? max, double? min, List<String> choices
+ bool allowEmpty, bool? asInt, bool? isMultiple, double? max, double? min, List<String> choices
 });
 
 
@@ -1518,10 +1519,10 @@ class _$ConciergeFormBlockConfigurationCopyWithImpl<$Res>
 
 /// Create a copy of ConciergeFormBlockConfiguration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? allowEmpty = null,Object? isInt = freezed,Object? isMultiple = freezed,Object? max = freezed,Object? min = freezed,Object? choices = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? allowEmpty = null,Object? asInt = freezed,Object? isMultiple = freezed,Object? max = freezed,Object? min = freezed,Object? choices = null,}) {
   return _then(_self.copyWith(
 allowEmpty: null == allowEmpty ? _self.allowEmpty : allowEmpty // ignore: cast_nullable_to_non_nullable
-as bool,isInt: freezed == isInt ? _self.isInt : isInt // ignore: cast_nullable_to_non_nullable
+as bool,asInt: freezed == asInt ? _self.asInt : asInt // ignore: cast_nullable_to_non_nullable
 as bool?,isMultiple: freezed == isMultiple ? _self.isMultiple : isMultiple // ignore: cast_nullable_to_non_nullable
 as bool?,max: freezed == max ? _self.max : max // ignore: cast_nullable_to_non_nullable
 as double?,min: freezed == min ? _self.min : min // ignore: cast_nullable_to_non_nullable
@@ -1611,10 +1612,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool allowEmpty,  bool? isInt,  bool? isMultiple,  double? max,  double? min,  List<String> choices)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool allowEmpty,  bool? asInt,  bool? isMultiple,  double? max,  double? min,  List<String> choices)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ConciergeFormBlockConfiguration() when $default != null:
-return $default(_that.allowEmpty,_that.isInt,_that.isMultiple,_that.max,_that.min,_that.choices);case _:
+return $default(_that.allowEmpty,_that.asInt,_that.isMultiple,_that.max,_that.min,_that.choices);case _:
   return orElse();
 
 }
@@ -1632,10 +1633,10 @@ return $default(_that.allowEmpty,_that.isInt,_that.isMultiple,_that.max,_that.mi
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool allowEmpty,  bool? isInt,  bool? isMultiple,  double? max,  double? min,  List<String> choices)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool allowEmpty,  bool? asInt,  bool? isMultiple,  double? max,  double? min,  List<String> choices)  $default,) {final _that = this;
 switch (_that) {
 case _ConciergeFormBlockConfiguration():
-return $default(_that.allowEmpty,_that.isInt,_that.isMultiple,_that.max,_that.min,_that.choices);case _:
+return $default(_that.allowEmpty,_that.asInt,_that.isMultiple,_that.max,_that.min,_that.choices);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1652,10 +1653,10 @@ return $default(_that.allowEmpty,_that.isInt,_that.isMultiple,_that.max,_that.mi
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool allowEmpty,  bool? isInt,  bool? isMultiple,  double? max,  double? min,  List<String> choices)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool allowEmpty,  bool? asInt,  bool? isMultiple,  double? max,  double? min,  List<String> choices)?  $default,) {final _that = this;
 switch (_that) {
 case _ConciergeFormBlockConfiguration() when $default != null:
-return $default(_that.allowEmpty,_that.isInt,_that.isMultiple,_that.max,_that.min,_that.choices);case _:
+return $default(_that.allowEmpty,_that.asInt,_that.isMultiple,_that.max,_that.min,_that.choices);case _:
   return null;
 
 }
@@ -1667,13 +1668,14 @@ return $default(_that.allowEmpty,_that.isInt,_that.isMultiple,_that.max,_that.mi
 @JsonSerializable()
 
 class _ConciergeFormBlockConfiguration extends ConciergeFormBlockConfiguration {
-  const _ConciergeFormBlockConfiguration({required this.allowEmpty, this.isInt, this.isMultiple, this.max, this.min, this.choices = const <String>[]}): super._();
+  const _ConciergeFormBlockConfiguration({this.allowEmpty = false, this.asInt, this.isMultiple, this.max, this.min, this.choices = const <String>[]}): super._();
   factory _ConciergeFormBlockConfiguration.fromJson(Map<String, dynamic> json) => _$ConciergeFormBlockConfigurationFromJson(json);
 
-/// Indicates if the field can be submitted without value.
-@override final  bool allowEmpty;
+/// Indicates if the field can be submitted without value. Defaults to `false` when the backend sends `null` or
+/// omits it.
+@override@JsonKey() final  bool allowEmpty;
 /// Indicates if the field is an integer value or a float value.
-@override final  bool? isInt;
+@override final  bool? asInt;
 /// Indicates if the field is a multiple choice.
 @override final  bool? isMultiple;
 /// The maximum value of the field, when it is a number.
@@ -1696,16 +1698,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConciergeFormBlockConfiguration&&(identical(other.allowEmpty, allowEmpty) || other.allowEmpty == allowEmpty)&&(identical(other.isInt, isInt) || other.isInt == isInt)&&(identical(other.isMultiple, isMultiple) || other.isMultiple == isMultiple)&&(identical(other.max, max) || other.max == max)&&(identical(other.min, min) || other.min == min)&&const DeepCollectionEquality().equals(other.choices, choices));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConciergeFormBlockConfiguration&&(identical(other.allowEmpty, allowEmpty) || other.allowEmpty == allowEmpty)&&(identical(other.asInt, asInt) || other.asInt == asInt)&&(identical(other.isMultiple, isMultiple) || other.isMultiple == isMultiple)&&(identical(other.max, max) || other.max == max)&&(identical(other.min, min) || other.min == min)&&const DeepCollectionEquality().equals(other.choices, choices));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,allowEmpty,isInt,isMultiple,max,min,const DeepCollectionEquality().hash(choices));
+int get hashCode => Object.hash(runtimeType,allowEmpty,asInt,isMultiple,max,min,const DeepCollectionEquality().hash(choices));
 
 @override
 String toString() {
-  return 'ConciergeFormBlockConfiguration(allowEmpty: $allowEmpty, isInt: $isInt, isMultiple: $isMultiple, max: $max, min: $min, choices: $choices)';
+  return 'ConciergeFormBlockConfiguration(allowEmpty: $allowEmpty, asInt: $asInt, isMultiple: $isMultiple, max: $max, min: $min, choices: $choices)';
 }
 
 
@@ -1716,7 +1718,7 @@ abstract mixin class _$ConciergeFormBlockConfigurationCopyWith<$Res> implements 
   factory _$ConciergeFormBlockConfigurationCopyWith(_ConciergeFormBlockConfiguration value, $Res Function(_ConciergeFormBlockConfiguration) _then) = __$ConciergeFormBlockConfigurationCopyWithImpl;
 @override @useResult
 $Res call({
- bool allowEmpty, bool? isInt, bool? isMultiple, double? max, double? min, List<String> choices
+ bool allowEmpty, bool? asInt, bool? isMultiple, double? max, double? min, List<String> choices
 });
 
 
@@ -1733,10 +1735,10 @@ class __$ConciergeFormBlockConfigurationCopyWithImpl<$Res>
 
 /// Create a copy of ConciergeFormBlockConfiguration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? allowEmpty = null,Object? isInt = freezed,Object? isMultiple = freezed,Object? max = freezed,Object? min = freezed,Object? choices = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? allowEmpty = null,Object? asInt = freezed,Object? isMultiple = freezed,Object? max = freezed,Object? min = freezed,Object? choices = null,}) {
   return _then(_ConciergeFormBlockConfiguration(
 allowEmpty: null == allowEmpty ? _self.allowEmpty : allowEmpty // ignore: cast_nullable_to_non_nullable
-as bool,isInt: freezed == isInt ? _self.isInt : isInt // ignore: cast_nullable_to_non_nullable
+as bool,asInt: freezed == asInt ? _self.asInt : asInt // ignore: cast_nullable_to_non_nullable
 as bool?,isMultiple: freezed == isMultiple ? _self.isMultiple : isMultiple // ignore: cast_nullable_to_non_nullable
 as bool?,max: freezed == max ? _self.max : max // ignore: cast_nullable_to_non_nullable
 as double?,min: freezed == min ? _self.min : min // ignore: cast_nullable_to_non_nullable

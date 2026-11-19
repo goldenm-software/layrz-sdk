@@ -24,7 +24,7 @@ void main() {
         'blockType': 'NUMBER',
         'configuration': {
           'allowEmpty': false,
-          'isInt': true,
+          'asInt': true,
           'min': 18,
           'max': 120,
         },
@@ -42,7 +42,7 @@ void main() {
       expect(block.blockType, ConciergeFormBlockType.number);
       expect(block.configuration, isA<ConciergeFormBlockConfiguration>());
       expect(block.configuration?.allowEmpty, false);
-      expect(block.configuration?.isInt, true);
+      expect(block.configuration?.asInt, true);
       expect(block.configuration?.min, 18);
       expect(block.configuration?.max, 120);
       expect(block.showWhen, isA<ConciergeFormBlockValidator>());
@@ -50,9 +50,7 @@ void main() {
       expect(block.showWhen?.validator, ConciergeFormDisplayConditionValidator.when);
     });
 
-    test(
-        'ConciergeFormBlock.fromJson() with unknown blockType defaults to text',
-        () {
+    test('ConciergeFormBlock.fromJson() with unknown blockType defaults to text', () {
       final json = <String, dynamic>{
         'name': 'Unknown Type Field',
         'blockType': 'UNKNOWN_TYPE',
@@ -159,8 +157,7 @@ void main() {
       expect(input.configuration?.allowEmpty, false);
     });
 
-    test('ConciergeBlockInput.fromJson() with unknown blockType defaults to text',
-        () {
+    test('ConciergeBlockInput.fromJson() with unknown blockType defaults to text', () {
       final json = <String, dynamic>{
         'name': 'Unknown Type',
         'blockType': 'INVALID_TYPE',
