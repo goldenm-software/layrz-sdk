@@ -78,7 +78,7 @@ type OperationPayload struct {
 	PushTitle string `json:"pushTitle,omitempty"`
 	// PushPlatforms are the platforms for push notifications (wire key: pushPlatforms).
 	PushPlatforms []enums.Platform `json:"pushPlatforms,omitempty"`
-	// PushSecrets is the EncryptionEngine-encrypted (`v<N>:<base64>`) Firebase service-account JSON for Layrz Push (wire key: pushSecrets). Consumers must decrypt it before use.
+	// PushSecrets is the encrypted Firebase service-account secrets for Layrz Push (wire key: pushSecrets). Consumers must decrypt it before use.
 	PushSecrets *string `json:"pushSecrets,omitempty"`
 	// PushDevices are the push device UUIDs for the operation (wire key: pushDevices).
 	PushDevices []string `json:"pushDevices,omitempty"`

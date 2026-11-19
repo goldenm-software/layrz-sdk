@@ -290,10 +290,7 @@ class OperationPayload(BaseModel):
 
   push_secrets: str | None = Field(
     default=None,
-    description=(
-      'Defines the EncryptionEngine-encrypted (`v<N>:<base64>`) Firebase service-account JSON used to send '
-      'Layrz Push notifications'
-    ),
+    description='Defines the encrypted Firebase service-account secrets used to send Layrz Push notifications',
     alias='pushSecrets',
   )
 

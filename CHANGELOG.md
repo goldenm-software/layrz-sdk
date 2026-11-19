@@ -4,7 +4,7 @@
 
 ### Python
 
-* **BREAKING**: `OperationPayload.push_service_account` (`pushServiceAccount`, a decrypted Firebase service-account dict) is replaced by `OperationPayload.push_secrets` (`pushSecrets`), an `EncryptionEngine`-encrypted (`v<N>:<base64>`) string. Consumers must decrypt it with `EncryptionEngine` from `layrz-orchestrator-kit`.
+* **BREAKING**: `OperationPayload.push_service_account` (`pushServiceAccount`, the decrypted Firebase service-account dict) is replaced by `OperationPayload.push_secrets` (`pushSecrets`), the encrypted service-account secrets as a string. Consumers must decrypt it before use.
 
 ### Dart
 
@@ -18,7 +18,7 @@
 
 ### Go
 
-* **BREAKING**: `OperationPayload.PushServiceAccount` (`json.RawMessage`, decrypted JSON) is replaced by `OperationPayload.PushSecrets` (`*string`, wire key `pushSecrets`), an `EncryptionEngine`-encrypted (`v<N>:<base64>`) string. Consumers must decrypt it with `EncryptionEngine` from `layrz-orchestrator-kit`.
+* **BREAKING**: `OperationPayload.PushServiceAccount` (`json.RawMessage`, the decrypted Firebase service-account JSON) is replaced by `OperationPayload.PushSecrets` (`*string`, wire key `pushSecrets`), the encrypted service-account secrets as a string. Consumers must decrypt it before use.
 
 ## 4.30.0
 
