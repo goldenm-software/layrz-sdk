@@ -9,11 +9,12 @@ abstract class ConciergeFormBlockConfiguration with _$ConciergeFormBlockConfigur
 
   /// Constructs an immutable [ConciergeFormBlockConfiguration].
   const factory ConciergeFormBlockConfiguration({
-    /// Indicates if the field can be submitted without value.
-    required bool allowEmpty,
+    /// Indicates if the field can be submitted without value. Defaults to `false` when the backend sends `null` or
+    /// omits it.
+    @Default(false) bool allowEmpty,
 
     /// Indicates if the field is an integer value or a float value.
-    bool? isInt,
+    bool? asInt,
 
     /// Indicates if the field is a multiple choice.
     bool? isMultiple,

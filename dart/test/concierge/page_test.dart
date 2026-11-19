@@ -90,7 +90,7 @@ void main() {
             'blockType': 'NUMBER',
             'configuration': {
               'allowEmpty': true,
-              'isInt': true,
+              'asInt': true,
             },
           },
           {

@@ -12,7 +12,7 @@ void main() {
 
       expect(config, isA<ConciergeFormBlockConfiguration>());
       expect(config.allowEmpty, false);
-      expect(config.isInt, isNull);
+      expect(config.asInt, isNull);
       expect(config.isMultiple, isNull);
       expect(config.max, isNull);
       expect(config.min, isNull);
@@ -22,7 +22,7 @@ void main() {
     test('ConciergeFormBlockConfiguration.fromJson() with all fields', () {
       final json = <String, dynamic>{
         'allowEmpty': true,
-        'isInt': false,
+        'asInt': false,
         'isMultiple': true,
         'min': 5,
         'max': 50,
@@ -32,7 +32,7 @@ void main() {
       final config = ConciergeFormBlockConfiguration.fromJson(json);
 
       expect(config.allowEmpty, true);
-      expect(config.isInt, false);
+      expect(config.asInt, false);
       expect(config.isMultiple, true);
       expect(config.min, 5);
       expect(config.max, 50);
@@ -42,7 +42,7 @@ void main() {
     test('ConciergeFormBlockConfiguration.fromJson() with numeric boundaries', () {
       final json = <String, dynamic>{
         'allowEmpty': false,
-        'isInt': true,
+        'asInt': true,
         'min': 0,
         'max': 100,
       };
@@ -51,7 +51,7 @@ void main() {
 
       expect(config.min, 0);
       expect(config.max, 100);
-      expect(config.isInt, true);
+      expect(config.asInt, true);
     });
 
     test('ConciergeFormBlockConfiguration.fromJson() with empty choices', () {
@@ -68,7 +68,7 @@ void main() {
     test('ConciergeFormBlockConfiguration roundtrip (fromJson then toJson)', () {
       final json = <String, dynamic>{
         'allowEmpty': true,
-        'isInt': false,
+        'asInt': false,
         'isMultiple': true,
         'min': 10,
         'max': 90,
@@ -79,7 +79,7 @@ void main() {
       final jsonRoundtrip = config.toJson();
 
       expect(jsonRoundtrip['allowEmpty'], true);
-      expect(jsonRoundtrip['isInt'], false);
+      expect(jsonRoundtrip['asInt'], false);
       expect(jsonRoundtrip['isMultiple'], true);
       expect(jsonRoundtrip['min'], 10);
       expect(jsonRoundtrip['max'], 90);
@@ -89,7 +89,7 @@ void main() {
     test('ConciergeFormBlockConfiguration with floating point values', () {
       final json = <String, dynamic>{
         'allowEmpty': false,
-        'isInt': false,
+        'asInt': false,
         'min': 0.5,
         'max': 99.99,
       };
@@ -98,7 +98,7 @@ void main() {
 
       expect(config.min, 0.5);
       expect(config.max, 99.99);
-      expect(config.isInt, false);
+      expect(config.asInt, false);
     });
   });
 
@@ -132,9 +132,7 @@ void main() {
       expect(input.choices, ['Yes', 'No']);
     });
 
-    test(
-        'ConciergeFormBlockConfigurationInput.fromJson() maps asInt correctly',
-        () {
+    test('ConciergeFormBlockConfigurationInput.fromJson() maps asInt correctly', () {
       final json = <String, dynamic>{
         'allowEmpty': false,
         'asInt': true,
@@ -150,9 +148,7 @@ void main() {
       expect(input.max, 100);
     });
 
-    test(
-        'ConciergeFormBlockConfigurationInput.fromJson() with choices list',
-        () {
+    test('ConciergeFormBlockConfigurationInput.fromJson() with choices list', () {
       final json = <String, dynamic>{
         'allowEmpty': true,
         'isMultiple': true,
@@ -165,9 +161,7 @@ void main() {
       expect(input.isMultiple, true);
     });
 
-    test(
-        'ConciergeFormBlockConfigurationInput roundtrip (fromJson then toJson)',
-        () {
+    test('ConciergeFormBlockConfigurationInput roundtrip (fromJson then toJson)', () {
       final json = <String, dynamic>{
         'allowEmpty': true,
         'asInt': false,
