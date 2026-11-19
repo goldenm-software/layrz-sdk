@@ -129,13 +129,13 @@ abstract class AtsMonitor with _$AtsMonitor {
     try {
       final response = await connector.query(
         GqlQuery(
-          name: 'monitors',
+          name: 'atsMonitors',
           variables: [
             GqlVariable(name: 'id', value: id, type: .id),
             GqlVariable(name: 'appId', value: appId, type: .id),
           ],
         )..add(
-          GqlField(name: 'monitors', args: {'id': 'id', 'appId': 'appId'})
+          GqlField(name: 'atsMonitors', args: {'id': 'id', 'appId': 'appId'})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(GqlField(name: 'result', fields: [...fields, ...?extraFields])),
@@ -179,7 +179,7 @@ abstract class AtsMonitor with _$AtsMonitor {
     try {
       final response = await connector.mutate(
         GqlMutation(
-          name: 'deleteMonitors',
+          name: 'deleteAtsMonitors',
           variables: [
             GqlVariable(
               name: 'ids',
@@ -189,7 +189,7 @@ abstract class AtsMonitor with _$AtsMonitor {
             ),
           ],
         )..add(
-          GqlField(name: 'deleteMonitors', args: {'ids': 'ids'})
+          GqlField(name: 'deleteAtsMonitors', args: {'ids': 'ids'})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors')),
         ),
@@ -263,7 +263,7 @@ abstract class AtsMonitorInput with _$AtsMonitorInput {
     /// [onResponse] is invoked with the [ApiStatus] when the request does not succeed.
     ValueChanged<ApiStatus>? onResponse,
   }) async {
-    final operation = id == null ? 'addMonitor' : 'editMonitor';
+    final operation = id == null ? 'addAtsMonitor' : 'editAtsMonitor';
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
     try {
       final response = await connector.mutate(
@@ -273,7 +273,7 @@ abstract class AtsMonitorInput with _$AtsMonitorInput {
             GqlVariable(
               name: 'data',
               value: toJson(),
-              type: .input(of: 'MonitorInput'),
+              type: .input(of: 'AtsMonitorInput'),
               isRequired: true,
             ),
           ],

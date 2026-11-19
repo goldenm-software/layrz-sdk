@@ -3,7 +3,7 @@ name: "Deploy versions"
 on:
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - "v[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
   prechecks:
@@ -139,6 +139,11 @@ jobs:
           git tag $NEW_TAG
           git push origin $NEW_TAG
           git push --delete origin $TAG_NAME
+
+          # Add other tag namespaces here
+          for prefix in go python dart; do
+            git push --delete origin "$prefix/$TAG_NAME"
+          done
 
   create-release:
     needs: [replicate-tags, deploy-python, deploy-dart]

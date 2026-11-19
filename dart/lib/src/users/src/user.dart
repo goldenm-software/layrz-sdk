@@ -26,10 +26,11 @@ Map<String, dynamic>? _mapOrNullDecoder(Object? json) => json == null ? null : M
 String _getSaveMutationName({required UserVariant variant, required bool isNew}) {
   switch (variant) {
     case .standard:
-    case .ats:
-    case .atsAdmin:
     case .tagon:
       return isNew ? 'addUser' : 'editUser';
+    case .ats:
+    case .atsAdmin:
+      return isNew ? 'addAtsUser' : 'editAtsUser';
     case .sdm:
       return isNew ? 'addSdmUser' : 'editSdmUser';
     case .mappitOperator:
@@ -45,6 +46,9 @@ String _getSaveMutationName({required UserVariant variant, required bool isNew})
 
 /// Returns the GraphQL mutation name for deleting users based on the
 /// [variant].
+/// [_isAtsVariant] whether [variant] targets the ATS federated operations.
+bool _isAtsVariant(UserVariant variant) => variant == .ats || variant == .atsAdmin;
+
 String _getDeleteMutationName({required UserVariant variant}) {
   switch (variant) {
     case .sdm:
@@ -55,9 +59,10 @@ String _getDeleteMutationName({required UserVariant variant}) {
     case .mappitSupervisor:
     case .mappitSeller:
       return 'deleteMappitUsers';
-    case .standard:
     case .ats:
     case .atsAdmin:
+      return 'deleteAtsUsers';
+    case .standard:
     case .brickhouse:
     case .tagon:
       return 'deleteUsers';
@@ -261,10 +266,9 @@ abstract class User with _$User {
   static String _getGqlEntityName({required UserVariant variant}) {
     switch (variant) {
       case .standard:
-        return 'User';
       case .ats:
       case .atsAdmin:
-        return 'AtsUser';
+        return 'User';
       case .brickhouse:
         return 'BrickhouseUser';
       case .sdm:
@@ -488,8 +492,13 @@ abstract class User with _$User {
                   GqlField(name: 'dynamicAvatar', fragment: Avatar.fragment),
                   if (variant == .sdm) GqlField(name: 'sdmCode'),
                   // Mappit tells customers and operators apart by their reference category.
-                  if (const <UserVariant>[.mappitOperator, .mappitCustomer, .mappitSupervisor, .mappitEmployee, .mappitSeller]
-                      .contains(variant))
+                  if (const <UserVariant>[
+                    .mappitOperator,
+                    .mappitCustomer,
+                    .mappitSupervisor,
+                    .mappitEmployee,
+                    .mappitSeller,
+                  ].contains(variant))
                     GqlField(
                       name: 'references',
                       fields: [
@@ -616,9 +625,12 @@ abstract class User with _$User {
   /// Fetches all users for app user management (includes username and
   /// email).
   ///
-  /// Always uses the standard `users` query; not variant-aware by design.
+  /// Uses `atsUsers` for the ATS variants and `users` otherwise.
   /// Returns a list of [User] on success, empty list on error.
   static Future<List<User>> fetchAllForAppUsers({
+    /// The ecosystem variant; only `.ats`/`.atsAdmin` change the query.
+    UserVariant variant = .standard,
+
     /// The API token to use for authentication. Obtain via the `login`
     /// mutation on the GraphQL API.
     required String apiToken,
@@ -630,13 +642,14 @@ abstract class User with _$User {
     void Function(String statusCode)? onResponse,
   }) async {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
+    final queryName = _isAtsVariant(variant) ? 'atsUsers' : 'users';
     try {
       final response = await connector.query(
         GqlQuery(
           variables: [],
-          name: 'users',
+          name: queryName,
         )..add(
-          GqlField(name: 'users')
+          GqlField(name: queryName)
             ..add(GqlField(name: 'status'))
             ..add(
               GqlField(name: 'result')
@@ -1087,6 +1100,9 @@ abstract class User with _$User {
   /// Returns a record with status and the generated invite link (or null on
   /// error).
   static Future<(ApiStatus, String?)> invite({
+    /// The ecosystem variant; only `.ats`/`.atsAdmin` change the mutation.
+    UserVariant variant = .standard,
+
     /// The email address to invite.
     String? email,
 
@@ -1117,13 +1133,14 @@ abstract class User with _$User {
       if (email != null) args['email'] = 'email';
       if (languageId != null) args['languageId'] = 'languageId';
 
+      final mutationName = _isAtsVariant(variant) ? 'inviteAtsUser' : 'inviteUser';
       final response = await connector.mutate(
         GqlMutation(
           variables: variables,
-          name: 'inviteUser',
+          name: mutationName,
         )..add(
           GqlField(
-              name: 'inviteUser',
+              name: mutationName,
               args: args,
             )
             ..add(GqlField(name: 'status'))

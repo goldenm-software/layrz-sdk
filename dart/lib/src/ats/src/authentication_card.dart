@@ -115,7 +115,7 @@ abstract class AtsAuthenticationCard with _$AtsAuthenticationCard {
   /// [ApiStatus.internalError].
   static StandardResponse<void> parseUploadResponse(Object? body) {
     final data = body is Map ? body['data'] : null;
-    final envelope = data is Map ? data['uploadCardsFromFileV2'] : null;
+    final envelope = data is Map ? data['uploadAtsCardsFromFileV2'] : null;
     if (envelope is! Map) return (ApiStatus.internalError, null, null);
 
     final rawStatus = envelope['status']?.toString() ?? '';
@@ -167,8 +167,8 @@ abstract class AtsAuthenticationCard with _$AtsAuthenticationCard {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
     try {
       final response = await connector.query(
-        GqlQuery(name: 'authenticationCards')..add(
-          GqlField(name: 'authenticationCards')
+        GqlQuery(name: 'atsAuthenticationCards')..add(
+          GqlField(name: 'atsAuthenticationCards')
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(GqlField(name: 'result', fields: [...fields, ...?extraFields])),
@@ -210,12 +210,12 @@ abstract class AtsAuthenticationCard with _$AtsAuthenticationCard {
     try {
       final response = await connector.query(
         GqlQuery(
-          name: 'authenticationCards',
+          name: 'atsAuthenticationCards',
           variables: [
             GqlVariable(name: 'id', value: id, type: .id, isRequired: true),
           ],
         )..add(
-          GqlField(name: 'authenticationCards', args: {'id': 'id'})
+          GqlField(name: 'atsAuthenticationCards', args: {'id': 'id'})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(
@@ -276,8 +276,8 @@ abstract class AtsAuthenticationCard with _$AtsAuthenticationCard {
     required AtsSelectCard type,
   }) {
     return _assign(
-      mutationName: 'assignCardsToUser',
-      inputType: 'AuthenticationCardMultipleInput',
+      mutationName: 'assignAtsCardsToUser',
+      inputType: 'AtsAuthenticationCardMultipleInput',
       data: {'ownerId': ownerId, 'cardsIds': cardsIds, 'type': type.toJson()},
       apiToken: apiToken,
       uri: uri,
@@ -312,8 +312,8 @@ abstract class AtsAuthenticationCard with _$AtsAuthenticationCard {
     required AtsSelectCard type,
   }) {
     return _assign(
-      mutationName: 'assignCardsByRangeToUser',
-      inputType: 'AuthenticationCardRangeInput',
+      mutationName: 'assignAtsCardsByRangeToUser',
+      inputType: 'AtsAuthenticationCardRangeInput',
       data: {
         'ownerId': ownerId,
         'initialNumber': initialNumber,
@@ -398,7 +398,7 @@ abstract class AtsAuthenticationCard with _$AtsAuthenticationCard {
     required List<String> ids,
   }) {
     return _mutateIds(
-      mutationName: 'unassignAuthenticationCards',
+      mutationName: 'unassignAtsAuthenticationCards',
       ids: ids,
       apiToken: apiToken,
       uri: uri,
@@ -423,7 +423,7 @@ abstract class AtsAuthenticationCard with _$AtsAuthenticationCard {
     required List<String> ids,
   }) {
     return _mutateIds(
-      mutationName: 'unsuspendAuthenticationCards',
+      mutationName: 'unsuspendAtsAuthenticationCards',
       ids: ids,
       apiToken: apiToken,
       uri: uri,
@@ -496,12 +496,12 @@ abstract class AtsAuthenticationCard with _$AtsAuthenticationCard {
       // Decoded by hand: the API answers a status outside ApiStatus and a list of errors.
       final response = await connector.perform(
         GqlMutation(
-          name: 'uploadCardsFromFileV2',
+          name: 'uploadAtsCardsFromFileV2',
           variables: [
             GqlVariable(name: 'authenticationCardsFile', value: dataUri, type: .string, isRequired: true),
           ],
         )..add(
-          GqlField(name: 'uploadCardsFromFileV2', args: {'authenticationCardsFile': 'authenticationCardsFile'})
+          GqlField(name: 'uploadAtsCardsFromFileV2', args: {'authenticationCardsFile': 'authenticationCardsFile'})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors')),
         ),
