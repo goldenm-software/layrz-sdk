@@ -148,7 +148,7 @@ _ReportSchedulerInput _$ReportSchedulerInputFromJson(
         json['relativeTime'],
         unknownValue: RelativeChoices.unknown,
       ) ??
-      RelativeChoices.unknown,
+      RelativeChoices.yesterday,
   sendTo:
       (json['sendTo'] as List<dynamic>?)?.map((e) => e as String).toList() ??
       const [],

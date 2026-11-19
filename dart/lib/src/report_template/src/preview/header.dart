@@ -9,7 +9,7 @@ abstract class ReportHeader with _$ReportHeader {
   /// Constructs an immutable [ReportHeader].
   const factory ReportHeader({
     /// Is the content of the report header.
-    required String content,
+    @Default('') String content,
 
     /// Is the text color of the report header.
     @ColorOrNullConverter() Color? textColor,

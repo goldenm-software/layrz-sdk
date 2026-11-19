@@ -18,7 +18,10 @@ mixin _$ReportScheduler {
 /// ID of the report scheduler.
  String get id;/// Name of the report scheduler.
  String? get name;/// Owner user of the report scheduler.
- String? get ownerId;/// List of asset IDs associated with the report scheduler.
+///
+/// The backend does not expose this field in `ReportScheduler`, so it is never selected by [fragment] and is
+/// always `null` when decoding a backend response. Selecting it makes the whole query fail.
+@Deprecated('The backend does not expose the owner of a report scheduler. It is always null.') String? get ownerId;/// List of asset IDs associated with the report scheduler.
  List<String> get assetsIds;/// List of outbound service IDs associated with the report scheduler.
  List<String> get outboundServicesIds;/// Code of the report template used for this report scheduler.
  String? get templateCode;/// ID of the report template used for this report scheduler.
@@ -69,7 +72,7 @@ abstract mixin class $ReportSchedulerCopyWith<$Res>  {
   factory $ReportSchedulerCopyWith(ReportScheduler value, $Res Function(ReportScheduler) _then) = _$ReportSchedulerCopyWithImpl;
 @useResult
 $Res call({
- String id, String? name, String? ownerId, List<String> assetsIds, List<String> outboundServicesIds, String? templateCode, String? templateId,@JsonKey(unknownEnumValue: RelativeChoices.unknown) RelativeChoices relativeTime, List<String> sendTo,@JsonKey(unknownEnumValue: Weekday.monday) List<Weekday> execWeekdays,@TimeOfDayOrNullConverter() TimeOfDay? execTime, String execTz,@TimestampConverter() DateTime? updatedAt, String? updatedById, User? updatedBy,@TimestampConverter() DateTime? createdAt, String? createdById, User? createdBy, String? subject, List<Access>? access, bool? enabled
+ String id, String? name,@Deprecated('The backend does not expose the owner of a report scheduler. It is always null.') String? ownerId, List<String> assetsIds, List<String> outboundServicesIds, String? templateCode, String? templateId,@JsonKey(unknownEnumValue: RelativeChoices.unknown) RelativeChoices relativeTime, List<String> sendTo,@JsonKey(unknownEnumValue: Weekday.monday) List<Weekday> execWeekdays,@TimeOfDayOrNullConverter() TimeOfDay? execTime, String execTz,@TimestampConverter() DateTime? updatedAt, String? updatedById, User? updatedBy,@TimestampConverter() DateTime? createdAt, String? createdById, User? createdBy, String? subject, List<Access>? access, bool? enabled
 });
 
 
@@ -230,7 +233,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? name,  String? ownerId,  List<String> assetsIds,  List<String> outboundServicesIds,  String? templateCode,  String? templateId, @JsonKey(unknownEnumValue: RelativeChoices.unknown)  RelativeChoices relativeTime,  List<String> sendTo, @JsonKey(unknownEnumValue: Weekday.monday)  List<Weekday> execWeekdays, @TimeOfDayOrNullConverter()  TimeOfDay? execTime,  String execTz, @TimestampConverter()  DateTime? updatedAt,  String? updatedById,  User? updatedBy, @TimestampConverter()  DateTime? createdAt,  String? createdById,  User? createdBy,  String? subject,  List<Access>? access,  bool? enabled)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? name, @Deprecated('The backend does not expose the owner of a report scheduler. It is always null.')  String? ownerId,  List<String> assetsIds,  List<String> outboundServicesIds,  String? templateCode,  String? templateId, @JsonKey(unknownEnumValue: RelativeChoices.unknown)  RelativeChoices relativeTime,  List<String> sendTo, @JsonKey(unknownEnumValue: Weekday.monday)  List<Weekday> execWeekdays, @TimeOfDayOrNullConverter()  TimeOfDay? execTime,  String execTz, @TimestampConverter()  DateTime? updatedAt,  String? updatedById,  User? updatedBy, @TimestampConverter()  DateTime? createdAt,  String? createdById,  User? createdBy,  String? subject,  List<Access>? access,  bool? enabled)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ReportScheduler() when $default != null:
 return $default(_that.id,_that.name,_that.ownerId,_that.assetsIds,_that.outboundServicesIds,_that.templateCode,_that.templateId,_that.relativeTime,_that.sendTo,_that.execWeekdays,_that.execTime,_that.execTz,_that.updatedAt,_that.updatedById,_that.updatedBy,_that.createdAt,_that.createdById,_that.createdBy,_that.subject,_that.access,_that.enabled);case _:
@@ -251,7 +254,7 @@ return $default(_that.id,_that.name,_that.ownerId,_that.assetsIds,_that.outbound
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? name,  String? ownerId,  List<String> assetsIds,  List<String> outboundServicesIds,  String? templateCode,  String? templateId, @JsonKey(unknownEnumValue: RelativeChoices.unknown)  RelativeChoices relativeTime,  List<String> sendTo, @JsonKey(unknownEnumValue: Weekday.monday)  List<Weekday> execWeekdays, @TimeOfDayOrNullConverter()  TimeOfDay? execTime,  String execTz, @TimestampConverter()  DateTime? updatedAt,  String? updatedById,  User? updatedBy, @TimestampConverter()  DateTime? createdAt,  String? createdById,  User? createdBy,  String? subject,  List<Access>? access,  bool? enabled)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? name, @Deprecated('The backend does not expose the owner of a report scheduler. It is always null.')  String? ownerId,  List<String> assetsIds,  List<String> outboundServicesIds,  String? templateCode,  String? templateId, @JsonKey(unknownEnumValue: RelativeChoices.unknown)  RelativeChoices relativeTime,  List<String> sendTo, @JsonKey(unknownEnumValue: Weekday.monday)  List<Weekday> execWeekdays, @TimeOfDayOrNullConverter()  TimeOfDay? execTime,  String execTz, @TimestampConverter()  DateTime? updatedAt,  String? updatedById,  User? updatedBy, @TimestampConverter()  DateTime? createdAt,  String? createdById,  User? createdBy,  String? subject,  List<Access>? access,  bool? enabled)  $default,) {final _that = this;
 switch (_that) {
 case _ReportScheduler():
 return $default(_that.id,_that.name,_that.ownerId,_that.assetsIds,_that.outboundServicesIds,_that.templateCode,_that.templateId,_that.relativeTime,_that.sendTo,_that.execWeekdays,_that.execTime,_that.execTz,_that.updatedAt,_that.updatedById,_that.updatedBy,_that.createdAt,_that.createdById,_that.createdBy,_that.subject,_that.access,_that.enabled);case _:
@@ -271,7 +274,7 @@ return $default(_that.id,_that.name,_that.ownerId,_that.assetsIds,_that.outbound
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? name,  String? ownerId,  List<String> assetsIds,  List<String> outboundServicesIds,  String? templateCode,  String? templateId, @JsonKey(unknownEnumValue: RelativeChoices.unknown)  RelativeChoices relativeTime,  List<String> sendTo, @JsonKey(unknownEnumValue: Weekday.monday)  List<Weekday> execWeekdays, @TimeOfDayOrNullConverter()  TimeOfDay? execTime,  String execTz, @TimestampConverter()  DateTime? updatedAt,  String? updatedById,  User? updatedBy, @TimestampConverter()  DateTime? createdAt,  String? createdById,  User? createdBy,  String? subject,  List<Access>? access,  bool? enabled)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? name, @Deprecated('The backend does not expose the owner of a report scheduler. It is always null.')  String? ownerId,  List<String> assetsIds,  List<String> outboundServicesIds,  String? templateCode,  String? templateId, @JsonKey(unknownEnumValue: RelativeChoices.unknown)  RelativeChoices relativeTime,  List<String> sendTo, @JsonKey(unknownEnumValue: Weekday.monday)  List<Weekday> execWeekdays, @TimeOfDayOrNullConverter()  TimeOfDay? execTime,  String execTz, @TimestampConverter()  DateTime? updatedAt,  String? updatedById,  User? updatedBy, @TimestampConverter()  DateTime? createdAt,  String? createdById,  User? createdBy,  String? subject,  List<Access>? access,  bool? enabled)?  $default,) {final _that = this;
 switch (_that) {
 case _ReportScheduler() when $default != null:
 return $default(_that.id,_that.name,_that.ownerId,_that.assetsIds,_that.outboundServicesIds,_that.templateCode,_that.templateId,_that.relativeTime,_that.sendTo,_that.execWeekdays,_that.execTime,_that.execTz,_that.updatedAt,_that.updatedById,_that.updatedBy,_that.createdAt,_that.createdById,_that.createdBy,_that.subject,_that.access,_that.enabled);case _:
@@ -285,8 +288,8 @@ return $default(_that.id,_that.name,_that.ownerId,_that.assetsIds,_that.outbound
 /// @nodoc
 @JsonSerializable()
 
-class _ReportScheduler implements ReportScheduler {
-  const _ReportScheduler({required this.id, this.name, this.ownerId, this.assetsIds = const [], this.outboundServicesIds = const [], this.templateCode, this.templateId, @JsonKey(unknownEnumValue: RelativeChoices.unknown) this.relativeTime = RelativeChoices.unknown, this.sendTo = const [], @JsonKey(unknownEnumValue: Weekday.monday) this.execWeekdays = const [], @TimeOfDayOrNullConverter() this.execTime, this.execTz = 'UTC', @TimestampConverter() this.updatedAt, this.updatedById, this.updatedBy, @TimestampConverter() this.createdAt, this.createdById, this.createdBy, this.subject, this.access, this.enabled});
+class _ReportScheduler extends ReportScheduler {
+  const _ReportScheduler({required this.id, this.name, @Deprecated('The backend does not expose the owner of a report scheduler. It is always null.') this.ownerId, this.assetsIds = const [], this.outboundServicesIds = const [], this.templateCode, this.templateId, @JsonKey(unknownEnumValue: RelativeChoices.unknown) this.relativeTime = RelativeChoices.unknown, this.sendTo = const [], @JsonKey(unknownEnumValue: Weekday.monday) this.execWeekdays = const [], @TimeOfDayOrNullConverter() this.execTime, this.execTz = 'UTC', @TimestampConverter() this.updatedAt, this.updatedById, this.updatedBy, @TimestampConverter() this.createdAt, this.createdById, this.createdBy, this.subject, this.access, this.enabled}): super._();
   factory _ReportScheduler.fromJson(Map<String, dynamic> json) => _$ReportSchedulerFromJson(json);
 
 /// ID of the report scheduler.
@@ -294,7 +297,10 @@ class _ReportScheduler implements ReportScheduler {
 /// Name of the report scheduler.
 @override final  String? name;
 /// Owner user of the report scheduler.
-@override final  String? ownerId;
+///
+/// The backend does not expose this field in `ReportScheduler`, so it is never selected by [fragment] and is
+/// always `null` when decoding a backend response. Selecting it makes the whole query fail.
+@override@Deprecated('The backend does not expose the owner of a report scheduler. It is always null.') final  String? ownerId;
 /// List of asset IDs associated with the report scheduler.
 @override@JsonKey() final  List<String> assetsIds;
 /// List of outbound service IDs associated with the report scheduler.
@@ -365,7 +371,7 @@ abstract mixin class _$ReportSchedulerCopyWith<$Res> implements $ReportScheduler
   factory _$ReportSchedulerCopyWith(_ReportScheduler value, $Res Function(_ReportScheduler) _then) = __$ReportSchedulerCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String? name, String? ownerId, List<String> assetsIds, List<String> outboundServicesIds, String? templateCode, String? templateId,@JsonKey(unknownEnumValue: RelativeChoices.unknown) RelativeChoices relativeTime, List<String> sendTo,@JsonKey(unknownEnumValue: Weekday.monday) List<Weekday> execWeekdays,@TimeOfDayOrNullConverter() TimeOfDay? execTime, String execTz,@TimestampConverter() DateTime? updatedAt, String? updatedById, User? updatedBy,@TimestampConverter() DateTime? createdAt, String? createdById, User? createdBy, String? subject, List<Access>? access, bool? enabled
+ String id, String? name,@Deprecated('The backend does not expose the owner of a report scheduler. It is always null.') String? ownerId, List<String> assetsIds, List<String> outboundServicesIds, String? templateCode, String? templateId,@JsonKey(unknownEnumValue: RelativeChoices.unknown) RelativeChoices relativeTime, List<String> sendTo,@JsonKey(unknownEnumValue: Weekday.monday) List<Weekday> execWeekdays,@TimeOfDayOrNullConverter() TimeOfDay? execTime, String execTz,@TimestampConverter() DateTime? updatedAt, String? updatedById, User? updatedBy,@TimestampConverter() DateTime? createdAt, String? createdById, User? createdBy, String? subject, List<Access>? access, bool? enabled
 });
 
 
@@ -464,8 +470,12 @@ mixin _$ReportSchedulerInput {
  String? get templateCode;/// Code of the report template used for this report scheduler.
  set templateCode(String? value);/// ID of the report template used for this report scheduler. If provided, templateCode must not be provided.
  String? get templateId;/// ID of the report template used for this report scheduler. If provided, templateCode must not be provided.
- set templateId(String? value);/// Relative time for the report, used to determine the time range for the report.
-@JsonKey(unknownEnumValue: RelativeChoices.unknown) RelativeChoices get relativeTime;/// Relative time for the report, used to determine the time range for the report.
+ set templateId(String? value);/// Relative time for the report, used to determine the time range for the report. Defaults to
+/// [RelativeChoices.yesterday], which is also the backend default. [RelativeChoices.unknown] is never sent to
+/// the backend, see [payload].
+@JsonKey(unknownEnumValue: RelativeChoices.unknown) RelativeChoices get relativeTime;/// Relative time for the report, used to determine the time range for the report. Defaults to
+/// [RelativeChoices.yesterday], which is also the backend default. [RelativeChoices.unknown] is never sent to
+/// the backend, see [payload].
 @JsonKey(unknownEnumValue: RelativeChoices.unknown) set relativeTime(RelativeChoices value);/// List of emails to which the report should be sent.
  List<String> get sendTo;/// List of emails to which the report should be sent.
  set sendTo(List<String> value);/// Days of the week when the report should be executed.
@@ -689,7 +699,7 @@ return $default(_that.id,_that.name,_that.assetsIds,_that.outboundServicesIds,_t
 @JsonSerializable()
 
 class _ReportSchedulerInput extends ReportSchedulerInput {
-   _ReportSchedulerInput({this.id, this.name, this.assetsIds = const [], this.outboundServicesIds = const [], this.templateCode, this.templateId, @JsonKey(unknownEnumValue: RelativeChoices.unknown) this.relativeTime = RelativeChoices.unknown, this.sendTo = const [], @JsonKey(unknownEnumValue: Weekday.monday) this.execWeekdays = const [], @TimeOfDayOrNullConverter() this.execTime, this.execTz = 'UTC', this.enabled = true, this.subject}): super._();
+   _ReportSchedulerInput({this.id, this.name, this.assetsIds = const [], this.outboundServicesIds = const [], this.templateCode, this.templateId, @JsonKey(unknownEnumValue: RelativeChoices.unknown) this.relativeTime = RelativeChoices.yesterday, this.sendTo = const [], @JsonKey(unknownEnumValue: Weekday.monday) this.execWeekdays = const [], @TimeOfDayOrNullConverter() this.execTime, this.execTz = 'UTC', this.enabled = true, this.subject}): super._();
   factory _ReportSchedulerInput.fromJson(Map<String, dynamic> json) => _$ReportSchedulerInputFromJson(json);
 
 /// ID of the report scheduler.
@@ -704,7 +714,9 @@ class _ReportSchedulerInput extends ReportSchedulerInput {
 @override  String? templateCode;
 /// ID of the report template used for this report scheduler. If provided, templateCode must not be provided.
 @override  String? templateId;
-/// Relative time for the report, used to determine the time range for the report.
+/// Relative time for the report, used to determine the time range for the report. Defaults to
+/// [RelativeChoices.yesterday], which is also the backend default. [RelativeChoices.unknown] is never sent to
+/// the backend, see [payload].
 @override@JsonKey(unknownEnumValue: RelativeChoices.unknown)  RelativeChoices relativeTime;
 /// List of emails to which the report should be sent.
 @override@JsonKey()  List<String> sendTo;

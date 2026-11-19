@@ -14,11 +14,11 @@ abstract class ReportTemplateCol with _$ReportTemplateCol {
     /// Is the column field name.
     required String field,
 
-    /// Is the visibility of the field.
-    required bool visible,
+    /// Is the visibility of the field. The backend allows a null value, which is read as `true`.
+    @Default(true) bool visible,
 
-    /// Is the column's custom identifier.
-    required bool isCustom,
+    /// Is the column's custom identifier. The backend allows a null value, which is read as `false`.
+    @Default(false) bool isCustom,
   }) = _ReportTemplateCol;
 
   /// Deserializes a [ReportTemplateCol] from a JSON map.

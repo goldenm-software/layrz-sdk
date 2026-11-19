@@ -8,11 +8,11 @@ abstract class ReportTemplatePage with _$ReportTemplatePage {
 
   /// Constructs an immutable [ReportTemplatePage].
   const factory ReportTemplatePage({
-    /// Is the page title.
-    required String title,
+    /// Is the page title. The backend allows a null value, which is read as an empty string.
+    @Default('') String title,
 
-    /// Is the page source.
-    @JsonKey(unknownEnumValue: ReportSource.messages) required ReportSource source,
+    /// Is the page source. The backend allows a null value, which is read as [ReportSource.messages].
+    @JsonKey(unknownEnumValue: ReportSource.messages) @Default(ReportSource.messages) ReportSource source,
 
     /// Is the algorithm used to generate the page data.
     @JsonKey(unknownEnumValue: ReportAlgorithm.auto) @Default(ReportAlgorithm.auto) ReportAlgorithm algorithm,
