@@ -288,10 +288,13 @@ class OperationPayload(BaseModel):
   def serialize_push_platforms(self, value: list[Platform]) -> list[str]:
     return [platform.value for platform in value]
 
-  push_service_account: dict[str, Any] | None = Field(
+  push_secrets: str | None = Field(
     default=None,
-    description='Defines the decrypted Firebase service-account JSON used to send Layrz Push notifications',
-    alias='pushServiceAccount',
+    description=(
+      'Defines the EncryptionEngine-encrypted (`v<N>:<base64>`) Firebase service-account JSON used to send '
+      'Layrz Push notifications'
+    ),
+    alias='pushSecrets',
   )
 
   push_devices: list[str] = Field(
