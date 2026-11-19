@@ -1,5 +1,25 @@
 # Changelog
 
+## 4.31.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* `report_template`: new API callers. `ReportTemplate.fragment` (linked asset and outbound service IDs, structure with columns and script, and ID based access), `ReportTemplate.fetchAll` (lightweight selection: `id`, `name` and the `title` of each page of the `structure`, enough to list templates and count their pages), `ReportTemplate.fetch` (full fragment by id) and `ReportTemplate.deleteMultiple` (declares `$ids: [ID]!`, as the backend does). `ReportTemplateInput.save` runs `addReportTemplate` or `editReportTemplate` and removes every nested `null` from the payload.
+* `reports`: new API callers for the report schedulers. `ReportScheduler.fragment`, `ReportScheduler.fetchAll`, `ReportScheduler.fetch`, `ReportScheduler.deleteMultiple` (declares `$ids: [ID]`, optional as in the backend), `ReportScheduler.toggle` (declares `$ids: [ID]` and selects only `status` and `errors`, because the backend declares `result` but does not resolve it properly) and `ReportSchedulerInput.save` (`addReportScheduler` or `editReportScheduler`). The fragment does not select `access` (the backend does not filter schedulers by access) nor `ownerId`.
+* `reports`: `ReportScheduler.ownerId` is now `@Deprecated`. The backend entity has no such field, so it is always `null`, and selecting it in a query fails the whole request. The field and its type are kept, so nothing breaks.
+* `reports`: the default of `ReportSchedulerInput.relativeTime` changes from `RelativeChoices.unknown` to `RelativeChoices.yesterday` (the backend default). `ReportSchedulerInput.save` never sends `RelativeChoices.unknown` (the backend enum rejects it): it sends `YESTERDAY` instead. Code that relied on the old default now gets `yesterday`.
+* `report_template`: tolerant decoding. `ReportTemplatePage.title` (`@Default('')`), `ReportTemplatePage.source` (`@Default(ReportSource.messages)`), `ReportTemplateCol.visible` (`@Default(true)`), `ReportTemplateCol.isCustom` (`@Default(false)`), `ReportTemplate.name`, `ReportHeader.content`, `ReportPage.name` and `ReportPreview.name` (`@Default('')`) are no longer `required`, since the backend allows `null` for them and a single incomplete template made the whole `fetchAll` fail. Their types do not change and callers passing them keep working.
+* `report_job`: new `ReportJobInput` (mutable, with `functionsIds` and `utcOffset`) and `ReportJob.runInput` to start a job with it. New `ReportJob.pollWithPreview`, which also selects the report `preview` and returns it as `ReportPreview?`. `ReportJob.run` and `ReportJob.poll` keep their signatures.
+* `scripting`: new `ReportSource.toPythonSource` extension (`broadcast` maps to `broadcasts` and `lastMessages` to `messages`) to lint the script of a report page with `Scripting.lintPython`.
+
+### Go
+
+* No changes in this release.
+
 ## 4.30.0
 
 ### Python

@@ -224,7 +224,7 @@ void main() {
       expect(input.outboundServicesIds, []);
       expect(input.templateCode, isNull);
       expect(input.templateId, isNull);
-      expect(input.relativeTime, RelativeChoices.unknown);
+      expect(input.relativeTime, RelativeChoices.yesterday);
       expect(input.sendTo, []);
       expect(input.execWeekdays, []);
       expect(input.execTime, isNull);

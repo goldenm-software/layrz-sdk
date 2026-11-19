@@ -9,7 +9,7 @@ abstract class ReportPage with _$ReportPage {
   /// Constructs an immutable [ReportPage].
   const factory ReportPage({
     /// Is the name of the report page.
-    required String name,
+    @Default('') String name,
 
     /// Is the rows inside of the report. Defaults to an empty list.
     @Default([]) List<ReportRow> rows,

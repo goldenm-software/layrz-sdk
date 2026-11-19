@@ -9,6 +9,7 @@ import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:layrz_logging/layrz_logging.dart';
 import 'package:layrz_sdk/src/api/api.dart';
+import 'package:layrz_sdk/src/report_template/report_template.dart';
 
 part 'scripting.freezed.dart';
 part 'scripting.g.dart';
@@ -16,4 +17,5 @@ part 'scripting.g.dart';
 part 'src/lint_error.dart';
 part 'src/python_scope.dart';
 part 'src/python_source.dart';
+part 'src/report_source_extension.dart';
 part 'src/scripting.dart';

@@ -9,7 +9,7 @@ part of 'report_template.dart';
 _ReportTemplate _$ReportTemplateFromJson(Map<String, dynamic> json) =>
     _ReportTemplate(
       id: json['id'] as String,
-      name: json['name'] as String,
+      name: json['name'] as String? ?? '',
       structure: (json['structure'] as List<dynamic>?)
           ?.map((e) => ReportTemplatePage.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -80,12 +80,14 @@ Map<String, dynamic> _$ReportTemplateInputToJson(
 
 _ReportTemplatePage _$ReportTemplatePageFromJson(Map<String, dynamic> json) =>
     _ReportTemplatePage(
-      title: json['title'] as String,
-      source: $enumDecode(
-        _$ReportSourceEnumMap,
-        json['source'],
-        unknownValue: ReportSource.messages,
-      ),
+      title: json['title'] as String? ?? '',
+      source:
+          $enumDecodeNullable(
+            _$ReportSourceEnumMap,
+            json['source'],
+            unknownValue: ReportSource.messages,
+          ) ??
+          ReportSource.messages,
       algorithm:
           $enumDecodeNullable(
             _$ReportAlgorithmEnumMap,
@@ -164,8 +166,8 @@ _ReportTemplateCol _$ReportTemplateColFromJson(Map<String, dynamic> json) =>
     _ReportTemplateCol(
       name: json['name'] as String,
       field: json['field'] as String,
-      visible: json['visible'] as bool,
-      isCustom: json['isCustom'] as bool,
+      visible: json['visible'] as bool? ?? true,
+      isCustom: json['isCustom'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ReportTemplateColToJson(_ReportTemplateCol instance) =>
@@ -196,7 +198,7 @@ Map<String, dynamic> _$ReportTemplateColInputToJson(
 
 _ReportPreview _$ReportPreviewFromJson(Map<String, dynamic> json) =>
     _ReportPreview(
-      name: json['name'] as String,
+      name: json['name'] as String? ?? '',
       pages:
           (json['pages'] as List<dynamic>?)
               ?.map((e) => ReportPage.fromJson(e as Map<String, dynamic>))
@@ -211,7 +213,7 @@ Map<String, dynamic> _$ReportPreviewToJson(_ReportPreview instance) =>
     };
 
 _ReportPage _$ReportPageFromJson(Map<String, dynamic> json) => _ReportPage(
-  name: json['name'] as String,
+  name: json['name'] as String? ?? '',
   rows:
       (json['rows'] as List<dynamic>?)
           ?.map((e) => ReportRow.fromJson(e as Map<String, dynamic>))
@@ -260,7 +262,7 @@ Map<String, dynamic> _$ReportRowToJson(_ReportRow instance) =>
 
 _ReportHeader _$ReportHeaderFromJson(Map<String, dynamic> json) =>
     _ReportHeader(
-      content: json['content'] as String,
+      content: json['content'] as String? ?? '',
       textColor: const ColorOrNullConverter().fromJson(
         json['textColor'] as String?,
       ),

@@ -10,7 +10,7 @@ abstract class ReportPreview with _$ReportPreview {
   /// Constructs an immutable [ReportPreview].
   const factory ReportPreview({
     /// Is the name of the report preview.
-    required String name,
+    @Default('') String name,
 
     /// Is the pages inside of the report. Defaults to an empty list.
     @Default([]) List<ReportPage> pages,

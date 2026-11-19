@@ -6,6 +6,7 @@ library;
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:collection/collection.dart';
+import 'package:layrz_logging/layrz_logging.dart';
 import 'package:layrz_sdk/layrz_sdk.dart';
 
 // Freezed

@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 mixin _$ReportTemplate {
 
 /// Is the report template ID.
- String get id;/// Is the report template name.
+ String get id;/// Is the report template name. The backend allows a null value, which is read as an empty string.
  String get name;/// Is the structure of the report template, as an ordered list of pages.
  List<ReportTemplatePage>? get structure;/// Is the report template linked assets.
  List<Asset>? get assets;/// Is the report template linked assets' IDs.
@@ -224,13 +224,13 @@ return $default(_that.id,_that.name,_that.structure,_that.assets,_that.assetsIds
 @JsonSerializable()
 
 class _ReportTemplate extends ReportTemplate {
-  const _ReportTemplate({required this.id, required this.name, this.structure, this.assets, this.assetsIds, this.outboundServices, this.outboundServicesIds, this.access}): super._();
+  const _ReportTemplate({required this.id, this.name = '', this.structure, this.assets, this.assetsIds, this.outboundServices, this.outboundServicesIds, this.access}): super._();
   factory _ReportTemplate.fromJson(Map<String, dynamic> json) => _$ReportTemplateFromJson(json);
 
 /// Is the report template ID.
 @override final  String id;
-/// Is the report template name.
-@override final  String name;
+/// Is the report template name. The backend allows a null value, which is read as an empty string.
+@override@JsonKey() final  String name;
 /// Is the structure of the report template, as an ordered list of pages.
 @override final  List<ReportTemplatePage>? structure;
 /// Is the report template linked assets.
@@ -594,8 +594,8 @@ as List<ReportTemplatePageInput>,
 /// @nodoc
 mixin _$ReportTemplatePage {
 
-/// Is the page title.
- String get title;/// Is the page source.
+/// Is the page title. The backend allows a null value, which is read as an empty string.
+ String get title;/// Is the page source. The backend allows a null value, which is read as [ReportSource.messages].
 @JsonKey(unknownEnumValue: ReportSource.messages) ReportSource get source;/// Is the algorithm used to generate the page data.
 @JsonKey(unknownEnumValue: ReportAlgorithm.auto) ReportAlgorithm get algorithm;/// Is the page data, aka the columns. Only used when [algorithm] is [ReportAlgorithm.auto].
  List<ReportTemplateCol>? get cols;/// Is the script in Python used to generate the page data. Only used when [algorithm] is
@@ -798,12 +798,12 @@ return $default(_that.title,_that.source,_that.algorithm,_that.cols,_that.script
 @JsonSerializable()
 
 class _ReportTemplatePage extends ReportTemplatePage {
-  const _ReportTemplatePage({required this.title, @JsonKey(unknownEnumValue: ReportSource.messages) required this.source, @JsonKey(unknownEnumValue: ReportAlgorithm.auto) this.algorithm = ReportAlgorithm.auto, this.cols, this.script}): super._();
+  const _ReportTemplatePage({this.title = '', @JsonKey(unknownEnumValue: ReportSource.messages) this.source = ReportSource.messages, @JsonKey(unknownEnumValue: ReportAlgorithm.auto) this.algorithm = ReportAlgorithm.auto, this.cols, this.script}): super._();
   factory _ReportTemplatePage.fromJson(Map<String, dynamic> json) => _$ReportTemplatePageFromJson(json);
 
-/// Is the page title.
-@override final  String title;
-/// Is the page source.
+/// Is the page title. The backend allows a null value, which is read as an empty string.
+@override@JsonKey() final  String title;
+/// Is the page source. The backend allows a null value, which is read as [ReportSource.messages].
 @override@JsonKey(unknownEnumValue: ReportSource.messages) final  ReportSource source;
 /// Is the algorithm used to generate the page data.
 @override@JsonKey(unknownEnumValue: ReportAlgorithm.auto) final  ReportAlgorithm algorithm;
@@ -1159,8 +1159,8 @@ mixin _$ReportTemplateCol {
 
 /// Is the column name.
  String get name;/// Is the column field name.
- String get field;/// Is the visibility of the field.
- bool get visible;/// Is the column's custom identifier.
+ String get field;/// Is the visibility of the field. The backend allows a null value, which is read as `true`.
+ bool get visible;/// Is the column's custom identifier. The backend allows a null value, which is read as `false`.
  bool get isCustom;
 /// Create a copy of ReportTemplateCol
 /// with the given fields replaced by the non-null parameter values.
@@ -1358,17 +1358,17 @@ return $default(_that.name,_that.field,_that.visible,_that.isCustom);case _:
 @JsonSerializable()
 
 class _ReportTemplateCol extends ReportTemplateCol {
-  const _ReportTemplateCol({required this.name, required this.field, required this.visible, required this.isCustom}): super._();
+  const _ReportTemplateCol({required this.name, required this.field, this.visible = true, this.isCustom = false}): super._();
   factory _ReportTemplateCol.fromJson(Map<String, dynamic> json) => _$ReportTemplateColFromJson(json);
 
 /// Is the column name.
 @override final  String name;
 /// Is the column field name.
 @override final  String field;
-/// Is the visibility of the field.
-@override final  bool visible;
-/// Is the column's custom identifier.
-@override final  bool isCustom;
+/// Is the visibility of the field. The backend allows a null value, which is read as `true`.
+@override@JsonKey() final  bool visible;
+/// Is the column's custom identifier. The backend allows a null value, which is read as `false`.
+@override@JsonKey() final  bool isCustom;
 
 /// Create a copy of ReportTemplateCol
 /// with the given fields replaced by the non-null parameter values.
@@ -1904,11 +1904,11 @@ return $default(_that.name,_that.pages);case _:
 @JsonSerializable()
 
 class _ReportPreview extends ReportPreview {
-  const _ReportPreview({required this.name, this.pages = const []}): super._();
+  const _ReportPreview({this.name = '', this.pages = const []}): super._();
   factory _ReportPreview.fromJson(Map<String, dynamic> json) => _$ReportPreviewFromJson(json);
 
 /// Is the name of the report preview.
-@override final  String name;
+@override@JsonKey() final  String name;
 /// Is the pages inside of the report. Defaults to an empty list.
 @override@JsonKey() final  List<ReportPage> pages;
 
@@ -2184,11 +2184,11 @@ return $default(_that.name,_that.rows,_that.headers,_that.headerRows);case _:
 @JsonSerializable()
 
 class _ReportPage extends ReportPage {
-  const _ReportPage({required this.name, this.rows = const [], this.headers = const [], this.headerRows = const []}): super._();
+  const _ReportPage({this.name = '', this.rows = const [], this.headers = const [], this.headerRows = const []}): super._();
   factory _ReportPage.fromJson(Map<String, dynamic> json) => _$ReportPageFromJson(json);
 
 /// Is the name of the report page.
-@override final  String name;
+@override@JsonKey() final  String name;
 /// Is the rows inside of the report. Defaults to an empty list.
 @override@JsonKey() final  List<ReportRow> rows;
 /// Is the headers of the report, one per column. Defaults to an empty list.
@@ -2742,11 +2742,11 @@ return $default(_that.content,_that.textColor,_that.color,_that.colspan,_that.ro
 @JsonSerializable()
 
 class _ReportHeader extends ReportHeader {
-  const _ReportHeader({required this.content, @ColorOrNullConverter() this.textColor, @ColorOrNullConverter() this.color, this.colspan = 1, this.rowspan = 1}): super._();
+  const _ReportHeader({this.content = '', @ColorOrNullConverter() this.textColor, @ColorOrNullConverter() this.color, this.colspan = 1, this.rowspan = 1}): super._();
   factory _ReportHeader.fromJson(Map<String, dynamic> json) => _$ReportHeaderFromJson(json);
 
 /// Is the content of the report header.
-@override final  String content;
+@override@JsonKey() final  String content;
 /// Is the text color of the report header.
 @override@ColorOrNullConverter() final  Color? textColor;
 /// Is the color of the report header.
