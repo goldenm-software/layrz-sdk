@@ -62,7 +62,7 @@ List<GqlField> _assetBaseFields(AssetVariant variant) => [
     ..add(GqlField(name: 'latitude'))
     ..add(GqlField(name: 'longitude')),
   if (variant == .ats) ...[
-    GqlField(name: 'authenticationCard')
+    GqlField(name: 'atsAuthenticationCard', alias: 'authenticationCard')
       ..add(GqlField(name: 'id'))
       ..add(GqlField(name: 'number'))
       ..add(GqlField(name: 'externalIdentifier'))

@@ -892,7 +892,7 @@ abstract class Asset with _$Asset {
     apiToken: apiToken,
     uri: uri,
     onResponse: onResponse,
-    name: 'recalculateEntities',
+    name: 'recalculateAtsEntities',
     variables: [
       GqlVariable(
         name: 'assetsIds',
@@ -921,8 +921,8 @@ abstract class Asset with _$Asset {
     final connector = LayrzConnector(uri: uri, apiToken: apiToken);
     try {
       final response = await connector.mutate(
-        GqlMutation(name: 'downloadAssetsFormat')..add(
-          GqlField(name: 'downloadAssetsFormat')
+        GqlMutation(name: 'downloadAtsAssetsFormat')..add(
+          GqlField(name: 'downloadAtsAssetsFormat')
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(GqlField(name: 'result')),
@@ -964,7 +964,7 @@ abstract class Asset with _$Asset {
     apiToken: apiToken,
     uri: uri,
     onResponse: onResponse,
-    name: 'uploadAssetsFromFile',
+    name: 'uploadAtsAssetsFromFile',
     variable: GqlVariable(name: 'assetsFile', value: dataUri, type: .string),
   );
   // coverage:ignore-end
@@ -988,7 +988,7 @@ abstract class Asset with _$Asset {
     apiToken: apiToken,
     uri: uri,
     onResponse: onResponse,
-    name: 'uploadExitsFile',
+    name: 'uploadAtsExitsFile',
     variable: GqlVariable(name: 'exitsFile', value: dataUri, type: .string, isRequired: true),
   );
   // coverage:ignore-end
@@ -1252,7 +1252,7 @@ abstract class AssetInput with _$AssetInput {
       );
 
       if (response.status != .ok) {
-        Log.warning("layrz_sdk/AssetInput/save(): API returned status ${response.status}");
+        Log.warning("layrz_sdk/AssetInput/save(): API returned status ${response.status} => ${response.errors}");
         onResponse?.call(response.status);
         return (response.status, response.errors, null);
       }
