@@ -4,7 +4,7 @@
 
 ### Python
 
-* No changes in this release.
+* **BREAKING**: `OperationPayload.push_service_account` (`pushServiceAccount`, the decrypted Firebase service-account dict) is replaced by `OperationPayload.push_secrets` (`pushSecrets`), the encrypted service-account secrets as a string. Consumers must decrypt it before use.
 
 ### Dart
 
@@ -18,7 +18,7 @@
 
 ### Go
 
-* No changes in this release.
+* **BREAKING**: `OperationPayload.PushServiceAccount` (`json.RawMessage`, the decrypted Firebase service-account JSON) is replaced by `OperationPayload.PushSecrets` (`*string`, wire key `pushSecrets`), the encrypted service-account secrets as a string. Consumers must decrypt it before use.
 
 ## 4.30.0
 

@@ -1,8 +1,6 @@
 package entities
 
 import (
-	"encoding/json"
-
 	"github.com/goldenm-software/layrz-sdk/go/v4/enums"
 	"github.com/goldenm-software/layrz-sdk/go/v4/types"
 )
@@ -80,8 +78,9 @@ type OperationPayload struct {
 	PushTitle string `json:"pushTitle,omitempty"`
 	// PushPlatforms are the platforms for push notifications (wire key: pushPlatforms).
 	PushPlatforms []enums.Platform `json:"pushPlatforms,omitempty"`
-	// PushServiceAccount is the decrypted Firebase service-account JSON for Layrz Push (wire key: pushServiceAccount).
-	PushServiceAccount json.RawMessage `json:"pushServiceAccount,omitempty"`
+	// PushSecrets is the encrypted Firebase service-account secrets for Layrz Push (wire key: pushSecrets).
+	// Consumers must decrypt it before use.
+	PushSecrets *string `json:"pushSecrets,omitempty"`
 	// PushDevices are the push device UUIDs for the operation (wire key: pushDevices).
 	PushDevices []string `json:"pushDevices,omitempty"`
 	// PushAppID is the registered app ID owning the push credentials (wire key: pushAppId).
