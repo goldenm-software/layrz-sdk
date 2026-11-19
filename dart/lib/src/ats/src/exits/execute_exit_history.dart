@@ -68,7 +68,7 @@ abstract class AtsExecuteExitHistory with _$AtsExecuteExitHistory {
     List<GqlField>? extraFields,
   }) {
     return _atsFetchMonitorEntities(
-      operation: 'exitExecutions',
+      operation: 'atsExitExecutions',
       caller: 'AtsExecuteExitHistory/fetchAll',
       fields: [...fields, ...?extraFields],
       fromJson: AtsExecuteExitHistory.fromJson,

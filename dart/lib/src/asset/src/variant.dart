@@ -28,19 +28,21 @@ String _getAssetQueryNameFromVariant(AssetVariant variant) => switch (variant) {
 /// Returns the save mutation name and input type for the given [AssetVariant].
 (String, String) _getAssetSaveMutationFromVariant(AssetVariant variant, {required bool isAdd}) => switch (variant) {
   .mappit => (isAdd ? 'addMappitAsset' : 'editMappitAsset', 'MappitAssetInput'),
-  .ats => (isAdd ? 'addAsset' : 'editAsset', 'AtsAssetInput'),
+  .ats => (isAdd ? 'addAtsAsset' : 'editAtsAsset', 'AtsAssetInput'),
   _ => (isAdd ? 'addAsset' : 'editAsset', 'AssetInput'),
 };
 
 /// Returns the delete mutation name for the given [AssetVariant].
 String _getAssetDeleteMutationNameFromVariant(AssetVariant variant) => switch (variant) {
   .mappit => 'deleteMappitAssets',
+  .ats => 'deleteAtsAssets',
   _ => 'deleteAssets',
 };
 
 /// Returns the clone mutation name for the given [AssetVariant].
 String _getAssetCloneMutationNameFromVariant(AssetVariant variant) => switch (variant) {
   .mappit => 'cloneMappitAsset',
+  .ats => 'cloneAtsAsset',
   _ => 'cloneAsset',
 };
 

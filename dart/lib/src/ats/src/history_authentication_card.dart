@@ -68,12 +68,12 @@ abstract class AtsHistoryAuthenticationCard with _$AtsHistoryAuthenticationCard 
     try {
       final response = await connector.query(
         GqlQuery(
-          name: 'getCommandResult',
+          name: 'atsGetCommandResult',
           variables: [
             GqlVariable(name: 'historyId', value: id, type: .id, isRequired: true),
           ],
         )..add(
-          GqlField(name: 'getCommandResult', args: {'historyId': 'historyId'})
+          GqlField(name: 'atsGetCommandResult', args: {'historyId': 'historyId'})
             ..add(GqlField(name: 'status'))
             ..add(GqlField(name: 'errors'))
             ..add(

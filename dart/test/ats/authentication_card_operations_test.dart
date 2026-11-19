@@ -134,7 +134,7 @@ void main() {
 
   group('AtsAuthenticationCard.parseUploadResponse', () {
     Map<String, dynamic> body(Map<String, dynamic> envelope) => {
-      'data': {'uploadCardsFromFileV2': envelope},
+      'data': {'uploadAtsCardsFromFileV2': envelope},
     };
 
     test('maps UNPROCESSABLE_ENTITY and keeps the row list', () {

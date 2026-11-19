@@ -102,7 +102,7 @@ abstract class AtsRecalculation with _$AtsRecalculation {
     List<GqlField>? extraFields,
   }) {
     return _atsFetchMonitorEntities(
-      operation: 'recalculations',
+      operation: 'atsRecalculations',
       caller: 'AtsRecalculation/fetchAll',
       fields: [...fields, ...?extraFields],
       fromJson: AtsRecalculation.fromJson,
