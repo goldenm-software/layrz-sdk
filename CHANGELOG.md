@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.32.0
+
+### Python
+
+* No changes in this release.
+
+### Dart
+
+* `app`: new `RegisteredAppVariant`. `RegisteredApp.fetch` and `RegisteredApp.fillAuthorizations` accept `variant` (default `standard`); `mappit` queries `mappitRegisteredApps`, because on the public API `registeredApps` resolves to the Layrz apps and does not return the Mappit apps. Both return `null` instead of throwing when the result is empty.
+
+### Go
+
+* No changes in this release.
+
 ## 4.31.1
 
 ### Python
