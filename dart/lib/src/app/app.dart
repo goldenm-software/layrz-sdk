@@ -56,6 +56,7 @@ part 'src/lenient_readers.dart';
 part 'src/login.dart';
 part 'src/asset.dart';
 part 'src/push_secrets.dart';
+part 'src/variant.dart';
 part 'src/version.dart';
 
 part 'src/enums/app_technology.dart';
